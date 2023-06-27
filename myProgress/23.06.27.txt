@@ -1,0 +1,48 @@
+
+[진행 순서]
+- 솔루션 아래 Engine 필터 생성
+- Engine 아래 Common, High Level Interface 필터 생성
+- Common 아래 CommonInclude.h 생성
+	1. 헤더파일 추가 : 
+		#include <vector>
+		#include <list>
+		#include <map>
+		#include <set>
+		#include <functional>	// 함수 포인터
+		#include "framework.h"
+		#include "vanMath.h"
+- Common 아래 VanMath.h 생성
+	1. namespace Van::math 생성
+	2. Van::math 내에 Vector2 struct 생성
+		- 멤버변수 : float x, float y
+- High Level Interface 필터 아래 vanApplication 클래스 생성(*.h,*.cpp)
+- vanApplication.h 코드 작성
+
+	namespace van
+	{
+		using namespace math;	// == van::math
+		class Application
+		{
+		public:
+			Application();
+			~Application();
+
+			void Initialize(HWND hwnd);
+			void Run();
+			void Update();
+			void Render();
+
+		private:
+			HWND mHwnd;
+			HDC mHdc;
+			Vector2 playerPos;	// vanMath.h
+
+		};
+	}
+- vanApplication.h 선언된 함수들 *.cpp 에 정의
+- main 프로젝트에 
+	1. #include "vanApplication.h" 추가
+	2. van::Application 객체 추가 (이하 application)
+	3. InitInstance() 내에서 창을 생성해준 후 
+		application 객체를 초기화 시켜준다.
+		-> application.Initialize(hWnd);

@@ -10,6 +10,15 @@
     <Filter Include="Windows\Header">
       <UniqueIdentifier>{853a5dd8-1d77-47e4-b6b2-2dd77b33ae4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{50adf35e-a15c-458c-ae4c-9ee0e881ac6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{e27cd02d-1ae3-4b5f-b8cd-23e4856c5cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\High Level Interface">
+      <UniqueIdentifier>{99bad486-19c9-4e72-aa4f-40c2c091e813}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -23,6 +32,15 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Windows\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="vanMath.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="vanApplication.h">
+      <Filter>Engine\High Level Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -40,5 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="vanApplication.cpp">
+      <Filter>Engine\High Level Interface</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

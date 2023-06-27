@@ -1,15 +1,16 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
-//
 
-#include "framework.h"
+//#include "framework.h"                    // "vanApplication.h"에 들어있다.
 #include "Client.h"
+#include "vanApplication.h"                 // 필요기능 구현,추가
 
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
-HINSTANCE hInst;                                // 현재 인스턴스입니다.
-WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
-WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
+HINSTANCE hInst;                            // 현재 인스턴스입니다.
+WCHAR szTitle[MAX_LOADSTRING];              // 제목 표시줄 텍스트입니다.
+WCHAR szWindowClass[MAX_LOADSTRING];        // 기본 창 클래스 이름입니다.
+van::Application application;               // 하나뿐인 객체
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -18,8 +19,8 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,  // 옵션
-                     _In_ LPWSTR    lpCmdLine,          // 
+                     _In_opt_ HINSTANCE hPrevInstance,
+                     _In_ LPWSTR    lpCmdLine,          
                      _In_ int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
@@ -50,18 +51,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-    }*/
+    }
+
+    return (int) msg.wParam;
+    */
 
     // GetMessage : 
                   /*프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
                   (msg.message == WM_QUIT) return false;
                   WM_QUIT 이외의 메세지가 발생 한 경우는 return true;*/ 
-
     // PeekMessage : 
                   /*프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
                   PM_REMOVE -> 발생한 메세지를 가져올 때 메세지큐에서 제거 (GetMessage 랑 동일하게 하기 위해서...)
                   메세지큐에 메세지 유/무 에 상관없이 함수가 리턴됨*/
-
     // 게임 구동시 필요한 메세지 루프 구조
     while (true)
     {
@@ -78,26 +80,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            // 게임 로직 돌려줘~
-            // (게임 실행)
+            // 게임 로직 실행
+            application.Run();
         }
     }
 
     if (msg.message == WM_QUIT)
     {
-        //
+        
     }
 
     return (int) msg.wParam;
 }
 
-
-
-//
 //  함수: MyRegisterClass()
-//
 //  용도: 창 클래스를 등록합니다.
-//
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
@@ -112,7 +109,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);   // 커서모양
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);         // 백그라운드 색
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
+    wcex.lpszMenuName   = /*MAKEINTRESOURCEW(IDC_CLIENT)*/0;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -120,47 +117,33 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 }
 
 //   함수: InitInstance(HINSTANCE, int)
-//
 //   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
-//
 //   주석:
 //        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
 //        주 프로그램 창을 만든 다음 표시합니다.
-//
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(/*szWindowClass*/L"CLIENT", szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
       /*CW_USEDEFAULT*/0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-   //HWND hWnd2 = CreateWindowW(szWindowClass, L"Client2", WS_OVERLAPPEDWINDOW,
-   //    /*CW_USEDEFAULT*/10, 10, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   application.Initialize(hWnd);
 
    if (!hWnd)
-   {
       return FALSE;
-   }
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   /*ShowWindow(hWnd2, nCmdShow);
-   UpdateWindow(hWnd2);*/
-
    return TRUE;
 }
 
-//
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
 //  용도: 주 창의 메시지를 처리합니다.
-//
-//  WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
-//  WM_PAINT    - 주 창을 그립니다.
-//  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
-//
-//
+//      WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
+//      WM_PAINT    - 주 창을 그립니다.
+//      WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -188,7 +171,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가
-            Rectangle(hdc,0,0,100,100);     // l,t,r,b = x시작점, y시작점, x축 pixel 개수, y축 pixel 개수
+            // Rectangle(hdc,0,0,100,100);     // l,t,r,b = x시작점, y시작점, x축 pixel 개수, y축 pixel 개수
 
             EndPaint(hWnd, &ps);
         }
