@@ -57,13 +57,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     */
 
     // GetMessage : 
-                  /*프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
-                  (msg.message == WM_QUIT) return false;
-                  WM_QUIT 이외의 메세지가 발생 한 경우는 return true;*/ 
+                  /* 프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
+                  msg.message == WM_QUIT 인 경우 return false;
+                  WM_QUIT 이외의 메세지가 발생 한 경우는 return true; */ 
     // PeekMessage : 
-                  /*프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
+                  /* 프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
                   PM_REMOVE -> 발생한 메세지를 가져올 때 메세지큐에서 제거 (GetMessage 랑 동일하게 하기 위해서...)
-                  메세지큐에 메세지 유/무 에 상관없이 함수가 리턴됨*/
+                  메세지큐에 메세지 유/무 에 상관없이 함수가 리턴됨 */
     // 게임 구동시 필요한 메세지 루프 구조
     while (true)
     {
@@ -94,7 +94,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 }
 
 //  함수: MyRegisterClass()
-//  용도: 창 클래스를 등록합니다.
+//  역할: 창 클래스를 등록하고 설정한다.
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;
@@ -116,17 +116,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-//   함수: InitInstance(HINSTANCE, int)
-//   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
-//   주석:
-//        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
-//        주 프로그램 창을 만든 다음 표시합니다.
+//  함수 : InitInstance(HINSTANCE, int)
+//  역할 : 
+//      - 한줄 요약 : 인스턴스 핸들을 전역변수에 저장하고 주 창을 만듭니다.
+//      - 인스턴스 핸들을 전역 변수에 저장하고 ( hInst = hInstance )
+//      - 주 프로그램 창(=윈도우)을 만든 다음 표시합니다.
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(/*szWindowClass*/L"CLIENT", szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
-      /*CW_USEDEFAULT*/0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      0/*CW_USEDEFAULT*/, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    application.Initialize(hWnd);
 
@@ -140,7 +140,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 }
 
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
-//  용도: 주 창의 메시지를 처리합니다.
+//  역할: 
+//      주 창의 메시지를 처리합니다.
 //      WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
 //      WM_PAINT    - 주 창을 그립니다.
 //      WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
@@ -157,8 +158,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
+            case IDM_EXIT:  // "상단 바 -> 메뉴 -> 끝내기"시 발생하는 메세지
+                DestroyWindow(hWnd);    
                 break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -171,12 +172,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가
-            // Rectangle(hdc,0,0,100,100);     // l,t,r,b = x시작점, y시작점, x축 pixel 개수, y축 pixel 개수
+            Rectangle(hdc, 100, 100, 300, 300);
+            Ellipse(hdc, 100, 100, 300, 300);
 
             EndPaint(hWnd, &ps);
         }
         break;
-    case WM_DESTROY:
+    case WM_DESTROY:    // 윈도우 종료시 발생하는 메세지
         PostQuitMessage(0);
         break;
     default:
