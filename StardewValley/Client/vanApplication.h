@@ -10,10 +10,10 @@ namespace van
 		Application();
 		~Application();
 
-		void Initialize(HWND hwnd);
-		void Run();
-		void Update();
-		void Render();
+		void Init(HWND hwnd);
+		void Proc();		// 전체적인 작업 (Update, Render)
+		void Update();		// 키 입력을 받아 데이터 수정
+		void Render();		// 화면에 그려준다
 
 	private:
 		HWND mHwnd;

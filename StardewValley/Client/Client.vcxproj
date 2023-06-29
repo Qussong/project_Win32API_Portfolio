@@ -136,11 +136,13 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="vanApplication.h" />
+    <ClInclude Include="vanInput.h" />
     <ClInclude Include="vanMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="vanApplication.cpp" />
+    <ClCompile Include="vanInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

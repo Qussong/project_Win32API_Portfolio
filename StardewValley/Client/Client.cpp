@@ -81,7 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 게임 로직 실행
-            application.Run();
+            application.Proc();
         }
     }
 
@@ -128,7 +128,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(/*szWindowClass*/L"CLIENT", szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
       0/*CW_USEDEFAULT*/, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-   application.Initialize(hWnd);
+   application.Init(hWnd);
 
    if (!hWnd)
       return FALSE;
