@@ -22,6 +22,9 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{10406b7b-54b6-489f-8ca1-7630ff4e3868}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -48,6 +51,9 @@
     <ClInclude Include="vanInput.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="vanTime.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -69,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="vanInput.cpp">
       <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="vanTime.cpp">
+      <Filter>Engine\Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
