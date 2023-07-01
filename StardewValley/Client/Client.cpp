@@ -65,6 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                   PM_REMOVE -> 발생한 메세지를 가져올 때 메세지큐에서 제거 (GetMessage 랑 동일하게 하기 위해서...)
                   메세지큐에 메세지 유/무 에 상관없이 함수가 리턴됨 */
     // 게임 구동시 필요한 메세지 루프 구조
+
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -173,7 +174,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가
             //Rectangle(hdc, 100, 100, 300, 300);
-            //Ellipse(hdc, 100, 100, 300, 300);
 
             EndPaint(hWnd, &ps);
         }
