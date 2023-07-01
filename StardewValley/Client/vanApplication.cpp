@@ -17,16 +17,18 @@ namespace van
 	void Application::Init(HWND hwnd)
 	{
 		mHwnd = hwnd;
-		mHdc = GetDC(mHwnd);	// WinUser.h
+		mHdc = GetDC(mHwnd);				// WinUser.h
 
 		Time::Init();
-		Input::Init();			// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
-								
+		Input::Init();						// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
+		obj = Object(500, 500, 600, 600);
+		obj.Init();
 	}
 
 	void Application::Proc()
 	{
-		Update();
+		//Update();
+		Update2();
 		Render();
 	}
 
@@ -69,29 +71,37 @@ namespace van
 					= 이동거리 * 1 sec
 					= 일정한 이동거리 [sec]
 			*/
-			playerPos.y -= 300.0f * Time::DeltaTime();
+			playerPos.y -= SPEED * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::A))
 		{
 			//playerPos.x -= 0.02f;
-			playerPos.x -= 300.0f * Time::DeltaTime();
+			playerPos.x -= SPEED * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
 			//playerPos.y += 0.02f;
-			playerPos.y += 300.0f * Time::DeltaTime();
+			playerPos.y += SPEED * Time::DeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
 			//playerPos.x += 0.02f;
-			playerPos.x += 300.0f * Time::DeltaTime();
+			playerPos.x += SPEED * Time::DeltaTime();
 		}
+	}
+
+	void Application::Update2()
+	{
+		Time::Update();
+		obj.setDelta(Time::DeltaTime());
+		obj.Update();
 	}
 
 	void Application::Render()
 	{
 		Time::Render(mHdc);
-		Ellipse(mHdc, 100 + playerPos.x, 100 + playerPos.y
-			, 200 + playerPos.x, 200 + playerPos.y);
+		/*Ellipse(mHdc, 100 + playerPos.x, 100 + playerPos.y
+			, 200 + playerPos.x, 200 + playerPos.y);*/
+		obj.Render(mHdc);
 	}
 }

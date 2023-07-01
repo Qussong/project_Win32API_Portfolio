@@ -25,6 +25,9 @@
     <Filter Include="Engine\Time">
       <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Oject">
+      <UniqueIdentifier>{9a83ba80-e057-44dc-a503-f00eaddd39c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="vanTime.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
+    <ClInclude Include="vanObject.h">
+      <Filter>Engine\Oject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -78,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="vanTime.cpp">
       <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="vanObject.cpp">
+      <Filter>Engine\Oject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

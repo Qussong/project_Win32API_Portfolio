@@ -16,7 +16,7 @@ namespace van
 	{
 		for (int i = 0; i < (int)eKeyCode::End; ++i)	// eKeyCode::End = 26
 		{
-			Key key = {};					// Question) 그냥 Key key; 로 냅두면 안되는가??
+			Key key = {};					// Question) 그냥 Key key; 로 냅두면 안되는가?? -> 구조체기에 {}으로 초기화한다.
 			key.code = (eKeyCode)i;			// i=0 는 eKeyCode 에서 'Q'
 			key.state = eKeyState::None;	// 아무런 입력이 없는 상태
 			key.isPressed = false;			// 눌리지 않은 상태

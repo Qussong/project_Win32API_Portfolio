@@ -34,7 +34,10 @@ namespace van
 		/* Question) 
 		GetKeyDown(),GetKeyUp(),GetKey() 함수들은 왜 header에서 정의하나?
 		__forceinline 키워드랑 관련 있는건가?? 
-		만약 그렇다면 __inline 키워드가 붙은 함수도 이렇게 정의해줘야 하나? */
+		만약 그렇다면 __inline 키워드가 붙은 함수도 이렇게 정의해줘야 하나? 
+		->	치환이 되다보니 헤더에 바로 저의를 해줘야한다. cpp에 정의를 하게되면 이 또한 호출이기에 의미가 없다.
+			__inline 또한 헤더에 바로 정의해줘야한다.
+		*/
 		__forceinline static bool GetKeyDown(eKeyCode code)
 		{
 			return eKeys[(int)code].state == eKeyState::Down;

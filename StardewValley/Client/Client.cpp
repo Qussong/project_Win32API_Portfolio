@@ -126,7 +126,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(/*szWindowClass*/L"CLIENT", szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
-      0/*CW_USEDEFAULT*/, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      0/*CW_USEDEFAULT*/, 0, FHD_X/*CW_USEDEFAULT*/, FHD_Y, nullptr, nullptr, hInstance, nullptr);
 
    application.Init(hWnd);
 
@@ -172,8 +172,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
 
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가
-            Rectangle(hdc, 100, 100, 300, 300);
-            Ellipse(hdc, 100, 100, 300, 300);
+            //Rectangle(hdc, 100, 100, 300, 300);
+            //Ellipse(hdc, 100, 100, 300, 300);
 
             EndPaint(hWnd, &ps);
         }
