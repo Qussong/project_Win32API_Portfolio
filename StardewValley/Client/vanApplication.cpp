@@ -39,8 +39,8 @@ namespace van
 		ObjectGenerator(300.0f, 100, 2.0f);
 		for (int i = 0; i < curObjectCnt; ++i)
 		{
-			objectContainer[i].Update();
-			objectContainer[i].setDelta(Time::DeltaTime());
+			objectContainer2.at(i).Update();
+			objectContainer2.at(i).setDelta(Time::DeltaTime());
 		}
 		// 키 입력 받기_ver1
 		/*if (GetAsyncKeyState(VK_LEFT) & 0x8000)
@@ -116,7 +116,7 @@ namespace van
 
 		// objs
 		for (int i = 0; i < curObjectCnt; ++i)
-			objectContainer[i].Render(mHdc);					// 여러 움직일 객체의 화면 출력
+			objectContainer2.at(i).Render(mHdc);		// 여러 움직일 객체의 화면 출력
 	}
 
 	void Application::ObjectGenerator(float speed, int diameter, float timeGap)
@@ -125,15 +125,16 @@ namespace van
 		timeCheck += Time::DeltaTime();
 		int posX = random(FHD_X - diameter);			// 객체가 생성될 기준 x좌표
 		int posY = random(FHD_Y - diameter);			// 객체가 생성될 기준 y좌표
-		int cnt = curObjectCnt;						// 현재 생성된 움직이는 객체의 개수
-		int totalCnt = OBJECT_CNT/*sizeof(objectContainer) / sizeof(Object)*/;
+		int cnt = curObjectCnt;							// 현재 생성된 움직이는 객체의 개수
+		int totalCnt = OBJECT_CNT;
 
 		while (cnt < totalCnt && timeCheck >= timeGap)
 		{
-			objectContainer[cnt]
-				= Object(posX, posY, posX + diameter, posY + diameter);		// 여러 움직일 객체의 크기 세팅
-			objectContainer[cnt].setDirNum2(random(DIRECTION_CNT));			// 여러 움직일 객체의 첫 이동 방향 세팅
-			objectContainer[cnt].setSpeed(speed);							// 여러 움직일 객체의 속도 세팅
+			Object obj = 
+				Object(posX, posY, posX + diameter, posY + diameter);	// 여러 움직일 객체의 크기 세팅
+			obj.setDirNum2(random(DIRECTION_CNT));						// 여러 움직일 객체의 첫 이동 방향 세팅
+			obj.setSpeed(speed);										// 여러 움직일 객체의 속도 세팅
+			objectContainer2.push_back(obj);
 
 			++curObjectCnt;
 			timeCheck = 0.0f;
