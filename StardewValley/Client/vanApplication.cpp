@@ -19,18 +19,18 @@ namespace van
 	void Application::Init(HWND hwnd)
 	{
 		mHwnd = hwnd;
-		mHdc = GetDC(mHwnd);				// WinUser.h
+		mHdc = GetDC(mHwnd);										// WinUser.h
 
 		Time::Init();
-		Input::Init();						// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
+		Input::Init();												// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
 
 		// obj
-		obj = Object(300, 300, 500, 500);	// 움직이는 객체의 크기 세팅
-		obj.setDirNum();					// 움직이는 객체의 첫 이동 방향 세팅
-		obj.setSpeed(200.0f);				// 움직이는 객체의 속도 세팅
+		obj = Object(300, 300, 500, 500);							// 움직이는 객체의 크기 세팅
+		obj.setDirNum();											// 움직이는 객체의 첫 이동 방향 세팅
+		obj.setSpeed(200.0f);										// 움직이는 객체의 속도 세팅
 
 		// objs
-		randomize();						// 난수 생성을 위한 준비
+		randomize();												// 난수 생성을 위한 준비
 		for (int i = 0; i < OBJECT_CNT; ++i)
 		{
 			int size = (i+1) * 100;			

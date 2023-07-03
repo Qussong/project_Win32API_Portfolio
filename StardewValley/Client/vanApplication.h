@@ -1,7 +1,7 @@
 #pragma once
 #include "CommonInclude.h"
 
-#define OBJECT_CNT 3
+#define OBJECT_CNT 3		// Objects cnt control
 namespace van
 {
 	//using namespace math;	// == van::math
