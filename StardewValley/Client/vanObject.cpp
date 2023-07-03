@@ -26,7 +26,6 @@ namespace van
 	}
 	void Object::setDirNum()
 	{
-		randomize();
 		directNum = random(DIRECTION_CNT);
 	}
 	void Object::setDirNum2(int _directNum)

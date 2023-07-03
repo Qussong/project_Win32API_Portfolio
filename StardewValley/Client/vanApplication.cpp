@@ -7,8 +7,7 @@ namespace van
 	Application::Application()
 		: mHwnd(NULL)
 		, mHdc(NULL)
-		, obj{}
-		, objs{}
+		, objectContainer{}
 	{
 	}
 
@@ -19,25 +18,12 @@ namespace van
 	void Application::Init(HWND hwnd)
 	{
 		mHwnd = hwnd;
-		mHdc = GetDC(mHwnd);										// WinUser.h
+		mHdc = GetDC(mHwnd);			// WinUser.h
+
+		randomize();
 
 		Time::Init();
-		Input::Init();												// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
-
-		// obj
-		obj = Object(300, 300, 500, 500);							// 움직이는 객체의 크기 세팅
-		obj.setDirNum();											// 움직이는 객체의 첫 이동 방향 세팅
-		obj.setSpeed(200.0f);										// 움직이는 객체의 속도 세팅
-
-		// objs
-		randomize();												// 난수 생성을 위한 준비
-		for (int i = 0; i < OBJECT_CNT; ++i)
-		{
-			int size = (i+1) * 100;			
-			objs[i] = Object(size, size, size + 100, size + 100);	// 여러 움직일 객체의 크기 세팅
-			objs[i].setDirNum2(random(DIRECTION_CNT));				// 여러 움직일 객체의 첫 이동 방향 세팅
-			objs[i].setSpeed(250.0f);								// 여러 움직일 객체의 속도 세팅
-		}
+		Input::Init();					// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
 	}
 
 	void Application::Proc()
@@ -49,6 +35,13 @@ namespace van
 	void Application::Update()
 	{
 		Time::Update();
+		// objs
+		ObjectGenerator(300.0f, 100, 2.0f);
+		for (int i = 0; i < curObjectCnt; ++i)
+		{
+			objectContainer[i].Update();
+			objectContainer[i].setDelta(Time::DeltaTime());
+		}
 		// 키 입력 받기_ver1
 		/*if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 		{
@@ -70,7 +63,7 @@ namespace van
 		Input::Update();
 		// W,S,A,D 로 상,하,좌,우 방향 값을 확인한다.
 		// GetKey()함수의 인자로 들어간 키의 멤버값(state)을 확인하여 해당하는 값들을 수정한다.
-		if (Input::GetKey(eKeyCode::W))
+		if (Input::GetKey(eKeyCode::W))	// 상
 		{
 			//playerPos.y -= 0.02f;
 			/*
@@ -84,47 +77,66 @@ namespace van
 					= 이동거리 * 1 sec
 					= 일정한 이동거리 [sec]
 			*/
-			playerPos.y -= 300.0f * Time::DeltaTime();
+			if (playerPos.y > 0)
+				playerPos.y -= 300.0f * Time::DeltaTime();
+			else
+				__noop;
 		}
-		if (Input::GetKey(eKeyCode::A))
-		{
-			//playerPos.x -= 0.02f;
-			playerPos.x -= 300.0f * Time::DeltaTime();
-		}
-		if (Input::GetKey(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::S))	// 하
 		{
 			//playerPos.y += 0.02f;
-			playerPos.y += 300.0f * Time::DeltaTime();
+			if (playerPos.y < FHD_Y - 100)
+				playerPos.y += 300.0f * Time::DeltaTime();
+			else
+				__noop;
 		}
-		if (Input::GetKey(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::A))	// 좌
+		{
+			//playerPos.x -= 0.02f;
+			if (playerPos.x > 0)
+				playerPos.x -= 300.0f * Time::DeltaTime();
+			else
+				__noop;
+		}
+		if (Input::GetKey(eKeyCode::D))	// 우
 		{
 			//playerPos.x += 0.02f;
-			playerPos.x += 300.0f * Time::DeltaTime();
-		}
-
-		// obj
-		obj.setDelta(Time::DeltaTime());			// 움직일 객체의 델타타임 세팅
-		obj.Update();								// 매 프레임당 움직일 객체의 좌표 세팅
-
-		// objs
-		for (int i = 0; i < OBJECT_CNT; ++i)
-		{
-			objs[i].setDelta(Time::DeltaTime());	// 여러 움직일 객체의 델타타임 세팅
-			objs[i].Update();						// 매 프레임당 여러 움직일 객체의 좌표 세팅
+			if (playerPos.x < FHD_X - 100)
+				playerPos.x += 300.0f * Time::DeltaTime();
+			else
+				__noop;
 		}
 	}
 
 	void Application::Render()
 	{
 		Time::Render(mHdc);
-		Ellipse(mHdc, 100.0f + playerPos.x, 100.0f + playerPos.y
-			, 200.0f + playerPos.x, 200.0f + playerPos.y);
-
-		// obj
-		obj.Render(mHdc);							// 움직일 객체의 화면 출력
+		Ellipse(mHdc, playerPos.x, playerPos.y,
+				playerPos.x + 100.0f, playerPos.y + 100.0f);
 
 		// objs
-		for (int i = 0; i < OBJECT_CNT; ++i)
-			objs[i].Render(mHdc);					// 여러 움직일 객체의 화면 출력
+		for (int i = 0; i < curObjectCnt; ++i)
+			objectContainer[i].Render(mHdc);					// 여러 움직일 객체의 화면 출력
+	}
+
+	void Application::ObjectGenerator(float speed, int diameter, float timeGap)
+	{
+		static float timeCheck = 0.0f;					// 델타타임 쌓는 곳
+		timeCheck += Time::DeltaTime();
+		int posX = random(FHD_X - diameter);			// 객체가 생성될 기준 x좌표
+		int posY = random(FHD_Y - diameter);			// 객체가 생성될 기준 y좌표
+		int cnt = curObjectCnt;						// 현재 생성된 움직이는 객체의 개수
+		int totalCnt = OBJECT_CNT/*sizeof(objectContainer) / sizeof(Object)*/;
+
+		while (cnt < totalCnt && timeCheck >= timeGap)
+		{
+			objectContainer[cnt]
+				= Object(posX, posY, posX + diameter, posY + diameter);		// 여러 움직일 객체의 크기 세팅
+			objectContainer[cnt].setDirNum2(random(DIRECTION_CNT));			// 여러 움직일 객체의 첫 이동 방향 세팅
+			objectContainer[cnt].setSpeed(speed);							// 여러 움직일 객체의 속도 세팅
+
+			++curObjectCnt;
+			timeCheck = 0.0f;
+		}
 	}
 }
