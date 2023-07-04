@@ -1,0 +1,91 @@
+[ 23/07/04 ]
+
+[ extern ]
+- 다른 객체에 선언되어있는 전역 변수를 가져와서 사용할 수 있게 해준다.
+
+---
+
+[ static_cast<type> ]
+- ???
+
+---
+
+[ 배열 vs vector]
+- 배열은 내가 정해준 크기를 넘어가는 영역에 접근이 가능해져버린다.
+	int arr[3][3] = {};
+	arr[2][2] = 1;	// ok
+	arr[2][3] = 2;	// ???? 
+
+- vector.reserve(100);	// 벡터의 실제 크기를 100까지 늘려놓겠다는 의미
+						// vector.size() 한다고해서 100이 나오진 않는다.
+- vector.resize(100);	// 100까지 다 0으로 초기화된다.
+						// 원래 사용하지 않는 수용공간엔 쓰레기값이 들어가있다.
+- vector는 배열처럼 index로 접근이 가능하도록 연산자 오버로딩이 되어있다.
+
+---
+
+[ 연산자 오버로딩 ]
+
+---
+
+[ <list> ]
+- 바로 접근 가능한 곳은 처음과 끝이다.
+- 중간에 있는 데이터에 접근하기 위해선 앞이나 뒤에서 타고 들어가야한다.
+- '이터레이터' 를 통해서 접근하는 방법이 있다.
+- iterator 라는 inner class가 존재한다.
+
+std::list<int> List;
+std::list<int>::iterator iter = List.begin();	// 끝은 end()
+iter = iter._Ptr->Next;	// iter++; 로 대체할 수 있다. 주소값이다.
+for(iter = List.begin(); iter != List.end(); ++itr)
+{ // logic }
+- STL에서 만드는 모든 데이터는 4개짜리를 만들면 5개짜리가 만들어지고 5번째 자리가 end()가 된다. 이렇게 되어 있는 이유는 사용할때 편하라고 그러는것이다.
+- STL 엔 전부 iterator가 존재한다.
+- STL의 list는 '양방향 링크드 리스트'다.
+
+---
+
+[ 잔상지우기 ]
+yaApplication.cpp -> Render -> Rectangle 그려주기 -> 완전한 해결이 안된다.
+때문에 알고리즘을 사용한다.
+
+---
+
+[ 더블 버퍼링 알고리즘 ]
+- 화면을 두개 사용한다.
+
+---
+
+[ AdjustWindowRect() ]
+
+---
+
+[ HBITMAP ]
+- 24Byte
+- RGB
+- bitmap = texture = image file
+- CreateCompatibleBitmap(mHdc, mWidth, mHeight);
+
+---
+
+[ CreateCompatibleDC() ]
+- DC를 만들어주는 명령어
+
+---
+
+[ SelectObject() ]
+- 비트맵과 DC를 연결해주는 명령어
+- SelectObject(DC, Bitmap);
+- DC에 기본값으로 들어있던 default Bitmap을 반환한다.
+- 기본 비트맵을 사용안하는 이융..?
+- DeleteObject(기본비트맵); 으로 메모리 해제해준다.
+- Direct에선 제대로 더블 버퍼링 알고리즘을 사용하지만 API 에선 제대로 지원되지 않기에 
+	비슷하게 사용한다.
+	(백 버퍼에 그리고 원본 버퍼에 복사하기를 반복한다.
+		즉, 그리는건 백 버퍼, 보는건 원본에서 )
+
+---
+
+[ BitBlt() ]
+- Bit 맵을 복사해주는 함수
+- 복사 옵션이 있다.
