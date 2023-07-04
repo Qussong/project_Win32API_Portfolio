@@ -7,8 +7,10 @@ namespace van
 	Application::Application()
 		: mHwnd(NULL)
 		, mHdc(NULL)
-		, objectContainer{}
+		, clientArea{}
+		, curObjectCnt(0)
 	{
+		
 	}
 
 	Application::~Application()
@@ -24,6 +26,7 @@ namespace van
 
 		Time::Init();
 		Input::Init();					// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
+		GetClientRect(mHwnd, &clientArea);
 	}
 
 	void Application::Proc()
@@ -39,8 +42,8 @@ namespace van
 		ObjectGenerator(300.0f, 100, 2.0f);
 		for (int i = 0; i < curObjectCnt; ++i)
 		{
-			objectContainer2.at(i).Update();
-			objectContainer2.at(i).setDelta(Time::DeltaTime());
+			objectContainer.at(i).Update();
+			objectContainer.at(i).setDelta(Time::DeltaTime());
 		}
 		// 키 입력 받기_ver1
 		/*if (GetAsyncKeyState(VK_LEFT) & 0x8000)
@@ -85,7 +88,7 @@ namespace van
 		if (Input::GetKey(eKeyCode::S))	// 하
 		{
 			//playerPos.y += 0.02f;
-			if (playerPos.y < FHD_Y - 100)
+			if (playerPos.y < /*FHD_Y*/clientArea.bottom - 100)
 				playerPos.y += 300.0f * Time::DeltaTime();
 			else
 				__noop;
@@ -101,7 +104,7 @@ namespace van
 		if (Input::GetKey(eKeyCode::D))	// 우
 		{
 			//playerPos.x += 0.02f;
-			if (playerPos.x < FHD_X - 100)
+			if (playerPos.x < /*FHD_X*/clientArea.right - 100)
 				playerPos.x += 300.0f * Time::DeltaTime();
 			else
 				__noop;
@@ -116,25 +119,25 @@ namespace van
 
 		// objs
 		for (int i = 0; i < curObjectCnt; ++i)
-			objectContainer2.at(i).Render(mHdc);		// 여러 움직일 객체의 화면 출력
+			objectContainer.at(i).Render(mHdc);		// 여러 움직일 객체의 화면 출력
 	}
 
 	void Application::ObjectGenerator(float speed, int diameter, float timeGap)
 	{
 		static float timeCheck = 0.0f;					// 델타타임 쌓는 곳
 		timeCheck += Time::DeltaTime();
-		int posX = random(FHD_X - diameter);			// 객체가 생성될 기준 x좌표
-		int posY = random(FHD_Y - diameter);			// 객체가 생성될 기준 y좌표
+		int posX = random(clientArea.right - diameter);			// 객체가 생성될 기준 x좌표
+		int posY = random(clientArea.bottom - diameter);			// 객체가 생성될 기준 y좌표
 		int cnt = curObjectCnt;							// 현재 생성된 움직이는 객체의 개수
 		int totalCnt = OBJECT_CNT;
 
 		while (cnt < totalCnt && timeCheck >= timeGap)
 		{
 			Object obj = 
-				Object(posX, posY, posX + diameter, posY + diameter);	// 여러 움직일 객체의 크기 세팅
+				Object(mHwnd, posX, posY, posX + diameter, posY + diameter);	// 여러 움직일 객체의 크기 세팅
 			obj.setDirNum2(random(DIRECTION_CNT));						// 여러 움직일 객체의 첫 이동 방향 세팅
 			obj.setSpeed(speed);										// 여러 움직일 객체의 속도 세팅
-			objectContainer2.push_back(obj);
+			objectContainer.push_back(obj);
 
 			++curObjectCnt;
 			timeCheck = 0.0f;

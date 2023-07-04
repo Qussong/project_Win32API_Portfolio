@@ -25,9 +25,9 @@ namespace van
 		HDC mHdc;
 		math::Vector2 playerPos;				// vanMath.h
 
+		RECT clientArea = {};
 		int curObjectCnt = 0;					// 현재 생성된 객체 개수
-		Object objectContainer[OBJECT_CNT];		// 객체를 담아두는 바구니
-		std::vector<Object> objectContainer2;
+		std::vector<Object> objectContainer;	// 객체를 담아두는 바구니
 	};
 }
 

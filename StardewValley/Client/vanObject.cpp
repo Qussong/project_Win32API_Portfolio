@@ -3,18 +3,22 @@
 namespace van
 {
 	Object::Object()
-		: x1(0.0f)
+		: mHwnd(NULL)
+		, x1(0.0f)
 		, y1(0.0f)
 		, x2(0.0f)
 		, y2(0.0f)
+		, maxX(0.0f)
+		, maxY(0.0f)
 		, directNum(0)
 		, delta(0.0f)
 		, speed(0.0f)
 		, isReflect(false)
 	{
 	}
-	Object::Object(float _x1, float _y1, float _x2, float _y2)
-		: x1(_x1)
+	Object::Object(HWND hwnd, float _x1, float _y1, float _x2, float _y2)
+		: mHwnd(hwnd)
+		, x1(_x1)
 		, y1(_y1)
 		, x2(_x2)
 		, y2(_y2)
@@ -23,6 +27,10 @@ namespace van
 		, speed(0.0f)
 		, isReflect(false)
 	{
+		RECT clientArea;
+		GetClientRect(mHwnd, &clientArea);
+		maxX = clientArea.right;
+		maxY = clientArea.bottom;
 	}
 	void Object::setDirNum()
 	{
@@ -227,5 +235,13 @@ namespace van
 	void Object::Render(HDC _hdc)
 	{
 		Ellipse(_hdc, x1, y1, x2, y2);
+	}
+	bool Object::ConditionMaxX()
+	{
+		return x1 < 0 || x1 > maxX || x2 < 0 || x2 > maxX;
+	}
+	bool Object::ConditionMaxY()
+	{
+		return y1 < 0 || y1 > maxY || y2 < 0 || y2 > maxY;
 	}
 }

@@ -5,6 +5,8 @@
 #include "vanApplication.h"                 // 필요기능 구현,추가
 
 #define MAX_LOADSTRING 100
+#define FHD_X 1920
+#define FHD_Y 1080
 
 // 전역 변수:
 HINSTANCE hInst;                            // 현재 인스턴스입니다.
@@ -171,10 +173,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가
             //Rectangle(hdc, 100, 100, 300, 300);
-
             EndPaint(hWnd, &ps);
         }
         break;
