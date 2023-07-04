@@ -71,7 +71,7 @@ namespace van
 		void Render(HDC hdc);								// 객체 화면에 그려주기
 		bool ConditionMaxX(); 								// FHD 너비 벗어남에 대한 조건
 		bool ConditionMaxY();								// FHD 높이 벗어남에 대한 조건
-		__forceinline bool NoneReflection() { return isReflect == false; }	// 반사인지 아닌지에 대한 조건
+		__forceinline bool NoneReflection() { return isReflect == false; }	// 반사 상태가 아니면 true
 		
 	private:
 		HWND mHwnd;		// 윈도우 핸들

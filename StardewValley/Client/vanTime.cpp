@@ -43,7 +43,7 @@ namespace van
 
 			// Question) 위의 방식대로 FPS를 출력하면 결국 평균 FPS를 출력하는건 아닌거죠?
 			swprintf_s(szFloat, SIZE, L"FPS : %f", FPS);	// ???
-			int strLen = (int)wcsnlen_s(szFloat, SIZE);			// ???, szFloat 의 무자열 길이를 받아오는 것 같다...
+			int strLen = (int)wcsnlen_s(szFloat, SIZE);		// ???, szFloat 의 무자열 길이를 받아오는 것 같다...
 
 			TextOut(hdc, 10, 10, szFloat, strLen);			// 화면에 값 출력?
 

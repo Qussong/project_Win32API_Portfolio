@@ -98,7 +98,7 @@ namespace van
 	}
 	void Object::MoveTop()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
 		else
 		{
@@ -109,9 +109,9 @@ namespace van
 	}
 	void Object::MoveTopRight()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
-		else if (ConditionMaxX() && NoneReflection())
+		else if (!ConditionMaxX() && NoneReflection())
 			ReflectY();
 		else
 		{
@@ -124,7 +124,7 @@ namespace van
 	}
 	void Object::MoveRight()
 	{
-		if (ConditionMaxX() && NoneReflection())
+		if (!ConditionMaxX() && NoneReflection())
 			ReflectY();
 		else
 		{
@@ -135,9 +135,9 @@ namespace van
 	}
 	void Object::MoveBottomRight()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
-		else if (ConditionMaxX() && NoneReflection())
+		else if (!ConditionMaxX() && NoneReflection())
 			ReflectY();
 		else
 		{
@@ -150,7 +150,7 @@ namespace van
 	}
 	void Object::MoveBottom()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
 		else
 		{
@@ -161,9 +161,9 @@ namespace van
 	}
 	void Object::MoveBottomLeft()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
-		else if (ConditionMaxX() && NoneReflection())
+		else if (!ConditionMaxX() && NoneReflection())
 			ReflectY();
 		else
 		{
@@ -176,7 +176,7 @@ namespace van
 	}
 	void Object::MoveLeft()
 	{
-		if (ConditionMaxX() && NoneReflection())
+		if (!ConditionMaxX() && NoneReflection())	// 범위안에 안에 있지 않고, 반사상태가 아니면
 			ReflectY();
 		else
 		{
@@ -187,9 +187,9 @@ namespace van
 	}
 	void Object::MoveTopLeft()
 	{
-		if (ConditionMaxY() && NoneReflection())
+		if (!ConditionMaxY() && NoneReflection())
 			ReflectX();
-		else if (ConditionMaxX() && NoneReflection())
+		else if (!ConditionMaxX() && NoneReflection())
 			ReflectY();
 		else
 		{
@@ -236,12 +236,12 @@ namespace van
 	{
 		Ellipse(_hdc, x1, y1, x2, y2);
 	}
-	bool Object::ConditionMaxX()
+	bool Object::ConditionMaxX()  // 클라이언트 영역_x 안에 있으면 true
 	{
-		return x1 < 0 || x1 > maxX || x2 < 0 || x2 > maxX;
+		return x1 >= 0 && x1 <= maxX && x2 >= 0 && x2 <= maxX;
 	}
-	bool Object::ConditionMaxY()
+	bool Object::ConditionMaxY()  // 클라이언트 영역_y 안에 있으면 true
 	{
-		return y1 < 0 || y1 > maxY || y2 < 0 || y2 > maxY;
+		return y1 >= 0 && y1 <= maxY && y2 >= 0 && y2 <= maxY;
 	}
 }

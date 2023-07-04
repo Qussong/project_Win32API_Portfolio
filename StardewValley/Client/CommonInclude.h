@@ -12,6 +12,5 @@
 
 //#define FHD_X 1920
 //#define FHD_Y 1080
-
 #define randomize() srand((unsigned)time(NULL))
-#define random(n) (rand() % (n))	// 0 ~ (n-1) 사이의 난수 반환
+#define random(n) (rand() % (n))	
