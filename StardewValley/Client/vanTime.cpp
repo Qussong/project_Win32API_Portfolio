@@ -25,6 +25,7 @@ namespace van
 		float diffFrequency
 			= static_cast<float>(mCurFrequency.QuadPart - mPrevFrequency.QuadPart);
 		mDeltaTime = diffFrequency / static_cast<float>(mCpuFrequency.QuadPart);
+		// 델타타임 = 매 프레임당 진동수 / 1초 평균 진동수
 		// 프레임당 진동수를 알아야 한다
 		// 현재 진동수는 다음 프레임에선 이전의 진동수가 되기에 'Prev = Cur' 을 해준다
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;

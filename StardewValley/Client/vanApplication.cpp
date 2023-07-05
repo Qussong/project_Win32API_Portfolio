@@ -44,8 +44,8 @@ namespace van
 
 		// 새로 생성한 비트맵과 DC를 서로 연결
 		HBITMAP defaultBitmap
-			= (HBITMAP)SelectObject(mBackHdc, mBackBuffer);
-		DeleteObject(defaultBitmap);
+			= (HBITMAP)SelectObject(mBackHdc, mBackBuffer);	// 이때 DC가 가지고 있던 기본 비트맵이 반환된다.
+		DeleteObject(defaultBitmap);						// 반환된 기본 비트맵은 사용할 일이없기에 메모리 해제
 
 		Time::Init();
 		Input::Init();						// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
