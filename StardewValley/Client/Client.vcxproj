@@ -136,17 +136,29 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="vanApplication.h" />
+    <ClInclude Include="vanComponent.h" />
+    <ClInclude Include="vanEntity.h" />
+    <ClInclude Include="vanGameObject.h" />
     <ClInclude Include="vanInput.h" />
+    <ClInclude Include="vanLayer.h" />
     <ClInclude Include="vanMath.h" />
-    <ClInclude Include="vanObject.h" />
+    <ClInclude Include="vanScene.h" />
+    <ClInclude Include="vanSpriteRenderer.h" />
     <ClInclude Include="vanTime.h" />
+    <ClInclude Include="vanTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="vanApplication.cpp" />
+    <ClCompile Include="vanComponent.cpp" />
+    <ClCompile Include="vanEntity.cpp" />
+    <ClCompile Include="vanGameObject.cpp" />
     <ClCompile Include="vanInput.cpp" />
-    <ClCompile Include="vanObject.cpp" />
+    <ClCompile Include="vanLayer.cpp" />
+    <ClCompile Include="vanScene.cpp" />
+    <ClCompile Include="vanSpriteRenderer.cpp" />
     <ClCompile Include="vanTime.cpp" />
+    <ClCompile Include="vanTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

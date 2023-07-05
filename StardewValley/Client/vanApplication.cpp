@@ -7,12 +7,12 @@ namespace van
 	Application::Application()
 		: mHwnd(NULL)
 		, mHdc(NULL)
-		, mWidth(0)
-		, mHeight(0)
+		//, mWidth(0)
+		//, mHeight(0)
 		, mBackBuffer(NULL)
 		, mBackHdc(NULL)
+		, mScene(nullptr)
 	{
-		
 	}
 
 	Application::~Application()
@@ -21,24 +21,23 @@ namespace van
 
 	void Application::Init(HWND hwnd)
 	{
-		randomize();
 		mHwnd = hwnd;
 		mHdc = GetDC(mHwnd);				// WinUser.h
 
-		mWidth = 1600;
-		mHeight = 900;
+		//mWidth = 1600;					// FHD_X 로 대체
+		//mHeight = 900;					// FHD_Y 로 대체
 
-		RECT rect = { 0,0, mWidth, mHeight };
+		RECT rect = { 0,0, FHD_X, FHD_Y };
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
-		SetWindowPos(mHwnd, nullptr,
-					0, 0,
+		SetWindowPos(mHwnd, 
+					nullptr,0, 0,
 					rect.right - rect.left,
 					rect.bottom - rect.top, 0);
 		ShowWindow(mHwnd, true);
 
 		// 윈도우 해상도 동일한 비트맵 생성
-		mBackBuffer = CreateCompatibleBitmap(mHdc, mWidth, mHeight);
+		mBackBuffer = CreateCompatibleBitmap(mHdc, FHD_X, FHD_Y);
 
 		// 새로 생성한 비트맵을 가리키는 DC 생성
 		mBackHdc = CreateCompatibleDC(mHdc);
@@ -50,6 +49,9 @@ namespace van
 
 		Time::Init();
 		Input::Init();						// Init()함수가 Input 클래스에 속한 static 멤버기에 가능함
+
+		mScene = new Scene();				//
+		mScene->Init();						//
 	}
 
 	void Application::Proc()
@@ -80,21 +82,22 @@ namespace van
 		}*/
 		// 키 입력 받기_ver2
 		Input::Update();
-		/*W,S,A,D 로 상,하,좌,우 방향 값을 확인한다.
-		GetKey()함수의 인자로 들어간 키의 멤버값(state)을 확인하여 해당하는 값들을 수정한다.*/
+		/*
+			//W,S,A,D 로 상,하,좌,우 방향 값을 확인한다.
+			//GetKey()함수의 인자로 들어간 키의 멤버값(state)을 확인하여 해당하는 값들을 수정한다.
 		if (Input::GetKey(eKeyCode::W))	// 상
 		{
-			/*
-				기존에는 시간에 대한 개념이 없었기에 프레임당 이동해야할 거리를 넣어줬지만,
-				이젠 시간 개념이 들어갔기에 1초당 이동거리를 넣어주게 된다.
-
-				증명)
-					CPU 성능에 상관 없이 일정한 이동거리
-					= 이동거리 * 델타타임 * FPS 
-					= 이동거리 * 델타타임 * (1 sec / 델타타임)
-					= 이동거리 * 1 sec
-					= 일정한 이동거리 [sec]
-			*/
+			
+			//기존에는 시간에 대한 개념이 없었기에 프레임당 이동해야할 거리를 넣어줬지만,
+			//이젠 시간 개념이 들어갔기에 1초당 이동거리를 넣어주게 된다.
+			//
+			//증명)
+			//	CPU 성능에 상관 없이 일정한 이동거리
+			//	= 이동거리 * 델타타임 * FPS 
+			//	= 이동거리 * 델타타임 * (1 sec / 델타타임)
+			//	= 이동거리 * 1 sec
+			//	= 일정한 이동거리 [sec]
+			
 			if (playerPos.y > 0)
 				playerPos.y -= SPEED * Time::DeltaTime();
 			else
@@ -120,21 +123,24 @@ namespace van
 				playerPos.x += SPEED * Time::DeltaTime();
 			else
 				__noop;
-		}
+		}*/
+		// 키 입력 받기_ver3 + 각 객체들 정보 업데이트
+		mScene->Update();
 	}
 
 	void Application::Render()
 	{
-		//Time::Render(mHdc);
 		Time::Render(mBackHdc);
 
-		Rectangle(mBackHdc, -1, -1, mWidth + 1, mHeight + 1);			// 2번째 비트맵에 큰 사각형을 그려준다.
-																		// 양옆으로 1씩 넓은 사각형을 쓰는 이유 : 
-																		// 테두리 선이 보이기 때문에 안 보이게 하려고
+		Rectangle(mBackHdc, -1, -1, FHD_X + 1, FHD_Y + 1);			// 2번째 비트맵에 큰 사각형을 그려준다.
+																	// 양옆으로 1씩 넓은 사각형을 쓰는 이유 : 
+																	//		테두리 선이 보이기 때문에 안 보이게 하려고
+		// 객체 화면 출력_ver1
+				/*Ellipse(mBackHdc, playerPos.x, playerPos.y,
+				playerPos.x + DIAMETER, playerPos.y + DIAMETER);*/
+		// 각 객체들 정보 화면 출력_ver2
+		mScene->Render(mBackHdc);	
 
-		Ellipse(/*mHdc*/mBackHdc, playerPos.x, playerPos.y,
-				playerPos.x + DIAMETER, playerPos.y + DIAMETER);		// 2번째 비트맵에 조종할 객체(원)를 그려준다.
-
-		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);	// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.
+		BitBlt(mHdc, 0, 0, FHD_X, FHD_Y, mBackHdc, 0, 0, SRCCOPY);	// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.
 	}
 }

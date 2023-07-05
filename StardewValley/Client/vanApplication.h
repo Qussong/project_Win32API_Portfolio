@@ -1,9 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-
-#define SPEED		500.0f
-#define DIAMETER	200
-//#define OBJECT_CNT 5		// Objects cnt control
+#include "vanScene.h"
 
 namespace van
 {
@@ -23,13 +20,15 @@ namespace van
 		HWND mHwnd;
 		HDC mHdc;
 
-		UINT mWidth;
-		UINT mHeight;
+		//UINT mWidth;
+		//UINT mHeight;
 
 		HDC mBackHdc;
 		HBITMAP mBackBuffer;
 
 		math::Vector2 playerPos;				// vanMath.h
+
+		Scene* mScene;
 	};
 }
 

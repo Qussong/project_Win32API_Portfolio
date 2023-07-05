@@ -25,8 +25,26 @@
     <Filter Include="Engine\Time">
       <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Oject">
-      <UniqueIdentifier>{9a83ba80-e057-44dc-a503-f00eaddd39c6}</UniqueIdentifier>
+    <Filter Include="Engine\Entity">
+      <UniqueIdentifier>{b9a2770a-132a-4117-b4a2-1310a399d7eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Layer">
+      <UniqueIdentifier>{9c67cf4e-9bec-43e5-9da1-294e2cda3845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{8dfe20e8-6500-4376-9a0f-c3647c241dfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{1696bf8b-48e0-46ad-be0f-705b9c22f38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{3d2cee4e-a9f9-40b5-bf8f-c270d63cf846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\SpriteRenderer">
+      <UniqueIdentifier>{c40ff288-dfd6-4667-bddf-bf70609e0f8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +75,26 @@
     <ClInclude Include="vanTime.h">
       <Filter>Engine\Time</Filter>
     </ClInclude>
-    <ClInclude Include="vanObject.h">
-      <Filter>Engine\Oject</Filter>
+    <ClInclude Include="vanEntity.h">
+      <Filter>Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="vanLayer.h">
+      <Filter>Engine\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="vanScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="vanGameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="vanComponent.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="vanSpriteRenderer.h">
+      <Filter>Engine\Component\SpriteRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="vanTransform.h">
+      <Filter>Engine\Component\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +121,26 @@
     <ClCompile Include="vanTime.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
-    <ClCompile Include="vanObject.cpp">
-      <Filter>Engine\Oject</Filter>
+    <ClCompile Include="vanEntity.cpp">
+      <Filter>Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="vanLayer.cpp">
+      <Filter>Engine\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="vanScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="vanGameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="vanComponent.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSpriteRenderer.cpp">
+      <Filter>Engine\Component\SpriteRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="vanTransform.cpp">
+      <Filter>Engine\Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
