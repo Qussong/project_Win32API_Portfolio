@@ -55,6 +55,7 @@ namespace van
 			else
 				__noop;
 		}
+		tr->SetPosition(pos);
 	}
 
 	void Player::Render(HDC _hdc)

@@ -28,12 +28,12 @@ namespace van::enums
 {
 	enum class eLayerType
 	{
-		Background,	// 0
+		Background,		// 0
 		Player,
 		Monster,
 		Effect,
 		UI,
-		End,		// 5
+		End,			// 5
 	};
 
 	enum class eComponentType
@@ -41,5 +41,13 @@ namespace van::enums
 		Transform,		// 0
 		SpriteRenderer,
 		End,			// 2
+	};
+
+	enum class eSceneType
+	{
+		TitleScene,		// 0 
+		FirstStage,
+		SecondStage,
+		End,			// 3
 	};
 }

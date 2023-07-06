@@ -15,6 +15,8 @@ namespace van
 		virtual void Init();
 		virtual void Update();
 		virtual void Render(HDC _hdc);
+
+		void AddGameObject(enums::eLayerType type, GameObject* gameObj);
 			
 	private:
 		std::vector<Layer> mLayers;

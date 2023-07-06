@@ -5,8 +5,8 @@
 #include "vanApplication.h"                 // 필요기능 구현,추가
 
 #define MAX_LOADSTRING 100
-#define FHD_X 1920
-#define FHD_Y 1080
+//#define FHD_X 1920
+//#define FHD_Y 1080
 
 // 전역 변수:
 HINSTANCE hInst;                            // 현재 인스턴스입니다.
@@ -128,7 +128,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(/*szWindowClass*/L"CLIENT", szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(szWindowClass/*L"CLIENT"*/, szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
       0/*CW_USEDEFAULT*/, 0, FHD_X/*CW_USEDEFAULT*/, FHD_Y, nullptr, nullptr, hInstance, nullptr);
 
    application.Init(hWnd);

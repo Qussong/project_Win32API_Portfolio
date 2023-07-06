@@ -1,5 +1,7 @@
 #include "vanTitleScene.h"
 #include "vanPlayer.h"
+#include "vanObject.h"
+#include "vanSpriteRenderer.h"
 
 namespace van
 {
@@ -15,7 +17,8 @@ namespace van
 
 	void TitleScene::Init()
 	{
-		Player* player = 
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->AddComponent<SpriteRenderer>();
 	}
 
 	void TitleScene::Update()
@@ -25,6 +28,6 @@ namespace van
 
 	void TitleScene::Render(HDC _hdc)
 	{
-		Scene::Render();	// 부모의 Render 함수 호출
+		Scene::Render(_hdc);	// 부모의 Render 함수 호출
 	}
 }

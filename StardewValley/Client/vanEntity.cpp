@@ -11,7 +11,7 @@ namespace van
 	{
 	}
 
-	void Entity::SetName(std::wstring& name)
+	void Entity::SetName(const std::wstring& name)
 	{
 		mName = name;
 	}

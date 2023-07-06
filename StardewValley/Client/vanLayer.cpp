@@ -21,9 +21,8 @@ namespace van
 		for (GameObject* obj : mGameObjects)
 			obj->Render(_hdc);
 	}
-	void Layer::AddGameObject()
+	void Layer::AddGameObject(GameObject* gameObj)
 	{
-		GameObject* obj = new GameObject();
-		mGameObjects.push_back(obj);
+		mGameObjects.push_back(gameObj);
 	}
 }

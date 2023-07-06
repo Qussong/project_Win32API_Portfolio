@@ -2,7 +2,7 @@
 
 namespace van
 {
-	int hASCII[(int)eKeyCode::End] = // hash ASCII, eKeyCode::End = 26
+	int hASCII[(int)eKeyCode::End] =					// hash ASCII, eKeyCode::End = 26
 	{
 		'Q', 'W', 'E', 'R', 'T',
 		'Y', 'U', 'I', 'O', 'P',
@@ -16,16 +16,15 @@ namespace van
 	{
 		for (int i = 0; i < (int)eKeyCode::End; ++i)	// eKeyCode::End = 26
 		{
-			Key key = {};					// Question) 그냥 Key key; 로 냅두면 안되는가?? -> 구조체기에 {}으로 초기화한다.
-			key.code = (eKeyCode)i;			// i=0 는 eKeyCode 에서 'Q'
-			key.state = eKeyState::None;	// 아무런 입력이 없는 상태
-			key.isPressed = false;			// 눌리지 않은 상태
+			Key key = {};								// Question) 그냥 Key key; 로 냅두면 안되는가?? -> 구조체기에 {}으로 초기화한다.
+			key.code = (eKeyCode)i;						// i=0 는 eKeyCode 에서 'Q'
+			key.state = eKeyState::None;				// 아무런 입력이 없는 상태
+			key.isPressed = false;						// 눌리지 않은 상태
 
 			eKeys.push_back(key);
 		}
 	}
 
-	// 
 	/*
 		[이전프레임][현재프레임][   상태	]
 		|	 x	   |	x	   |	none	|
@@ -48,7 +47,7 @@ namespace van
 
 				eKeys[i].isPressed = true;					// 현재 프레임에 눌려졌음을 표시해둔다
 			}
-			else // 현재 프레임에 i 에 해당하는 키가 눌려지지 않았을때
+			else											// 현재 프레임에 i 에 해당하는 키가 눌려지지 않았을때
 			{
 				// 이전 프레임에 눌려졌는가?
 				if (eKeys[i].isPressed == true)
@@ -61,26 +60,9 @@ namespace van
 		}
 	}
 	
-	// GetKeyDown(),GetKeyUp(),GetKey() 함수들 header에서 정의됨
-	/*
-	bool Input::GetKeyDown(eKeyCode code)	// 해당 키의 Down 여부 확인
-	{
-		return eKeys[(int)code].state == eKeyState::Down;
-	}
-
-	bool Input::GetKeyUp(eKeyCode code)		// 해당 키의 Up 여부 확인
-	{
-		return eKeys[(int)code].state == eKeyState::Up;
-	}
-
-	bool Input::GetKey(eKeyCode code)		// 해당 키의 Pressed 여부 확인
-	{
-		return eKeys[(int)code].state == eKeyState::Pressed;
-	}
-	*/
-	
 	// [ 정적변수 namespace ]
-	// public 에 정적 변수 인지라 전역변수와 같은 역할을 하긴하지만 input 클래스 소속이기에
-	// 변수명 eKeys 앞에 namespace 붙여줘야한다. -> Input::eKeys
+	// public 에 정적 변수 인지라 전역변수와 같은 역할을 하긴하지만 
+	// input 클래스 소속이기에 변수명 eKeys 앞에 namespace 붙여줘야한다. 
+	//	-> Input::eKeys
 	std::vector<Input::Key> Input::eKeys = {};	
 }

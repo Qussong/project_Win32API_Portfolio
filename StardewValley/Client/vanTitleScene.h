@@ -9,9 +9,9 @@ namespace van
 		TitleScene();
 		virtual ~TitleScene();
 
-		virtual void Init();
-		virtual void Update();
-		virtual void Render(HDC _hdc);
+		virtual void Init() override;
+		virtual void Update() override;
+		virtual void Render(HDC _hdc) override;
 
 	private:
 
