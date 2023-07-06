@@ -1,0 +1,27 @@
+
+[오늘 작업]
+
+ Scene -> Layer -> GameObject -> Component 순이다.
+
+- Contents
+	- GameObject
+		- Player : public GameObject
+			transform 에 있던 Update의 내용이 Player의 Update로 옮겨진다.
+
+- GameObject 클래스의 AddGameObject() 함수 수정
+- GameObject 클래스의 생성자 수정 -> 이유 : GameObject를 상속받는 클래스마다 원하는 속성이 다를 수 있다.
+- GameObject 클래스에 AddComponenet() 함수 템플릿으로 생성
+	-> 알아야 하는것 : 컴포넌트들은 해당 컴포넌트를 가지고 있는 GameObject를 상속받은 객체가 누군지 알아야 한다.
+
+- Scene 클래스를 상속받는 TitleScene 클래스 생성
+
+- SceneManager 생성 -> 역할 : Scene 이동 관리
+	- map 으로 트리 자료구조 사용
+		-> map (key : 이름, value : 사용할 데이터)
+		-> tree 사용이유 : 최악의 경우를 가정했을때 제일 빠르게 값을 찾을 수 있다.
+
+- static 변수는 클래스 밖에서 초기화 해줘야 한다.
+
+- yaApplication 수정
+
+- yaObject.h 헤더 파일 생성

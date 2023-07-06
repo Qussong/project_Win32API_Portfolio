@@ -4,14 +4,14 @@ namespace van
 {
 	Scene::Scene()
 	{
-		mLayers.resize((int)/*enums::*/eLayerType::End);
+		mLayers.resize((int)enums::eLayerType::End);
 	}
 	Scene::~Scene()
 	{
 	}
 	void Scene::Init()
 	{
-		mLayers[(int)/*enums::*/eLayerType::Player].AddGameObject();
+		mLayers[(int)enums::eLayerType::Player].AddGameObject();
 	}
 	void Scene::Update()
 	{

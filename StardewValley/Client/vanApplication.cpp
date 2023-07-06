@@ -22,18 +22,20 @@ namespace van
 	void Application::Init(HWND hwnd)
 	{
 		mHwnd = hwnd;
-		mHdc = GetDC(mHwnd);				// WinUser.h
+		mHdc = GetDC(mHwnd);					// WinUser.h
 
-		//mWidth = 1600;					// FHD_X 로 대체
-		//mHeight = 900;					// FHD_Y 로 대체
+		//mWidth = 1600;						// FHD_X 로 대체
+		//mHeight = 900;						// FHD_Y 로 대체
 
-		RECT rect = { 0,0, FHD_X, FHD_Y };
-		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+		RECT rect = { 0, 0, FHD_X, FHD_Y };		// 현재 윈도우 크기 -> 해당 크기가 클라이언트 영역의 크기가 되길 원함
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);	// 현재 윈도우의 크기가 클라이언트 영역이 되도록 크기를 조정
 
-		SetWindowPos(mHwnd, 
-					nullptr,0, 0,
-					rect.right - rect.left,
-					rect.bottom - rect.top, 0);
+		// rect 변수의 정보를 기반으로 윈도우 사이즈 세팅
+		SetWindowPos(mHwnd, nullptr,
+					0, 0,						// 변경할 위치 (x,y)
+					rect.right - rect.left,		// 변경할 크기(가로)
+					rect.bottom - rect.top,		// 변경할 크기(세로)
+					0);							// ?
 		ShowWindow(mHwnd, true);
 
 		// 윈도우 해상도 동일한 비트맵 생성

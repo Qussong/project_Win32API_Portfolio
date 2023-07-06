@@ -4,7 +4,7 @@
 
 namespace van
 {
-	using namespace van::enums;
+	//using namespace van::enums;
 
 	class Scene : public Entity
 	{

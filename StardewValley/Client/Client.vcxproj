@@ -142,9 +142,13 @@
     <ClInclude Include="vanInput.h" />
     <ClInclude Include="vanLayer.h" />
     <ClInclude Include="vanMath.h" />
+    <ClInclude Include="vanObject.h" />
+    <ClInclude Include="vanPlayer.h" />
     <ClInclude Include="vanScene.h" />
+    <ClInclude Include="vanSceneManager.h" />
     <ClInclude Include="vanSpriteRenderer.h" />
     <ClInclude Include="vanTime.h" />
+    <ClInclude Include="vanTitleScene.h" />
     <ClInclude Include="vanTransform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +159,12 @@
     <ClCompile Include="vanGameObject.cpp" />
     <ClCompile Include="vanInput.cpp" />
     <ClCompile Include="vanLayer.cpp" />
+    <ClCompile Include="vanPlayer.cpp" />
     <ClCompile Include="vanScene.cpp" />
+    <ClCompile Include="vanSceneManager.cpp" />
     <ClCompile Include="vanSpriteRenderer.cpp" />
     <ClCompile Include="vanTime.cpp" />
+    <ClCompile Include="vanTitleScene.cpp" />
     <ClCompile Include="vanTransform.cpp" />
   </ItemGroup>
   <ItemGroup>

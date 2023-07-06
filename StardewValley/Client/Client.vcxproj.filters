@@ -31,12 +31,6 @@
     <Filter Include="Engine\Layer">
       <UniqueIdentifier>{9c67cf4e-9bec-43e5-9da1-294e2cda3845}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene">
-      <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject">
-      <UniqueIdentifier>{8dfe20e8-6500-4376-9a0f-c3647c241dfd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component">
       <UniqueIdentifier>{1696bf8b-48e0-46ad-be0f-705b9c22f38d}</UniqueIdentifier>
     </Filter>
@@ -45,6 +39,24 @@
     </Filter>
     <Filter Include="Engine\Component\SpriteRenderer">
       <UniqueIdentifier>{c40ff288-dfd6-4667-bddf-bf70609e0f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents">
+      <UniqueIdentifier>{7272b3a5-1ac6-44d6-8316-1bd44996c9ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene">
+      <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject">
+      <UniqueIdentifier>{8dfe20e8-6500-4376-9a0f-c3647c241dfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\Player">
+      <UniqueIdentifier>{68f78163-9daa-4254-83d8-e072e1982d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene\TitleScene">
+      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\SceneManager">
+      <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,10 +94,10 @@
       <Filter>Engine\Layer</Filter>
     </ClInclude>
     <ClInclude Include="vanScene.h">
-      <Filter>Engine\Scene</Filter>
+      <Filter>Engine\Contents\Scene</Filter>
     </ClInclude>
     <ClInclude Include="vanGameObject.h">
-      <Filter>Engine\GameObject</Filter>
+      <Filter>Engine\Contents\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="vanComponent.h">
       <Filter>Engine\Component</Filter>
@@ -95,6 +107,18 @@
     </ClInclude>
     <ClInclude Include="vanTransform.h">
       <Filter>Engine\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="vanPlayer.h">
+      <Filter>Engine\Contents\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="vanTitleScene.h">
+      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="vanObject.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="vanSceneManager.h">
+      <Filter>Engine\Contents\SceneManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -128,10 +152,10 @@
       <Filter>Engine\Layer</Filter>
     </ClCompile>
     <ClCompile Include="vanScene.cpp">
-      <Filter>Engine\Scene</Filter>
+      <Filter>Engine\Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="vanGameObject.cpp">
-      <Filter>Engine\GameObject</Filter>
+      <Filter>Engine\Contents\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="vanComponent.cpp">
       <Filter>Engine\Component</Filter>
@@ -141,6 +165,15 @@
     </ClCompile>
     <ClCompile Include="vanTransform.cpp">
       <Filter>Engine\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="vanPlayer.cpp">
+      <Filter>Engine\Contents\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="vanTitleScene.cpp">
+      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSceneManager.cpp">
+      <Filter>Engine\Contents\SceneManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
