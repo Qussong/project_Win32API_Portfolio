@@ -1,36 +1,31 @@
-#include "vanPlayer.h"
+#include "vanGhost.h"
 #include "vanInput.h"
-#include "vanTransform.h"	// Update()에서 Player 객체의 위치 옮겨준다. 때문에 Transform 객체의 값을 수정할 수 있어야 한다.
+#include "vanTransform.h"
 
 namespace van
 {
-	Player::Player()
+	Ghost::Ghost()
 	{
-		// nothing
+		// npthing
 	}
 
-	Player::~Player()
+	Ghost::~Ghost()
 	{
-		// nothing
+		// npthing
 	}
 
-	void Player::Init()
+	void Ghost::Init()
 	{
-		// nothing
+		// npthing
 	}
 
-	void Player::Update()
+	void Ghost::Update()
 	{
 		GameObject::Update();
 
-		// Player 객체의 위치 수정
-		
-		// 1. Player 객체의 Tranfer Component로 현재 위치값 얻어온다.
-		Transform* tr = GetComponent<Transform>();	// 값을 직접적으로 수정할 수 있어야 하기에 주소값으로 가져온다.
-													// 참고로 Tranfer 객체는 GameObject가 생성될 때 생성된다.(GameObject 생성자 확인)
+		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
 
-		// 2. 키 입력을 받아 위치값 수정
 		if (Input::GetKey(eKeyCode::W))	// top
 		{
 			if (pos.y > 0)
@@ -60,17 +55,18 @@ namespace van
 				__noop;
 		}
 
-		// 3. 수정된 위치값을 Transfer Component에 넣어준다.
 		tr->SetPosition(pos);
 	}
 
-	void Player::Render(HDC _hdc)
+	void Ghost::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
 
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
 
+		Rectangle(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
 		Ellipse(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
+
 	}
 }

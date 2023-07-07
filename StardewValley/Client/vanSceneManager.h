@@ -17,7 +17,7 @@ namespace van
 		static __inline T* CreateScene(const std::wstring& name)
 		{
 			T* scene = new T();	
-			scene->SetName(name);							// SetName() 구현 안되어 있음...
+			//scene->SetName(name);							// SetName() 구현 안되어 있음...
 			mScenes.insert(std::make_pair(name, scene));	// mScenes 에 생성된 scene 넣기
 			mActiveScene = scene;							// mActiveScene 설정
 			scene->Init();									// GameObject 객체 생성

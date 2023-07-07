@@ -6,18 +6,24 @@ namespace van
 		: mType(type)
 		, mOwner(nullptr)
 	{
+
 	}
+
 	Component::~Component()
 	{
+
 	}
+
 	void Component::Init()
 	{
 		// nothing
 	}
+
 	void Component::Update()
 	{
 		// nothing
 	}
+
 	void Component::Render(HDC _hdc)
 	{
 		// nothing

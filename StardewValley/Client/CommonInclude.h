@@ -11,6 +11,7 @@
 // 직접만든 라이브러리
 #include "vanMath.h"
 #include "vanTime.h"
+#include "vanInput.h"
 
 // 매크로 변수
 #define SPEED		500.0f
@@ -46,8 +47,7 @@ namespace van::enums
 	enum class eSceneType
 	{
 		TitleScene,		// 0 
-		FirstStage,
-		SecondStage,
-		End,			// 3
+		StageScene,		// 1
+		EndingScene,	// 2
 	};
 }

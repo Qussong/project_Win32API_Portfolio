@@ -1,5 +1,8 @@
 #include "vanSceneManager.h"
 #include "vanTitleScene.h"
+#include "vanStageScene.h"
+#include "vanEndingScene.h"
+#include "CommonInclude.h"
 
 namespace van
 {
@@ -9,14 +12,22 @@ namespace van
 	void SceneManager::Init()
 	{
 		CreateScene<TitleScene>(L"TitleScene");
-		//CreateScene<TitleScene>(L"StageScene");
-		//CreateScene<TitleScene>(L"EndingScene");
+		CreateScene<StageScene>(L"StageScene");
+		CreateScene<EndingScene>(L"EndingScene");
 
 		LoadScene(L"TitleScene");
 	}
 
 	void SceneManager::Update()
 	{
+		// 화면 전환
+		if (Input::GetKey(eKeyCode::Z))
+			LoadScene(L"TitleScene");
+		if (Input::GetKey(eKeyCode::X))
+			LoadScene(L"StageScene");
+		if (Input::GetKey(eKeyCode::C))
+			LoadScene(L"EndingScene");
+
 		mActiveScene->Update();
 	}
 

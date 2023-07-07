@@ -17,6 +17,10 @@ namespace van
 
 	void TitleScene::Init()
 	{
+		// TitleScene에 넣어줄 객체 생성 + 해당 객체의 Component 생성 & 추가 (Transform 제외)
+		// Transform 은 GameObject의 기본생성자가 호출될 때 자동으로 생성된다.
+		
+		// 1) Player 객체
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->AddComponent<SpriteRenderer>();
 	}

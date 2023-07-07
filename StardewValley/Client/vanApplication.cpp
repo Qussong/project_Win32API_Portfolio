@@ -37,7 +37,7 @@ namespace van
 					rect.right - rect.left,						// 변경할 크기(가로)
 					rect.bottom - rect.top,						// 변경할 크기(세로)
 					0);											// ?
-		ShowWindow(mHwnd, true);
+		ShowWindow(mHwnd, true);								// CreateWindow()함수에 의해 할당된 메모리를 화면에 출력
 
 		mBackBuffer 
 			= CreateCompatibleBitmap(mHdc, FHD_X, FHD_Y);		// 윈도우 해상도 동일한 비트맵 생성

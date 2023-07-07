@@ -5,14 +5,13 @@
 #include "vanApplication.h"                 // 필요기능 구현,추가
 
 #define MAX_LOADSTRING 100
-//#define FHD_X 1920
-//#define FHD_Y 1080
 
 // 전역 변수:
 HINSTANCE hInst;                            // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];              // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];        // 기본 창 클래스 이름입니다.
-van::Application application;               // 하나뿐인 객체
+
+van::Application application;               // 실질적인 게임 객체
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -25,15 +24,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,          
                      _In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+    UNREFERENCED_PARAMETER(hPrevInstance);  // 메인함수 호출시 들어오는 hPrevInstance 변수가 사용되지 않음을 표현
+    UNREFERENCED_PARAMETER(lpCmdLine);      // 위와 동일
 
     // TODO: 여기에 코드를 입력합니다.
 
     // 전역 문자열을 초기화합니다.
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);     // IDS_APP_TITLE 값을 szTitle에 넣어줌
+    LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);  // IDC_CLIENT 값을 szWindowClass에 넣어줌
+    MyRegisterClass(hInstance);                                         // 생성될 윈도우에 대한 정보를 등록
 
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
@@ -44,19 +43,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     MSG msg;
-
-    // 기본 메시지 루프입니다:
-   /* while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-    }
-
-    return (int) msg.wParam;
-    */
 
     // GetMessage : 
                   /* 프로세스에 발생한 메시지를 메세지큐에서 꺼내옴
@@ -128,16 +114,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
+   // 인도우 창 생성
    HWND hWnd = CreateWindowW(szWindowClass/*L"CLIENT"*/, szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
       0/*CW_USEDEFAULT*/, 0, FHD_X/*CW_USEDEFAULT*/, FHD_Y, nullptr, nullptr, hInstance, nullptr);
 
-   application.Init(hWnd);
+   application.Init(hWnd);  // van::Application 객체 초기화
 
    if (!hWnd)
       return FALSE;
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+   //ShowWindow(hWnd, nCmdShow);
+   //UpdateWindow(hWnd);
 
    return TRUE;
 }

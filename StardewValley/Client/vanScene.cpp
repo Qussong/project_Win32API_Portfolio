@@ -36,6 +36,6 @@ namespace van
 
 	void Scene::AddGameObject(enums::eLayerType type, GameObject* gameObj)
 	{
-		mLayers[(int)type].AddGameObject(gameObj);
+		mLayers[(int)type].AddGameObject(gameObj);	// type에 해당하는 레이어에 GameObject 객체 생성
 	}
 }
