@@ -30,4 +30,9 @@ void van::StageScene::Update()
 void van::StageScene::Render(HDC _hdc)
 {
 	Scene::Render(_hdc);
+
+	// Scene ±¸ºÐ
+	const wchar_t* str = L"[ StageScene ]";
+	int len = (int)wcslen(str);
+	Text::PrintwString(_hdc, 10, 30, str);
 }

@@ -34,22 +34,17 @@ namespace van
 	void Time::Render(HDC hdc)
 	{
 		const int SIZE = 50;
-		static float timeCheck = 0.0f;						// 델타타임 쌓는 곳
+		//static float timeCheck = 0.0f;
+		//timeCheck += mDeltaTime;					
+		//if (timeCheck >= 1.0f)								
+		//{
+			wchar_t szFloat[SIZE] = {};
+			float FPS = 1.0f / mDeltaTime;
 
-		timeCheck += mDeltaTime;							// 매 프레임마다 델타타임이 누적된다.
-		if (timeCheck >= 1.0f)								// 총 델타 타임이 1초 이상이 되면 아래 로직 수행
-		{
-			wchar_t szFloat[SIZE] = {};						// ???
-			float FPS = 1.0f / mDeltaTime;					// 누적 델타 타임이 1초 이상이 되는 순간의 FPS 출력
-
-			// Question) 위의 방식대로 FPS를 출력하면 결국 평균 FPS를 출력하는건 아닌거죠?
-			swprintf_s(szFloat, SIZE, L"FPS : %f", FPS);	// ???
-			int strLen = (int)wcsnlen_s(szFloat, SIZE);		// ???, szFloat 의 무자열 길이를 받아오는 것 같다...
-
-			TextOut(hdc, 10, 10, szFloat, strLen);			// 화면에 값 출력?
-
-			timeCheck = 0.0f;								// 다시 0부터 1초가 될때까지 
-															// 델타타임들을 받아야 하기에 0으로 초기화
-		}
+			swprintf_s(szFloat, SIZE, L"FPS : %f", FPS);	// Buffer(szFloat)에 문자열 넣어주기
+			int strLen = (int)wcsnlen_s(szFloat, SIZE);		// 문자열 길이
+			TextOut(hdc, 10, 10, szFloat, strLen);
+			//timeCheck = 0.0f;								
+		//}
 	}
 }

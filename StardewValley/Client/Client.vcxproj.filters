@@ -43,32 +43,35 @@
     <Filter Include="Engine\Contents">
       <UniqueIdentifier>{7272b3a5-1ac6-44d6-8316-1bd44996c9ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\Scene">
-      <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Contents\GameObject">
       <UniqueIdentifier>{8dfe20e8-6500-4376-9a0f-c3647c241dfd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Contents\GameObject\Player">
       <UniqueIdentifier>{68f78163-9daa-4254-83d8-e072e1982d48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\SceneManager">
-      <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\EndingScene">
-      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\StageScene">
-      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\TitleScene">
-      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Contents\GameObject\Monster">
       <UniqueIdentifier>{1db6d631-f623-4815-9f94-32cb4e4856a8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Contents\GameObject\Ghost">
       <UniqueIdentifier>{5708a0c0-a735-4b0c-a409-afcf5180c79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Text">
+      <UniqueIdentifier>{de891b89-0b10-4e66-8d20-9efd13aff462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\EndingScene">
+      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\StageScene">
+      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\TitleScene">
+      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\SceneManager">
+      <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +109,7 @@
       <Filter>Engine\Layer</Filter>
     </ClInclude>
     <ClInclude Include="vanScene.h">
-      <Filter>Engine\Contents\Scene</Filter>
+      <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="vanGameObject.h">
       <Filter>Engine\Contents\GameObject</Filter>
@@ -124,25 +127,28 @@
       <Filter>Engine\Contents\GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="vanTitleScene.h">
-      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+      <Filter>Engine\Scene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="vanObject.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
     <ClInclude Include="vanSceneManager.h">
-      <Filter>Engine\Contents\SceneManager</Filter>
+      <Filter>Engine\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="vanStageScene.h">
-      <Filter>Engine\Contents\Scene\StageScene</Filter>
+      <Filter>Engine\Scene\StageScene</Filter>
     </ClInclude>
     <ClInclude Include="vanEndingScene.h">
-      <Filter>Engine\Contents\Scene\EndingScene</Filter>
+      <Filter>Engine\Scene\EndingScene</Filter>
     </ClInclude>
     <ClInclude Include="vanMonster.h">
       <Filter>Engine\Contents\GameObject\Monster</Filter>
     </ClInclude>
     <ClInclude Include="vanGhost.h">
       <Filter>Engine\Contents\GameObject\Ghost</Filter>
+    </ClInclude>
+    <ClInclude Include="vanText.h">
+      <Filter>Engine\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +182,7 @@
       <Filter>Engine\Layer</Filter>
     </ClCompile>
     <ClCompile Include="vanScene.cpp">
-      <Filter>Engine\Contents\Scene</Filter>
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="vanGameObject.cpp">
       <Filter>Engine\Contents\GameObject</Filter>
@@ -194,22 +200,25 @@
       <Filter>Engine\Contents\GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="vanTitleScene.cpp">
-      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+      <Filter>Engine\Scene\TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="vanSceneManager.cpp">
-      <Filter>Engine\Contents\SceneManager</Filter>
+      <Filter>Engine\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="vanStageScene.cpp">
-      <Filter>Engine\Contents\Scene\StageScene</Filter>
+      <Filter>Engine\Scene\StageScene</Filter>
     </ClCompile>
     <ClCompile Include="vanEndingScene.cpp">
-      <Filter>Engine\Contents\Scene\EndingScene</Filter>
+      <Filter>Engine\Scene\EndingScene</Filter>
     </ClCompile>
     <ClCompile Include="vanMonster.cpp">
       <Filter>Engine\Contents\GameObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="vanGhost.cpp">
       <Filter>Engine\Contents\GameObject\Ghost</Filter>
+    </ClCompile>
+    <ClCompile Include="vanText.cpp">
+      <Filter>Engine\Text</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -33,7 +33,7 @@ void van::Monster::Update()
 	}
 	if (Input::GetKey(eKeyCode::S))	// down
 	{
-		if (pos.y < FHD_Y - DIAMETER)
+		if (pos.y < Window_Y - DIAMETER)
 			pos.y += SPEED * Time::DeltaTime();
 		else
 			__noop;
@@ -47,7 +47,7 @@ void van::Monster::Update()
 	}
 	if (Input::GetKey(eKeyCode::D))	// right
 	{
-		if (pos.x < FHD_X - DIAMETER)
+		if (pos.x < Window_X - DIAMETER)
 			pos.x += SPEED * Time::DeltaTime();
 		else
 			__noop;

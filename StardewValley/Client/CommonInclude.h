@@ -12,19 +12,20 @@
 #include "vanMath.h"
 #include "vanTime.h"
 #include "vanInput.h"
+#include "vanText.h"
 
 // 매크로 변수
-#define SPEED		500.0f
+#define SPEED		600.0f
 #define DIAMETER	200
-	/*
-		[ 해상도 ]
-		- HD	1280×720
-		- FHD	1920x1080
-	*/
-#define FHD_X		/*1920*/ 1280
-#define FHD_Y		/*1080*/ 720
 
-// ?
+#define HD_X		1280
+#define HD_Y		720
+#define FHD_X		1920
+#define FHD_Y		1080
+#define Window_X	HD_X
+#define Window_Y	HD_Y
+
+
 namespace van::enums
 {
 	enum class eLayerType

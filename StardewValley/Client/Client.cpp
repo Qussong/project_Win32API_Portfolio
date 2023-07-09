@@ -116,7 +116,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // 인도우 창 생성
    HWND hWnd = CreateWindowW(szWindowClass/*L"CLIENT"*/, szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
-      0/*CW_USEDEFAULT*/, 0, FHD_X/*CW_USEDEFAULT*/, FHD_Y, nullptr, nullptr, hInstance, nullptr);
+      0/*CW_USEDEFAULT*/, 0, Window_X/*CW_USEDEFAULT*/, Window_Y, nullptr, nullptr, hInstance, nullptr);
 
    application.Init(hWnd);  // van::Application 객체 초기화
 

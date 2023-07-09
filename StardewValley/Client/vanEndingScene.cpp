@@ -31,4 +31,9 @@ void van::EndingScene::Update()
 void van::EndingScene::Render(HDC _hdc)
 {
 	Scene::Render(_hdc);
+
+	// Scene ±¸ºÐ
+	const wchar_t* str = L"[ EndingScene ]";
+	int len = (int)wcslen(str);
+	Text::PrintwString(_hdc, 10, 30, str);
 }
