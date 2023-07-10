@@ -59,6 +59,7 @@ void van::Monster::Update()
 void van::Monster::Render(HDC _hdc)
 {
 	GameObject::Render(_hdc);
+
 	HGDIOBJ origin = 
 		SelectObject(_hdc, GetStockObject(DC_PEN));		// 펜 기본 색상 저장
 	Transform* tr = GetComponent<Transform>();
