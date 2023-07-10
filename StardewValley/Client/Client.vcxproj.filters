@@ -73,6 +73,18 @@
     <Filter Include="Engine\SceneManager">
       <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene\HomeScene">
+      <UniqueIdentifier>{b731d65a-5447-4f46-bec0-5999dbf09290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{78c02d0f-66cc-4c89-8dce-a244a9baabeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ResourceManager">
+      <UniqueIdentifier>{682e9c55-5a0d-4464-83d1-c399eaaab79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Image">
+      <UniqueIdentifier>{14819614-8512-4795-8d5f-39f8bc12f3e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -150,6 +162,18 @@
     <ClInclude Include="vanText.h">
       <Filter>Engine\Text</Filter>
     </ClInclude>
+    <ClInclude Include="vanHomeScene.h">
+      <Filter>Engine\Scene\HomeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="vanResource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="vanResourceManager.h">
+      <Filter>Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="vanImage.h">
+      <Filter>Engine\Resource\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -219,6 +243,18 @@
     </ClCompile>
     <ClCompile Include="vanText.cpp">
       <Filter>Engine\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="vanHomeScene.cpp">
+      <Filter>Engine\Scene\HomeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="vanResource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="vanResourceManager.cpp">
+      <Filter>Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="vanImage.cpp">
+      <Filter>Engine\Resource\Image</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

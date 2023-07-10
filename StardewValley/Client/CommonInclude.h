@@ -6,13 +6,16 @@
 #include <set>
 #include <functional>	// 함수 포인터
 #include <string>
-#include "framework.h"
 
 // 직접만든 라이브러리
+#include "framework.h"
+
 #include "vanMath.h"
 #include "vanTime.h"
 #include "vanInput.h"
 #include "vanText.h"
+
+#pragma comment(lib, "Msimg32.lib")
 
 // 매크로 변수
 #define SPEED		600.0f
@@ -45,10 +48,10 @@ namespace van::enums
 		End,			// 2
 	};
 
-	enum class eSceneType
-	{
-		TitleScene,		// 0 
-		StageScene,		// 1
-		EndingScene,	// 2
-	};
+	//enum class eSceneType
+	//{
+	//	TitleScene,		// 0 
+	//	StageScene,		// 1
+	//	EndingScene,	// 2
+	//};
 }

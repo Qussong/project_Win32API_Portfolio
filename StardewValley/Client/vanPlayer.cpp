@@ -67,10 +67,5 @@ namespace van
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
-
-		Transform* tr = GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();
-
-		Ellipse(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
 	}
 }

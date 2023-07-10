@@ -1,0 +1,157 @@
+
+Winapi 발표 9/1
+
+[ 오늘의 작업 ]
+
+- Scene 필터에 HomeScene 클래스 추가
+	class HomeScene
+	{
+		
+	{
+- Scene 필터에 EndingScene 클래스 추가
+	class EndingScene
+	{
+	
+	}
+		
+- Resource 클래스 생성
+	class Resource : public Entity
+	{
+	public:
+		Reosurce();			// generater
+		virtual ~Reosurce();
+		
+		virtual bool Load(const std::wstring& path) = 0;	// 순수가상함수 무조건 오버라이드해줘야한다. -> 해당 클래스는 추상클래스가 된다.
+		
+		std::wstring& GetName();		// getter
+		void SetName();		// setter
+		std::wstring& GetPath();
+		void SetPath();
+		
+	private:
+		// std::wstring mName; // 이미 Entity에 이름이 있다.
+		std::wstring mPath;
+	}
+	
+- Resources 클래스 생성
+	- Player, Monster 클래스에서도 접근할 수 있어야 하기에 전역으로 만든다.
+	- tree 를 사용해야한다. tree를 사용하는 자료구조는 map
+	- 
+	
+	class Resources
+	{
+	public:
+		template <typename T>
+		static T Load(const std::wstring& name)
+		{
+			auto iter = mResources.find(name);	// auto 사용하면 코드가 짧아지지만 조금 느려진다. 하지만 그 차이는 미미하다.
+			// 코드만 봐선 불러오는 데이터의 타입을 추로할 수 없다는 단점이 있다.
+			if(iter == mResources.end())
+				return nullptr;
+			return dynamic_cast<T*> iter->second;
+		}
+		
+		
+		
+		template <typename T>
+		static T Load(const std::wstring& name, const std::wstring& path)	// 리소스의 종류가 많기 때문에 template 사용
+		{
+			T* resuorce = Find<T>(name);
+			
+			if(resouce != nullptr)
+				return resource;
+				
+			T* resouce = new T();
+			if(FAILED(resource->Load(path))
+			{
+				MessageBox(nullptr, L"Resource Load Fail", L"Error",MB_OK);
+				delete resource;
+				return nullptr;
+			}
+			
+			resource->setName();
+			resource->setPath();
+			mResource.insert(std::make_pair(name, path));
+		}
+		
+	private:
+		static std::map<std::wstring, Resource*> mResources;
+	
+	}
+	
+	
+- Resource 폴더 생성
+	- Image 폴더 생성
+	- Sound 폴더 생성
+	
+- Image 클래스 생성
+	
+	class Image : public Resource
+	{
+	public:
+		Image()
+		virtual ~Image() override;
+		
+		virtual HRESULT Load(const std::wstirng)
+	private:
+		HBITMAP mBitmap;
+		HDC		mHdc;
+		UINT	mWidth;
+		UINT	mHeight;
+	}
+
+
+---
+
+- 게임내에 동일한 몬스터는 같은 이미지를 사용한다.
+	리소스 로드를 최소화 해주기 위해서 주소값을 넘겨준다.
+	(강사님 Tstory 참고하기 https://eazuooz.tistory.com/92 )
+
+- 리소스 종류 : 위치데이터(프리팹, 블루프린트), 사운드, 스크립트(이미지)
+
+--- 
+
+[ 다이나믹 캐스트]
+- 부모 자식간의 형변환에 사용한다.
+- dynamic_cast<T>
+
+---
+
+[ HRESULT ]
+- 1이 아니면 false???
+
+---
+
+[ GDI+ ]
+
+#include <Gdiplus.h>
+#pragma comment(lib, "gdiplus") 
+
+"#pragma comment" : 라이브러리 파일을 사용하게 하는것?
+
+---
+
+[ HBITMAP ]
+
+---
+
+[ LoadImageW() ]
+- 해당 위치에 이미지가 존재하지 않으면 nullptr을 반환한다.
+
+---
+
+[ .c_str() ]
+- ?????
+
+---
+
+[절대경로 vs 상대경로]
+\\ : 위로한칸
+
+---
+
+[ TransparentBlt() ]
+
+---
+
+내 캐릭터 띄워보기
