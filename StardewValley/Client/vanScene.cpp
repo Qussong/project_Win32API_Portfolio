@@ -32,6 +32,10 @@ namespace van
 	{
 		for (Layer& layer : mLayers)
 			layer.Render(_hdc);
+
+		Text::PrintwString(_hdc, 10, 50, L"Title - z");
+		Text::PrintwString(_hdc, 10, 70, L"Stage - x");
+		Text::PrintwString(_hdc, 10, 90, L"Ending - c");
 	}
 
 	void Scene::AddGameObject(enums::eLayerType type, GameObject* gameObj)

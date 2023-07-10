@@ -61,12 +61,16 @@ namespace van
 	void Ghost::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
+		HGDIOBJ origin =
+			SelectObject(_hdc, GetStockObject(DC_PEN));		// 펜 기본 색상 저장
 
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
 
+		SetDCPenColor(_hdc, RGB(0, 255 , 0));				// Green
 		Rectangle(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
+		SetDCPenColor(_hdc, RGB(0, 0, 255));				// Blue
 		Ellipse(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
-
+		SelectObject(_hdc, origin);							// 펜 색상 원복
 	}
 }
