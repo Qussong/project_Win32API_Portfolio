@@ -1,39 +1,44 @@
 #include "vanEndingScene.h"
-#include "vanGhost.h"
 #include "vanObject.h"
 #include "vanSpriteRenderer.h"
-van::EndingScene::EndingScene()
+#include "vanPlayer.h"
+#include "vanResourceManager.h"
+
+namespace van
 {
-	// nothing
+	EndingScene::EndingScene()
+	{
+		// nothing
+	}
 
-}
+	EndingScene::~EndingScene()
+	{
+		// nothing
+	}
 
-van::EndingScene::~EndingScene()
-{
-	// nothing
+	void EndingScene::Init()
+	{
+		/*Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->AddComponent<SpriteRenderer>();*/
+		// 1) Player 객체
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
+		Image* image = ResourceManager::Load<Image>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");
+		sr->SetImage(image);
+	}
 
-}
+	void EndingScene::Update()
+	{
+		Scene::Update();
+	}
 
-void van::EndingScene::Init()
-{
-	// EndingScene에 넣어줄 객체 생성 + 해당 객체의 Component 생성 & 추가 (Transform 제외)
+	void EndingScene::Render(HDC _hdc)
+	{
+		Scene::Render(_hdc);
 
-	// Ghost 객체 추가
-	Ghost* ghost = Object::Instantiate<Ghost>(enums::eLayerType::Monster);
-	ghost->AddComponent<SpriteRenderer>();
-}
-
-void van::EndingScene::Update()
-{
-	Scene::Update();
-}
-
-void van::EndingScene::Render(HDC _hdc)
-{
-	Scene::Render(_hdc);
-
-	// Scene 구분
-	const wchar_t* str = L"[ EndingScene ]";
-	int len = (int)wcslen(str);
-	Text::PrintwString(_hdc, 10, 30, str);
+		// Scene 구분
+		const wchar_t* str = L"[ EndingScene ]";
+		int len = (int)wcslen(str);
+		Text::PrintwString(_hdc, 10, 30, str);
+	}
 }

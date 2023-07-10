@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-#include "vanScene.h"
+//#include "vanScene.h"
 
 namespace van
 {
@@ -15,6 +15,10 @@ namespace van
 		void Proc();				// 전체적인 작업 (Update, Render)
 		void Update();				// 키 입력을 받아 데이터 수정
 		void Render();				// 화면에 그려준다
+
+		__forceinline HWND GetHwnd() { return mHwnd; }
+		__forceinline HDC GetHdc() { return mHdc; }
+
 
 	private:
 		HWND mHwnd;

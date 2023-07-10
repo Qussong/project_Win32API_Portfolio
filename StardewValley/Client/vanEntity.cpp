@@ -10,15 +10,4 @@ namespace van
 	Entity::~Entity()
 	{
 	}
-
-	void Entity::SetName(const std::wstring& name)
-	{
-		mName = name;
-	}
-
-	std::wstring& Entity::GetName()
-	{
-		return mName;
-	}
-
 }

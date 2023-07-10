@@ -135,6 +135,10 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="vanHomeScene.h" />
+    <ClInclude Include="vanImage.h" />
+    <ClInclude Include="vanResource.h" />
+    <ClInclude Include="vanResourceManager.h" />
     <ClInclude Include="vanText.h" />
     <ClInclude Include="vanApplication.h" />
     <ClInclude Include="vanComponent.h" />
@@ -158,6 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="vanHomeScene.cpp" />
+    <ClCompile Include="vanImage.cpp" />
+    <ClCompile Include="vanResource.cpp" />
+    <ClCompile Include="vanResourceManager.cpp" />
     <ClCompile Include="vanText.cpp" />
     <ClCompile Include="vanApplication.cpp" />
     <ClCompile Include="vanComponent.cpp" />
