@@ -27,7 +27,8 @@ namespace van
 		if (mBitmap == nullptr)
 		{
 			//return S_FALSE;	// == 1L
-			return -1;
+			//return -1;
+			return E_FAIL;
 		}
 
 		BITMAP info = {};

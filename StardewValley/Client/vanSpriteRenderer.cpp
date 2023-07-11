@@ -32,7 +32,7 @@ namespace van
 
 		TransparentBlt(_hdc
 			, (int)pos.x, (int)pos.y
-			, mImage->GetWidth(), mImage->GetHeight()
+			, mImage->GetWidth() * 3, mImage->GetHeight() * 3
 			, mImage->GetHdc()
 			, 0, 0, mImage->GetWidth(), mImage->GetHeight()
 			, RGB(255, 0, 255));

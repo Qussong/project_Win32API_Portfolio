@@ -1,0 +1,48 @@
+
+[ 오늘의 작업 ]
+
+- BackGround 필터 생성 vanBackGround 클래스 생성
+	class BackGround
+	{
+		
+	}
+
+- SpriteRenderer 클래스에 "Vector2 scale" 멤버 생성
+
+-	vanMath.h 에 "static Vector2 Zero" 멤버추가
+	vanMath.cpp 에 "Vector2 Vector2::Zero = Vector2(0.0f, 0.0f);"
+-	vanMath.h 에 "static Vector2 One" 멤버추가
+	vanMath.cpp 에 "Vector2 Vector2::One = Vector2(1.0f, 1.0f);"
+-	vanMath.h 에 "static Vector2 Right" 멤버추가
+	vanMath.cpp 에 "Vector2 Vector2::Right = Vector2(1.0f, 0.0f);"
+-	vanMath.h 에 "static Vector2 Up" 멤버추가
+	vanMath.cpp 에 "Vector2 Vector2::Up = Vector2(0.0f, -1,0f);"
+	
+-	vanImagae에서 
+
+- 	main에 GDI 함수 넣어주기
+
+-	framework.h에 헤더파일 넣어주기
+
+-	Image -> Textur 클래스 이름 변경
+	mImage 멤버 생성 // png 
+
+
+
+---
+
+[::]
+- 내가 만든 함수가 아니라는걸 표시하는 법
+- 라이브러리 사용을 뜻함
+
+---
+
+[ 이미지 확장자 ]
+1. RGB
+	확장자 : *.bmp
+
+2. RGBA
+	A(alpha) : 투명도를 나타낸다.
+	확장자 : *.png
+	
+---

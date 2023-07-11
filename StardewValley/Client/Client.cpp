@@ -95,7 +95,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);               // 커서모양
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1/*BLACK_PEN*/);        // 백그라운드 색
-    wcex.lpszMenuName   = /*MAKEINTRESOURCEW(IDC_CLIENT)*/0;
+    wcex.lpszMenuName   = /*MAKEINTRESOURCEW(IDC_CLIENT)*/nullptr;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
