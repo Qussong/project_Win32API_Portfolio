@@ -37,7 +37,8 @@ namespace van
 
 	void GameObject::Render(HDC _hdc)
 	{
-		// 해당 객체를 화면에 출력해준다.
+		// GameObject가 가지고 있는 Component 클래스를 상속하고 있는 클래스들의 Render()호출
+		// 클래스 종류 : Transform, SpriteRenderer
 		for (Component* comp : mComponents)
 			comp->Render(_hdc);
 	}

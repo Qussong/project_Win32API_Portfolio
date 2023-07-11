@@ -23,25 +23,24 @@ namespace van
 		// Transform 은 GameObject의 기본생성자가 호출될 때 자동으로 생성된다.
 
 		// 1) Player 객체
-		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		Image* image = ResourceManager::Load<Image>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);	// Player 생성
+		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();				// Player 객체에 SpriteRenderer 속성 생성
+		//Image* image = ResourceManager::Load<Image>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");		
+		Image* image = ResourceManager::Load<Image>(L"Skul", L"..\\MyResources\\skul\\skul\\Idle_3_24.bmp");
 		sr->SetImage(image);
-
-		std::wstring name = player->GetName();
 	}
 
 	void TitleScene::Update()
 	{
-		Scene::Update();	// 부모의 Update 함수 호출
+		Scene::Update();						// 부모의 Update 함수 호출
 	}
 
 	void TitleScene::Render(HDC _hdc)
 	{
-		Scene::Render(_hdc);								// 부모의 Render 함수 호출
+		Scene::Render(_hdc);					// 부모의 Render 함수 호출
 
 		// Scene 구분
 		const wchar_t* str = L"[ TitleScene ]";
-		Text::PrintwString(_hdc, 10, 30, str);				// 아래 두면 가려지지 않는다.
+		Text::PrintwString(_hdc, 10, 30, str);	// 아래 두면 가려지지 않는다.
 	}
 }

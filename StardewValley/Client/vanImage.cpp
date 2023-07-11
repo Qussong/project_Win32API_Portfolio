@@ -25,7 +25,10 @@ namespace van
 			, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 		if (mBitmap == nullptr)
-			return S_FALSE;
+		{
+			//return S_FALSE;	// == 1L
+			return -1;
+		}
 
 		BITMAP info = {};
 		GetObject(mBitmap, sizeof(BITMAP), &info);
@@ -39,6 +42,6 @@ namespace van
 		HBITMAP deafultBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
 		DeleteObject(deafultBitmap);
 
-		return S_OK;
+		return S_OK;		// == 0L
 	}
 }

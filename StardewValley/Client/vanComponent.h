@@ -18,8 +18,8 @@ namespace van
 		__inline class GameObject* GetOwner() { return mOwner; }				// Getter
 
 	private:
-		const enums::eComponentType mType;	// 생성자에서 받아준 인자값이 mType에 저장된다.
-											// 컴포넌트 종류 : Transform, SpriteRenderer, End
-		class GameObject* mOwner;			// 해당 컴포넌트 값들을 가지고 있는 GameObject가 누군지 저장
+		const enums::eComponentType mType;	// 생성자에서 받아준 type이 mType에 저장된다.
+											// 컴포넌트 종류 : Transform, SpriteRenderer, End, ...
+		class GameObject* mOwner;			// 해당 컴포넌트 값들을 가지고 있는 GameObject 저장
 	};
 }

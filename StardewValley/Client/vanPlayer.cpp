@@ -26,38 +26,37 @@ namespace van
 		// Player 객체의 위치 수정
 		
 		// 1. Player 객체의 Tranfer Component로 현재 위치값 얻어온다.
-		Transform* tr = GetComponent<Transform>();	// 값을 직접적으로 수정할 수 있어야 하기에 주소값으로 가져온다.
-													// 참고로 Tranfer 객체는 GameObject가 생성될 때 생성된다.(GameObject 생성자 확인)
+		Transform* tr = GetComponent<Transform>();	
 		math::Vector2 pos = tr->GetPosition();
 
 		// 2. 키 입력을 받아 위치값 수정
 		if (Input::GetKey(eKeyCode::W))	// top
 		{
-			if (pos.y > 0)
+			//if (pos.y > 0)
 				pos.y -= SPEED * Time::DeltaTime();
-			else
-				__noop;
+			//else
+			//	__noop;
 		}
 		if (Input::GetKey(eKeyCode::S))	// down
 		{
-			if (pos.y < Window_Y - DIAMETER)
+			//if (pos.y < Window_Y - DIAMETER)
 				pos.y += SPEED * Time::DeltaTime();
-			else
-				__noop;
+			//else
+			//	__noop;
 		}
 		if (Input::GetKey(eKeyCode::A))	// left
 		{
-			if (pos.x > 0)
+			//if (pos.x > 0)
 				pos.x -= SPEED * Time::DeltaTime();
-			else
-				__noop;
+			//else
+			//	__noop;
 		}
 		if (Input::GetKey(eKeyCode::D))	// right
 		{
-			if (pos.x < Window_X - DIAMETER)
+			//if (pos.x < Window_X - DIAMETER)
 				pos.x += SPEED * Time::DeltaTime();
-			else
-				__noop;
+			//else
+			//	__noop;
 		}
 
 		// 3. 수정된 위치값을 Transfer Component에 넣어준다.
