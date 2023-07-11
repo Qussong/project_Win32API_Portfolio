@@ -6,21 +6,20 @@
 #include <set>
 #include <functional>	// 함수 포인터
 #include <string>
+#pragma comment(lib, "Msimg32.lib")
 
-// 직접만든 라이브러리
+// 제공되는 헤더
 #include "framework.h"
 
+// 직접만든 헤더
 #include "vanMath.h"
 #include "vanTime.h"
 #include "vanInput.h"
 #include "vanText.h"
 
-#pragma comment(lib, "Msimg32.lib")
-
 // 매크로 변수
-#define SPEED		600.0f
+#define SPEED		300.0f
 #define DIAMETER	200
-
 #define HD_X		1280
 #define HD_Y		720
 #define FHD_X		1920
@@ -33,25 +32,25 @@ namespace van::enums
 {
 	enum class eLayerType
 	{
-		Background,		// 0
+		BackGround,
 		Player,
 		Monster,
 		Effect,
 		UI,
-		End,			// 5
+		End,
+	};
+
+	enum class eGameObjectType
+	{
+		BackGround,
+		Player,
+		None,
 	};
 
 	enum class eComponentType
 	{
-		Transform,		// 0
+		Transform,
 		SpriteRenderer,
-		End,			// 2
+		End,
 	};
-
-	//enum class eSceneType
-	//{
-	//	TitleScene,		// 0 
-	//	StageScene,		// 1
-	//	EndingScene,	// 2
-	//};
 }

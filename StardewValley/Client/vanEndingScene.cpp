@@ -18,13 +18,11 @@ namespace van
 
 	void EndingScene::Init()
 	{
-		/*Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->AddComponent<SpriteRenderer>();*/
 		// 1) Player °´Ã¼
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		Image* image = ResourceManager::Load<Image>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");
-		sr->SetImage(image);
+		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");
+		sr->SetTexture(texture);
 	}
 
 	void EndingScene::Update()

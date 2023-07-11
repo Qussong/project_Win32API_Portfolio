@@ -5,6 +5,7 @@
 namespace van
 {
 	GameObject::GameObject()
+		: mType(enums::eGameObjectType::None)
 	{
 		/*
 		// Transform 객체에 해당 Transform을 소유하고 있는 GameObject 객체를 알려준다.

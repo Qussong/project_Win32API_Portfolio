@@ -10,9 +10,6 @@ namespace van
 		static void Update();
 		static void Render(HDC _hdc);
 
-		static Scene* LoadScene(const std::wstring& name);
-		static Scene* GetActiveScene();
-
 		template <typename T>
 		static __inline T* CreateScene(const std::wstring& name)
 		{
@@ -24,6 +21,9 @@ namespace van
 
 			return scene;
 		}
+
+		static Scene* LoadScene(const std::wstring& name);
+		__forceinline static Scene* GetActiveScene() { return mActiveScene; }
 
 	private:
 		/*

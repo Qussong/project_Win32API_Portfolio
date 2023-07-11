@@ -12,6 +12,9 @@ WCHAR szTitle[MAX_LOADSTRING];              // 제목 표시줄 텍스트입니�
 WCHAR szWindowClass[MAX_LOADSTRING];        // 기본 창 클래스 이름입니다.
 
 van::Application application;               // 실질적인 게임 객체
+ULONG_PTR gdiplusToken;
+Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -108,9 +111,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // 인도우 창 생성
    HWND hWnd = CreateWindowW(szWindowClass/*L"CLIENT"*/, szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
-      0/*CW_USEDEFAULT*/, 0, Window_X/*CW_USEDEFAULT*/, Window_Y, nullptr, nullptr, hInstance, nullptr);
+      0, 0, Window_X, Window_Y, nullptr, nullptr, hInstance, nullptr);
 
-   application.Init(hWnd);  // van::Application 객체 초기화
+   Gdiplus::GdiplusStartup(&gdiplusToken, 
+                &gdiplusStartupInput, NULL); // Gdiplus 초기화
+   application.Init(hWnd);                   // van::Application 객체 초기화
 
    if (!hWnd)
       return FALSE;

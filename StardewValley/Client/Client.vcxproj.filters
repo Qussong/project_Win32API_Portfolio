@@ -82,7 +82,13 @@
     <Filter Include="Engine\ResourceManager">
       <UniqueIdentifier>{682e9c55-5a0d-4464-83d1-c399eaaab79b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Resource\Image">
+    <Filter Include="Engine\BackGround">
+      <UniqueIdentifier>{dea90588-292f-4fa4-ac3e-e3a3d7107f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common\Math">
+      <UniqueIdentifier>{39ba33fc-4282-4caf-a93d-c4769c2648ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Texture">
       <UniqueIdentifier>{14819614-8512-4795-8d5f-39f8bc12f3e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -100,9 +106,6 @@
       <Filter>Windows\Header</Filter>
     </ClInclude>
     <ClInclude Include="CommonInclude.h">
-      <Filter>Engine\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="vanMath.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
     <ClInclude Include="vanApplication.h">
@@ -171,8 +174,14 @@
     <ClInclude Include="vanResourceManager.h">
       <Filter>Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="vanImage.h">
-      <Filter>Engine\Resource\Image</Filter>
+    <ClInclude Include="vanTexture.h">
+      <Filter>Engine\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="vanBackGround.h">
+      <Filter>Engine\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="vanMath.h">
+      <Filter>Engine\Common\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,8 +262,14 @@
     <ClCompile Include="vanResourceManager.cpp">
       <Filter>Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="vanImage.cpp">
-      <Filter>Engine\Resource\Image</Filter>
+    <ClCompile Include="vanTexture.cpp">
+      <Filter>Engine\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="vanBackGround.cpp">
+      <Filter>Engine\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMath.cpp">
+      <Filter>Engine\Common\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

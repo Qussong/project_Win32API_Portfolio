@@ -47,11 +47,15 @@ namespace van
 			*/
 			comp->SetOwner(this);	
 			mComponents.push_back(comp);
-
+			
 			return comp;
 		}
 
+		__forceinline void SetMyType(enums::eGameObjectType _mType) { mType = _mType; }
+		__forceinline enums::eGameObjectType GetMyType() { return mType; }
+
 	private:
+		enums::eGameObjectType mType;
 		std::vector<Component*> mComponents;	// Componenet 객체들의 값을 수정해야하기에 주소를 저장한다.
 	};
 }

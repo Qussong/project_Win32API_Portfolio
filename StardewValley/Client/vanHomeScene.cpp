@@ -21,9 +21,8 @@ namespace van
 		// 1) Player °´Ã¼
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		/*Image* image = ResourceManager::Load<Image>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");*/
-		Image* image = ResourceManager::Load<Image>(L"Cat", L"..\\MyResources\\skul\\cat\\Walk_1_24.bmp");
-		sr->SetImage(image);
+		Texture* texture = ResourceManager::Load<Texture>(L"Cat", L"..\\MyResources\\skul\\cat\\Walk_1_24.bmp");
+		sr->SetTexture(texture);
 	}
 
 	void HomeScene::Update()
