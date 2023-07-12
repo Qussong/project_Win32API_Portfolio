@@ -28,7 +28,7 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		bg->SetMyType(enums::eGameObjectType::BackGround);
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
-		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundTexture", L"..\\MyResources\\DarkMirror_Title_Art_BMP.bmp");
+		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundTexture", L"..\\MyResources\\DarkMirror_Title_Art_BMP.bmp");	// _BMP.bmp
 		bgsr->SetTexture(texture);
 		bgsr->SetScale(math::Vector2(1.0f,1.0f));
 

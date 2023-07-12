@@ -7,6 +7,7 @@ namespace van
 	SpriteRenderer::SpriteRenderer()
 		: Component(enums::eComponentType::Transform)
 		, mScale(math::Vector2::One)
+		, mTexture(nullptr)
 	{
 		// nothing
 	}

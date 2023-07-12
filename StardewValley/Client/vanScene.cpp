@@ -32,7 +32,7 @@ namespace van
 	{
 		for (Layer& layer : mLayers)
 			layer.Render(_hdc);
-
+		Time::Render(_hdc);
 		Text::PrintwString(_hdc, 10, 50, L"Title - z");
 		Text::PrintwString(_hdc, 10, 70, L"Home - x");
 		Text::PrintwString(_hdc, 10, 90, L"Ending - c");

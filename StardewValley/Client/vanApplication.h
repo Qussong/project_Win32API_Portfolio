@@ -19,7 +19,6 @@ namespace van
 		__forceinline HWND GetHwnd() { return mHwnd; }
 		__forceinline HDC GetHdc() { return mHdc; }
 
-
 	private:
 		HWND mHwnd;
 		HDC mHdc;

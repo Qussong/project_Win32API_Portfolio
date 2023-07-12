@@ -73,7 +73,7 @@ namespace van
 			테두리 선이 보이기 때문에 안 보이게 하려고
 		*/
 		Rectangle(mBackHdc, -1, -1, Window_X + 1, Window_Y + 1);		// 사각형을 2번 비트맵에 그린다.
-		Time::Render(mBackHdc);									// 
+		//Time::Render(mBackHdc);									// 
 		SceneManager::Render(mBackHdc);
 
 		// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.

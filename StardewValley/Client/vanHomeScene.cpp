@@ -21,7 +21,7 @@ namespace van
 		// 1) Player °´Ã¼
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		Texture* texture = ResourceManager::Load<Texture>(L"Cat", L"..\\MyResources\\skul\\cat\\Walk_1_24.bmp");
+		Texture* texture = ResourceManager::Load<Texture>(L"Cat", L"..\\MyResources\\skul\\cat_1\\Walk_1_24.bmp");
 		sr->SetTexture(texture);
 	}
 
