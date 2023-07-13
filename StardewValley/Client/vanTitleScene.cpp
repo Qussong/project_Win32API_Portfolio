@@ -28,10 +28,10 @@ namespace van
 		// 1) 배경화면 객체
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		bg->SetMyType(enums::eGameObjectType::BackGround);
-		//bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / (-2), Window_Y / (-2)));
+		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / (-2), Window_Y / (-2)));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
 		bgsr->SetAffectCamera(false);
-		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundTexture", L"..\\MyResources\\DarkMirror_Title_Art_BMP_24.bmp");	// _BMP.bmp
+		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundTexture", L"..\\MyResources\\DarkMirror_Title_Art_BMP_24.bmp");	// _BMP_24.bmp
 		bgsr->SetTexture(texture);
 		//bgsr->SetScale(math::Vector2(1.0f,1.0f));
 		//bgsr->SetAlpha(0.2);

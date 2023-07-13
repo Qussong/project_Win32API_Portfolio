@@ -75,8 +75,13 @@ namespace van
 			테두리 선이 보이기 때문에 안 보이게 하려고
 		*/
 
+		HBRUSH newBrush = CreateSolidBrush(RGB(125, 125, 125));		// 새로운 Brush 생성
+		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, newBrush);	// 새로운 Brush를 DC에 넣어주고 기존 Brush는 oldBrush에 받아준다.
 		// 사각형을 2번 비트맵에 그린다.
 		Rectangle(mBackHdc, -1, -1, mWidth + 1, mHeight + 1);
+		SelectObject(mBackHdc, oldBrush);							// 새로운 Brush로 원하는 작업을 했기에 되돌린다.
+		DeleteObject(newBrush);										// 새로 만들었던 Brush는 메모리 해제
+
 		SceneManager::Render(mBackHdc);
 
 		// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.

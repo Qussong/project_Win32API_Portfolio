@@ -26,6 +26,6 @@ namespace van
 			mLookPosition = tr->GetPosition();					// 카메라가 쳐다보는위치로 설정
 		}
 
-		mDistance = mLookPosition - (mResolution / 2.0f);		// 카메라가 보는 위치 수정
+		mDistance = mLookPosition - (mResolution / 2.0f);		// 카메라에 이해 객체들이 영향을 받아 이동하는 거리
 	}
 }

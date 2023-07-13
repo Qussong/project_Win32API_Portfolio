@@ -26,7 +26,7 @@ namespace van
 		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();				// Player 객체에 SpriteRenderer 속성 생성
 		Texture* texture = ResourceManager::Load<Texture>(L"Skul", L"..\\MyResources\\skul\\skul\\Idle_3_24.bmp");
 		sr->SetTexture(texture);
-		sr->SetScale(math::Vector2(1.0f, 1.0f));
+		sr->SetScale(math::Vector2(4.0f, 4.0f));
 		Camera::SetTarget(player);	// 카메라가 바라볼 타겟 설정
 
 		// 2) Monster 객체

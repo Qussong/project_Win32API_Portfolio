@@ -54,7 +54,6 @@ namespace van
 				{
 					BLENDFUNCTION func = {};
 					int alpha = (int)(mAlpha * 255.0f);	// 0.0f ~ 1.0f -> 0 ~ 255
-
 					func.BlendOp = AC_SRC_OVER;
 					func.BlendFlags = 0;
 					func.AlphaFormat = AC_SRC_ALPHA;
@@ -64,10 +63,10 @@ namespace van
 
 					AlphaBlend(_hdc
 						// Å¸°Ù
-						, (int)pos.x /*- (mTexture->GetWidth() * mScale.x / 2.0f)*/
-						, (int)pos.y /*- (mTexture->GetHeight() * mScale.y / 2.0f)*/
-						, mTexture->GetWidth() * mScale.x
-						, mTexture->GetHeight() * mScale.y
+						, (int)pos.x + (application.GetWidth() * mScale.x) / 2
+						, (int)pos.y + (application.GetHeight() * mScale.y) / 2
+						, application.GetWidth() * mScale.x
+						, application.GetHeight() * mScale.y
 						// ¿øº»
 						, mTexture->GetHdc()
 						, 0, 0
@@ -81,8 +80,8 @@ namespace van
 					TransparentBlt(
 						// Å¸°Ù
 						_hdc
-						, (int)pos.x 
-						, (int)pos.y
+						, (int)pos.x + (application.GetWidth() * mScale.x) / 2
+						, (int)pos.y + (application.GetHeight() * mScale.y) / 2
 						, application.GetWidth() * mScale.x
 						, application.GetHeight() * mScale.y
 						// ¿øº»
@@ -147,17 +146,23 @@ namespace van
 		else if (mTexture->GetType() == eTextureType::Png)	
 		{
 			Gdiplus::Graphics graphics(_hdc);
+			// ¹è°æ°´Ã¼¸é
 			if (GetOwner()->GetMyType() == enums::eGameObjectType::BackGround)
 			{
 				graphics.DrawImage(
 					mTexture->GetImage()
-					, (int)pos.x
+					/*, (int)pos.x
 					, (int)pos.y
 					, HD_X
-					, HD_Y);
+					, HD_Y*/
+					, (int)pos.x + (application.GetWidth() * mScale.x) / 2
+					, (int)pos.y + (application.GetHeight() * mScale.y) / 2
+					, application.GetWidth()* mScale.x
+					, application.GetHeight()* mScale.y);
 			}
 			else
 			{
+				// ¹è°æ°´Ã¼°¡ ¾Æ´Ï¸é
 				graphics.DrawImage(
 					mTexture->GetImage()
 					, (int)pos.x
