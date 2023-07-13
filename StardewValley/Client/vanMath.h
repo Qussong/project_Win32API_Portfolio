@@ -18,6 +18,7 @@ namespace van::math
 		static Vector2 Right;
 		static Vector2 Up;
 
+	public:
 		Vector2()
 			: x(0.0f)
 			, y(0.0f)
@@ -29,7 +30,24 @@ namespace van::math
 			, y(_y)
 		{
 		}
+		
+		Vector2 operator-(const Vector2 _other)
+		{
+			Vector2 temp;
+			temp.x = x - _other.x;
+			temp.y = y - _other.y;
+			return temp;
+		}
 
+		Vector2 operator/(const float _value)
+		{
+			Vector2 temp;
+			temp.x = x / _value;
+			temp.y = y / _value;
+			return temp;
+		}
+
+	public:
 		float x;
 		float y;
 	};

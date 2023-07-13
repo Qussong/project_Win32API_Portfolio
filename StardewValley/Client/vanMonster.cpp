@@ -20,7 +20,7 @@ void van::Monster::Init()
 void van::Monster::Update()
 {
 	GameObject::Update();
-
+	/*
 	Transform* tr = GetComponent<Transform>();
 	math::Vector2 pos = tr->GetPosition();
 
@@ -54,12 +54,13 @@ void van::Monster::Update()
 	}
 
 	tr->SetPosition(pos);
+	*/
 }
 
 void van::Monster::Render(HDC _hdc)
 {
 	GameObject::Render(_hdc);
-
+	/*
 	HGDIOBJ origin = 
 		SelectObject(_hdc, GetStockObject(DC_PEN));		// 펜 기본 색상 저장
 	Transform* tr = GetComponent<Transform>();
@@ -68,4 +69,5 @@ void van::Monster::Render(HDC _hdc)
 	SetDCPenColor(_hdc, RGB(255, 0, 255));				// 핑크색
 	Rectangle(_hdc, pos.x, pos.y, pos.x + DIAMETER, pos.y + DIAMETER);
 	SelectObject(_hdc, origin);							// 펜색상 원복
+	*/
 }

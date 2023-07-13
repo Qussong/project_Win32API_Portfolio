@@ -138,6 +138,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="vanBackGround.h" />
+    <ClInclude Include="vanCamera.h" />
     <ClInclude Include="vanHomeScene.h" />
     <ClInclude Include="vanTexture.h" />
     <ClInclude Include="vanResource.h" />
@@ -148,7 +149,6 @@
     <ClInclude Include="vanEndingScene.h" />
     <ClInclude Include="vanEntity.h" />
     <ClInclude Include="vanGameObject.h" />
-    <ClInclude Include="vanGhost.h" />
     <ClInclude Include="vanInput.h" />
     <ClInclude Include="vanLayer.h" />
     <ClInclude Include="vanMath.h" />
@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="vanBackGround.cpp" />
+    <ClCompile Include="vanCamera.cpp" />
     <ClCompile Include="vanHomeScene.cpp" />
     <ClCompile Include="vanTexture.cpp" />
     <ClCompile Include="vanMath.cpp" />
@@ -177,7 +178,6 @@
     <ClCompile Include="vanEndingScene.cpp" />
     <ClCompile Include="vanEntity.cpp" />
     <ClCompile Include="vanGameObject.cpp" />
-    <ClCompile Include="vanGhost.cpp" />
     <ClCompile Include="vanInput.cpp" />
     <ClCompile Include="vanLayer.cpp" />
     <ClCompile Include="vanMonster.cpp" />

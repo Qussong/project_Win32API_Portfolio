@@ -1,6 +1,5 @@
 #pragma once
 #include "CommonInclude.h"
-//#include "vanScene.h"
 
 namespace van
 {
@@ -18,18 +17,16 @@ namespace van
 
 		__forceinline HWND GetHwnd() { return mHwnd; }
 		__forceinline HDC GetHdc() { return mHdc; }
+		__forceinline UINT GetWidth() { return mWidth; }
+		__forceinline UINT GetHeight() { return mHeight; }
 
 	private:
 		HWND mHwnd;
 		HDC mHdc;
-		//UINT mWidth;
-		//UINT mHeight;
+		UINT mWidth;
+		UINT mHeight;
 
 		HDC mBackHdc;
 		HBITMAP mBackBuffer;
-
-		//math::Vector2 playerPos;	// vanMath.h
-		//Scene* mScene;
 	};
 }
-

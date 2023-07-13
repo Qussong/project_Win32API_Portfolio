@@ -3,6 +3,7 @@
 #include "vanHomeScene.h"
 #include "vanEndingScene.h"
 #include "CommonInclude.h"
+#include "vanCamera.h"
 
 namespace van
 {
@@ -22,11 +23,17 @@ namespace van
 	{
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::Z))
+		{
 			LoadScene(L"TitleScene");
+		}
 		if (Input::GetKey(eKeyCode::X))
+		{
 			LoadScene(L"HomeScene");
+		}
 		if (Input::GetKey(eKeyCode::C))
+		{
 			LoadScene(L"EndingScene");
+		}
 
 		mActiveScene->Update();
 	}

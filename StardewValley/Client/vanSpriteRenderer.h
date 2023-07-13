@@ -15,10 +15,15 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 
 		__forceinline void SetTexture(Texture* _texture) { mTexture = _texture; }
-		void SetScale(math::Vector2 _scale) { mScale = _scale; }
+		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
+		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
+		__forceinline float GetAlpha() { return mAlpha; }
+		__forceinline void SetAlpha(float _value) { mAlpha = _value; }
 
 	private:
 		Texture* mTexture;
 		math::Vector2 mScale;
+		bool mAffectCamera;		// 카메라 영향 여부
+		float mAlpha;			// 알파 값
 	};
 }
