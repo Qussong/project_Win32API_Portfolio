@@ -1,5 +1,6 @@
 #include "vanTexture.h"
 #include "vanApplication.h"
+#include "vanResourceManager.h"
 
 extern van::Application application;
 
@@ -29,6 +30,7 @@ namespace van
 	{
 		std::wstring ext = path.substr(path.find_last_of(L".") + 1);
 
+		// bmp ¿œ∂ß
 		if (ext == L"bmp")
 		{
 			mType = eTextureType::Bmp;
@@ -48,6 +50,9 @@ namespace van
 
 			BITMAP info = {};
 			GetObject(mBitmap, sizeof(BITMAP), &info);
+
+			if (info.bmBitsPixel == 32)					//
+				mType = eTextureType::AlphaBmp;			//
 
 			mWidth = info.bmWidth;
 			mHeight = info.bmHeight;
@@ -71,4 +76,30 @@ namespace van
 
 		return S_OK;		// == 0L
 	}
+
+	Texture* Texture::Create(const std::wstring& _name, UINT _width, UINT _height)
+	{
+		Texture* image = ResourceManager::Find<Texture>(_name);
+		if (image != nullptr)
+			return image;
+
+		image = new Texture();
+		image->SetWidth(_width);
+		image->SetHeight(_height);
+		HDC hdc = application.GetHdc();
+		HBITMAP bitmap = CreateCompatibleBitmap(hdc, _width, _height);
+		image->SetHBitmap(bitmap);
+
+		HDC bitmapHdc = CreateCompatibleDC(hdc);
+		image->SetHdc(bitmapHdc);
+
+		HBITMAP defaultBitmap = (HBITMAP)SelectObject(bitmapHdc, bitmap);
+		DeleteObject(defaultBitmap);
+
+		image->SetName(_name);
+		ResourceManager::Insert<Texture>(_name, image);
+
+		return image;
+	}
+
 }

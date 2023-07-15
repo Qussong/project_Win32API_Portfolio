@@ -5,17 +5,7 @@
 namespace van
 {
 	GameObject::GameObject()
-		: mType(enums::eGameObjectType::None)
 	{
-		/*
-		// Transform 객체에 해당 Transform을 소유하고 있는 GameObject 객체를 알려준다.
-		mComponents.push_back(new Transform());
-		mComponents[0]->SetOwner(this);
-
-		// SpriteRenderer 객체에 해당 Transform을 소유하고 있는 GameObject 객체를 알려준다.
-		mComponents.push_back(new SpriteRenderer());
-		mComponents[1]->SetOwner(this);
-		*/
 		AddComponent<Transform>();	// GameObject 객체에 Transform 속성을 만들어 넣어준다.
 	}
 

@@ -20,6 +20,23 @@ namespace van
 	}
 	void Camera::Update()
 	{
+		if (Input::GetKey(eKeyCode::Up))
+		{
+			mLookPosition.y -= 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			mLookPosition.x -= 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Down))
+		{
+			mLookPosition.y += 300.0f * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			mLookPosition.x += 300.0f * Time::DeltaTime();
+		}
+
 		if (mTarget)	// Camera가 쳐다볼 Target이 존재할 때
 		{
 			Transform* tr = mTarget->GetComponent<Transform>();	// Target의 위치정보 가져온다

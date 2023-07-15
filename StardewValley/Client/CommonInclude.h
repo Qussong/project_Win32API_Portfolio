@@ -7,6 +7,7 @@
 #include <functional>	// 함수 포인터
 #include <string>
 #pragma comment(lib, "Msimg32.lib")
+#include <filesystem>
 
 // 제공되는 헤더
 #include "framework.h"
@@ -40,17 +41,12 @@ namespace van::enums
 		End,
 	};
 
-	enum class eGameObjectType
-	{
-		BackGround,
-		Player,
-		None,
-	};
-
 	enum class eComponentType
 	{
 		Transform,
 		SpriteRenderer,
+		Animation,
+		Animator,
 		End,
 	};
 }

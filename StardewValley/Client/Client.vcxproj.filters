@@ -94,6 +94,9 @@
     <Filter Include="Engine\Component\Animator">
       <UniqueIdentifier>{2dcceb9b-5ba6-4e87-864e-2ae73fb3cb2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Resource\Animation">
+      <UniqueIdentifier>{eb63946b-f230-4b99-a4fd-0c4451414f26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -189,6 +192,9 @@
     <ClInclude Include="vanAnimator.h">
       <Filter>Engine\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="vanAnimation.h">
+      <Filter>Engine\Resource\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -279,6 +285,9 @@
     </ClCompile>
     <ClCompile Include="vanAnimator.cpp">
       <Filter>Engine\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="vanAnimation.cpp">
+      <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

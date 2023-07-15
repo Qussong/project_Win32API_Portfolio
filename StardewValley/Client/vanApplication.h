@@ -23,8 +23,8 @@ namespace van
 	private:
 		HWND mHwnd;
 		HDC mHdc;
-		UINT mWidth;
-		UINT mHeight;
+		UINT mWidth;				// 클라이언트 영역 너비
+		UINT mHeight;				// 클라이언트 영역 높이
 
 		HDC mBackHdc;
 		HBITMAP mBackBuffer;
