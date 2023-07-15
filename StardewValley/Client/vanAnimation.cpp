@@ -61,6 +61,10 @@ namespace van
 		func.SourceConstantAlpha = alpha; // 0 ~ 255
 
 		AlphaBlend(_hdc
+			// 1) 
+			//, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f)
+			//, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f)
+			// 2)
 			, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f) + mSpriteSheet[mIndex].offset.x
 			, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f) + mSpriteSheet[mIndex].offset.y
 			, mSpriteSheet[mIndex].size.x

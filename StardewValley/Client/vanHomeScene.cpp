@@ -34,7 +34,16 @@ namespace van
 		sr->SetTexture(texture);
 		sr->SetScale(math::Vector2(1.0f, 1.0f));
 
-		// 2) Monster °´Ã¼
+		// 2) Monster_2
+		texture = ResourceManager::Load<Texture>(L"Monster_Cat"
+			, L"..\\MyResources\\skul\\cat_1\\Walk_1_24.bmp");
+		Monster* monster2 = Object::Instantiate<Monster>(enums::eLayerType::Monster);
+		monster2->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));
+		sr = monster2->AddComponent<SpriteRenderer>();
+		sr->SetTexture(texture);
+		sr->SetScale(math::Vector2(1.0f, 1.0f));
+
+		// 3) Monster °´Ã¼
 		texture = ResourceManager::Load<Texture>(L"FarmerGirl"
 			, L"..\\MyResources\\farmer-girl-base_2.bmp");
 		Monster* monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -45,28 +54,18 @@ namespace van
 			, texture
 			, math::Vector2(0.0f, 0.0f)
 			, math::Vector2(16.0f, 32.0f)
-			, math::Vector2(0.0f, 0.0f)
 			, 6
+			, math::Vector2(0.0f, 0.0f)
 			, 0.1f);
 		at->CreateAnimation(L"FarmerRight"
 			, texture
 			, math::Vector2(0.0f, 32.0f)
 			, math::Vector2(16.0f, 32.0f)
-			, math::Vector2(0.0f, 0.0f)
 			, 6
+			, math::Vector2(0.0f, 0.0f)
 			, 0.1f);
 		at->PlayAnimation(L"FarmerRight", true);
 		at->SetAffectedCamera(true);
-
-
-		// 3) Monster_2
-		texture = ResourceManager::Load<Texture>(L"Monster_Cat"
-			, L"..\\MyResources\\skul\\cat_1\\Walk_1_24.bmp");
-		Monster* monster2 = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-		monster2->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));
-		sr = monster2->AddComponent<SpriteRenderer>();
-		sr->SetTexture(texture);
-		sr->SetScale(math::Vector2(1.0f, 1.0f));
 
 		Camera::SetTarget(player);	// Ä«¸Þ¶ó Å¸°Ù ¼³Á¤
 	}

@@ -47,8 +47,8 @@ namespace van
 									, Texture* _texture
 									, math::Vector2 _leftTop
 									, math::Vector2 _size
-									, math::Vector2 _offset
 									, UINT _spriteLength
+									, math::Vector2 _offset
 									, float _duration)
 	{
 		Animation* animation = nullptr;
@@ -71,7 +71,7 @@ namespace van
 		ResourceManager::Insert<Animation>(_name, animation);
 	}
 
-	/*void Animator::CreateAnimationFolder(const std::wstring& _name
+	void Animator::CreateAnimationFolder(const std::wstring& _name
 										, const std::wstring& _path
 										, math::Vector2 _offset
 										, float _duration)
@@ -100,7 +100,31 @@ namespace van
 		}
 
 		Texture* spriteSheet = Texture::Create(_name, width * fileCout, height);
-	}*/
+
+		int idx = 0;
+		for (Texture* image : images)
+		{
+			BitBlt(
+				spriteSheet->GetHdc()
+				, width * idx
+				, 0
+				, image->GetWidth()
+				, image->GetHeight()
+				, image->GetHdc()
+				, 0, 0
+				, SRCCOPY);
+			idx++;
+		}
+
+		CreateAnimation(
+			_name
+			, spriteSheet
+			, math::Vector2(0.0f, 0.0f)
+			, math::Vector2(width, height)
+			, fileCout
+			, _offset
+			, _duration);
+	}
 
 	Animation* Animator::FindAnimation(const std::wstring& _name)
 	{
