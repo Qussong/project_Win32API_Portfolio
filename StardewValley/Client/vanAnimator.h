@@ -37,8 +37,8 @@ namespace van
 		__forceinline void SetAffectedCamera(bool _enable) { mbAffectedCamera = _enable; }	//
 		__forceinline float GetAlpha() { return mAlpha; }									//
 		__forceinline void SetAlpha(float _alpha) { mAlpha = _alpha; }						//
-
-		//__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
+		__forceinline math::Vector2 GetScale() { return mScale; }
+		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;		//
@@ -46,8 +46,7 @@ namespace van
 		bool mbLoop;										//
 		bool mbAffectedCamera;								//
 		float mAlpha;										//
-
-		//math::Vector2 mScale;
+		math::Vector2 mScale;
 	};
 }
 

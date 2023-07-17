@@ -18,14 +18,14 @@ namespace van
 
 		void AddGameObject(enums::eLayerType type, GameObject* gameObj);
 
-		__forceinline void SetTarget(GameObject* _target) { target = _target; }
-		__forceinline GameObject* GetTarget() { return target; }
+		//__forceinline void SetTarget(GameObject* _target) { target = _target; }
+		//__forceinline GameObject* GetTarget() { return target; }
 			
 	private:
 		std::vector<Layer> mLayers;
 		// Scene 클래스에선 Layer 객체의 정보를 가져와 보여주기만 할 것이기에 굳이 주소로 저장하지 않는다.
 
-		GameObject* target;	// 해당 Scene의 Target
+		//GameObject* target;	// 해당 Scene의 Target
 	};
 }
 

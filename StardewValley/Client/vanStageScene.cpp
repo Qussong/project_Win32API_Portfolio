@@ -152,7 +152,6 @@ void van::StageScene::Init()
 
 void van::StageScene::Update()
 {
-	Camera::SetTarget(GetTarget());	// 카메라 타겟 설정
 	Scene::Update();
 }
 

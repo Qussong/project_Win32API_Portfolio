@@ -11,7 +11,7 @@ namespace van
 		//, mbLoop()
 		//, mbAffectedCamera()
 		, mAlpha(1.0f)
-		//, mScale(math::Vector2::One)
+		, mScale(math::Vector2::One)
 	{
 		// nothing
 	}

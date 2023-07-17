@@ -47,6 +47,14 @@ namespace van::math
 			return temp;
 		}
 
+		Vector2 operator+(const Vector2 _other)
+		{
+			Vector2 temp;
+			temp.x = x + _other.x;
+			temp.y = y + _other.y;
+			return temp;
+		}
+
 	public:
 		float x;
 		float y;

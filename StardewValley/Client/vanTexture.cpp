@@ -1,6 +1,7 @@
 #include "vanTexture.h"
 #include "vanApplication.h"
 #include "vanResourceManager.h"
+#include "vanCamera.h"
 
 extern van::Application application;
 
@@ -13,6 +14,7 @@ namespace van
 		, mWidth(0)
 		, mHeight(0)
 		, mType(eTextureType::None)
+		, mbAffectCamera(true)
 	{
 		// nothing
 	}
@@ -34,8 +36,7 @@ namespace van
 		if (ext == L"bmp")
 		{
 			mType = eTextureType::Bmp;
-			mBitmap = 
-				(HBITMAP)::LoadImageW(
+			mBitmap = (HBITMAP)::LoadImageW(
 							nullptr
 							, path.c_str()
 							, IMAGE_BITMAP
@@ -43,16 +44,13 @@ namespace van
 							, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 			if (mBitmap == nullptr)
-			{
-				//return S_FALSE;	// == 1L
-				return E_FAIL;
-			}
+				return E_FAIL;	// 강사님 "S_FALSE" 사용
 
 			BITMAP info = {};
 			GetObject(mBitmap, sizeof(BITMAP), &info);
 
-			if (info.bmBitsPixel == 32)					//
-				mType = eTextureType::AlphaBmp;			//
+			if (info.bmBitsPixel == 32)
+				mType = eTextureType::AlphaBmp;
 
 			mWidth = info.bmWidth;
 			mHeight = info.bmHeight;
@@ -66,7 +64,7 @@ namespace van
 		else if (ext == L"png")
 		{
 			mType = eTextureType::Png;
-			mImage = Gdiplus::Image::FromFile(path.c_str());
+			mImage = Gdiplus::Image::FromFile(path.c_str());	// *.png 파일을 이용하여 Texture 객체를 생성
 
 			mWidth = mImage->GetWidth();
 			mHeight = mImage->GetHeight();
@@ -97,9 +95,101 @@ namespace van
 		DeleteObject(defaultBitmap);
 
 		image->SetName(_name);
+		image->SetType(eTextureType::AlphaBmp);
 		ResourceManager::Insert<Texture>(_name, image);
 
 		return image;
+	}
+
+	void Texture::Render(HDC _hdc
+		, math::Vector2 _pos
+		, math::Vector2 _size
+		, math::Vector2 _leftTop
+		, math::Vector2 _rightBottom
+		, math::Vector2 _offset
+		, math::Vector2 _scale
+		, float _alpha)
+	{
+		if (mBitmap == nullptr && mImage == nullptr)
+			return;
+
+		if (mbAffectCamera)
+			_pos = Camera::CalculatePosition(_pos);
+
+		if (mType == eTextureType::Bmp)
+		{
+			TransparentBlt(
+				// target
+				_hdc
+				, (int)_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x
+				, (int)_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y
+				, _size.x * _scale.x
+				, _size.y * _scale.y
+				// source
+				, mHdc
+				, _leftTop.x
+				, _leftTop.y
+				, _rightBottom.x
+				, _rightBottom.y
+				// option
+				, RGB(255, 0, 255));
+		}
+		else if (mType == eTextureType::AlphaBmp)
+		{
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = AC_SRC_ALPHA;
+			int alpha = 1.0f;
+			alpha = (int)(alpha * 255.0f);	// 0.0f ~ 1.0f -> 0 ~ 255
+
+			if (alpha <= 0)
+				alpha = 0;
+
+			func.SourceConstantAlpha = alpha;
+
+			AlphaBlend(
+				// target
+				_hdc
+				, (int)_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x
+				, (int)_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y
+				, _size.x * _scale.x
+				, _size.y * _scale.y
+				// source
+				, mHdc
+				, _leftTop.x
+				, _leftTop.y
+				, _rightBottom.x
+				, _rightBottom.y
+				// option
+				, func);
+		}
+		else if (mType == eTextureType::Png)
+		{
+			// 내가 원하는 픽셀을 투명화 시킬떄
+			Gdiplus::ImageAttributes imageAtt = {};
+			// 투명화 시킬 픽셀 색 범위
+			imageAtt.SetColorKey(
+				Gdiplus::Color(100, 100, 100)
+				, Gdiplus::Color(255, 255, 255));
+
+			Gdiplus::Graphics graphics(_hdc);
+			graphics.DrawImage(
+				mImage
+				, Gdiplus::Rect(
+					(int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
+					, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
+					, (int)(_size.x * _scale.x)
+					, (int)(_size.y * _scale.y))
+				, _leftTop.x
+				, _leftTop.y
+				, _rightBottom.x
+				, _rightBottom.y
+				, Gdiplus::UnitPixel
+				, nullptr);
+		}
+		else
+			__noop;
 	}
 
 }

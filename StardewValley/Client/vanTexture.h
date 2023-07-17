@@ -19,7 +19,20 @@ namespace van
 
 		virtual HRESULT Load(const std::wstring& path) override;
 
-		static Texture* Create(const std::wstring& _name, UINT _width, UINT _height);
+		static Texture* Create(
+			const std::wstring& _name
+			, UINT _width
+			, UINT _height);
+
+		void Render(
+			HDC _hdc
+			, math::Vector2 _pos
+			, math::Vector2 _size
+			, math::Vector2 _leftTop
+			, math::Vector2 _rightBottom
+			, math::Vector2 _offset = math::Vector2::Zero
+			, math::Vector2 _scale = math::Vector2::One
+			, float _alpha = 1.0f);
 
 		__forceinline UINT GetWidth() { return mWidth; }
 		__forceinline void SetWidth(UINT _width) { mWidth = _width; }
@@ -48,6 +61,7 @@ namespace van
 		HDC mHdc;
 		UINT mWidth;
 		UINT mHeight;
+		bool mbAffectCamera;
 	};
 }
 

@@ -32,33 +32,26 @@ namespace van
 		Animator* ani = GetComponent<Animator>();
 
 		// 2. 키 입력을 받아 위치값 수정
-		if (Input::GetKey(eKeyCode::W))	// top
-		{
-			ani->PlayAnimation(L"Skul_Idle_Weapon", true);
+		if (Input::GetKey(eKeyCode::W))			// top
 			pos.y -= SPEED * Time::DeltaTime();
-		}
-
-		if (Input::GetKey(eKeyCode::S))	// down
-		{
-			ani->PlayAnimation(L"Skul_Idle_Weapon", true);
+		if (Input::GetKey(eKeyCode::S))			// down
 			pos.y += SPEED * Time::DeltaTime();
-		}
-
-		if (Input::GetKey(eKeyCode::A))	// left
-		{
-			//if(Input::GetKeyDown(eKeyCode::A))
-				ani->PlayAnimation(L"Skul_Walk_Left", true);
+		if (Input::GetKey(eKeyCode::A))			// left
 			pos.x -= SPEED * Time::DeltaTime();
-		}
-
-		if (Input::GetKey(eKeyCode::D))	// right
-		{
-			//if (Input::GetKeyDown(eKeyCode::D))
-				ani->PlayAnimation(L"Skul_Walk_Right", true);
+		if (Input::GetKey(eKeyCode::D))			// right
 			pos.x += SPEED * Time::DeltaTime();
-		}
 
-		// 3. 수정된 위치값을 Transfer Component에 넣어준다.
+		// 3. 키 입력에 따른 애니메이션 변경
+		if (Input::GetKeyDown(eKeyCode::A))		// left_walk
+			ani->PlayAnimation(L"Skul_Walk_Left", true);
+		if (Input::GetKeyDown(eKeyCode::D))		// right_walk
+			ani->PlayAnimation(L"Skul_Walk_Right", true);
+		if (Input::GetKeyUp(eKeyCode::A))		// left_idle
+			ani->PlayAnimation(L"Skul_Idle_Weapon_Left", true);
+		if (Input::GetKeyUp(eKeyCode::D))		// right_idle
+			ani->PlayAnimation(L"Skul_Idle_Weapon_Right", true);
+
+		// 4. 수정된 위치값을 Transfer Component에 넣어준다.
 		tr->SetPosition(pos);
 	}
 

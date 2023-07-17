@@ -90,18 +90,18 @@ namespace van
 		tr = player->GetComponent<Transform>();
 		tr->SetPosition(math::Vector2(0, 0));
 		at = player->AddComponent<Animator>();
-		at->CreateAnimationFolder(L"Skul_Idle_Weapon", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L");
+		at->CreateAnimationFolder(L"Skul_Idle_Weapon_Left", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L");
+		at->CreateAnimationFolder(L"Skul_Idle_Weapon_Right", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_R");
 		at->CreateAnimationFolder(L"Skul_Walk_Left", L"..\\MyResources\\skul\\11_Skul\\Walk_L");
 		at->CreateAnimationFolder(L"Skul_Walk_Right", L"..\\MyResources\\skul\\11_Skul\\Walk_R");
-		at->PlayAnimation(L"Skul_Idle_Weapon", true);
+		at->PlayAnimation(L"Skul_Idle_Weapon_Left", true);
 		at->SetAffectedCamera(true);
 
-		SetTarget(player);	// 해당 Scene의 Target 설정
+		Camera::SetTarget(player);
 	}
 
 	void HomeScene::Update()
 	{
-		Camera::SetTarget(GetTarget());	// 카메라 타겟 설정
 		Scene::Update();
 	}
 
