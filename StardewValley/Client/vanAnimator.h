@@ -38,12 +38,16 @@ namespace van
 		__forceinline float GetAlpha() { return mAlpha; }									//
 		__forceinline void SetAlpha(float _alpha) { mAlpha = _alpha; }						//
 
+		//__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;		//
 		Animation* mActiveAnimation;						//
 		bool mbLoop;										//
 		bool mbAffectedCamera;								//
 		float mAlpha;										//
+
+		//math::Vector2 mScale;
 	};
 }
 

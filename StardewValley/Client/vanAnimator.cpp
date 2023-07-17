@@ -11,6 +11,7 @@ namespace van
 		//, mbLoop()
 		//, mbAffectedCamera()
 		, mAlpha(1.0f)
+		//, mScale(math::Vector2::One)
 	{
 		// nothing
 	}
@@ -80,8 +81,8 @@ namespace van
 		UINT height = 0;
 		UINT fileCout = 0;
 
-		std::filesystem::path fs(_path);
-		std::vector<Texture*> images = {};
+		std::filesystem::path fs(_path);	// 경로지정
+		std::vector<Texture*> images = {};	// Texture 객체들 저장하는 곳
 		for (auto& p : std::filesystem::recursive_directory_iterator(_path))
 		{
 			std::wstring fileName = p.path().filename();
@@ -101,17 +102,30 @@ namespace van
 
 		Texture* spriteSheet = Texture::Create(_name, width * fileCout, height);
 
+		eTextureType type = images[0]->GetType();
+		if (type == eTextureType::Bmp)
+			spriteSheet->SetType(eTextureType::Bmp);
+		else if (type == eTextureType::AlphaBmp)
+			spriteSheet->SetType(eTextureType::AlphaBmp);
+		else if (type == eTextureType::Png)
+			spriteSheet->SetType(eTextureType::Png);
+		else
+			__noop;
+
 		int idx = 0;
 		for (Texture* image : images)
 		{
 			BitBlt(
+				// 타겟
 				spriteSheet->GetHdc()
 				, width * idx
 				, 0
-				, image->GetWidth()
-				, image->GetHeight()
+				, image->GetWidth() /** mScale.x*/
+				, image->GetHeight() /** mScale.y*/
+				// 원본
 				, image->GetHdc()
 				, 0, 0
+				// 설정
 				, SRCCOPY);
 			idx++;
 		}

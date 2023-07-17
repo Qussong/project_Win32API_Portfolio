@@ -34,31 +34,26 @@ namespace van
 		// 2. 키 입력을 받아 위치값 수정
 		if (Input::GetKey(eKeyCode::W))	// top
 		{
-			//if (pos.y > 0)
-				pos.y -= SPEED * Time::DeltaTime();
-			//else
-			//	__noop;
+			ani->PlayAnimation(L"Skul_Idle_Weapon", true);
+			pos.y -= SPEED * Time::DeltaTime();
 		}
+
 		if (Input::GetKey(eKeyCode::S))	// down
 		{
-			//if (pos.y < Window_Y - DIAMETER)
-				pos.y += SPEED * Time::DeltaTime();
-			//else
-			//	__noop;
+			ani->PlayAnimation(L"Skul_Idle_Weapon", true);
+			pos.y += SPEED * Time::DeltaTime();
 		}
+
 		if (Input::GetKey(eKeyCode::A))	// left
 		{
-			//if (pos.x > 0)
-				pos.x -= SPEED * Time::DeltaTime();
-			//else
-			//	__noop;
+			ani->PlayAnimation(L"Skul_Walk_Left", true);
+			pos.x -= SPEED * Time::DeltaTime();
 		}
+
 		if (Input::GetKey(eKeyCode::D))	// right
 		{
-			//if (pos.x < Window_X - DIAMETER)
-				pos.x += SPEED * Time::DeltaTime();
-			//else
-			//	__noop;
+			ani->PlayAnimation(L"Skul_Walk_Right", true);
+			pos.x += SPEED * Time::DeltaTime();
 		}
 
 		// 3. 수정된 위치값을 Transfer Component에 넣어준다.

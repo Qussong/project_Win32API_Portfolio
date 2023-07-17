@@ -3,6 +3,7 @@
 namespace van
 {
 	Scene::Scene()
+		: target(nullptr)
 	{
 		mLayers.resize((int)enums::eLayerType::End);
 	}

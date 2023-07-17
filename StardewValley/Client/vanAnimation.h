@@ -43,6 +43,7 @@ namespace van
 		
 		__forceinline bool IsComplete() { return mbComplete; }
 		__forceinline void SetAnimator(Animator* _animator) { mAnimator = _animator; }
+		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 
 	private:
 		Animator* mAnimator;
@@ -51,6 +52,7 @@ namespace van
 		int mIndex;
 		float mTime;
 		bool mbComplete;
+		math::Vector2 mScale;
 	};
 }
 

@@ -2,7 +2,7 @@
 
 namespace van
 {
-	int hASCII[(int)eKeyCode::End] =					// hash ASCII, eKeyCode::End = 26
+	int hASCII[(int)eKeyCode::End] =					// hash ASCII
 	{
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
@@ -12,7 +12,9 @@ namespace van
 
 	void Input::Init()
 	{
-		for (int i = 0; i < (int)eKeyCode::End; ++i)	// eKeyCode::End = 26
+		for (int i = 0
+			; i < (int)eKeyCode::End
+			; ++i)
 		{
 			Key key = {};								// Question) 그냥 Key key; 로 냅두면 안되는가?? -> 구조체기에 {}으로 초기화한다.
 			key.code = (eKeyCode)i;						// i=0 는 eKeyCode 에서 'Q'
@@ -32,7 +34,9 @@ namespace van
 	*/
 	void Input::Update()
 	{
-		for (int i = 0; i < (int)eKeyCode::End; ++i)
+		for (int i = 0
+			; i < (int)eKeyCode::End
+			; ++i)
 		{
 			// 현재 프레임에 i 에 해당하는 키가 눌려졌는가?
 			if (GetAsyncKeyState(hASCII[i]) & 0x8000)

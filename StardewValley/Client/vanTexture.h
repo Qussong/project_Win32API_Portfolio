@@ -31,6 +31,7 @@ namespace van
 		__forceinline void SetHdc(HDC _hdc) { mHdc = _hdc; }
 
 		__forceinline eTextureType GetType() { return mType; }
+		__forceinline void SetType(eTextureType _type) { mType = _type; }
 
 		__forceinline Gdiplus::Image* GetImage() { return mImage; }
 

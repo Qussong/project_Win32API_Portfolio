@@ -52,7 +52,7 @@ namespace van
 			TransparentBlt(
 				// 타겟
 				_hdc
-				, (int)pos.x - (mTexture->GetWidth() * mScale.x / 2.0f)	// 이미지의 중심이 입력된 x좌표에 위치
+				, (int)pos.x - (mTexture->GetWidth() * mScale.x / 2.0f)		// 이미지의 중심이 입력된 x좌표에 위치
 				, (int)pos.y - (mTexture->GetHeight() * mScale.y / 2.0f)	// 이미지의 중심이 입력된 y좌표에 위치
 				, mTexture->GetWidth() * mScale.x
 				, mTexture->GetHeight() * mScale.y
@@ -92,7 +92,7 @@ namespace van
 				, func);
 		}
 		// 그려줄 이미지의 확장자가 *.png 일때
-		else if (mTexture->GetType() == eTextureType::Png)	
+		else if (mTexture->GetType() == eTextureType::Png)
 		{
 			Gdiplus::Graphics graphics(_hdc);
 			graphics.DrawImage(
@@ -105,6 +105,5 @@ namespace van
 		// 그려줄 이미지의 확장자가 *.bmp , *.png 가 아닐때
 		else
 			__noop;
-		
 	}
 }
