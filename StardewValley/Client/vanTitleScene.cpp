@@ -27,7 +27,7 @@ namespace van
 		Texture* texture = ResourceManager::Load<Texture>(L"Title_Art"
 			, L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		//bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
 		bgsr->SetTexture(texture);
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
@@ -38,7 +38,7 @@ namespace van
 		texture = ResourceManager::Load<Texture>(L"Title_Logo"
 			, L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
 		BackGround* logo = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		//logo->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 200));
+		logo->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 200));
 		bgsr = logo->AddComponent<SpriteRenderer>();
 		bgsr->SetTexture(texture);
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));

@@ -14,7 +14,7 @@ namespace van
 		, mWidth(0)
 		, mHeight(0)
 		, mType(eTextureType::None)
-		, mbAffectCamera(true)
+		//, mbAffectCamera(true)
 	{
 		// nothing
 	}
@@ -106,6 +106,7 @@ namespace van
 		, math::Vector2 _size
 		, math::Vector2 _leftTop
 		, math::Vector2 _rightBottom
+		, bool mbAffectCamera
 		, math::Vector2 _offset
 		, math::Vector2 _scale
 		, float _alpha)

@@ -9,7 +9,7 @@ namespace van
 		//, mAnimations()
 		//, mActiveAnimation()
 		//, mbLoop()
-		//, mbAffectedCamera()
+		, mbAffectedCamera(true)
 		, mAlpha(1.0f)
 		, mScale(math::Vector2::One)
 	{
@@ -40,6 +40,7 @@ namespace van
 
 	void Animator::Render(HDC _hdc)
 	{
+		mActiveAnimation->SetAffectCamera(mbAffectedCamera);
 		if (mActiveAnimation)	// 가리키는 Animation 객체가 있다면
 			mActiveAnimation->Render(_hdc);
 	}

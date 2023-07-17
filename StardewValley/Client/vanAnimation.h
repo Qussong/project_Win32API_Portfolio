@@ -45,6 +45,9 @@ namespace van
 		__forceinline void SetAnimator(Animator* _animator) { mAnimator = _animator; }
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 
+		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
+
+
 	private:
 		Animator* mAnimator;
 		Texture* mTexture;
@@ -53,6 +56,8 @@ namespace van
 		float mTime;
 		bool mbComplete;
 		math::Vector2 mScale;
+
+		bool mAffectCamera;
 	};
 }
 

@@ -14,7 +14,8 @@ namespace van
 		, mIndex(-1)
 		, mTime(0.0f)
 		, mbComplete(false)
-		//, mScale(math::Vector2::One)
+		, mScale(math::Vector2::One)
+		, mAffectCamera(true)
 	{
 	}
 
@@ -57,6 +58,7 @@ namespace van
 			, sprite.size
 			, sprite.leftTop
 			, sprite.size
+			, mAffectCamera
 			, sprite.offset
 			, ani->GetScale()
 			, ani->GetAlpha());
@@ -132,7 +134,8 @@ namespace van
 		//	__noop;
 	}
 
-	void Animation::Create(const std::wstring& _name
+	void Animation::Create(
+		const std::wstring& _name
 		, Texture* _texture
 		, math::Vector2 _leftTop
 		, math::Vector2 _size

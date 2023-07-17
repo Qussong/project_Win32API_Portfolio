@@ -30,6 +30,7 @@ namespace van
 			, math::Vector2 _size
 			, math::Vector2 _leftTop
 			, math::Vector2 _rightBottom
+			, bool mbAffectCamera = true
 			, math::Vector2 _offset = math::Vector2::Zero
 			, math::Vector2 _scale = math::Vector2::One
 			, float _alpha = 1.0f);
@@ -61,7 +62,7 @@ namespace van
 		HDC mHdc;
 		UINT mWidth;
 		UINT mHeight;
-		bool mbAffectCamera;
+		//bool mbAffectCamera;
 	};
 }
 

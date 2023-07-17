@@ -46,6 +46,7 @@ namespace van
 			, math::Vector2(mTexture->GetWidth(), mTexture->GetHeight())
 			, math::Vector2(0.0f, 0.0f)
 			, math::Vector2(mTexture->GetWidth(), mTexture->GetHeight())
+			, mAffectCamera
 			, math::Vector2::Zero	// offset
 			, mScale				// scale
 			, mAlpha);				// alpha

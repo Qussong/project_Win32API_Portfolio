@@ -27,7 +27,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Tree_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Tree\\Idle");
 	at->PlayAnimation(L"Tree_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Tree_Attack
 	Monster* treeA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -37,7 +37,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Tree_Attack"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Tree\\Attack");
 	at->PlayAnimation(L"Tree_Attack", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 	
 	// BigTree_Idle
 	Monster* bigTree = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -47,7 +47,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"BigTree_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigTree\\Idle");
 	at->PlayAnimation(L"BigTree_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// BigTree_Attack_A
 	Monster* bigTreeA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -57,7 +57,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"BigTree_Attack_A"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigTree\\Attack_A");
 	at->PlayAnimation(L"BigTree_Attack_A", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// BigTree_Attack_B
 	Monster* bigTreeB = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -67,7 +67,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"BigTree_Attack_B"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigTree\\Attack_B");
 	at->PlayAnimation(L"BigTree_Attack_B", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Root_Idle
 	Monster* root = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -77,7 +77,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Root_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Root\\Idle");
 	at->PlayAnimation(L"Root_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Root_Attack
 	Monster* rootA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -87,7 +87,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Root_Attack"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Root\\Attack");
 	at->PlayAnimation(L"Root_Attack", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Knight_Idle
 	Monster* knight = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -97,7 +97,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Knight_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Knight\\Idle");
 	at->PlayAnimation(L"Knight_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Knight_Attack
 	Monster* knightA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -107,7 +107,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Knight_Attack"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Knight\\Attack");
 	at->PlayAnimation(L"Knight_Attack", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Ranger_Idle
 	Monster* ranger = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -117,7 +117,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Ranger_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Ranger\\Idle");
 	at->PlayAnimation(L"Ranger_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// Ranger_Attack
 	Monster* rangerA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -127,7 +127,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Ranger_Attack"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Ranger\\Attack");
 	at->PlayAnimation(L"Ranger_Attack", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// BigKnight_Idle
 	Monster* bigKnight = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -137,7 +137,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"BigKnight_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigKnight\\Idle");
 	at->PlayAnimation(L"BigKnight_Idle", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 
 	// BigKnight_Attack
 	Monster* bigKnightA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -147,7 +147,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"BigKnight_Attack"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigKnight\\Attack");
 	at->PlayAnimation(L"BigKnight_Attack", true);
-	at->SetAffectedCamera(true);
+	//at->SetAffectedCamera(false);
 }
 
 void van::StageScene::Update()
