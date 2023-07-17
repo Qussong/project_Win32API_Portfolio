@@ -46,13 +46,15 @@ namespace van
 
 		if (Input::GetKey(eKeyCode::A))	// left
 		{
-			ani->PlayAnimation(L"Skul_Walk_Left", true);
+			//if(Input::GetKeyDown(eKeyCode::A))
+				ani->PlayAnimation(L"Skul_Walk_Left", true);
 			pos.x -= SPEED * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::D))	// right
 		{
-			ani->PlayAnimation(L"Skul_Walk_Right", true);
+			//if (Input::GetKeyDown(eKeyCode::D))
+				ani->PlayAnimation(L"Skul_Walk_Right", true);
 			pos.x += SPEED * Time::DeltaTime();
 		}
 

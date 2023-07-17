@@ -1,0 +1,20 @@
+
+[23/07/17]
+
+가능하면 캐릭터 bmp 로 사용하도록 해라
+이펙트는 png 로 사용하자 알파값이 들어있다.
+
+---
+
+- Texture 자체에 Render를 둬 버리자
+- 알파값, scale 값 넘어강한다.
+
+Texture.cpp
+	- Rnder() 함수 추가
+
+SpriteRender
+	- Rdner() 함수 수정
+
+---
+
+FSM
