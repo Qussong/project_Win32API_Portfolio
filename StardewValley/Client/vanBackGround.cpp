@@ -22,7 +22,7 @@ namespace van
 	{
 		GameObject::Update();
 
-		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+		//SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 		/*float alpha = sr->GetAlpha();
 		alpha -= 0.2f * Time::DeltaTime();
 		sr->SetAlpha(alpha);*/

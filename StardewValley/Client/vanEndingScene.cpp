@@ -3,6 +3,7 @@
 #include "vanSpriteRenderer.h"
 #include "vanPlayer.h"
 #include "vanResourceManager.h"
+#include "vanCamera.h"
 
 namespace van
 {
@@ -18,15 +19,12 @@ namespace van
 
 	void EndingScene::Init()
 	{
-		// 1) Player °´Ã¼
-		/*Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		Texture* texture = ResourceManager::Load<Texture>(L"TitleBackGroundImage", L"..\\Resources\\Image\\Fighter.bmp");
-		sr->SetTexture(texture);*/
+		Camera::SetTarget(GetTarget());
 	}
 
 	void EndingScene::Update()
 	{
+		Camera::SetTarget(GetTarget());
 		Scene::Update();
 	}
 

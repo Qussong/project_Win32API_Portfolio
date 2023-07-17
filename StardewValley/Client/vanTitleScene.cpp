@@ -8,6 +8,8 @@
 #include "vanBackGround.h"
 #include "vanCamera.h"
 
+#include "vanMonster.h"
+#include "vanAnimator.h"
 namespace van
 {
 	TitleScene::TitleScene()
@@ -44,11 +46,12 @@ namespace van
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 
-		Camera::SetTarget(nullptr);
+		Camera::SetTarget(GetTarget());
 	}
 
 	void TitleScene::Update()
 	{
+		Camera::SetTarget(GetTarget());
 		Scene::Update();						// 부모의 Update 함수 호출
 	}
 

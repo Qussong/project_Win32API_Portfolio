@@ -7,6 +7,8 @@
 #include "vanAnimator.h"
 #include "vanCamera.h"
 
+#include "vanBackGround.h"
+
 van::StageScene::StageScene()
 {
 	// nothing
@@ -27,7 +29,7 @@ void van::StageScene::Init()
 	at->CreateAnimationFolder(L"Tree_Idle"
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\Tree\\Idle");
 	at->PlayAnimation(L"Tree_Idle", true);
-	//at->SetAffectedCamera(false);
+	at->SetAffectedCamera(false);
 
 	// Tree_Attack
 	Monster* treeA = Object::Instantiate<Monster>(enums::eLayerType::Monster);
@@ -148,10 +150,13 @@ void van::StageScene::Init()
 		, L"..\\MyResources\\skul\\3_Monster_Stage1\\BigKnight\\Attack");
 	at->PlayAnimation(L"BigKnight_Attack", true);
 	//at->SetAffectedCamera(false);
+
+	Camera::SetTarget(GetTarget());
 }
 
 void van::StageScene::Update()
 {
+	Camera::SetTarget(GetTarget());
 	Scene::Update();
 }
 
