@@ -24,6 +24,11 @@ namespace van
 		// nothing
 	}
 
+	void Animation::init()
+	{
+		// nothing
+	}
+
 	void Animation::Update()
 	{
 		if (mbComplete)

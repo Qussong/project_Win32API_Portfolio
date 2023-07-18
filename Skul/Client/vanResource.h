@@ -15,7 +15,7 @@ namespace van
 		__forceinline void SetPath(const std::wstring& _path) { mPath = _path; }
 
 	private:
-		std::wstring mPath;	// 리소스의 위치
+		std::wstring mPath;	// 리소스의 경로
 	};
 }
 

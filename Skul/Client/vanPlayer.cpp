@@ -55,9 +55,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::D))		// right_walk
 			ani->PlayAnimation(L"Skul_Walk_Right", true);
 		if (Input::GetKeyUp(eKeyCode::A))		// left_idle
-			ani->PlayAnimation(L"test1", true);
+			ani->PlayAnimation(L"Idle_Left", true);
 		if (Input::GetKeyUp(eKeyCode::D))		// right_idle
-			ani->PlayAnimation(L"test2", true);
+			ani->PlayAnimation(L"Idle_Right", true);
 
 		// 4. 수정된 위치값을 Transfer Component에 넣어준다.
 		tr->SetPosition(pos);
