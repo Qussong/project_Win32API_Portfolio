@@ -49,7 +49,7 @@ namespace van
 		Sprite sprite = mSpriteSheet[mIndex];
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
 		// 캐릭터 이미지의 중심이 좌표에 오도록 하고 offset 값 만큼 좌표에서 이동하도록 한다.
-		math::Vector2 pos = tr->GetPosition()/* - (sprite.size / 2.0f)*/ + sprite.offset;
+		math::Vector2 pos = tr->GetPosition() + sprite.offset;
 		Animator* ani = mAnimator;
 
 		mTexture->Render(
@@ -62,76 +62,6 @@ namespace van
 			, sprite.offset
 			, ani->GetScale()
 			, ani->GetAlpha());
-
-		//Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
-		//math::Vector2 pos = tr->GetPosition();
-
-		//if (mAnimator->GetAffectedCamera())
-		//	pos = Camera::CalculatePosition(pos);
-
-		//// BMP
-		//if (mTexture->GetType() == eTextureType::Bmp)
-		//{
-		//	TransparentBlt(
-		//		// 타겟
-		//		_hdc
-		//		, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f) /*+ mSpriteSheet[mIndex].offset.x*/
-		//		, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f) /*+ mSpriteSheet[mIndex].offset.y*/
-		//		, mSpriteSheet[mIndex].size.x * mScale.x
-		//		, mSpriteSheet[mIndex].size.y * mScale.y
-		//		// 원본
-		//		, mTexture->GetHdc()
-		//		, mSpriteSheet[mIndex].leftTop.x * mScale.x
-		//		, mSpriteSheet[mIndex].leftTop.y * mScale.y
-		//		, mSpriteSheet[mIndex].size.x
-		//		, mSpriteSheet[mIndex].size.y
-		//		// 생략 컬러
-		//		, RGB(255, 0, 255));
-		//}
-		//// AlpaBMP
-		//else if (mTexture->GetType() == eTextureType::AlphaBmp)
-		//{
-		//	// AlphaBlend() 설정
-		//	BLENDFUNCTION func = {};
-		//	func.BlendOp = AC_SRC_OVER;
-		//	func.BlendFlags = 0;
-		//	func.AlphaFormat = AC_SRC_ALPHA;
-		//	// 0.0f ~ 1.0f -> 0 ~ 255
-		//	int alpha = (int)(mAnimator->GetAlpha() * 255.0f);
-		//	if (alpha <= 0)
-		//		alpha = 0;
-		//	func.SourceConstantAlpha = alpha; // 0 ~ 255
-
-		//	AlphaBlend(
-		//		// 타겟
-		//		_hdc
-		//		, (int)pos.x - (mSpriteSheet[mIndex].size.x / 2.0f) /*+ mSpriteSheet[mIndex].offset.x*/
-		//		, (int)pos.y - (mSpriteSheet[mIndex].size.y / 2.0f) /*+ mSpriteSheet[mIndex].offset.y*/
-		//		, mSpriteSheet[mIndex].size.x * mScale.x
-		//		, mSpriteSheet[mIndex].size.y * mScale.y
-		//		// 원본
-		//		, mTexture->GetHdc()
-		//		, mSpriteSheet[mIndex].leftTop.x
-		//		, mSpriteSheet[mIndex].leftTop.y
-		//		, mSpriteSheet[mIndex].size.x
-		//		, mSpriteSheet[mIndex].size.y
-		//		// 설정
-		//		, func);
-		//}
-		//// PNG
-		//else if (mTexture->GetType() == eTextureType::Png)
-		//{
-		//	Gdiplus::Graphics graphics(_hdc);
-		//	graphics.DrawImage(
-		//		mTexture->GetImage()
-		//		, (int)(pos.x - (mSpriteSheet[mIndex].size.x / 2.0f))
-		//		, (int)(pos.y - (mSpriteSheet[mIndex].size.y / 2.0f))
-		//		, (int)(mSpriteSheet[mIndex].size.x * mScale.x)
-		//		, (int)(mSpriteSheet[mIndex].size.y * mScale.y));
-		//}
-		//// 그려줄 이미지의 확장자가 *.bmp , *.png 가 아닐때
-		//else
-		//	__noop;
 	}
 
 	void Animation::Create(

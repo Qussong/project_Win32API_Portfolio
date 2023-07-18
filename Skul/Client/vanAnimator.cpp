@@ -73,18 +73,19 @@ namespace van
 		ResourceManager::Insert<Animation>(_name, animation);
 	}
 
-	void Animator::CreateAnimationFolder(const std::wstring& _name
-										, const std::wstring& _path
-										, math::Vector2 _offset
-										, float _duration)
+	void Animator::CreateAnimationFolder(const std::wstring& _name		// 애니메이션 이름(Key)
+										, const std::wstring& _path		// 애니메이션 파일 경로
+										, math::Vector2 _offset			// 옵셋
+										, float _duration)				// ?
 	{
-		UINT width = 0;
-		UINT height = 0;
-		UINT fileCout = 0;
+		UINT width = 0;													// 너비
+		UINT height = 0;												// 높이
+		UINT fileCout = 0;												// 폴더에 들어있는 이미지 파일 개수
 
-		std::filesystem::path fs(_path);	// 경로지정
-		std::vector<Texture*> images = {};	// Texture 객체들 저장하는 곳
-		for (auto& p : std::filesystem::recursive_directory_iterator(_path))
+		std::filesystem::path fs(_path);								// 경로지정
+		std::vector<Texture*> images = {};								// Texture 객체들 저장하는 곳
+		for (auto& p :
+			std::filesystem::directory_iterator(_path))		// recursive_directory_iterator
 		{
 			std::wstring fileName = p.path().filename();
 			std::wstring fullName = p.path();

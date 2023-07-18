@@ -3,6 +3,13 @@
 
 namespace van
 {
+	enum class PlayerState	
+	{
+		RightIdle,
+		LeftIdle,
+		None,
+	};
+
 	class Player : public GameObject
 	{
 	public:
@@ -14,7 +21,7 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 
 	private:
-
+		PlayerState state;
 	};
 }
 

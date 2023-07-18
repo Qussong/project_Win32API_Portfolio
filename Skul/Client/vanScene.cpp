@@ -35,7 +35,8 @@ namespace van
 		Time::Render(_hdc);
 		Text::PrintwString(_hdc, 10, 50, L"Title - z");
 		Text::PrintwString(_hdc, 10, 70, L"Home - x");
-		Text::PrintwString(_hdc, 10, 90, L"Ending - c");
+		Text::PrintwString(_hdc, 10, 90, L"Stage - c");
+		Text::PrintwString(_hdc, 10, 110, L"Ending - v");
 	}
 
 	void Scene::AddGameObject(enums::eLayerType type, GameObject* gameObj)

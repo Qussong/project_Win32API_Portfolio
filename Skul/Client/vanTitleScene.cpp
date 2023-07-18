@@ -46,7 +46,7 @@ namespace van
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 
-		Camera::SetTarget(GetTarget());
+		//Camera::SetTarget(GetTarget());
 	}
 
 	void TitleScene::Update()

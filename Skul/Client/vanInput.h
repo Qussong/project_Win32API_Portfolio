@@ -11,6 +11,7 @@ namespace van
 		Up, Down, Left, Right,
 		End,
 	};
+
 	enum class eKeyState	// english key state
 	{
 		Down,
