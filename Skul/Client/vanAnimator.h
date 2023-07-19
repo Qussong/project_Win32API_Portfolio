@@ -14,15 +14,15 @@ namespace van
 		virtual void Update() override;
 		virtual void Render(HDC _hdc) override;
 
-		void CreateAnimation(				//
-			const std::wstring& _name		//
-			, class Texture* _texture		//
-			, math::Vector2 _leftTop		//
-			, math::Vector2 _size			//
-			, UINT _spriteLength			//
-			, math::Vector2 _offset 
-				= math::Vector2::Zero		//
-			, float _duration = 0.1f);		//									
+		Animation* CreateAnimation(				//
+				const std::wstring& _name		//
+				, class Texture* _texture		//
+				, math::Vector2 _leftTop		//
+				, math::Vector2 _size			//
+				, UINT _spriteLength			//
+				, math::Vector2 _offset 
+					= math::Vector2::Zero		//
+				, float _duration = 0.1f);		//									
 
 		void CreateAnimationFolder(							
 			const std::wstring& _name						
@@ -41,8 +41,8 @@ namespace van
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 
 	private:
-		std::map<std::wstring, Animation*> mAnimations;		//
-		Animation* mActiveAnimation;						//
+		std::map<std::wstring, Animation*> mAnimations;		// Animation 객체를 key값과 함꼐 map으로 관리
+		Animation* mActiveAnimation;						// 
 		bool mbLoop;										//
 		bool mbAffectedCamera;								//
 		float mAlpha;										//

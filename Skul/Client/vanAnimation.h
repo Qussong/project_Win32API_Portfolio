@@ -46,36 +46,46 @@ namespace van
 		~Animation();
 
 		void init();
+		
 		void Update();
+
 		void Render(HDC _hdc);
+
+		// 부모 클래스인 Resource로 부터 재정의한 Load 함수
 		__forceinline virtual HRESULT Load(const std::wstring& _path) override { return S_FALSE; };
+
 		void Create(					// Animation을 생성해준다.
 			const std::wstring& _name	// Animation 이름
-			, class Texture* _texture	//
-			, math::Vector2 _leftTop	//
-			, math::Vector2 _size		//
-			, math::Vector2 _offset		//
-			, UINT _spriteLength		//
-			, float _duration);			//
-		void Reset();
-		
-		__forceinline bool IsComplete() { return mbComplete; }
-		__forceinline void SetAnimator(Animator* _animator) { mAnimator = _animator; }
-		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
+			, class Texture* _texture	// 이미지(Atlas)
+			, math::Vector2 _leftTop	// 각 프레임이 시작할 좌상단의 위치
+			, math::Vector2 _size		// 각 프레임의 크기
+			, math::Vector2 _offset		// 이미지 출력시 별도로 필요한 옵셋값(옵션)
+			, UINT _spriteLength		// Atals 텍스처에서 추출할 프레임의 개수
+			, float _duration);			// 각 이미지 유지 시간
 
+		void Reset();	// 재생과 관련된 정보를 모두 초기화한다.
+						// 즉, Animation이 재생되기 전으로 되돌린다.
+		
+		// Animation의 재생 완료 여부를 반환
+		__forceinline bool IsComplete() { return mbComplete; }	
+		// 자신을 관리하는 애니메이터를 설정
+		// GameObject의 Component중 Transform의 정보에 접근하여 현재 위치를 알아내고
+		// 이를 통해 Animation을 그려줄 위치를 정해줄 수 있기 때문에 
+		// 해당 Animation을 가지고 있는 Animator를 설정해준다.
+		__forceinline void SetAnimator(Animator* _animator) { mAnimator = _animator; }	
+		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
 
 
 	private:
-		Animator* mAnimator;
-		Texture* mTexture;
-		std::vector<Sprite> mSpriteSheet;
-		int mIndex;
-		float mTime;
-		bool mbComplete;
-		math::Vector2 mScale;
-
-		bool mAffectCamera;
+		Animator* mAnimator;	// 해당 Animation을 관리하는 Animator 객체를 가리킨다.
+		Texture* mTexture;		// 해당 Animation이 Render 될 때 참조하여 그려낼 Atlas 텍스처
+		std::vector<Sprite> mSpriteSheet;	// 각 프레임의 정보를 가변 배열로 관리
+		int mIndex;							// 현재 프레임의 번호
+		float mTime;						// 현재 프레임으로 되고 난 후 재생된 시간
+		bool mbComplete;					// 애니메이션의 재생 완료 여부
+		math::Vector2 mScale;				// ★ 출력되는 애니메이션의 스케일 값
+		bool mAffectCamera;					// ★ 출력되는 애니메이션의 카메라 영향 여부
 	};
 }
 

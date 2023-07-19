@@ -1,4 +1,5 @@
 #include "vanAnimator.h"
+
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 
@@ -45,19 +46,25 @@ namespace van
 			mActiveAnimation->Render(_hdc);
 	}
 
-	void Animator::CreateAnimation(const std::wstring& _name
-									, Texture* _texture
-									, math::Vector2 _leftTop
-									, math::Vector2 _size
-									, UINT _spriteLength
-									, math::Vector2 _offset
-									, float _duration)
+	//void Animator::CreateAnimation(
+	Animation* Animator::CreateAnimation(
+				const std::wstring& _name
+				, Texture* _texture
+				, math::Vector2 _leftTop
+				, math::Vector2 _size
+				, UINT _spriteLength
+				, math::Vector2 _offset
+				, float _duration)
 	{
 		Animation* animation = nullptr;
 		animation = ResourceManager::Find<Animation>(_name);
-		if (animation != nullptr)
-			return;
 
+		if (animation != nullptr)
+		{
+			//animation->SetAnimator(this);		// 이건 안해도 되나?
+			mAnimations.insert(std::make_pair(_name, animation));
+			return animation;
+		}
 		animation = new Animation();
 		animation->Create(
 			_name
@@ -71,33 +78,42 @@ namespace van
 
 		mAnimations.insert(std::make_pair(_name, animation));
 		ResourceManager::Insert<Animation>(_name, animation);
+
+		return animation;
 	}
 
-	void Animator::CreateAnimationFolder(const std::wstring& _name		// 애니메이션 이름(Key)
-										, const std::wstring& _path		// 애니메이션 파일 경로
-										, math::Vector2 _offset			// 옵셋
-										, float _duration)				// ?
+	void Animator::CreateAnimationFolder(
+		const std::wstring& _name						// 애니메이션 이름(Key)
+		, const std::wstring& _path						// 애니메이션 파일 경로
+		, math::Vector2 _offset							// 
+		, float _duration)								// 재생시간
 	{
-		UINT width = 0;													// 너비
-		UINT height = 0;												// 높이
-		UINT fileCout = 0;												// 폴더에 들어있는 이미지 파일 개수
+		UINT width = 0;									// 너비
+		UINT height = 0;								// 높이
+		UINT fileCout = 0;								// 폴더에 들어있는 이미지 파일 개수
 
-		std::filesystem::path fs(_path);								// 경로지정
-		std::vector<Texture*> images = {};								// Texture 객체들 저장하는 곳
+		std::filesystem::path fs(_path);				// 경로지정
+		std::vector<Texture*> images = {};				// Texture 객체들 저장하는 곳
 		for (auto& p :
-			std::filesystem::directory_iterator(_path))		// recursive_directory_iterator
+			std::filesystem::directory_iterator(_path))	// recursive_directory_iterator
 		{
 			std::wstring fileName = p.path().filename();
 			std::wstring fullName = p.path();
 
-			Texture* image = ResourceManager::Load<Texture>(fileName, fullName);
+			Texture* image =
+				ResourceManager::Load<Texture>(fileName, fullName);
+
 			images.push_back(image);
 
 			if (width < image->GetWidth())
+			{
 				width = image->GetWidth();
+			}
 
 			if (height < image->GetHeight())
+			{
 				height = image->GetHeight();
+			}
 
 			++fileCout;
 		}
@@ -106,13 +122,21 @@ namespace van
 
 		eTextureType type = images[0]->GetType();
 		if (type == eTextureType::Bmp)
+		{
 			spriteSheet->SetType(eTextureType::Bmp);
+		}
 		else if (type == eTextureType::AlphaBmp)
+		{
 			spriteSheet->SetType(eTextureType::AlphaBmp);
+		}
 		else if (type == eTextureType::Png)
+		{
 			spriteSheet->SetType(eTextureType::Png);
+		}
 		else
+		{
 			__noop;
+		}
 
 		int idx = 0;
 		for (Texture* image : images)
