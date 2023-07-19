@@ -133,6 +133,7 @@ namespace van
 		if (imgType == eTextureType::Png)				// 근데... png 안되는건가?
 		{
 			spriteSheet->SetType(eTextureType::Png);
+			//spriteSheet->SetType(eTextureType::Bmp);
 		}
 
 		int idx = 0;

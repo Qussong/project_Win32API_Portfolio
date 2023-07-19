@@ -169,11 +169,11 @@ namespace van
 		else if (mType == eTextureType::Png)
 		{
 			// 내가 원하는 픽셀을 투명화 시킬떄
-			Gdiplus::ImageAttributes imageAtt = {};
+			//Gdiplus::ImageAttributes imageAtt = {};
 			// 투명화 시킬 픽셀 색 범위
-			imageAtt.SetColorKey(
+			/*imageAtt.SetColorKey(
 				Gdiplus::Color(100, 100, 100)
-				, Gdiplus::Color(255, 255, 255));
+				, Gdiplus::Color(255, 255, 255));*/
 
 			Gdiplus::Graphics graphics(_hdc);
 			graphics.DrawImage(
