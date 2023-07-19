@@ -1,0 +1,46 @@
+[23.07.19]
+
+---
+
+[ 캐릭터 디자인 ]
+
+vanPlayer.cpp
+	- state 멤버 생성
+	- Update() 수정
+	- 각 행동들을 함수로 만들어준다. ex) Idle(), Move(), DropWater(), Death()...
+
+---
+
+Collider 클래스 추가 -> 뭐지? : 충돌체
+	- Componenet 클래스 상속
+	- 충돌 여부를 알 수 있게끔해준다.
+
+---
+
+[ Winapi 투명 브러쉬 ]
+- 윈도우 생성시 기본적으로 만들어져 있는 브러쉬들이 있는데 이를 StockBrush 라고 한다.
+- 그 중 NULL_BRUSH는 투명 브러쉬를 의미한다.
+- 면은 Brush, 선은 Pen
+
+---
+
+[ <bitset> ]
+
+std::bitset<(UINT)eLayerType::End> -> 비트 단위의 배열을 만든다.
+
+---
+
+[ 충돌 상태 ]
+- 3가지가 있다.
+	- 충돌할때
+	- 충돌중
+	- 충돌에서 빠져나갈때
+	(Unity 기준, Unreal은 다르다 2가지)
+	
+---
+
+[ CollisionManager ]
+- union = 전체 크기가 8Byte 이며 내부적으로 4Byte,4Byte 로 나뉜다.
+	-> 사용이유 : 겹치지 않는 데이터를 만들기 위함
+- uint64 = 8Byte int
+

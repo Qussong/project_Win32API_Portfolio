@@ -105,11 +105,19 @@ namespace van
 
 			sprite.leftTop.x = _leftTop.x + (_size.x * i);	// loop가 진행될수록 이미지의 x축 길이만큼 계속 길어짐
 			sprite.leftTop.y = _leftTop.y;					// 일정하게 유지
+
+			if (sprite.leftTop.x >= _texture->GetWidth())	// 다음줄에 추출할 이미지가 있을 경우
+			{
+				sprite.leftTop.x = sprite.leftTop.x - _texture->GetWidth();
+				sprite.leftTop.y = _leftTop.y + _size.y;
+			}
+
 			sprite.size = _size;							// 각 프레임의 크기
 			sprite.offset = _offset;						// 이미지 출력시 별도로 필요한 옵셋값(옵션)
 			sprite.duration = _duration;					// 해당 스프라이트가 화면에 유지될 시간
 
-			mSpriteSheet.push_back(sprite);					// 
+			mSpriteSheet.push_back(sprite);					// Texture에서 각 프레임에대한 애니메이션 재생과 관련된 정보를 
+															// Sprite에 저장하여 mSpriteSheet에 저장
 		}
 	}
 

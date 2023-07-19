@@ -78,24 +78,25 @@ namespace van
 	Texture* Texture::Create(const std::wstring& _name, UINT _width, UINT _height)
 	{
 		Texture* image = ResourceManager::Find<Texture>(_name);
-		if (image != nullptr)
+
+		if (image != nullptr)	// 불러온 이미지가 있다면 해당 이미지를 반환하고 함수 종료
 			return image;
 
 		image = new Texture();
 		image->SetWidth(_width);
 		image->SetHeight(_height);
 		HDC hdc = application.GetHdc();
-		HBITMAP bitmap = CreateCompatibleBitmap(hdc, _width, _height);
+		HBITMAP bitmap = CreateCompatibleBitmap(hdc, _width, _height);	// CreateCompatibleBitmap() ???
 		image->SetHBitmap(bitmap);
 
-		HDC bitmapHdc = CreateCompatibleDC(hdc);
+		HDC bitmapHdc = CreateCompatibleDC(hdc);						// CreateCompatibleDC() ???
 		image->SetHdc(bitmapHdc);
 
 		HBITMAP defaultBitmap = (HBITMAP)SelectObject(bitmapHdc, bitmap);
 		DeleteObject(defaultBitmap);
 
 		image->SetName(_name);
-		image->SetType(eTextureType::AlphaBmp);
+
 		ResourceManager::Insert<Texture>(_name, image);
 
 		return image;

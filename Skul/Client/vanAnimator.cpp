@@ -1,5 +1,4 @@
 #include "vanAnimator.h"
-
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 
@@ -57,12 +56,13 @@ namespace van
 				, float _duration)
 	{
 		Animation* animation = nullptr;
-		animation = ResourceManager::Find<Animation>(_name);
+		//animation = ResourceManager::Find<Animation>(_name);
+		animation = FindAnimation(_name);
 
 		if (animation != nullptr)
 		{
-			//animation->SetAnimator(this);		// 이건 안해도 되나?
-			mAnimations.insert(std::make_pair(_name, animation));
+			//animation->SetAnimator(this);		// 이건 안해도 되나? ㅇㅇ
+			//mAnimations.insert(std::make_pair(_name, animation));
 			return animation;
 		}
 		animation = new Animation();
@@ -77,7 +77,7 @@ namespace van
 		animation->SetAnimator(this);
 
 		mAnimations.insert(std::make_pair(_name, animation));
-		ResourceManager::Insert<Animation>(_name, animation);
+		//ResourceManager::Insert<Animation>(_name, animation);	// 지워도 되나?
 
 		return animation;
 	}
@@ -94,10 +94,11 @@ namespace van
 
 		std::filesystem::path fs(_path);				// 경로지정
 		std::vector<Texture*> images = {};				// Texture 객체들 저장하는 곳
+
 		for (auto& p :
 			std::filesystem::directory_iterator(_path))	// recursive_directory_iterator
 		{
-			std::wstring fileName = p.path().filename();
+			std::wstring  fileName = p.path().filename();
 			std::wstring fullName = p.path();
 
 			Texture* image =
@@ -120,28 +121,24 @@ namespace van
 
 		Texture* spriteSheet = Texture::Create(_name, width * fileCout, height);
 
-		eTextureType type = images[0]->GetType();
-		if (type == eTextureType::Bmp)
+		eTextureType imgType = images[0]->GetType();	// 0번 인덱스로 하는방법 말고 없나..?
+		if (imgType == eTextureType::Bmp)
 		{
 			spriteSheet->SetType(eTextureType::Bmp);
 		}
-		else if (type == eTextureType::AlphaBmp)
+		if(imgType == eTextureType::AlphaBmp)
 		{
 			spriteSheet->SetType(eTextureType::AlphaBmp);
 		}
-		else if (type == eTextureType::Png)
+		if (imgType == eTextureType::Png)				// 근데... png 안되는건가?
 		{
 			spriteSheet->SetType(eTextureType::Png);
-		}
-		else
-		{
-			__noop;
 		}
 
 		int idx = 0;
 		for (Texture* image : images)
 		{
-			BitBlt(
+			::BitBlt(											// BitBlt() ???
 				// 타겟
 				spriteSheet->GetHdc()
 				, width * idx

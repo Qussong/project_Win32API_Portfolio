@@ -8,6 +8,7 @@
 #include <string>
 #pragma comment(lib, "Msimg32.lib")
 #include <filesystem>
+#include <bitset>
 
 // 제공되는 헤더
 #include "framework.h"
@@ -47,6 +48,7 @@ namespace van::enums
 		SpriteRenderer,
 		Animation,
 		Animator,
+		Collider,
 		End,
 	};
 }
