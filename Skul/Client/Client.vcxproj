@@ -141,6 +141,8 @@
     <ClInclude Include="vanAnimator.h" />
     <ClInclude Include="vanBackGround.h" />
     <ClInclude Include="vanCamera.h" />
+    <ClInclude Include="vanCollider.h" />
+    <ClInclude Include="vanCollisionManager.h" />
     <ClInclude Include="vanHomeScene.h" />
     <ClInclude Include="vanTexture.h" />
     <ClInclude Include="vanResource.h" />
@@ -171,6 +173,8 @@
     <ClCompile Include="vanAnimator.cpp" />
     <ClCompile Include="vanBackGround.cpp" />
     <ClCompile Include="vanCamera.cpp" />
+    <ClCompile Include="vanCollider.cpp" />
+    <ClCompile Include="vanCollisionManager.cpp" />
     <ClCompile Include="vanHomeScene.cpp" />
     <ClCompile Include="vanTexture.cpp" />
     <ClCompile Include="vanMath.cpp" />

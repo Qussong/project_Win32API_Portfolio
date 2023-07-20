@@ -195,6 +195,8 @@
     <ClInclude Include="vanAnimation.h">
       <Filter>Engine\Resource\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="vanCollider.h" />
+    <ClInclude Include="vanCollisionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -289,5 +291,7 @@
     <ClCompile Include="vanAnimation.cpp">
       <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="vanCollider.cpp" />
+    <ClCompile Include="vanCollisionManager.cpp" />
   </ItemGroup>
 </Project>

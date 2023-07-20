@@ -8,6 +8,7 @@ namespace van
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 		VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT,
+		VK_LBUTTON, VK_RBUTTON, VK_MBUTTON,
 	};
 
 	void Input::Init()

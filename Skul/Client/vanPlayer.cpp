@@ -6,7 +6,8 @@
 namespace van
 {
 	Player::Player()
-		: state(PlayerState::None)
+		: mState(PlayerState::Idle)
+		, mDirection(PlayerDirection::Left)
 	{
 		// nothing
 	}
@@ -25,46 +26,70 @@ namespace van
 	{
 		GameObject::Update();
 
-		// Player 객체의 위치 수정
-		
-		// 1. Player 객체의 Tranfer Component로 현재 위치값 얻어온다.
-		Transform* tr = GetComponent<Transform>();	
-		math::Vector2 pos = tr->GetPosition();
-		Animator* ani = GetComponent<Animator>();
-
-		// 2. 키 입력을 받아 위치값 수정
-		//if (Input::GetKey(eKeyCode::W))		// top
-		//	pos.y -= SPEED * Time::DeltaTime();
-		//if (Input::GetKey(eKeyCode::S))		// down
-		//	pos.y += SPEED * Time::DeltaTime();
-		if (Input::GetKey(eKeyCode::A))			// left
+		switch (mState)
 		{
-			pos.x -= SPEED * Time::DeltaTime();
-			state = PlayerState::LeftIdle;
+		case Player::PlayerState::Walk:
+			Walk();
+			break;
+		case Player::PlayerState::Idle:
+			Idle();
+			break;
+		default:
+			break;
 		}
-		if (Input::GetKey(eKeyCode::D))			// right
-		{
-			pos.x += SPEED * Time::DeltaTime();
-			state = PlayerState::RightIdle;
-		}
-		
-
-		// 3. 키 입력에 따른 애니메이션 변경
-		if (Input::GetKeyDown(eKeyCode::A))		// left_walk
-			ani->PlayAnimation(L"Skul_Walk_Left", true);
-		if (Input::GetKeyDown(eKeyCode::D))		// right_walk
-			ani->PlayAnimation(L"Skul_Walk_Right", true);
-		if (Input::GetKeyUp(eKeyCode::A))		// left_idle
-			ani->PlayAnimation(L"Idle_Left", true);
-		if (Input::GetKeyUp(eKeyCode::D))		// right_idle
-			ani->PlayAnimation(L"Idle_Right", true);
-
-		// 4. 수정된 위치값을 Transfer Component에 넣어준다.
-		tr->SetPosition(pos);
 	}
 
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
+	}
+
+	void Player::Idle()
+	{
+		// Skul_Walk_Left
+		// Skul_Walk_Right
+		Animator* animator = GetComponent<Animator>();
+		
+		if (Input::GetKey(eKeyCode::A))
+		{
+			animator->PlayAnimation(L"Skul_Walk_Left", true);
+			mState = PlayerState::Walk;
+		}
+		if (Input::GetKey(eKeyCode::D))
+		{
+			animator->PlayAnimation(L"Skul_Walk_Right", true);
+			mState = PlayerState::Walk;
+		}
+	}
+
+	void Player::Walk()
+	{
+		// Idle_Left
+		// Idle_Right
+		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+
+		if (Input::GetKey(eKeyCode::A))
+		{
+			pos.x -= SPEED * Time::DeltaTime();
+		}
+		if (Input::GetKey(eKeyCode::D))
+		{
+			pos.x += SPEED * Time::DeltaTime();
+		}
+
+		if (Input::GetKeyUp(eKeyCode::A))
+		{
+			animator->PlayAnimation(L"Idle_Left", true);
+			mState = PlayerState::Idle;
+		}
+		if(Input::GetKeyUp(eKeyCode::D))
+		{
+			animator->PlayAnimation(L"Idle_Right", true);
+			mState = PlayerState::Idle;
+		}
+
+		tr->SetPosition(pos);
 	}
 }
