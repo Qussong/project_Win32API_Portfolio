@@ -13,7 +13,8 @@ namespace van
 		virtual void Update();
 		virtual void Render(HDC _hdc);
 
-		void AddGameObject(GameObject* gameObj);
+		__forceinline void AddGameObject(GameObject* gameObj) { mGameObjects.push_back(gameObj); }
+		__forceinline std::vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 
 	private:
 		std::vector<GameObject*> mGameObjects;	// GameObject 객체들의 정보를 수정해야하기에 주소값으로 저장한다.

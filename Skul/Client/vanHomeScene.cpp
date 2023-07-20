@@ -9,6 +9,10 @@
 #include "vanAnimator.h"
 #include "vanBackGround.h"
 
+#include "vanCollider.h"
+#include "vanCollisionManager.h"
+
+
 namespace van
 {
 	HomeScene::HomeScene()
@@ -72,8 +76,8 @@ namespace van
 		Animator* at = npc1->AddComponent<Animator>();						// Animator 추가
 		at->SetScale(math::Vector2(2.0f, 2.0f));							// Scale 설정
 		at->CreateAnimationFolder(L"Tied_Skul_NPC"
-			, L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");					// ?
-		at->PlayAnimation(L"Tied_Skul_NPC", true);							// ?
+			, L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");					
+		at->PlayAnimation(L"Tied_Skul_NPC", true);							
 		at->SetAffectedCamera(true);										// 카메라 영향 여부설정
 
 		// Cat_idle
@@ -100,6 +104,11 @@ namespace van
 		at->CreateAnimationFolder(L"Idle_Right", L"..\\MyResources\\skul\\11_Skul\\Idle_R", offset);
 		at->PlayAnimation(L"Idle_Left", true);
 		at->SetAffectedCamera(true);
+
+		Collider* col = player->AddComponent<Collider>();
+		col->SetSize(math::Vector2(50.0f, 70.0f));
+		col->SetOffset(math::Vector2(0.0f, 140.0f));
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
 		SetTarget(player);
 		Camera::SetTarget(GetTarget());

@@ -51,6 +51,10 @@ namespace van
 			return comp;
 		}
 
+		virtual void OnCollisionEnter(class Collider* _other);
+		virtual void OnCollisionStay(class Collider* _other);
+		virtual void OnCollisionExit(class Collider* _other);
+
 	private:
 		std::vector<Component*> mComponents;	// Componenet 객체들의 값을 수정해야하기에 주소를 저장한다.
 	};

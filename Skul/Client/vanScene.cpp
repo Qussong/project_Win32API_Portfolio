@@ -38,9 +38,4 @@ namespace van
 		Text::PrintwString(_hdc, 10, 90, L"Stage - c");
 		Text::PrintwString(_hdc, 10, 110, L"Ending - v");
 	}
-
-	void Scene::AddGameObject(enums::eLayerType type, GameObject* gameObj)
-	{
-		mLayers[(int)type].AddGameObject(gameObj);	// type에 해당하는 레이어에 GameObject 객체 생성
-	}
 }

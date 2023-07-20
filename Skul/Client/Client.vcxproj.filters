@@ -79,23 +79,23 @@
     <Filter Include="Engine\Contents\Scene">
       <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\Scene\EndingScene">
-      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\StageScene">
-      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\TitleScene">
-      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Contents\Scene\HomeScene">
-      <UniqueIdentifier>{b731d65a-5447-4f46-bec0-5999dbf09290}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Component\Animator">
       <UniqueIdentifier>{2dcceb9b-5ba6-4e87-864e-2ae73fb3cb2d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Resource\Animation">
       <UniqueIdentifier>{eb63946b-f230-4b99-a4fd-0c4451414f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene\00_TitleScene">
+      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene\01_HomeScene">
+      <UniqueIdentifier>{b731d65a-5447-4f46-bec0-5999dbf09290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene\02_StageScene">
+      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\Scene\03_EndingScene">
+      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +148,7 @@
       <Filter>Engine\Contents\GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="vanTitleScene.h">
-      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+      <Filter>Engine\Contents\Scene\00_TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="vanObject.h">
       <Filter>Engine\Common</Filter>
@@ -157,10 +157,10 @@
       <Filter>Engine\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="vanStageScene.h">
-      <Filter>Engine\Contents\Scene\StageScene</Filter>
+      <Filter>Engine\Contents\Scene\02_StageScene</Filter>
     </ClInclude>
     <ClInclude Include="vanEndingScene.h">
-      <Filter>Engine\Contents\Scene\EndingScene</Filter>
+      <Filter>Engine\Contents\Scene\03_EndingScene</Filter>
     </ClInclude>
     <ClInclude Include="vanMonster.h">
       <Filter>Engine\Contents\GameObject\Monster</Filter>
@@ -169,7 +169,7 @@
       <Filter>Engine\Text</Filter>
     </ClInclude>
     <ClInclude Include="vanHomeScene.h">
-      <Filter>Engine\Contents\Scene\HomeScene</Filter>
+      <Filter>Engine\Contents\Scene\01_HomeScene</Filter>
     </ClInclude>
     <ClInclude Include="vanResource.h">
       <Filter>Engine\Resource</Filter>
@@ -247,16 +247,16 @@
       <Filter>Engine\Contents\GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="vanTitleScene.cpp">
-      <Filter>Engine\Contents\Scene\TitleScene</Filter>
+      <Filter>Engine\Contents\Scene\00_TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="vanSceneManager.cpp">
       <Filter>Engine\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="vanStageScene.cpp">
-      <Filter>Engine\Contents\Scene\StageScene</Filter>
+      <Filter>Engine\Contents\Scene\02_StageScene</Filter>
     </ClCompile>
     <ClCompile Include="vanEndingScene.cpp">
-      <Filter>Engine\Contents\Scene\EndingScene</Filter>
+      <Filter>Engine\Contents\Scene\03_EndingScene</Filter>
     </ClCompile>
     <ClCompile Include="vanMonster.cpp">
       <Filter>Engine\Contents\GameObject\Monster</Filter>
@@ -265,7 +265,7 @@
       <Filter>Engine\Text</Filter>
     </ClCompile>
     <ClCompile Include="vanHomeScene.cpp">
-      <Filter>Engine\Contents\Scene\HomeScene</Filter>
+      <Filter>Engine\Contents\Scene\01_HomeScene</Filter>
     </ClCompile>
     <ClCompile Include="vanResource.cpp">
       <Filter>Engine\Resource</Filter>

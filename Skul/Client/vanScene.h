@@ -16,7 +16,10 @@ namespace van
 		virtual void Update();
 		virtual void Render(HDC _hdc);
 
-		void AddGameObject(enums::eLayerType type, GameObject* gameObj);
+		__forceinline void AddGameObject(enums::eLayerType type, GameObject* gameObj) 
+													{ mLayers[(int)type].AddGameObject(gameObj); }
+
+		Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }
 
 		__forceinline void SetTarget(GameObject* _target) { target = _target; }
 		__forceinline GameObject* GetTarget() { return target; }

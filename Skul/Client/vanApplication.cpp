@@ -3,6 +3,7 @@
 #include "vanTime.h"		// Update에서 Time 개념 사용하기 위해 추가
 #include "vanSceneManager.h"
 #include "vanCamera.h"
+#include "vanCollisionManager.h"
 
 namespace van
 {
@@ -50,6 +51,7 @@ namespace van
 		Time::Init();
 		Input::Init();
 		Camera::Init();
+		CollisionManager::Init();
 		SceneManager::Init();
 	}
 
@@ -64,6 +66,7 @@ namespace van
 		Time::Update();
 		Input::Update();
 		Camera::Update();
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
@@ -82,6 +85,7 @@ namespace van
 		SelectObject(mBackHdc, oldBrush);							// 새로운 Brush로 원하는 작업을 했기에 되돌린다.
 		DeleteObject(newBrush);										// 새로 만들었던 Brush는 메모리 해제
 
+		CollisionManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
 		// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.

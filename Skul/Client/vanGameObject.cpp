@@ -33,4 +33,19 @@ namespace van
 		for (Component* comp : mComponents)
 			comp->Render(_hdc);
 	}
+
+	void GameObject::OnCollisionEnter(Collider* _other)
+	{
+		// nothing
+	}
+
+	void GameObject::OnCollisionStay(Collider* _other)
+	{
+		// nothing
+	}
+
+	void GameObject::OnCollisionExit(Collider* _other)
+	{
+		// nothing
+	}
 }
