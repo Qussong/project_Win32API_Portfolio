@@ -23,15 +23,32 @@ namespace van
 
 	void EndingScene::Init()
 	{
-		Monster* cat = Object::Instantiate<Monster>(enums::eLayerType::Monster);
+		// CreateAnimationFolder() *.png 파일 출력 test -> 출력이 안된다.
+		/*Monster* cat = Object::Instantiate<Monster>(enums::eLayerType::Monster);
 		Transform* tr = cat->GetComponent<Transform>();
 		tr->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		Animator* at = cat->AddComponent<Animator>();
-		// C:\Users\kih09\Desktop\Git\Win32api_class\Skul\MyResources\skul\Test
 		at->CreateAnimationFolder(L"Cat_Magic"
 			, L"..\\MyResources\\skul\\Test");
 		at->PlayAnimation(L"Cat_Magic", true);
-		at->SetAffectedCamera(false);
+		at->SetAffectedCamera(false);*/
+
+		// CreateAnimation() *.png Atlas 출력 test -> 출력은 되나 FPS 떨어짐
+		/*Texture* texture = ResourceManager::Load<Texture>(L"test"
+			, L"..\\MyResources\\merged_image.png");
+		Monster* monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
+		monster->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+
+		Animator* at = monster->AddComponent<Animator>();
+		at->CreateAnimation(L"test"
+			, texture
+			, math::Vector2(0.0f, 0.0f)
+			, math::Vector2(321.0f, 321.0f)
+			, 49
+			, math::Vector2(0.0f, 0.0f)
+			, 0.1f);
+		at->PlayAnimation(L"test", true);
+		at->SetAffectedCamera(false);*/
 
 		SetTarget(nullptr);
 		Camera::SetTarget(GetTarget());
