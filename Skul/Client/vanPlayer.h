@@ -27,6 +27,9 @@ namespace van
 		virtual void Update() override;
 		virtual void Render(HDC _hdc) override;
 
+		void ChangeState(PlayerState _state);
+		void StillSameState();
+
 		void Walk();
 		void Idle();
 		

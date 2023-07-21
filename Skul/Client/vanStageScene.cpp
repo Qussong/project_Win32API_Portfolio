@@ -6,8 +6,10 @@
 #include "vanTransform.h"
 #include "vanAnimator.h"
 #include "vanCamera.h"
-
 #include "vanBackGround.h"
+
+#include "vanSpearman.h"
+#include "vanCarleonRecruit.h"
 
 van::StageScene::StageScene()
 {
@@ -21,67 +23,59 @@ van::StageScene::~StageScene()
 
 void van::StageScene::Init()
 {
-	// 병사 1
-	Monster* monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-	monster->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 150));
-	Animator* at = monster->AddComponent<Animator>();
+	// CarleonRecruit
 	// Idle
-	Texture* texture = ResourceManager::Load<Texture>(L"CarleonRecruit_Idle"
-		, L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\Idle.bmp");
-	at->CreateAnimation(L"CarleonRecruit_Idle"
-		, texture
-		, math::Vector2(0.0f, 0.0f)
-		, math::Vector2(34.0f, 57.0f)
-		, 6);
+	CarleonRecruit* recruit_1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+	recruit_1->Init();
+	recruit_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 100));
+	Animator* animator = recruit_1->GetComponent<Animator>();
+	animator->PlayAnimation(L"Idle", true);
+	animator->SetAffectedCamera(false);
 	// Walk
-	texture = ResourceManager::Load<Texture>(L"CarleonRecruit_Walk"
-		, L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\Walk.bmp");
-	at->CreateAnimation(L"CarleonRecruit_Walk"
-		, texture
-		, math::Vector2(0.0f, 0.0f)
-		, math::Vector2(48.0f, 50.0f)
-		, 5);
+	CarleonRecruit* recruit_2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+	recruit_2->Init();
+	recruit_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+	animator = recruit_2->GetComponent<Animator>();
+	animator->PlayAnimation(L"Walk", true);
+	animator->SetAffectedCamera(false);
 	// Attack
-	texture = ResourceManager::Load<Texture>(L"CarleonRecruit_Attack"
-		, L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\Attack.bmp");
-	at->CreateAnimation(L"CarleonRecruit_Attack"
-		, texture
-		, math::Vector2(0.0f, 0.0f)
-		, math::Vector2(58.0f, 64.0f)
-		, 5);
-	at->PlayAnimation(L"CarleonRecruit_Idle", true);
-	at->SetScale(math::Vector2(2.0f, 2.0f));
-	at->SetAffectedCamera(false);
+	CarleonRecruit* recruit_3 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+	recruit_3->Init();
+	recruit_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 100));
+	animator = recruit_3->GetComponent<Animator>();
+	animator->PlayAnimation(L"Attack", true);
+	animator->SetAffectedCamera(false);
 
-	// 병사2_Walk
-	monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-	monster->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-	at = monster->AddComponent<Animator>();
-	texture = ResourceManager::Load<Texture>(L"CarleonRecruit_Walk"
-		, L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\Walk.bmp");
-	at->CreateAnimation(L"CarleonRecruit_Walk"
-		, texture
-		, math::Vector2(0.0f, 0.0f)
-		, math::Vector2(48.0f, 50.0f)
-		, 5);
-	at->PlayAnimation(L"CarleonRecruit_Walk", true);
-	at->SetScale(math::Vector2(2.0f, 2.0f));
-	at->SetAffectedCamera(false);
-
-	// 병사 3_Attack
-	monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-	monster->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 150));
-	at = monster->AddComponent<Animator>();
-	texture = ResourceManager::Load<Texture>(L"CarleonRecruit_Attack"
-		, L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\Attack.bmp");
-	at->CreateAnimation(L"CarleonRecruit_Attack"
-		, texture
-		, math::Vector2(0.0f, 0.0f)
-		, math::Vector2(58.0f, 64.0f)
-		, 5);
-	at->PlayAnimation(L"CarleonRecruit_Attack", true);
-	at->SetScale(math::Vector2(2.0f, 2.0f));
-	at->SetAffectedCamera(false);
+	// Spearman
+	// Idle
+	Spearman* spearman = Object::Instantiate<Spearman>(enums::eLayerType::Monster);
+	spearman->Init();
+	spearman->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 100, Window_Y / 2 - 150));
+	animator = spearman->GetComponent<Animator>();
+	animator->PlayAnimation(L"Idle", true);
+	animator->SetAffectedCamera(false);
+	// Walk
+	spearman = Object::Instantiate<Spearman>(enums::eLayerType::Monster);
+	spearman->Init();
+	spearman->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 100, Window_Y / 2 - 50));
+	animator = spearman->GetComponent<Animator>();
+	animator->PlayAnimation(L"Walk", true);
+	animator->SetAffectedCamera(false);
+	// Attack
+	spearman = Object::Instantiate<Spearman>(enums::eLayerType::Monster);
+	spearman->Init();
+	spearman->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 100, Window_Y / 2 + 50));
+	animator = spearman->GetComponent<Animator>();
+	animator->PlayAnimation(L"Attack", true);
+	animator->SetAffectedCamera(false);
+	// Attack_2
+	spearman = Object::Instantiate<Spearman>(enums::eLayerType::Monster);
+	spearman->Init();
+	spearman->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 100, Window_Y / 2 + 150));
+	animator = spearman->GetComponent<Animator>();
+	animator->PlayAnimation(L"Attack_2", true);
+	animator->SetAffectedCamera(false);
+	
 
 	SetTarget(nullptr);
 	Camera::SetTarget(GetTarget());

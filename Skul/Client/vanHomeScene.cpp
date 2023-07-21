@@ -28,7 +28,6 @@ namespace van
 	void HomeScene::Init()
 	{
 		// 1) BackGround 객체
-		// \MyResources\skul\0_BG\1_BG_Home\Back_01.bmp
 		Texture* texture = 
 			ResourceManager::Load<Texture>(L"BG_Home_1"
 			, L"..\\MyResources\\skul\\0_BG\\1_BG_Home\\Back_01.bmp");				// 이미지 로드
@@ -40,35 +39,8 @@ namespace van
 		bgsr->SetTexture(texture);													// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(1.0f, 1.0f));									// Scale 설정
 		bgsr->SetAffectCamera(true);												// 카메라 영향 여부설정
-
-		// FarmerGirl Example 객체
-		/*
-		texture = ResourceManager::Load<Texture>(L"FarmerGirl"
-			, L"..\\MyResources\\farmer-girl-base.bmp");
-		Monster* monster = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-		monster->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));
-
-		Animator* at = monster->AddComponent<Animator>();
-		at->CreateAnimation(L"FarmerIdle"
-			, texture
-			, math::Vector2(0.0f, 0.0f)
-			, math::Vector2(16.0f, 32.0f)
-			, 6
-			, math::Vector2(0.0f, 0.0f)
-			, 0.1f);
-		at->CreateAnimation(L"FarmerRight"
-			, texture
-			, math::Vector2(0.0f, 32.0f)
-			, math::Vector2(16.0f, 32.0f)
-			, 6
-			, math::Vector2(0.0f, 0.0f)
-			, 0.1f);
-		at->PlayAnimation(L"FarmerRight", true);
-		at->SetAffectedCamera(true);
-		*/
 		
 		// 2) Tied_Skul_NPC
-		// \MyResources\skul\1_NPC\Tied_Skul
 		Monster* npc1 =
 			Object::Instantiate<Monster>(enums::eLayerType::Monster);		// Monster 객체 생성
 		npc1->GetComponent<Transform>()
@@ -80,8 +52,11 @@ namespace van
 		at->PlayAnimation(L"Tied_Skul_NPC", true);							
 		at->SetAffectedCamera(true);										// 카메라 영향 여부설정
 
+		Collider* col = npc1->AddComponent<Collider>();
+		col->SetSize(math::Vector2(50.0f, 70.0f));
+		col->SetOffset(math::Vector2(0.0f, 0.0f));
+
 		// 3) Player 객체
-		// \MyResources\skul\11_Skul
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));;
 		at = player->AddComponent<Animator>();
@@ -94,9 +69,10 @@ namespace van
 		at->PlayAnimation(L"Idle_Left", true);
 		at->SetAffectedCamera(true);
 
-		Collider* col = player->AddComponent<Collider>();
+		/*Collider**/ col = player->AddComponent<Collider>();
 		col->SetSize(math::Vector2(50.0f, 70.0f));
 		col->SetOffset(math::Vector2(0.0f, 140.0f));
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
 
 		SetTarget(player);

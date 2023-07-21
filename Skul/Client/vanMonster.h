@@ -1,8 +1,11 @@
 #pragma once
 #include "vanGameObject.h"
 
+
 namespace van
 {
+	class Animator;
+
 	class Monster : public GameObject
 	{
 	public:
@@ -14,7 +17,7 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 
 	private:
-
+		Animator* animator;
 	};
 }
 

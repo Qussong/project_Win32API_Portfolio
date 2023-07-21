@@ -35,8 +35,8 @@ namespace van::enums
 	enum class eLayerType
 	{
 		BackGround,
-		Player,
 		Monster,
+		Player,
 		Effect,
 		UI,
 		End,

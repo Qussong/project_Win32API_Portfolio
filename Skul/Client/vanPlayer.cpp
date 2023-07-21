@@ -3,13 +3,15 @@
 #include "vanTransform.h"	// Update()에서 Player 객체의 위치 옮겨준다. 때문에 Transform 객체의 값을 수정할 수 있어야 한다.
 #include "vanAnimator.h"
 
+#include "vanObject.h"
+
 namespace van
 {
 	Player::Player()
 		: mState(PlayerState::Idle)
 		, mDirection(PlayerDirection::Left)
 	{
-		// nothing
+		AddComponent<Animator>();
 	}
 
 	Player::~Player()
@@ -19,12 +21,15 @@ namespace van
 
 	void Player::Init()
 	{
-		// nothing
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Animator>();
 	}
 
 	void Player::Update()
 	{
 		GameObject::Update();
+
+		//StillSameState();
 
 		switch (mState)
 		{
@@ -44,6 +49,56 @@ namespace van
 		GameObject::Render(_hdc);
 	}
 
+	void Player::ChangeState(PlayerState _state)
+	{
+		if (_state == mState)
+		{
+			return;
+		}
+
+		// 상태에서 빠져나갈 때 무언가 벌어져야 한다면... 여기서 특정함수 호출
+		switch (mState)
+		{
+		case van::Player::PlayerState::Walk:
+			break;
+		case van::Player::PlayerState::Idle:
+			break;
+		default:
+			break;
+		}
+
+		mState = _state;
+
+		// 특정 상태에 들어갈 때 벌어져야 한다면 여기서 특정함수 호출
+		switch (_state)
+		{
+		case van::Player::PlayerState::Walk:
+
+			break;
+		case van::Player::PlayerState::Idle:
+
+			break;
+		default:
+			break;
+		}
+	}
+
+	void Player::StillSameState()
+	{
+		// 해당 상태일 때 또 뭘 해줘야 하면 여기서 특정함수 호출
+		switch (mState)
+		{
+		case van::Player::PlayerState::Walk:
+
+			break;
+		case van::Player::PlayerState::Idle:
+
+			break;
+		default:
+			break;
+		}
+	}
+
 	void Player::Idle()
 	{
 		// Skul_Walk_Left
@@ -53,7 +108,7 @@ namespace van
 		if (Input::GetKey(eKeyCode::A))
 		{
 			animator->PlayAnimation(L"Skul_Walk_Left", true);
-			mState = PlayerState::Walk;
+			ChangeState(PlayerState::Walk);
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
