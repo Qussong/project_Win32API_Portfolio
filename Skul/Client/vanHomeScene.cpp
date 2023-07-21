@@ -80,17 +80,6 @@ namespace van
 		at->PlayAnimation(L"Tied_Skul_NPC", true);							
 		at->SetAffectedCamera(true);										// 카메라 영향 여부설정
 
-		// Cat_idle
-		// \MyResources\skul\1_NPC\Cat_Green\Idle
-		Monster* cat = Object::Instantiate<Monster>(enums::eLayerType::Monster);
-		cat->GetComponent<Transform>()->SetPosition(math::Vector2(-200.0f, 160.0f));
-		at = cat->AddComponent<Animator>();
-		at->SetScale(math::Vector2(1.5f, 1.5f));
-		at->CreateAnimationFolder(L"Cat_idle"
-			, L"..\\MyResources\\skul\\1_NPC\\Cat_Green\\Idle"); 
-		at->PlayAnimation(L"Cat_idle", true);
-		at->SetAffectedCamera(true);
-
 		// 3) Player 객체
 		// \MyResources\skul\11_Skul
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
