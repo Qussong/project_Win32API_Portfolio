@@ -10,6 +10,7 @@ namespace van
 	{
 	public:
 		Monster();
+		Monster(math::Vector2 _offset);
 		virtual ~Monster();
 
 		virtual void Init() override;

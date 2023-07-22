@@ -10,6 +10,8 @@
 #include <filesystem>
 #include <bitset>
 
+#include <typeinfo>		// 타입비교
+
 // 제공되는 헤더
 #include "framework.h"
 

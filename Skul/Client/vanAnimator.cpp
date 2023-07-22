@@ -7,8 +7,8 @@ namespace van
 	Animator::Animator()
 		: Component(enums::eComponentType::Animator)
 		//, mAnimations()
-		//, mActiveAnimation()
-		//, mbLoop()
+		, mActiveAnimation(nullptr)
+		, mbLoop(false)
 		, mbAffectedCamera(true)
 		, mAlpha(1.0f)
 		, mScale(math::Vector2::One)
@@ -45,7 +45,6 @@ namespace van
 			mActiveAnimation->Render(_hdc);
 	}
 
-	//void Animator::CreateAnimation(
 	Animation* Animator::CreateAnimation(
 				const std::wstring& _name
 				, Texture* _texture
@@ -61,10 +60,9 @@ namespace van
 
 		if (animation != nullptr)
 		{
-			//animation->SetAnimator(this);		// 이건 안해도 되나? ㅇㅇ
-			//mAnimations.insert(std::make_pair(_name, animation));
 			return animation;
 		}
+
 		animation = new Animation();
 		animation->Create(
 			_name
@@ -75,9 +73,7 @@ namespace van
 			, _spriteLength
 			, _duration);
 		animation->SetAnimator(this);
-
 		mAnimations.insert(std::make_pair(_name, animation));
-		//ResourceManager::Insert<Animation>(_name, animation);	// 지워도 되나?
 
 		return animation;
 	}
@@ -182,5 +178,14 @@ namespace van
 		mActiveAnimation = animation;
 		mActiveAnimation->Reset();
 		mbLoop = _loop;
+	}
+
+	void Animator::Reset()
+	{
+		mActiveAnimation = nullptr;
+		mbLoop = false;
+		mbAffectedCamera = true;
+		mAlpha = 1.0f;
+		mScale = math::Vector2::One;
 	}
 }

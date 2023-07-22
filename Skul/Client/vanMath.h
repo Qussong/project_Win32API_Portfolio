@@ -55,6 +55,30 @@ namespace van::math
 			return temp;
 		}
 
+		bool operator==(const Vector2 _other)
+		{
+			if (x == _other.x && y == _other.y)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		bool operator!=(const Vector2 _other)
+		{
+			if (x == _other.x && y == _other.y)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+
 	public:
 		float x;
 		float y;

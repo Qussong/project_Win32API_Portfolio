@@ -8,6 +8,11 @@ namespace van
 
 	}
 
+	BackGround::BackGround(math::Vector2 _offset)
+	{
+		// nothing
+	}
+
 	BackGround::~BackGround()
 	{
 
@@ -21,11 +26,6 @@ namespace van
 	void BackGround::Update()
 	{
 		GameObject::Update();
-
-		//SpriteRenderer* sr = GetComponent<SpriteRenderer>();
-		/*float alpha = sr->GetAlpha();
-		alpha -= 0.2f * Time::DeltaTime();
-		sr->SetAlpha(alpha);*/
 	}
 
 	void BackGround::Render(HDC _hdc)

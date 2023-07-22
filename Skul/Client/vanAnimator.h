@@ -30,8 +30,9 @@ namespace van
 			, math::Vector2 _offset = math::Vector2::Zero	
 			, float _duration = 0.1f);
 
-		Animation* FindAnimation(const std::wstring& _name);								//
-		void PlayAnimation(const std::wstring& _name, bool _loop = false);					// 
+		Animation* FindAnimation(const std::wstring& _name);
+		void PlayAnimation(const std::wstring& _name, bool _loop = false);
+		void Reset();
 
 		__forceinline bool GetAffectedCamera() { return mbAffectedCamera; }					//
 		__forceinline void SetAffectedCamera(bool _enable) { mbAffectedCamera = _enable; }	//

@@ -8,6 +8,11 @@ van::Monster::Monster()
 	animator = AddComponent<Animator>();
 }
 
+van::Monster::Monster(math::Vector2 _offset)
+{
+	// nothing
+}
+
 van::Monster::~Monster()
 {
 	// nothing

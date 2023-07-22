@@ -45,7 +45,7 @@ namespace van
 			Object::Instantiate<Monster>(enums::eLayerType::Monster);		// Monster 객체 생성
 		npc1->GetComponent<Transform>()
 			->SetPosition(math::Vector2(-500.0f, 125.0f));					// 위치값 설정
-		Animator* at = npc1->AddComponent<Animator>();						// Animator 추가
+		Animator* at = npc1->GetComponent<Animator>();						// Animator 추가
 		at->SetScale(math::Vector2(2.0f, 2.0f));							// Scale 설정
 		at->CreateAnimationFolder(L"Tied_Skul_NPC"
 			, L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");					
@@ -57,24 +57,19 @@ namespace van
 		col->SetOffset(math::Vector2(0.0f, 0.0f));
 
 		// 3) Player 객체
-		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));;
-		at = player->AddComponent<Animator>();
-		at->SetScale(math::Vector2(2.0f, 2.0f));
 		math::Vector2 offset = math::Vector2(0.0f, 70.0f);
-		at->CreateAnimationFolder(L"Skul_Walk_Left", L"..\\MyResources\\skul\\11_Skul\\Walk_L", offset);
-		at->CreateAnimationFolder(L"Skul_Walk_Right", L"..\\MyResources\\skul\\11_Skul\\Walk_R", offset);
-		at->CreateAnimationFolder(L"Idle_Left", L"..\\MyResources\\skul\\11_Skul\\Idle_L", offset);
-		at->CreateAnimationFolder(L"Idle_Right", L"..\\MyResources\\skul\\11_Skul\\Idle_R", offset);
-		at->PlayAnimation(L"Idle_Left", true);
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player, offset);
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));;
+		at = player->GetComponent<Animator>();
+		at->SetScale(math::Vector2(2.0f, 2.0f));
+		at->PlayAnimation(L"Idle_Weapon_R", true);
 		at->SetAffectedCamera(true);
-
-		/*Collider**/ col = player->AddComponent<Collider>();
+		
+		col = player->AddComponent<Collider>();
 		col->SetSize(math::Vector2(50.0f, 70.0f));
 		col->SetOffset(math::Vector2(0.0f, 140.0f));
 
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
-
 		SetTarget(player);
 		Camera::SetTarget(GetTarget());
 	}

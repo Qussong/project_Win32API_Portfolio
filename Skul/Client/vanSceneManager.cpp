@@ -24,19 +24,19 @@ namespace van
 	void SceneManager::Update()
 	{
 		// 화면 전환
-		if (Input::GetKey(eKeyCode::Z))
+		if (Input::GetKey(eKeyCode::Q))
 		{
 			LoadScene(L"TitleScene");
 		}
-		if (Input::GetKey(eKeyCode::X))
+		if (Input::GetKey(eKeyCode::W))
 		{
 			LoadScene(L"HomeScene");
 		}
-		if (Input::GetKey(eKeyCode::C))
+		if (Input::GetKey(eKeyCode::E))
 		{
 			LoadScene(L"StageScene");
 		}
-		if (Input::GetKey(eKeyCode::V))
+		if (Input::GetKey(eKeyCode::R))
 		{
 			LoadScene(L"EndingScene");
 		}

@@ -7,6 +7,7 @@ namespace van
 	{
 	public:
 		BackGround();
+		BackGround(math::Vector2 _offset);
 		virtual ~BackGround();
 
 		virtual void Init() override;

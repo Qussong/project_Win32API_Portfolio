@@ -3,7 +3,7 @@
 
 namespace van
 {
-	
+	class Animator;
 
 	class Player : public GameObject
 	{
@@ -12,20 +12,30 @@ namespace van
 		{
 			Walk,
 			Idle,
+			WaitDance,
+			Dash,
+			Jump,
+			JumpAttack,
+			Death,
+			Reborn,
+			None,
 		};
 		
 		enum class PlayerDirection
 		{
-			Right,
 			Left,
+			Right,
+			None,
 		};
 
 		Player();
+		Player(math::Vector2 _offset);
 		virtual ~Player();
 
 		virtual void Init() override;
 		virtual void Update() override;
 		virtual void Render(HDC _hdc) override;
+		void MakeAnimation(math::Vector2 _offset = math::Vector2::Zero);
 
 		void ChangeState(PlayerState _state);
 		void StillSameState();
@@ -36,6 +46,7 @@ namespace van
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;
+		Animator* animator;
 	};
 }
 
