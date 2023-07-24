@@ -1,4 +1,5 @@
 #include "vanHomeScene.h"
+#include "vanTiedSkul.h"
 #include "vanPlayer.h"
 #include "vanMonster.h"
 #include "vanObject.h"
@@ -11,7 +12,9 @@
 
 #include "vanCollider.h"
 #include "vanCollisionManager.h"
+#include "vanRigidBody.h"
 
+#include "vanFloor.h"
 
 namespace van
 {
@@ -41,25 +44,22 @@ namespace van
 		bgsr->SetAffectCamera(true);												// 카메라 영향 여부설정
 		
 		// 2) Tied_Skul_NPC
-		Monster* npc1 =
-			Object::Instantiate<Monster>(enums::eLayerType::Monster);		// Monster 객체 생성
-		npc1->GetComponent<Transform>()
-			->SetPosition(math::Vector2(-500.0f, 125.0f));					// 위치값 설정
-		Animator* at = npc1->GetComponent<Animator>();						// Animator 추가
-		at->SetScale(math::Vector2(2.0f, 2.0f));							// Scale 설정
-		at->CreateAnimationFolder(L"Tied_Skul_NPC"
-			, L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");					
-		at->PlayAnimation(L"Tied_Skul_NPC", true);							
-		at->SetAffectedCamera(true);										// 카메라 영향 여부설정
+		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::Monster);		
+		Animator* at = tiedSkul->GetComponent<Animator>();
+		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(-500.0f, 125.0f));
+		tiedSkul->MakeAnimation();
+		at->SetScale(math::Vector2(2.0f, 2.0f));
+		at->PlayAnimation(L"Tied_Skul_NPC", true);
+		at->SetAffectedCamera(true);
 
-		Collider* col = npc1->AddComponent<Collider>();
-		col->SetSize(math::Vector2(50.0f, 70.0f));
+		Collider* col = tiedSkul->AddComponent<Collider>();
+		col->SetSize(math::Vector2(50.0f, 90.0f));
 		col->SetOffset(math::Vector2(0.0f, 0.0f));
 
 		// 3) Player 객체
-		math::Vector2 offset = math::Vector2(0.0f, 70.0f);
-		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player, offset);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 0));;
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 140));
+		player->MakeAnimation();
 		at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->PlayAnimation(L"Idle_Weapon_R", true);
@@ -67,16 +67,24 @@ namespace van
 		
 		col = player->AddComponent<Collider>();
 		col->SetSize(math::Vector2(50.0f, 70.0f));
-		col->SetOffset(math::Vector2(0.0f, 140.0f));
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);	// Player 레이어와 Monster 레이어의 충돌 체크여부(true) 설정
-		SetTarget(player);
-		Camera::SetTarget(GetTarget());
+		// 4) Floor 객체 
+		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
+		col = floor->AddComponent<Collider>();
+		col->SetSize(math::Vector2(1500.0f, 50.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 200.0f));
+
+		// Player 레이어와 Monster 레이어의 충돌 체크여부(true) 설정
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+
+		SetSceneTarget(player);
+		Camera::SetTarget(GetSceneTarget());
 	}
 
 	void HomeScene::Update()
 	{
-		Camera::SetTarget(GetTarget());
+		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 

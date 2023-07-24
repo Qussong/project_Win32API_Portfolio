@@ -24,13 +24,13 @@ van::StageScene::~StageScene()
 void van::StageScene::Init()
 {	
 
-	SetTarget(nullptr);
-	Camera::SetTarget(GetTarget());
+	//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
+	Camera::SetTarget(GetSceneTarget());
 }
 
 void van::StageScene::Update()
 {
-	Camera::SetTarget(GetTarget());
+	Camera::SetTarget(GetSceneTarget());
 	Scene::Update();
 }
 

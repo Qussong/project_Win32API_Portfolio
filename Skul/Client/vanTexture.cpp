@@ -192,6 +192,10 @@ namespace van
 		}
 		else
 			__noop;
+
+		Rectangle(_hdc
+			, _pos.x, _pos.y
+			, _pos.x + 10, _pos.y + 10);
 	}
 
 }

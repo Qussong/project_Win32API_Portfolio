@@ -3,32 +3,50 @@
 #include "vanTransform.h"
 #include "vanAnimator.h"
 
-van::Monster::Monster()
+namespace van
 {
-	animator = AddComponent<Animator>();
-}
+	Monster::Monster()
+	{
+		// nothing
+	}
 
-van::Monster::Monster(math::Vector2 _offset)
-{
-	// nothing
-}
+	Monster::~Monster()
+	{
+		// nothing
+	}
 
-van::Monster::~Monster()
-{
-	// nothing
-}
+	void Monster::Init()
+	{
+		// nothing
+	}
 
-void van::Monster::Init()
-{
-	// nothing
-}
+	void Monster::Update()
+	{
+		GameObject::Update();
+	}
 
-void van::Monster::Update()
-{
-	GameObject::Update();
-}
+	void Monster::Render(HDC _hdc)
+	{
+		GameObject::Render(_hdc);
+	}
 
-void van::Monster::Render(HDC _hdc)
-{
-	GameObject::Render(_hdc);
+	void Monster::MakeAnimation()
+	{
+		// nothing
+	}
+
+	void Monster::OnCollisionEnter(Collider* _other)
+	{
+		// nothing
+	}
+
+	void Monster::OnCollisionStay(Collider* _other)
+	{
+		// nothing
+	}
+
+	void Monster::OnCollisionExit(Collider* _other)
+	{
+		// nothing
+	}
 }

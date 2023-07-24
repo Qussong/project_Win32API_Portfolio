@@ -144,7 +144,10 @@
     <ClInclude Include="vanCarleonRecruit.h" />
     <ClInclude Include="vanCollider.h" />
     <ClInclude Include="vanCollisionManager.h" />
+    <ClInclude Include="vanFloor.h" />
     <ClInclude Include="vanHomeScene.h" />
+    <ClInclude Include="vanNPC.h" />
+    <ClInclude Include="vanRigidBody.h" />
     <ClInclude Include="vanSpearman.h" />
     <ClInclude Include="vanTexture.h" />
     <ClInclude Include="vanResource.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="vanSceneManager.h" />
     <ClInclude Include="vanSpriteRenderer.h" />
     <ClInclude Include="vanStageScene.h" />
+    <ClInclude Include="vanTiedSkul.h" />
     <ClInclude Include="vanTime.h" />
     <ClInclude Include="vanTitleScene.h" />
     <ClInclude Include="vanTransform.h" />
@@ -178,7 +182,10 @@
     <ClCompile Include="vanCarleonRecruit.cpp" />
     <ClCompile Include="vanCollider.cpp" />
     <ClCompile Include="vanCollisionManager.cpp" />
+    <ClCompile Include="vanFloor.cpp" />
     <ClCompile Include="vanHomeScene.cpp" />
+    <ClCompile Include="vanNPC.cpp" />
+    <ClCompile Include="vanRigidBody.cpp" />
     <ClCompile Include="vanSpearman.cpp" />
     <ClCompile Include="vanTexture.cpp" />
     <ClCompile Include="vanMath.cpp" />
@@ -198,6 +205,7 @@
     <ClCompile Include="vanSceneManager.cpp" />
     <ClCompile Include="vanSpriteRenderer.cpp" />
     <ClCompile Include="vanStageScene.cpp" />
+    <ClCompile Include="vanTiedSkul.cpp" />
     <ClCompile Include="vanTime.cpp" />
     <ClCompile Include="vanTitleScene.cpp" />
     <ClCompile Include="vanTransform.cpp" />

@@ -3,12 +3,11 @@
 
 namespace van
 {
-	class BackGround : public GameObject
+	class NPC : public GameObject
 	{
 	public:
-		BackGround();
-		BackGround(math::Vector2 _offset);
-		virtual ~BackGround();
+		NPC();
+		virtual ~NPC();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -16,7 +15,6 @@ namespace van
 		virtual void MakeAnimation() override;
 
 	private:
-
 	};
 }
 

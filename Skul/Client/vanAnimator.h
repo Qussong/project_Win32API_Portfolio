@@ -40,8 +40,7 @@ namespace van
 		__forceinline void SetAlpha(float _alpha) { mAlpha = _alpha; }						//
 		__forceinline math::Vector2 GetScale() { return mScale; }
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
-
-		__forceinline bool IsActiveAnimationComplete() { return mActiveAnimation->IsComplete(); }	// 왜 필요해? -> 
+		__forceinline bool IsActiveAnimationComplete() { return mActiveAnimation->IsComplete(); }	// 
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;		// Animation 객체를 key값과 함꼐 map으로 관리

@@ -21,8 +21,8 @@ namespace van
 
 		Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }
 
-		__forceinline void SetTarget(GameObject* _target) { target = _target; }
-		__forceinline GameObject* GetTarget() { return target; }
+		__forceinline void SetSceneTarget(GameObject* _target = nullptr) { target = _target; }
+		__forceinline GameObject* GetSceneTarget() { return target; }
 			
 	private:
 		std::vector<Layer> mLayers;

@@ -59,49 +59,38 @@ namespace van
             row = (UINT)_right;
         }
 
-        mLayerMasks[row][col] = _enable;
+        mLayerMasks[row][col] = _enable;    // 레이어들 간의 충돌체크 여부 설정
     }
 
-    void CollisionManager::LayerCollision(Scene* _scene, eLayerType _left, eLayerType _right)
+    bool CollisionManager::Intersect(Collider* _left, Collider* _right)
     {
-        // finds left layer objects
-        Layer& leftLayer = _scene->GetLayer(_left); // 해당 Scene에서 _left에 해당하는 layer를 저장
-        std::vector<GameObject*>& lefts = leftLayer.GetGameObjects();   // 
+        math::Vector2 leftPos = _left->GetPos();    // _left 인자의 위치 좌표 저장
+        math::Vector2 rightPos = _right->GetPos();  // _right 인자의 위치 좌표 저장
 
-        Layer& rightLayer = _scene->GetLayer(_right);   // 해당 Scene에서 _right에 해당하는 layer를 저장
-        std::vector<GameObject*>& rights = rightLayer.GetGameObjects(); // 
+        math::Vector2 leftSize = _left->GetSize();      // _left 인자의 크기 저장
+        math::Vector2 rightSize = _right->GetSize();    // _right 인자의 크기 저장
 
-        // finds right layer Objects
-        for (GameObject* leftObj : lefts)
+        // 두 사각형의 중심사이의 거리가 각 사각형의 너비/높이 값의 절반의 합보다 작으면 충돌상태
+        if (::fabs(leftPos.x - rightPos.x) < ::fabs(leftSize.x / 2.0f + rightSize.x / 2.0f)
+            && ::fabs(leftPos.y - rightPos.y) < ::fabs(leftSize.y / 2.0f + rightSize.y / 2.0f))
         {
-            Collider* leftCol = leftObj->GetComponent<Collider>();
-            if (leftCol == nullptr)
-                continue;
-
-            for (GameObject* rightObj : rights)
-            {
-                Collider* rightCol = rightObj->GetComponent<Collider>();
-                if (rightCol == nullptr)
-                    continue;
-                if (leftObj == rightObj)
-                    continue;
-
-                ColliderCollision(leftCol, rightCol);
-            }
+            return true;
         }
+
+        return false;
     }
 
     void CollisionManager::ColliderCollision(Collider* _left, Collider* _right)
     {
         // 두 충돌체의 ID를 확인
         ColliderID ID;
-        ID.left = (UINT)_left->GetCollisionNum();
-        ID.right = (UINT)_right->GetCollisionNum();
+        ID.left = (UINT)_left->GetCollisionNum();   // 파라미터로 들어온 첫번째 인자의 충돌체 ID 저장
+        ID.right = (UINT)_right->GetCollisionNum(); // 파라미터로 들어온 두번째 인자의 충돌체 ID 저장
 
 
         // 이전 충돌체의 정보를 가져와서 확인한다.
         std::map<UINT64, bool>::iterator iter
-            = mCollisionMap.find(ID.id);
+            = mCollisionMap.find(ID.id);    // 정보가 없다면 map.end() 반환
 
         // 혹시 충돌정보가 없다면 생성해주면된다
         if (iter == mCollisionMap.end())
@@ -110,28 +99,25 @@ namespace van
             iter = mCollisionMap.find(ID.id);
         }
 
-
         //충돌함수 호출
-        if (Intersect(_left, _right))
+        if (Intersect(_left, _right))   // 충돌상태
         {
-            // 충돌 중인상태
-            if (iter->second == false)
+            if (iter->second == false)  // 처음 충돌하는 상태
             {
                 _left->OnCollisionEnter(_right);
                 _right->OnCollisionEnter(_left);
 
                 iter->second = true;
             }
-            else // 처음 충돌하는 상태
+            else  // 충돌 중인상태
             {
                 _left->OnCollisionStay(_right);
                 _right->OnCollisionStay(_left);
             }
         }
-        else
+        else  // 비충돌상태
         {
-            // 충돌을 빠져나간상태
-            if (iter->second == true)
+            if (iter->second == true)   // 충돌을 빠져나간상태
             {
                 _left->OnCollisionExit(_right);
                 _right->OnCollisionExit(_left);
@@ -141,20 +127,32 @@ namespace van
         }
     }
 
-    bool CollisionManager::Intersect(Collider* _left, Collider* _right)
+    void CollisionManager::LayerCollision(Scene* _scene, eLayerType _left, eLayerType _right)
     {
-        math::Vector2 leftPos = _left->GetPos();
-        math::Vector2 rightPos = _right->GetPos();
+        // finds left layer objects
+        Layer& leftLayer = _scene->GetLayer(_left); // 해당 Scene에서 _left에 해당하는 layer를 저장
+        std::vector<GameObject*>& lefts = leftLayer.GetGameObjects();   // 해당 레이어(leftLayer)의 GameObject 객체들을 가리키는 변수 생성
 
-        math::Vector2 leftSize = _left->GetSize();
-        math::Vector2 rightSize = _right->GetSize();
+        Layer& rightLayer = _scene->GetLayer(_right);   // 해당 Scene에서 _right에 해당하는 layer를 저장
+        std::vector<GameObject*>& rights = rightLayer.GetGameObjects(); // 해당 레이어(rightLayer)의 GameObject 객체들을 가리키는 변수 생성
 
-        if (::fabs(leftPos.x - rightPos.x) < ::fabs(leftSize.x / 2.0f + rightSize.x / 2.0f)
-            && ::fabs(leftPos.y - rightPos.y) < ::fabs(leftSize.y / 2.0f + rightSize.y / 2.0f))
+        // finds right layer Objects
+        for (GameObject* leftObj : lefts)   // leftLayer 에 속하는 GameObject를 하나씩 호출
         {
-            return true;
-        }
+            Collider* leftCol = leftObj->GetComponent<Collider>();  // leftLayer 에 속하는 GameObject의 Collider 속성 저장
+            if (leftCol == nullptr) // 해당 GameObject 객체에 Collider 속성이 없다면 다음 GameObject 객체 호출
+                continue;
 
-        return false;
+            for (GameObject* rightObj : rights) // rightLayer 에 속하는 GameObject를 하나씩 호출
+            {
+                Collider* rightCol = rightObj->GetComponent<Collider>();    // 해당 GameObject 객체의 Collider 속성 저장
+                if (rightCol == nullptr)    // 해당 GameObject 객체에 Collider 속성이 없다면 다음 객체 호출
+                    continue;
+                if (leftObj == rightObj)    // 비교대상이 본인이면 다음 객체 호출
+                    continue;
+
+                ColliderCollision(leftCol, rightCol);   // 두 객체의 충돌과정에(enter, stay, exit)따른 영향 계산
+            }
+        }
     }
 }

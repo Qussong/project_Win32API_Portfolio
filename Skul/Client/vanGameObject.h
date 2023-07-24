@@ -51,12 +51,17 @@ namespace van
 			return comp;
 		}
 
-		virtual void OnCollisionEnter(class Collider* _other);
-		virtual void OnCollisionStay(class Collider* _other);
-		virtual void OnCollisionExit(class Collider* _other);
+		virtual void OnCollisionEnter(class Collider* _other);	// 충돌을 시작한 시점
+		virtual void OnCollisionStay(class Collider* _other);	// 충돌중임
+		virtual void OnCollisionExit(class Collider* _other);	// 충돌에서 벗어남
+
+		virtual void MakeAnimation();
+		__forceinline void SetOffset(math::Vector2 _offset) { offset = _offset; }
+		__forceinline math::Vector2 GetOffset() { return offset; }
 
 	private:
 		std::vector<Component*> mComponents;	// Componenet 객체들의 값을 수정해야하기에 주소를 저장한다.
+		math::Vector2 offset;
 	};
 }
 

@@ -12,13 +12,13 @@ namespace van
 		{
 			Idle,
 			Walk,
+			Jump,
 			Dash,
 			Attack,
-			Jump,
-			JumpAttack,
+			/*JumpAttack,
 			Death,
 			Reborn,
-			WaitDance,
+			WaitDance,*/
 			None,
 		};
 		
@@ -30,28 +30,29 @@ namespace van
 		};
 
 		Player();
-		Player(math::Vector2 _offset);
 		virtual ~Player();
 
 		virtual void Init() override;
 		virtual void Update() override;
 		virtual void Render(HDC _hdc) override;
-		void MakeAnimation(math::Vector2 _offset = math::Vector2::Zero);
+		virtual void MakeAnimation() override;
 
-		void ChangeState(PlayerState _state);
-		void StillSameState();
+		//void ChangeState(PlayerState _state);
+		//void StillSameState();
 
 		void Walk();
 		void Idle();
 		void Jump();
-		void Attack();
 		void Dash();
+		void Attack();
 
-		
+		virtual void OnCollisionEnter(class Collider* _other);	// 충돌을 시작한 시점
+		virtual void OnCollisionStay(class Collider* _other);	// 충돌중임
+		virtual void OnCollisionExit(class Collider* _other);	// 충돌에서 벗어남
+
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;
-		Animator* animator;
 		bool mbDoubleKey;
 	};
 }

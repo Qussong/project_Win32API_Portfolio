@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 
 /*
 	[ 실수형 ]
@@ -7,6 +8,8 @@
 		- float : 4 Byte
 	float 타입으로 실수 값을 사용하고자 한다면 값 뒤에 'f'를 붙여줘야 한다.
 */
+
+#define PI 3.141592f
 
 namespace van::math
 {
@@ -23,14 +26,29 @@ namespace van::math
 			: x(0.0f)
 			, y(0.0f)
 		{
+			// nothing
 		}
 
 		Vector2(float _x, float _y)
 			: x(_x)
 			, y(_y)
 		{
+			// nothing
 		}
-		
+
+		Vector2 operator+(const Vector2 _other)
+		{
+			Vector2 temp;
+			temp.x = x + _other.x;
+			temp.y = y + _other.y;
+			return temp;
+		}
+
+		Vector2 operator -()
+		{
+			return Vector2(-x, -y);
+		}
+
 		Vector2 operator-(const Vector2 _other)
 		{
 			Vector2 temp;
@@ -47,15 +65,31 @@ namespace van::math
 			return temp;
 		}
 
-		Vector2 operator+(const Vector2 _other)
+		Vector2 operator*(const float _value)
 		{
 			Vector2 temp;
-			temp.x = x + _other.x;
-			temp.y = y + _other.y;
+			temp.x = x * _value;
+			temp.y = y * _value;
 			return temp;
 		}
 
-		bool operator==(const Vector2 _other)
+		Vector2& operator +=(const Vector2 _other)
+		{
+			x += _other.x;
+			y += _other.y;
+
+			return *this;
+		}
+
+		Vector2& operator -=(const Vector2 _other)
+		{
+			x -= _other.x;
+			y -= _other.y;
+
+			return *this;
+		}
+
+		bool operator ==(const Vector2 _other)
 		{
 			if (x == _other.x && y == _other.y)
 			{
@@ -67,20 +101,69 @@ namespace van::math
 			}
 		}
 
-		bool operator!=(const Vector2 _other)
+		//bool operator!=(const Vector2 _other)
+		//{
+		//	if (x == _other.x && y == _other.y)
+		//	{
+		//		return false;
+		//	}
+		//	else
+		//	{
+		//		return true;
+		//	}
+		//}
+
+		Vector2& operator *=(const float& _value)
 		{
-			if (x == _other.x && y == _other.y)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			x *= _value;
+			y *= _value;
+
+			return *this;
+		}
+
+		float length()
+		{
+			return sqrtf(x * x + y * y);	// sqrtf = 제곱근
+		}
+
+		Vector2 normalize()
+		{
+			float len = length();
+			// 0,0을 기준점으로
+			x /= len;	// cos
+			y /= len;	// sin
+
+			return *this;
+		}
+
+		void clear()
+		{
+			x = 0.0f;
+			y = 0.0f;
 		}
 
 	public:
 		float x;
 		float y;
 	};
+
+	inline Vector2 Rotate(Vector2 _vector, float _degree)
+	{
+		float radian = (_degree / 180.0f) * PI;
+		_vector.normalize();
+		float x = cosf(radian) * _vector.x - sinf(radian) * _vector.y;
+		float y = sinf(radian) * _vector.x + cosf(radian) * _vector.y;
+
+		return Vector2(x, y);
+	}
+
+	inline float Dot(Vector2& _v1, Vector2& _v2)
+	{
+		return _v1.x * _v2.x + _v1.y + _v2.y;
+	}
+
+	inline float Cross(Vector2 _v1, Vector2 _v2)
+	{
+		return _v1.x * _v2.y - _v1.y * _v2.x;
+	}
 }

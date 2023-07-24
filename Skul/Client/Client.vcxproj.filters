@@ -19,9 +19,6 @@
     <Filter Include="Engine\High Level Interface">
       <UniqueIdentifier>{99bad486-19c9-4e72-aa4f-40c2c091e813}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Time">
-      <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Entity">
       <UniqueIdentifier>{b9a2770a-132a-4117-b4a2-1310a399d7eb}</UniqueIdentifier>
     </Filter>
@@ -43,14 +40,8 @@
     <Filter Include="Engine\Text">
       <UniqueIdentifier>{de891b89-0b10-4e66-8d20-9efd13aff462}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\SceneManager">
-      <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Resource">
       <UniqueIdentifier>{78c02d0f-66cc-4c89-8dce-a244a9baabeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\ResourceManager">
-      <UniqueIdentifier>{682e9c55-5a0d-4464-83d1-c399eaaab79b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Common\Math">
       <UniqueIdentifier>{39ba33fc-4282-4caf-a93d-c4769c2648ab}</UniqueIdentifier>
@@ -100,14 +91,38 @@
     <Filter Include="Engine\Contents\GameObject\Monster\CarleonRecruit">
       <UniqueIdentifier>{61b154b0-1ed0-4502-ad32-34dbfdd91a54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Colider">
-      <UniqueIdentifier>{e45ccba8-abf2-4b08-82dd-a6810098cc2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CollisionManager">
-      <UniqueIdentifier>{13ed243a-bcb8-44f0-baaa-d2b1d2b84aa5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Common\Input">
       <UniqueIdentifier>{10406b7b-54b6-489f-8ca1-7630ff4e3868}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Colider">
+      <UniqueIdentifier>{e45ccba8-abf2-4b08-82dd-a6810098cc2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manageres">
+      <UniqueIdentifier>{5d18e2d9-fd72-466c-a312-da75e5789e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manageres\CollisionManager">
+      <UniqueIdentifier>{13ed243a-bcb8-44f0-baaa-d2b1d2b84aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manageres\ResourceManager">
+      <UniqueIdentifier>{682e9c55-5a0d-4464-83d1-c399eaaab79b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Manageres\SceneManager">
+      <UniqueIdentifier>{b4630904-e475-451a-9766-922eaa4d9535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common\Time">
+      <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\NPC">
+      <UniqueIdentifier>{a7f9f117-0398-448c-bd6a-19aa3605934e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\NPC\TiedSkul">
+      <UniqueIdentifier>{a6f4158f-8aa9-44e7-a2fb-48dffa54a379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{07105988-c6b1-48d9-93c8-e77347b9385f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\Floor">
+      <UniqueIdentifier>{bab4dd4e-1fdd-4ed0-ace5-6c79b7aee92c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +148,7 @@
       <Filter>Engine\Common\Input</Filter>
     </ClInclude>
     <ClInclude Include="vanTime.h">
-      <Filter>Engine\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
     </ClInclude>
     <ClInclude Include="vanEntity.h">
       <Filter>Engine\Entity</Filter>
@@ -166,7 +181,7 @@
       <Filter>Engine\Common</Filter>
     </ClInclude>
     <ClInclude Include="vanSceneManager.h">
-      <Filter>Engine\SceneManager</Filter>
+      <Filter>Engine\Manageres\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="vanStageScene.h">
       <Filter>Engine\Contents\Scene\02_StageScene</Filter>
@@ -187,7 +202,7 @@
       <Filter>Engine\Resource</Filter>
     </ClInclude>
     <ClInclude Include="vanResourceManager.h">
-      <Filter>Engine\ResourceManager</Filter>
+      <Filter>Engine\Manageres\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="vanTexture.h">
       <Filter>Engine\Resource\Texture</Filter>
@@ -214,10 +229,22 @@
       <Filter>Engine\Contents\GameObject\Monster\CarleonRecruit</Filter>
     </ClInclude>
     <ClInclude Include="vanCollider.h">
-      <Filter>Colider</Filter>
+      <Filter>Engine\Component\Colider</Filter>
     </ClInclude>
     <ClInclude Include="vanCollisionManager.h">
-      <Filter>CollisionManager</Filter>
+      <Filter>Engine\Manageres\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="vanNPC.h">
+      <Filter>Engine\Contents\GameObject\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="vanTiedSkul.h">
+      <Filter>Engine\Contents\GameObject\NPC\TiedSkul</Filter>
+    </ClInclude>
+    <ClInclude Include="vanRigidBody.h">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="vanFloor.h">
+      <Filter>Engine\Contents\GameObject\Floor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -242,7 +269,7 @@
       <Filter>Engine\Common\Input</Filter>
     </ClCompile>
     <ClCompile Include="vanTime.cpp">
-      <Filter>Engine\Time</Filter>
+      <Filter>Engine\Common\Time</Filter>
     </ClCompile>
     <ClCompile Include="vanEntity.cpp">
       <Filter>Engine\Entity</Filter>
@@ -272,7 +299,7 @@
       <Filter>Engine\Contents\Scene\00_TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="vanSceneManager.cpp">
-      <Filter>Engine\SceneManager</Filter>
+      <Filter>Engine\Manageres\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="vanStageScene.cpp">
       <Filter>Engine\Contents\Scene\02_StageScene</Filter>
@@ -293,7 +320,7 @@
       <Filter>Engine\Resource</Filter>
     </ClCompile>
     <ClCompile Include="vanResourceManager.cpp">
-      <Filter>Engine\ResourceManager</Filter>
+      <Filter>Engine\Manageres\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="vanTexture.cpp">
       <Filter>Engine\Resource\Texture</Filter>
@@ -320,10 +347,22 @@
       <Filter>Engine\Contents\GameObject\Monster\CarleonRecruit</Filter>
     </ClCompile>
     <ClCompile Include="vanCollider.cpp">
-      <Filter>Colider</Filter>
+      <Filter>Engine\Component\Colider</Filter>
     </ClCompile>
     <ClCompile Include="vanCollisionManager.cpp">
-      <Filter>CollisionManager</Filter>
+      <Filter>Engine\Manageres\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="vanNPC.cpp">
+      <Filter>Engine\Contents\GameObject\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="vanTiedSkul.cpp">
+      <Filter>Engine\Contents\GameObject\NPC\TiedSkul</Filter>
+    </ClCompile>
+    <ClCompile Include="vanRigidBody.cpp">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="vanFloor.cpp">
+      <Filter>Engine\Contents\GameObject\Floor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

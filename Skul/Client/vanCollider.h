@@ -19,12 +19,9 @@ namespace van
 
 		__forceinline math::Vector2 GetSize() { return mSize; }
 		__forceinline void SetSize(math::Vector2 _size) { mSize = _size; }
-
 		__forceinline math::Vector2 GetOffset() { return mOffset; }
 		__forceinline void SetOffset(math::Vector2 _offset) { mOffset = _offset; }
-
 		__forceinline math::Vector2 GetPos() { return mPos; }
-
 		__forceinline UINT GetCollisionNum() { return mCollisionNum; }
 
 	private:

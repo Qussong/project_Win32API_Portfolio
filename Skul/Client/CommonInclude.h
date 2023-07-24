@@ -37,6 +37,7 @@ namespace van::enums
 	enum class eLayerType
 	{
 		BackGround,
+		Floor,
 		Monster,
 		Player,
 		Effect,
@@ -51,6 +52,7 @@ namespace van::enums
 		Animation,
 		Animator,
 		Collider,
+		RigidBody,
 		End,
 	};
 }

@@ -1,14 +1,13 @@
 #pragma once
-#include "vanGameObject.h"
+#include "vanNPC.h"
 
 namespace van
 {
-	class BackGround : public GameObject
+	class TiedSkul : public NPC
 	{
 	public:
-		BackGround();
-		BackGround(math::Vector2 _offset);
-		virtual ~BackGround();
+		TiedSkul();
+		virtual ~TiedSkul();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -16,7 +15,6 @@ namespace van
 		virtual void MakeAnimation() override;
 
 	private:
-
 	};
 }
 

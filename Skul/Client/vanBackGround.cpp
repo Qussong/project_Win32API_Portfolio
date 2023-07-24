@@ -32,4 +32,9 @@ namespace van
 	{
 		GameObject::Render(_hdc);
 	}
+
+	void BackGround::MakeAnimation()
+	{
+		// nothing
+	}
 }

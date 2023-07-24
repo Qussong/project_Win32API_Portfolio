@@ -36,13 +36,29 @@ namespace van
 				mActiveAnimation->Reset();
 			}
 		}
+		else  // 가리키는 Animation 객체가 없다면
+		{
+			return;
+		}
 	}
 
 	void Animator::Render(HDC _hdc)
 	{
-		mActiveAnimation->SetAffectCamera(mbAffectedCamera);
+		// 강사님 코드)
+		//mActiveAnimation->SetAffectCamera(mbAffectedCamera);
+		//if (mActiveAnimation)	// 가리키는 Animation 객체가 있다면
+		//	mActiveAnimation->Render(_hdc);
+
+		// 내방식)
 		if (mActiveAnimation)	// 가리키는 Animation 객체가 있다면
+		{
+			mActiveAnimation->SetAffectCamera(mbAffectedCamera);
 			mActiveAnimation->Render(_hdc);
+		}
+		else  // 가리키는 Animation 객체가 없다면
+		{
+			return;
+		}
 	}
 
 	Animation* Animator::CreateAnimation(

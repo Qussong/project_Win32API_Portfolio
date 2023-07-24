@@ -1,12 +1,15 @@
 #include "vanGameObject.h"
-#include "vanTransform.h"		
+#include "vanTransform.h"
+#include "vanAnimator.h"
 #include "vanSpriteRenderer.h"
 
 namespace van
 {
 	GameObject::GameObject()
+		: offset(math::Vector2::Zero)
 	{
 		AddComponent<Transform>();	// GameObject 객체에 Transform 속성을 만들어 넣어준다.
+		AddComponent<Animator>();	// GameObject 객체에 Animator 속성을 만들어 넣어준다.
 	}
 
 	GameObject::~GameObject()
@@ -45,6 +48,11 @@ namespace van
 	}
 
 	void GameObject::OnCollisionExit(Collider* _other)
+	{
+		// nothing
+	}
+
+	void GameObject::MakeAnimation()
 	{
 		// nothing
 	}
