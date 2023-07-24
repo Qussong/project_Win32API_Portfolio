@@ -159,7 +159,7 @@ namespace van::math
 
 	inline float Dot(Vector2& _v1, Vector2& _v2)
 	{
-		return _v1.x * _v2.x + _v1.y + _v2.y;
+		return _v1.x * _v2.x + _v1.y * _v2.y;
 	}
 
 	inline float Cross(Vector2 _v1, Vector2 _v2)
