@@ -39,8 +39,8 @@ namespace van
 
     void CollisionManager::Clear()
     {
-        mLayerMasks->reset();
-        mCollisionMap.clear();
+        mLayerMasks->reset();   // 비트셋의 비트들을 전부 0으로 세팅 (정적)
+        mCollisionMap.clear();  // map의 모든 요소를 지운다. 즉, map을 비운다. (동적)
     }
 
     void CollisionManager::CollisionLayerCheck(eLayerType _left, eLayerType _right, bool _enable)
@@ -65,11 +65,11 @@ namespace van
     void CollisionManager::LayerCollision(Scene* _scene, eLayerType _left, eLayerType _right)
     {
         // finds left layer objects
-        Layer& leftLayer = _scene->GetLayer(_left);
-        std::vector<GameObject*>& lefts = leftLayer.GetGameObjects();
+        Layer& leftLayer = _scene->GetLayer(_left); // 해당 Scene에서 _left에 해당하는 layer를 저장
+        std::vector<GameObject*>& lefts = leftLayer.GetGameObjects();   // 
 
-        Layer& rightLayer = _scene->GetLayer(_right);
-        std::vector<GameObject*>& rights = rightLayer.GetGameObjects();
+        Layer& rightLayer = _scene->GetLayer(_right);   // 해당 Scene에서 _right에 해당하는 layer를 저장
+        std::vector<GameObject*>& rights = rightLayer.GetGameObjects(); // 
 
         // finds right layer Objects
         for (GameObject* leftObj : lefts)

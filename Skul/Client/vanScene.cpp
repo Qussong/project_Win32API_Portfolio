@@ -33,9 +33,9 @@ namespace van
 		for (Layer& layer : mLayers)
 			layer.Render(_hdc);
 		Time::Render(_hdc);
-		Text::PrintwString(_hdc, 10, 50, L"Title - z");
-		Text::PrintwString(_hdc, 10, 70, L"Home - x");
-		Text::PrintwString(_hdc, 10, 90, L"Stage - c");
-		Text::PrintwString(_hdc, 10, 110, L"Ending - v");
+		Text::PrintwString(_hdc, 10, 50, L"Title - q");
+		Text::PrintwString(_hdc, 10, 70, L"Home - w");
+		Text::PrintwString(_hdc, 10, 90, L"Stage - e");
+		Text::PrintwString(_hdc, 10, 110, L"Ending - r");
 	}
 }

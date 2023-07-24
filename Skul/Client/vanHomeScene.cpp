@@ -69,7 +69,7 @@ namespace van
 		col->SetSize(math::Vector2(50.0f, 70.0f));
 		col->SetOffset(math::Vector2(0.0f, 140.0f));
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);	// Player 레이어와 Monster 레이어의 충돌 체크여부(true) 설정
 		SetTarget(player);
 		Camera::SetTarget(GetTarget());
 	}

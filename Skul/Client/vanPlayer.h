@@ -10,14 +10,15 @@ namespace van
 	public:
 		enum class PlayerState
 		{
-			Walk,
 			Idle,
-			WaitDance,
+			Walk,
 			Dash,
+			Attack,
 			Jump,
 			JumpAttack,
 			Death,
 			Reborn,
+			WaitDance,
 			None,
 		};
 		
@@ -42,11 +43,16 @@ namespace van
 
 		void Walk();
 		void Idle();
+		void Jump();
+		void Attack();
+		void Dash();
+
 		
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;
 		Animator* animator;
+		bool mbDoubleKey;
 	};
 }
 

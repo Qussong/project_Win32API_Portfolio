@@ -9,9 +9,9 @@ namespace van
 		static void Init();
 		static void Update();
 
-		static math::Vector2 CalculatePosition(math::Vector2 pos) { return pos - mDistance; }
-		static GameObject* GetTarget() { return mTarget; }
-		static void SetTarget(GameObject* _target) { mTarget = _target; }
+		__forceinline static math::Vector2 CalculatePosition(math::Vector2 pos) { return pos - mDistance; }
+		__forceinline static GameObject* GetTarget() { return mTarget; }
+		__forceinline static void SetTarget(GameObject* _target) { mTarget = _target; }
 
 	private:
 		

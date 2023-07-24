@@ -7,7 +7,8 @@ namespace van
 {
 	UINT Collider::mCollisionCount = 0;
 
-	Collider::Collider()
+	// 생성자
+	Collider::Collider()	
 		: Component(enums::eComponentType::Collider)
 		, mSize(math::Vector2::Zero)
 		, mOffset(math::Vector2::Zero)
@@ -19,52 +20,57 @@ namespace van
 		++mCollisionCount;
 	}
 
+	// 소멸자
 	Collider::~Collider()
 	{
 		// nothing
 	}
 
+	// 초기화
 	void Collider::Init()
 	{
 		// nothing
 	}
-
+	
+	// 값 변경
 	void Collider::Update()
 	{
 		// nothing
 	}
 
+	// 출력
 	void Collider::Render(HDC hdc)
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();
-		mPos = pos + mOffset;
+		math::Vector2 pos = tr->GetPosition();	// pos에 GameObject 객체의 위치를 저장
+		mPos = pos + mOffset;	// 기존 위치 + 옵셋 값 -> 화면상에선 원래 위치와 다른 곳에 출력 하기위함
+		
+		pos.x -= mSize.x / 2.0f;	// 그려질 도형(사각형)의 너비값 중심이 pos.x
+		pos.y -= mSize.y / 2.0f;	// 그려질 도형(사각형)의 높이값 중심이 pos.y
+		pos.x += mOffset.x;	// 그려질 도형(사각형)의 너비 위치 조정 값
+		pos.y += mOffset.y;	// 그려질 도형(사각형)의 높이 위치 조정 값
 
-		pos.x -= mSize.x / 2.0f;
-		pos.y -= mSize.y / 2.0f;
-		pos.x += mOffset.x;
-		pos.y += mOffset.y;
+		pos = Camera::CalculatePosition(pos);	// 카메라 영향 받음
 
-		pos = Camera::CalculatePosition(pos);
-
-		HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);	// 투명브러쉬
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);
+		HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);	// 투명브러쉬 핸들 값을 얻어온다.
+		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);	// Brush 교체
 
 		HPEN newPen = NULL;
+
 		if (mbIsCollision)
 		{
-			newPen = CreatePen(PS_SOLID, 2, RGB(255, 50, 50));
+			newPen = CreatePen(PS_SOLID, 2, RGB(255, 50, 50));	// 붉은색
 		}
 		else
 		{
-			newPen = CreatePen(PS_SOLID, 2, RGB(50, 255, 50));
+			newPen = CreatePen(PS_SOLID, 2, RGB(50, 255, 50));	// 형광 초록색
 		}
 
-		HPEN oldPen = (HPEN)SelectObject(hdc, newPen);
+		HPEN oldPen = (HPEN)SelectObject(hdc, newPen);	// 충돌여부에 따른 색상을 가지고 있는 PEN으로 변경
 
 		Rectangle(hdc
 			, pos.x, pos.y
-			, pos.x + mSize.x, pos.y + mSize.y);
+			, pos.x + mSize.x, pos.y + mSize.y);	// 사각형 그리기
 
 		SelectObject(hdc, oldBrush);	// 원복
 		DeleteObject(transparentBrush);	// 메모리 해제

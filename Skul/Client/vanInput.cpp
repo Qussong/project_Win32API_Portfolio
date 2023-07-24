@@ -62,6 +62,26 @@ namespace van
 			}
 		}
 	}
+
+	bool Input::CheckGetKey()
+	{
+		bool upKey = GetKey(eKeyCode::Up);
+		bool downKey = GetKey(eKeyCode::Down);
+		bool leftKey = GetKey(eKeyCode::Left);
+		bool rightKey = GetKey(eKeyCode::Right);
+
+		bool zKey = GetKey(eKeyCode::Z);
+		bool xKey = GetKey(eKeyCode::X);
+		bool cKey = GetKey(eKeyCode::C);
+	
+		if (upKey || downKey || leftKey || rightKey ||
+			zKey || xKey || cKey)
+		{
+			return true;
+		}
+
+		return false;
+	}
 	
 	// [ 정적변수 namespace ]
 	// public 에 정적 변수 인지라 전역변수와 같은 역할을 하긴하지만 

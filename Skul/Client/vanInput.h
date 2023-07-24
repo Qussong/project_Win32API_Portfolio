@@ -53,6 +53,9 @@ namespace van
 		{
 			return eKeys[(int)code].state == eKeyState::Pressed;
 		}
+		static bool CheckGetKey();
+		//static bool CheckGetKeyDown();
+		//static bool CheckGetKeyUp();
 		
 	private:
 		static std::vector<Key> eKeys;	// english keys

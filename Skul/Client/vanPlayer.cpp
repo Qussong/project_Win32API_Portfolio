@@ -12,6 +12,7 @@ namespace van
 	Player::Player()
 		: mState(PlayerState::None)
 		, mDirection(PlayerDirection::None)
+		, mbDoubleKey(false)
 	{
 		animator = AddComponent<Animator>();
 		MakeAnimation();
@@ -20,6 +21,7 @@ namespace van
 	Player::Player(math::Vector2 _offset)
 		: mState(PlayerState::Idle)
 		, mDirection(PlayerDirection::Left)
+		, mbDoubleKey(false)
 	{
 		animator = AddComponent<Animator>();
 		MakeAnimation(_offset);
@@ -39,18 +41,28 @@ namespace van
 	{
 		GameObject::Update();
 
-		// StillSameState();
+		 StillSameState();
 
 		// z : Dash, x : Attack , c : Jump
 		switch (mState)
 		{
-		case Player::PlayerState::Walk:
-			Walk();
-			break;
 		case Player::PlayerState::Idle:
 			Idle();
 			break;
+		case Player::PlayerState::Walk:
+			Walk();
+			break;
+		case Player::PlayerState::Attack:
+			Attack();
+			break;
+		case Player::PlayerState::Jump:
+			Jump();
+			break;
+		case Player::PlayerState::Dash:
+			Dash();
+			break;
 		default:
+			__noop;
 			break;
 		}
 	}
@@ -58,6 +70,46 @@ namespace van
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
+	}
+
+	void Player::ChangeState(PlayerState _state)
+	{
+		if (_state == mState)
+		{
+			return;
+		}
+
+		// 상태에서 빠져나갈 때 무언가 벌어져야 한다면... 여기서 특정함수 호출
+		switch (mState)
+		{
+		case van::Player::PlayerState::Walk:
+		{
+			break;
+		}
+		case van::Player::PlayerState::Idle:
+		{
+			break;
+		}
+		default:
+			break;
+		}
+
+		mState = _state;
+
+		// 특정 상태에 들어갈 때 벌어져야 한다면 여기서 특정함수 호출
+		switch (_state)
+		{
+		case van::Player::PlayerState::Walk:
+		{
+			break;
+		}
+		case van::Player::PlayerState::Idle:
+		{
+			break;
+		}
+		default:
+			break;
+		}
 	}
 
 	void Player::MakeAnimation(math::Vector2 _offset)
@@ -108,7 +160,7 @@ namespace van
 		animator->CreateAnimation(L"Attack_A_L"
 			, texture
 			, math::Vector2::Zero
-			, math::Vector2(53.0f, 57.0f)
+			, math::Vector2(63.0f, 65.0f)
 			, 5
 			, _offset);
 		// Attack_A_R
@@ -117,11 +169,11 @@ namespace van
 		animator->CreateAnimation(L"Attack_A_R"
 			, texture
 			, math::Vector2::Zero
-			, math::Vector2(53.0f, 57.0f)
+			, math::Vector2(63.0f, 65.0f)	// pos.y = 57->65
 			, 5
 			, _offset);
 
-		// Attack_A_L
+		// Attack_B_L
 		texture = ResourceManager::Load<Texture>(L"Attack_B_L"
 			, L"..\\MyResources\\skul\\11_Skul\\Attack_B_L\\Attack_B_L.bmp");
 		animator->CreateAnimation(L"Attack_B_L"
@@ -178,41 +230,26 @@ namespace van
 			, 4
 			, _offset);
 
+		// Dash_L
+		texture = ResourceManager::Load<Texture>(L"Dash_L"
+			, L"..\\MyResources\\skul\\11_Skul\\Dash_L\\Dash_L.bmp");
+		animator->CreateAnimation(L"Dash_L"
+			, texture
+			, math::Vector2::Zero
+			, math::Vector2(78.0f, 28.0f)
+			, 4
+			, _offset);
+		// Dash_R
+		texture = ResourceManager::Load<Texture>(L"Dash_R"
+			, L"..\\MyResources\\skul\\11_Skul\\Dash_R\\Dash_R.bmp");
+		animator->CreateAnimation(L"Dash_R"
+			, texture
+			, math::Vector2::Zero
+			, math::Vector2(78.0f, 28.0f)
+			, 4
+			, _offset);
+
 		animator->Reset();	// animator 세팅 최기화
-	}
-
-	void Player::ChangeState(PlayerState _state)
-	{
-		if (_state == mState)
-		{
-			return;
-		}
-
-		// 상태에서 빠져나갈 때 무언가 벌어져야 한다면... 여기서 특정함수 호출
-		switch (mState)
-		{
-		case van::Player::PlayerState::Walk:
-			break;
-		case van::Player::PlayerState::Idle:
-			break;
-		default:
-			break;
-		}
-
-		mState = _state;
-
-		// 특정 상태에 들어갈 때 벌어져야 한다면 여기서 특정함수 호출
-		switch (_state)
-		{
-		case van::Player::PlayerState::Walk:
-
-			break;
-		case van::Player::PlayerState::Idle:
-
-			break;
-		default:
-			break;
-		}
 	}
 
 	void Player::StillSameState()
@@ -221,93 +258,214 @@ namespace van
 		switch (mState)
 		{
 		case van::Player::PlayerState::Walk:
+		{
 
 			break;
+		}
 		case van::Player::PlayerState::Idle:
+		{
 
 			break;
+		}
+		case van::Player::PlayerState::Jump:
+		{
+
+			break;
+		}
+		case van::Player::PlayerState::Attack:
+		{
+
+			break;
+		}
 		default:
 			break;
 		}
 	}
-	
+
 	void Player::Idle()
 	{
-		if (Input::GetKey(eKeyCode::Up))
-		{
-			// nothing
-		}
+		/*if(mDirection == PlayerDirection::Left)
+			animator->PlayAnimation(L"Idle_Weapon_L", true);
+		if (mDirection == PlayerDirection::Right)
+			animator->PlayAnimation(L"Idle_Weapon_R", true);*/
+
 		if (Input::GetKey(eKeyCode::Down))
 		{
 			// nothing
 		}
-		if (Input::GetKey(eKeyCode::Left))
+
+		// Walk_L
+		if (Input::GetKey(eKeyCode::Left) && !Input::GetKey(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Walk_Weapon_L", true);
-			ChangeState(PlayerState::Walk);
+			if (!mbDoubleKey)
+			{
+				animator->PlayAnimation(L"Walk_Weapon_L", true);
+				ChangeState(PlayerState::Walk);
+			}
 		}
-		if (Input::GetKey(eKeyCode::Right))
+		// Walk_R
+		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
 		{
-			animator->PlayAnimation(L"Walk_Weapon_R", true);
-			ChangeState(PlayerState::Walk);
+			if (!mbDoubleKey)
+			{
+				animator->PlayAnimation(L"Walk_Weapon_R", true);
+				ChangeState(PlayerState::Walk);
+			}
 		}
 
-		if (Input::GetKey(eKeyCode::Z))
+		// Jump
+		if (Input::GetKeyDown(eKeyCode::C))
 		{
-
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_L", true);
+				ChangeState(PlayerState::Jump);
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_R", true);
+				ChangeState(PlayerState::Jump);
+			}
 		}
-		if (Input::GetKey(eKeyCode::X))
-		{
 
+		// Attack
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			ChangeState(PlayerState::Attack);
 		}
-		if (Input::GetKey(eKeyCode::C))
-		{
 
+		// Dash
+		if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			ChangeState(PlayerState::Dash);
+		}
+
+		// 동시키 입력 해제
+		if (mbDoubleKey)
+		{
+			if (Input::GetKeyUp(eKeyCode::Right))
+			{
+				animator->PlayAnimation(L"Walk_Weapon_L", true);
+				ChangeState(PlayerState::Walk);
+				mbDoubleKey = false;
+			}
+			if (Input::GetKeyUp(eKeyCode::Left))
+			{
+				animator->PlayAnimation(L"Walk_Weapon_R", true);
+				ChangeState(PlayerState::Walk);
+				mbDoubleKey = false;
+			}
 		}
 	}
-	
+
 	void Player::Walk()
 	{
-		// 위치 변경
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
-		if (Input::GetKey(eKeyCode::Up))
+
+		if (Input::GetKey(eKeyCode::Down) && Input::GetKey(eKeyCode::C))
 		{
-			// nothing
+			// 아래점프
 		}
-		if (Input::GetKey(eKeyCode::Down))
-		{
-			// nothing
-		}
-		if (Input::GetKey(eKeyCode::Left))
+		
+		// Walk_Right
+		if (Input::GetKey(eKeyCode::Left) && !Input::GetKey(eKeyCode::Right))
 		{
 			pos.x -= SPEED * Time::DeltaTime();
+			mDirection = PlayerDirection::Left;
 		}
-		if (Input::GetKey(eKeyCode::Right))
+		// Walk_Left
+		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
 		{
 			pos.x += SPEED * Time::DeltaTime();
+			mDirection = PlayerDirection::Right;
 		}
 
-		// 애니메이션 변경
-		if (Input::GetKey(eKeyCode::Up))
+		// 동시입력(방향키)
+		if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
 		{
-			// nothing
+			if (!mbDoubleKey)
+			{
+				if (mDirection == PlayerDirection::Right)
+				{
+					animator->PlayAnimation(L"Idle_Weapon_R", true);
+					mState = PlayerState::Idle;
+				}
+				if (mDirection == PlayerDirection::Left)
+				{
+					animator->PlayAnimation(L"Idle_Weapon_L", true);
+					mState = PlayerState::Idle;
+				}
+				mbDoubleKey = true;
+			}
 		}
+
+		// Attack
+		/*if (Input::GetKeyDown(eKeyCode::X))
+		{
+			ChangeState(PlayerState::Attack);
+		}*/
+
 		if (Input::GetKey(eKeyCode::Down))
 		{
 			// nothing
 		}
+		// Walk_Right
+		if (Input::GetKeyUp(eKeyCode::Right))
+		{
+			animator->PlayAnimation(L"Idle_Weapon_R", true);
+			mState = PlayerState::Idle;
+		}
+		// Walk_Right
 		if (Input::GetKeyUp(eKeyCode::Left))
 		{
 			animator->PlayAnimation(L"Idle_Weapon_L", true);
 			mState = PlayerState::Idle;
 		}
-		if(Input::GetKeyUp(eKeyCode::Right))
-		{
-			animator->PlayAnimation(L"Idle_Weapon_R", true);
-			mState = PlayerState::Idle;
-		}
 
 		tr->SetPosition(pos);
+	}
+
+	void Player::Jump()
+	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+		pos.y -= 100.0f;
+		tr->SetPosition(pos);
+		ChangeState(PlayerState::Idle);
+	}
+
+	void Player::Attack()
+	{
+		if (mDirection == PlayerDirection::Left)
+		{
+			animator->PlayAnimation(L"Attack_A_L", false);
+			ChangeState(PlayerState::Idle);
+		}
+		if (mDirection == PlayerDirection::Right)
+		{
+			animator->PlayAnimation(L"Attack_A_R", false);
+			ChangeState(PlayerState::Idle);
+		}
+	}
+
+	void Player::Dash()
+	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+		if (mDirection == PlayerDirection::Left)
+		{
+			animator->PlayAnimation(L"Dash_L");
+			//pos.x -= 200.0f;
+			tr->SetPosition(pos);
+			ChangeState(PlayerState::Idle);
+		}
+		if (mDirection == PlayerDirection::Right)
+		{
+			//pos.x += 200.0f;
+			tr->SetPosition(pos);
+			ChangeState(PlayerState::Idle);
+			animator->PlayAnimation(L"Dash_R");
+		}
 	}
 }

@@ -110,7 +110,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    // 인도우 창 생성
-   HWND hWnd = CreateWindowW(szWindowClass/*L"CLIENT"*/, szTitle/*L"Client"*/, WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       0, 0, Window_X, Window_Y, nullptr, nullptr, hInstance, nullptr);
 
    Gdiplus::GdiplusStartup(&gdiplusToken, 
