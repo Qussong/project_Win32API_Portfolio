@@ -45,7 +45,7 @@ namespace van
 				Componenet를 가지고 있는 GameObject 객체들이 많을테니 
 				어떤 GameObject의 Component인지 알기위해 설정해준다.
 			*/
-			comp->SetOwner(this);	
+			comp->SetOwner(this);	// this = AddComponent()를 사용하는 클래스의 주소값
 			mComponents.push_back(comp);
 			
 			return comp;

@@ -15,7 +15,6 @@ namespace van
 		, mDirection(PlayerDirection::Right)
 		, mbDoubleKey(false)
 	{
-		// nothing
 		AddComponent<RigidBody>();
 	}
 
@@ -33,7 +32,7 @@ namespace van
 	{
 		GameObject::Update();
 
-		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
+		//math::Vector2 pos = GetComponent<Transform>()->GetPosition();	// 디버깅시 Player 객체 위치 확인용
 		//StillSameState();
 
 		// z : Dash, x : Attack , c : Jump
@@ -63,6 +62,21 @@ namespace van
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
+	}
+
+	void Player::OnCollisionEnter(Collider* _other)
+	{
+		// nothing
+	}
+
+	void Player::OnCollisionStay(Collider* _other)
+	{
+		// nothing
+	}
+
+	void Player::OnCollisionExit(Collider* _other)
+	{
+		// nothing
 	}
 
 	void Player::MakeAnimation()
@@ -292,6 +306,7 @@ namespace van
 				mState = PlayerState::Walk;
 			}
 		}
+
 		// Walk_R
 		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
 		{
@@ -371,9 +386,10 @@ namespace van
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
 
+		// Jump_Down
 		if (Input::GetKey(eKeyCode::Down) && Input::GetKey(eKeyCode::C))
 		{
-			// 아래점프
+			// 아래점프 로직
 		}
 		
 		// Walk_Right
@@ -382,6 +398,7 @@ namespace van
 			pos.x -= SPEED * Time::DeltaTime();
 			mDirection = PlayerDirection::Left;
 		}
+
 		// Walk_Left
 		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
 		{
@@ -389,7 +406,27 @@ namespace van
 			mDirection = PlayerDirection::Right;
 		}
 
-		// 동시입력(방향키)
+		// ???
+		if (Input::GetKey(eKeyCode::Down))
+		{
+			// nothing
+		}
+
+		// Walk_Right
+		if (Input::GetKeyUp(eKeyCode::Right))
+		{
+			animator->PlayAnimation(L"Idle_Weapon_R", true);
+			mState = PlayerState::Idle;
+		}
+
+		// Walk_Right
+		if (Input::GetKeyUp(eKeyCode::Left))
+		{
+			animator->PlayAnimation(L"Idle_Weapon_L", true);
+			mState = PlayerState::Idle;
+		}
+
+		// 동시키 입력(방향키)
 		if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
 		{
 			if (!mbDoubleKey)
@@ -408,44 +445,23 @@ namespace van
 			}
 		}
 
-		if (Input::GetKey(eKeyCode::Down))
-		{
-			// nothing
-		}
-		// Walk_Right
-		if (Input::GetKeyUp(eKeyCode::Right))
-		{
-			animator->PlayAnimation(L"Idle_Weapon_R", true);
-			mState = PlayerState::Idle;
-		}
-		// Walk_Right
-		if (Input::GetKeyUp(eKeyCode::Left))
-		{
-			animator->PlayAnimation(L"Idle_Weapon_L", true);
-			mState = PlayerState::Idle;
-		}
-
 		tr->SetPosition(pos);
 	}
 
 	void Player::Jump()
 	{
-		Transform* tr = GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();
-		Animator* animator = GetComponent<Animator>();
+		Collider* col = GetComponent<Collider>();
+		
 
-		if (animator->IsActiveAnimationComplete())
+		if (mDirection == PlayerDirection::Left)
 		{
-			if (mDirection == PlayerDirection::Left)
-			{
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
-			}
-			else if (mDirection == PlayerDirection::Right)
-			{
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
-			}
-			mState = PlayerState::Idle;
+			animator->PlayAnimation(L"Idle_Weapon_L", true);
 		}
+		else if (mDirection == PlayerDirection::Right)
+		{
+			animator->PlayAnimation(L"Idle_Weapon_R", true);
+		}
+		mState = PlayerState::Idle;
 	}
 
 	void Player::Dash()
@@ -490,16 +506,5 @@ namespace van
 			mState = PlayerState::Idle;
 		}
 	}
-	void Player::OnCollisionEnter(Collider* _other)
-	{
 
-	}
-	void Player::OnCollisionStay(Collider* _other)
-	{
-
-	}
-	void Player::OnCollisionExit(Collider* _other)
-	{
-
-	}
 }

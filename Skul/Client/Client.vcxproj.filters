@@ -124,6 +124,9 @@
     <Filter Include="Engine\Contents\GameObject\Floor">
       <UniqueIdentifier>{bab4dd4e-1fdd-4ed0-ace5-6c79b7aee92c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Contents\Scene\00_LoadingScene">
+      <UniqueIdentifier>{ea67622b-c8b5-4e4f-92fd-30a44e2008f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -246,6 +249,9 @@
     <ClInclude Include="vanFloor.h">
       <Filter>Engine\Contents\GameObject\Floor</Filter>
     </ClInclude>
+    <ClInclude Include="vanLoadingScene.h">
+      <Filter>Engine\Contents\Scene\00_LoadingScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -363,6 +369,9 @@
     </ClCompile>
     <ClCompile Include="vanFloor.cpp">
       <Filter>Engine\Contents\GameObject\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="vanLoadingScene.cpp">
+      <Filter>Engine\Contents\Scene\00_LoadingScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

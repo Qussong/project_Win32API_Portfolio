@@ -37,6 +37,10 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 		virtual void MakeAnimation() override;
 
+		virtual void OnCollisionEnter(class Collider* _other) override;	// 충돌을 시작한 시점
+		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
+		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
+
 		//void ChangeState(PlayerState _state);
 		//void StillSameState();
 
@@ -46,9 +50,6 @@ namespace van
 		void Dash();
 		void Attack();
 
-		virtual void OnCollisionEnter(class Collider* _other);	// 충돌을 시작한 시점
-		virtual void OnCollisionStay(class Collider* _other);	// 충돌중임
-		virtual void OnCollisionExit(class Collider* _other);	// 충돌에서 벗어남
 
 	private:
 		PlayerState mState;

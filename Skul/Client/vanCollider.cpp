@@ -10,14 +10,15 @@ namespace van
 	// 생성자
 	Collider::Collider()	
 		: Component(enums::eComponentType::Collider)
-		, mSize(math::Vector2::Zero)
-		, mOffset(math::Vector2::Zero)
-		, mPos(math::Vector2::Zero)
-		, mCollisionNum(-1)
-		, mbIsCollision(false)
+		, mSize(math::Vector2::Zero)	// 충돌체 기본크기 0
+		, mOffset(math::Vector2::Zero)	// 객체의 중점으로부터 충돌체의 위치수정값
+		, mPos(math::Vector2::Zero)		// 충돌체의 중심좌표 : (0,0)
+		, mCollisionNum(-1)				// 이름 기본값 : -1
+		, mbIsCollision(false)			// 충돌여부 기본값 : 비충돌상태
 	{
-		mCollisionNum = mCollisionCount;
-		++mCollisionCount;
+		// 충돌체 Numbering : 0 ~ ...
+		mCollisionNum = mCollisionCount;	// 충돌체가 생성되면 몇번째 충돌체인지 이름을 받고
+		++mCollisionCount;					// 전체 충돌체의 개수를 하나 올려준다.
 	}
 
 	// 소멸자
@@ -43,12 +44,13 @@ namespace van
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();	// pos에 GameObject 객체의 위치를 저장
-		mPos = pos + mOffset;	// 기존 위치 + 옵셋 값 -> 화면상에선 원래 위치와 다른 곳에 출력 하기위함
+		mPos = pos + mOffset;		// 충돌체의 최종위치 = 기존 위치 + 옵셋 값 
+									// 충돌체의 위치가 화면상에서 객체의 중점으로부터 위치 변경이 필요할수도 있다.
 		
 		pos.x -= mSize.x / 2.0f;	// 그려질 도형(사각형)의 너비값 중심이 pos.x
 		pos.y -= mSize.y / 2.0f;	// 그려질 도형(사각형)의 높이값 중심이 pos.y
-		pos.x += mOffset.x;	// 그려질 도형(사각형)의 너비 위치 조정 값
-		pos.y += mOffset.y;	// 그려질 도형(사각형)의 높이 위치 조정 값
+		pos.x += mOffset.x;			// 그려질 도형(사각형)의 너비 위치 조정 값
+		pos.y += mOffset.y;			// 그려질 도형(사각형)의 높이 위치 조정 값
 
 		pos = Camera::CalculatePosition(pos);	// 카메라 영향 받음
 
