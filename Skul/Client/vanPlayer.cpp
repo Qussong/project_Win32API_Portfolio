@@ -84,7 +84,7 @@ namespace van
 	void Player::MakeAnimation()
 	{
 		Animator* animator = GetComponent<Animator>();
-		math::Vector2 offset = GetOffset();
+		math::Vector2 offset = GetOffset();	// ±âº»°ª math::Vector2::Zero
 
 		// Idle_L
 		animator->CreateAnimation(L"Idle_Weapon_L", ResourceManager::Find<Texture>(L"Idle_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
@@ -210,7 +210,6 @@ namespace van
 		// Jump
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
-			
 			if (mDirection == PlayerDirection::Left)
 			{
 				animator->PlayAnimation(L"Jump_L");
@@ -219,6 +218,11 @@ namespace van
 			{
 				animator->PlayAnimation(L"Jump_R");
 			}
+			Collider* col = GetComponent<Collider>();
+			math::Vector2 pos = col->GetPos();
+			pos.y -= 500.0f;
+			
+
 			mState = PlayerState::Jump;
 		}
 

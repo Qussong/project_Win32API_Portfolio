@@ -128,10 +128,9 @@ namespace van::math
 
 		Vector2 normalize()
 		{
-			float len = length();
-			// 0,0을 기준점으로
-			x /= len;	// cos
-			y /= len;	// sin
+			float len = length();	// 0,0을 기준으로 해당 좌표까지의 거리
+			x /= len;	// cosΘ
+			y /= len;	// sinΘ
 
 			return *this;
 		}
