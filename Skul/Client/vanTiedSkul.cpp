@@ -1,11 +1,14 @@
 #include "vanTiedSkul.h"
 #include "vanAnimator.h"
+#include "vanRigidBody.h"
+#include "vanCollider.h"
 
 namespace van
 {
 	TiedSkul::TiedSkul()
 	{
-		// nothing
+		AddComponent<RigidBody>();
+		AddComponent<Collider>()->SetSize(math::Vector2(70.0f, 100.0f));;
 	}
 
 	TiedSkul::~TiedSkul()

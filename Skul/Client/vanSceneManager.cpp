@@ -1,5 +1,6 @@
 #include "vanSceneManager.h"
 #include "vanTitleScene.h"
+#include "vanLoadingScene.h"
 #include "vanHomeScene.h"
 #include "vanStageScene.h"
 #include "vanEndingScene.h"
@@ -13,6 +14,7 @@ namespace van
 
 	void SceneManager::Init()
 	{
+		CreateScene<LoadingScene>(L"LoadingScene");
 		CreateScene<TitleScene>(L"TitleScene");
 		CreateScene<HomeScene>(L"HomeScene");
 		CreateScene<StageScene>(L"StageScene");
@@ -30,13 +32,17 @@ namespace van
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{
-			LoadScene(L"HomeScene");
+			LoadScene(L"LoadingScene");
 		}
 		if (Input::GetKey(eKeyCode::E))
 		{
-			LoadScene(L"StageScene");
+			LoadScene(L"HomeScene");
 		}
 		if (Input::GetKey(eKeyCode::R))
+		{
+			LoadScene(L"StageScene");
+		}
+		if (Input::GetKey(eKeyCode::T))
 		{
 			LoadScene(L"EndingScene");
 		}

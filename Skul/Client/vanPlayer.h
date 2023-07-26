@@ -14,11 +14,12 @@ namespace van
 			Walk,
 			Jump,
 			Dash,
-			Attack,
-			/*JumpAttack,
-			Death,
-			Reborn,
-			WaitDance,*/
+			AttackA,
+			AttackB,
+			JumpAttack,
+			DoubleJump,
+			DoubleDash,
+			Fall,
 			None,
 		};
 		
@@ -48,7 +49,12 @@ namespace van
 		void Idle();
 		void Jump();
 		void Dash();
-		void Attack();
+		void AttackA();
+		void AttackB();
+		void JumpAttack();
+		void DoubleJump();
+		void DoubleDash();
+		void Fall();
 
 
 	private:

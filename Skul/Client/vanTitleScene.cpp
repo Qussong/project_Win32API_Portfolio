@@ -25,25 +25,19 @@ namespace van
 
 	void TitleScene::Init()
 	{
-		// 1) Title Art_1
-		// \MyResources\skul\0_BG\DarkMirror_Title_Art.bmp
-		Texture* texture = ResourceManager::Load<Texture>(L"Title_Art"
-			, L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
+		// 1) Title Art
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(texture);
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Title_Art"));
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 
-		// 2) Title Art_2
-		// \MyResources\skul\0_BG\0_Title\DarkMirror_Title_Logo.png
-		texture = ResourceManager::Load<Texture>(L"Title_Logo"
-			, L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
+		// 2) Title Logo
 		BackGround* logo = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		logo->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 200));
 		bgsr = logo->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(texture);
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Title_Logo"));
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 

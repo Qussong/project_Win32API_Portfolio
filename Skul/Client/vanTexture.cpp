@@ -123,8 +123,8 @@ namespace van
 			TransparentBlt(
 				// target
 				_hdc
-				, (int)_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x
-				, (int)_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y
+				, (int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
+				, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
 				, _size.x * _scale.x
 				, _size.y * _scale.y
 				// source
@@ -153,8 +153,8 @@ namespace van
 			AlphaBlend(
 				// target
 				_hdc
-				, (int)_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x
-				, (int)_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y
+				, (int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
+				, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
 				, _size.x * _scale.x
 				, _size.y * _scale.y
 				// source

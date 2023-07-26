@@ -13,6 +13,11 @@ namespace van
 		virtual void Init();
 		virtual void Update();
 		virtual void Render(HDC _hdc);
+		virtual void MakeAnimation();
+
+		virtual void OnCollisionEnter(class Collider* _other);	// 충돌을 시작한 시점
+		virtual void OnCollisionStay(class Collider* _other);	// 충돌중임
+		virtual void OnCollisionExit(class Collider* _other);	// 충돌에서 벗어남
 
 		template <typename T>
 		__inline T* GetComponent()	// 특정 타입의 Component 객체가 존재한다면 해당 객체의 주소값을 반환한다.
@@ -51,11 +56,6 @@ namespace van
 			return comp;
 		}
 
-		virtual void OnCollisionEnter(class Collider* _other);	// 충돌을 시작한 시점
-		virtual void OnCollisionStay(class Collider* _other);	// 충돌중임
-		virtual void OnCollisionExit(class Collider* _other);	// 충돌에서 벗어남
-
-		virtual void MakeAnimation();
 		__forceinline void SetOffset(math::Vector2 _offset) { offset = _offset; }
 		__forceinline math::Vector2 GetOffset() { return offset; }
 

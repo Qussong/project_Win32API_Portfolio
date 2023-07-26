@@ -1,12 +1,13 @@
 #include "vanPlayer.h"
 #include "vanInput.h"
 #include "vanTransform.h"	// Update()에서 Player 객체의 위치 옮겨준다. 때문에 Transform 객체의 값을 수정할 수 있어야 한다.
-
 #include "vanAnimator.h"
 #include "vanObject.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanRigidBody.h"
+#include "vanCollider.h"
+#include "vanFloor.h"
 
 namespace van
 {
@@ -16,6 +17,7 @@ namespace van
 		, mbDoubleKey(false)
 	{
 		AddComponent<RigidBody>();
+		AddComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));;
 	}
 
 	Player::~Player()
@@ -44,8 +46,8 @@ namespace van
 		case Player::PlayerState::Walk:
 			Walk();
 			break;
-		case Player::PlayerState::Attack:
-			Attack();
+		case Player::PlayerState::AttackA:
+			AttackA();
 			break;
 		case Player::PlayerState::Jump:
 			Jump();
@@ -85,133 +87,21 @@ namespace van
 		math::Vector2 offset = GetOffset();
 
 		// Idle_L
-		Texture* texture = ResourceManager::Load<Texture>(L"Idle_Weapon_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
-		animator->CreateAnimation(L"Idle_Weapon_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(44.0f, 37.0f)
-			, 4
-			, offset);
-		// Idle_R
-		texture = ResourceManager::Load<Texture>(L"Idle_Weapon_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_R\\Idle_Weapon_R.bmp");
-		animator->CreateAnimation(L"Idle_Weapon_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(44.0f, 37.0f)
-			, 4
-			, offset);
-		// Walk_Weapon_L
-		texture = ResourceManager::Load<Texture>(L"Walk_Weapon_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Walk_Weapon_L\\Walk_Weapon_L.bmp");
-		animator->CreateAnimation(L"Walk_Weapon_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(44.0f, 36.0f)
-			, 8
-			, offset);
-		// Walk_Weapon_R
-		texture = ResourceManager::Load<Texture>(L"Walk_Weapon_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Walk_Weapon_R\\Walk_Weapon_R.bmp");
-		animator->CreateAnimation(L"Walk_Weapon_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(44.0f, 36.0f)
-			, 8
-			, offset);
-		// Attack_A_L
-		texture = ResourceManager::Load<Texture>(L"Attack_A_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Attack_A_L\\Attack_A_L.bmp");
-		animator->CreateAnimation(L"Attack_A_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(63.0f, 65.0f)
-			, 5
-			, offset);
-		// Attack_A_R
-		texture = ResourceManager::Load<Texture>(L"Attack_A_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Attack_A_R\\Attack_A_R.bmp");
-		animator->CreateAnimation(L"Attack_A_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(63.0f, 65.0f)	// pos.y = 57->65
-			, 5
-			, offset);
-		// Attack_B_L
-		texture = ResourceManager::Load<Texture>(L"Attack_B_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Attack_B_L\\Attack_B_L.bmp");
-		animator->CreateAnimation(L"Attack_B_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(62.0f, 59.0f)
-			, 4
-			, offset);
-		// Attack_B_R
-		texture = ResourceManager::Load<Texture>(L"Attack_B_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Attack_B_R\\Attack_B_R.bmp");
-		animator->CreateAnimation(L"Attack_B_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(62.0f, 59.0f)
-			, 4
-			, offset);
-		// Jump_L
-		texture = ResourceManager::Load<Texture>(L"Jump_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Jump_L\\Jump_L.bmp");
-		animator->CreateAnimation(L"Jump_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(22.0f, 36.0f)
-			, 2
-			, offset);
-		// Jump_R
-		texture = ResourceManager::Load<Texture>(L"Jump_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Jump_R\\Jump_R.bmp");
-		animator->CreateAnimation(L"Jump_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(22.0f, 36.0f)
-			, 2
-			, offset);
-		// Jump_Attack_L
-		texture = ResourceManager::Load<Texture>(L"Jump_Attack_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Jump_Attack_L\\Jump_Attack_L.bmp");
-		animator->CreateAnimation(L"Jump_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(61.0f, 57.0f)
-			, 4
-			, offset);
-		// Jump_Attack_R
-		texture = ResourceManager::Load<Texture>(L"Jump_Attack_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Jump_Attack_R\\Jump_Attack_R.bmp");
-		animator->CreateAnimation(L"Jump_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(61.0f, 57.0f)
-			, 4
-			, offset);
-		// Dash_L
-		texture = ResourceManager::Load<Texture>(L"Dash_L"
-			, L"..\\MyResources\\skul\\11_Skul\\Dash_L\\Dash_L.bmp");
-		animator->CreateAnimation(L"Dash_L"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(78.0f, 28.0f)
-			, 4
-			, offset);
-		// Dash_R
-		texture = ResourceManager::Load<Texture>(L"Dash_R"
-			, L"..\\MyResources\\skul\\11_Skul\\Dash_R\\Dash_R.bmp");
-		animator->CreateAnimation(L"Dash_R"
-			, texture
-			, math::Vector2::Zero
-			, math::Vector2(78.0f, 28.0f)
-			, 4
-			, offset);
-
-		animator->Reset();	// animator 세팅 최기화
+		animator->CreateAnimation(L"Idle_Weapon_L", ResourceManager::Find<Texture>(L"Idle_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
+		animator->CreateAnimation(L"Idle_Weapon_R", ResourceManager::Find<Texture>(L"Idle_Weapon_R"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
+		animator->CreateAnimation(L"Walk_Weapon_L", ResourceManager::Find<Texture>(L"Walk_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
+		animator->CreateAnimation(L"Walk_Weapon_R", ResourceManager::Find<Texture>(L"Walk_Weapon_R"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
+		animator->CreateAnimation(L"Attack_A_L", ResourceManager::Find<Texture>(L"Attack_A_L"), math::Vector2::Zero, math::Vector2(63.0f, 65.0f), 5, offset);
+		animator->CreateAnimation(L"Attack_A_R", ResourceManager::Find<Texture>(L"Attack_A_R"), math::Vector2::Zero, math::Vector2(63.0f, 65.0f), 5, offset);
+		animator->CreateAnimation(L"Attack_B_L", ResourceManager::Find<Texture>(L"Attack_B_L"), math::Vector2::Zero, math::Vector2(62.0f, 59.0f), 4, offset);
+		animator->CreateAnimation(L"Attack_B_R", ResourceManager::Find<Texture>(L"Attack_B_R"), math::Vector2::Zero, math::Vector2(62.0f, 59.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
+		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
+		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
+		animator->CreateAnimation(L"Dash_L", ResourceManager::Find<Texture>(L"Dash_L"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
+		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
+		
 	}
 
 	/*
@@ -344,7 +234,7 @@ namespace van
 				animator->PlayAnimation(L"Attack_A_R", false);
 			}
 
-			mState = PlayerState::Attack;
+			mState = PlayerState::AttackA;
 		}
 
 		// Dash
@@ -451,7 +341,7 @@ namespace van
 	void Player::Jump()
 	{
 		Collider* col = GetComponent<Collider>();
-		
+		Animator* animator = GetComponent<Animator>();
 
 		if (mDirection == PlayerDirection::Left)
 		{
@@ -489,7 +379,7 @@ namespace van
 		}
 	}
 
-	void Player::Attack()
+	void Player::AttackA()
 	{
 		Animator* animator = GetComponent<Animator>();
 		if (animator->IsActiveAnimationComplete())
@@ -505,6 +395,31 @@ namespace van
 
 			mState = PlayerState::Idle;
 		}
+	}
+
+	void Player::AttackB()
+	{
+
+	}
+
+	void Player::JumpAttack()
+	{
+
+	}
+
+	void Player::DoubleJump()
+	{
+
+	}
+
+	void Player::DoubleDash()
+	{
+
+	}
+
+	void Player::Fall()
+	{
+
 	}
 
 }

@@ -25,17 +25,18 @@ namespace van
 		*/
 		for (Layer& layer : mLayers)
 			layer.Update();
-
 	}
 
 	void Scene::Render(HDC _hdc)
 	{
 		for (Layer& layer : mLayers)
 			layer.Render(_hdc);
+
 		Time::Render(_hdc);
 		Text::PrintwString(_hdc, 10, 50, L"Title - q");
-		Text::PrintwString(_hdc, 10, 70, L"Home - w");
-		Text::PrintwString(_hdc, 10, 90, L"Stage - e");
-		Text::PrintwString(_hdc, 10, 110, L"Ending - r");
+		Text::PrintwString(_hdc, 10, 50, L"Lodaing - w");
+		Text::PrintwString(_hdc, 10, 70, L"Home - e");
+		Text::PrintwString(_hdc, 10, 90, L"Stage - r");
+		Text::PrintwString(_hdc, 10, 110, L"Ending - t");
 	}
 }
