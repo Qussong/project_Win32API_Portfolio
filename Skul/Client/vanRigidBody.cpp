@@ -11,8 +11,8 @@ namespace van
 		, mForce(math::Vector2::Zero)
 		, mAccelation(math::Vector2::Zero)
 		, mVelocity(math::Vector2::Zero)
-		, mGravity(math::Vector2(0.0f, 800.0f))
-		, mLimitedVelocity(math::Vector2(200.0f, 1000.0f))
+		, mGravity(math::Vector2(0.0f, 2000.0f))
+		, mLimitedVelocity(math::Vector2(2000.0f, 2000.0f))
 		, mbGround(false)
 	{
 	}
@@ -31,18 +31,21 @@ namespace van
 	{
 		
 		mAccelation = mForce / mMass;	// F = m * a -> a = F / m
-		mVelocity += mAccelation * Time::DeltaTime();	// v1 = v0 + at
+		mVelocity += mAccelation * Time::GetDeltaTime();	// v1 = v0 + at
+
 
 		if (mbGround)	// GameObject가 땅위에 있을 때
 		{
-			math::Vector2 gravity = mGravity;
-			gravity.normalize();
-			float dot = math::Dot(mVelocity, gravity);
-			mVelocity -= gravity * dot;
+			math::Vector2 gravity = mGravity;			// 중력 초기값 -> x = 0, y = 980
+			gravity.normalize();						// 중력 -> x = 0, y = 1
+			float dot = math::Dot(mVelocity, gravity);	// dot = mVelocity.y
+			math::Vector2 val = gravity * dot;
+			mVelocity -= val;					// mVelocity -= Vector2(0, mVelocity.y)
+												// mVelocity 에 x성분만 남는다.
 		}
 		else  // GameObject가 공중에 있을 때
 		{
-			mVelocity += mGravity * Time::DeltaTime();
+			mVelocity += mGravity * Time::GetDeltaTime();
 		}
 
 		// 최대 속도 제한
@@ -70,7 +73,7 @@ namespace van
 		{
 			// 속도에 반대 방향으로 마찰력을 적용
 			math::Vector2 friction = -mVelocity;
-			friction = friction.normalize() * mFriction * mMass * Time::DeltaTime();
+			friction = friction.normalize() * mFriction * mMass * Time::GetDeltaTime();
 
 			// 마찰력으로 인한 속도 감소량이 현재 속도보다 더 큰 경우
 			if (mVelocity.length() < friction.length())
@@ -87,7 +90,7 @@ namespace van
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
-		pos = pos + mVelocity * Time::DeltaTime();
+		pos = pos + mVelocity * Time::GetDeltaTime();
 		tr->SetPosition(pos);
 		mForce.clear();
 	}

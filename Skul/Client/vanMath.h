@@ -129,8 +129,8 @@ namespace van::math
 		Vector2 normalize()
 		{
 			float len = length();	// 0,0을 기준으로 해당 좌표까지의 거리
-			x /= len;	// cosΘ
-			y /= len;	// sinΘ
+			x /= len;	// cosΘ = 0
+			y /= len;	// sinΘ = 1
 
 			return *this;
 		}
@@ -156,12 +156,12 @@ namespace van::math
 		return Vector2(x, y);
 	}
 
-	inline float Dot(Vector2& _v1, Vector2& _v2)
+	inline float Dot(Vector2& _v1, Vector2& _v2)	// 내적(스칼라)
 	{
 		return _v1.x * _v2.x + _v1.y * _v2.y;
 	}
 
-	inline float Cross(Vector2 _v1, Vector2 _v2)
+	inline float Cross(Vector2 _v1, Vector2 _v2)	// 외적
 	{
 		return _v1.x * _v2.y - _v1.y * _v2.x;
 	}

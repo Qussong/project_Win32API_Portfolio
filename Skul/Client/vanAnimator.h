@@ -22,7 +22,7 @@ namespace van
 				, UINT _spriteLength			//
 				, math::Vector2 _offset 
 					= math::Vector2::Zero		//
-				, float _duration = 0.1f);		//									
+				, float _duration = 0.12f);		//									
 
 		void CreateAnimationFolder(							
 			const std::wstring& _name						

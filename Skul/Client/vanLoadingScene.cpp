@@ -95,6 +95,9 @@ namespace van
 		ResourceManager::Load<Texture>(L"Jump_Attack_R", L"..\\MyResources\\skul\\11_Skul\\Jump_Attack_R\\Jump_Attack_R.bmp");
 		ResourceManager::Load<Texture>(L"Dash_L", L"..\\MyResources\\skul\\11_Skul\\Dash_L\\Dash_L.bmp");
 		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\11_Skul\\Dash_R\\Dash_R.bmp");
+		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\11_Skul\\Fall_L\\Fall_L.bmp");
+		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\11_Skul\\Fall_R\\Fall_R.bmp");
+
 
 		//
 		//ResourceManager::Load<Texture>();

@@ -22,19 +22,19 @@ namespace van
 	{
 		if (Input::GetKey(eKeyCode::Up))
 		{
-			mLookPosition.y -= 300.0f * Time::DeltaTime();
+			mLookPosition.y -= 300.0f * Time::GetDeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			mLookPosition.x -= 300.0f * Time::DeltaTime();
+			mLookPosition.x -= 300.0f * Time::GetDeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
-			mLookPosition.y += 300.0f * Time::DeltaTime();
+			mLookPosition.y += 300.0f * Time::GetDeltaTime();
 		}
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			mLookPosition.x += 300.0f * Time::DeltaTime();
+			mLookPosition.x += 300.0f * Time::GetDeltaTime();
 		}
 
 		if (mTarget)	// Camera가 쳐다볼 Target이 존재할 때

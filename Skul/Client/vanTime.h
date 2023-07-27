@@ -9,7 +9,7 @@ namespace van
 		static void Init();
 		static void Update();					// 현재 프레임의 델타 타임을 구해서 mDeltaTime에 대입
 		static void Render(HDC hdc);
-		__forceinline static float DeltaTime() { return mDeltaTime; }
+		__forceinline static float GetDeltaTime() { return mDeltaTime; }
 
 	private:
 		static LARGE_INTEGER mCpuFrequency;		// CPU의 고유진동수 저장

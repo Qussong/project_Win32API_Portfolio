@@ -19,6 +19,8 @@ namespace van
 		__forceinline bool GetGround() { return mbGround; }
 		__forceinline math::Vector2 GetVelocity() { return mVelocity; }
 		__forceinline void SetVelocity(math::Vector2 _velocity) { mVelocity = _velocity; }
+		__forceinline void SetGravity(math::Vector2 _gravity) { mGravity = _gravity; }
+		__forceinline math::Vector2 GetGravity() { return mGravity; }
 
 	private:
 		float mMass;

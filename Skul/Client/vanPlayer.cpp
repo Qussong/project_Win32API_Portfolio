@@ -8,6 +8,7 @@
 #include "vanRigidBody.h"
 #include "vanCollider.h"
 #include "vanFloor.h"
+#include "vanTime.h"
 
 namespace van
 {
@@ -17,7 +18,8 @@ namespace van
 		, mbDoubleKey(false)
 		, mJumpCnt(0)
 	{
-		AddComponent<RigidBody>();
+		RigidBody* rb = AddComponent<RigidBody>();
+		rb->SetMass(50.0f);
 		AddComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));;
 	}
 
@@ -34,7 +36,7 @@ namespace van
 	void Player::Update()
 	{
 		GameObject::Update();
-
+		
 		//math::Vector2 pos = GetComponent<Transform>()->GetPosition();	// 디버깅시 Player 객체 위치 확인용
 		//StillSameState();
 
@@ -47,24 +49,39 @@ namespace van
 		case Player::PlayerState::Walk:
 			Walk();
 			break;
-		case Player::PlayerState::AttackA:
-			AttackA();
-			break;
 		case Player::PlayerState::Jump:
 			Jump();
 			break;
 		case Player::PlayerState::Dash:
 			Dash();
 			break;
+		case Player::PlayerState::AttackA:
+			AttackA();
+			break;
+		case Player::PlayerState::AttackB:
+			AttackB();
+			break;
+		case Player::PlayerState::JumpAttack:
+			JumpAttack();
+			break;
+		case Player::PlayerState::DoubleJump:
+			DoubleJump();
+			break;
+		case Player::PlayerState::DoubleDash:
+			DoubleDash();
+			break;
+		case Player::PlayerState::Fall:
+			Fall();
+			break;
 		default:
 			__noop;
-			break;
 		}
 	}
 
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
+		ShowStatus(_hdc);
 	}
 
 	void Player::OnCollisionEnter(Collider* _other)
@@ -100,8 +117,10 @@ namespace van
 		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
 		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
-		animator->CreateAnimation(L"Dash_L", ResourceManager::Find<Texture>(L"Dash_L"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
-		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
+		animator->CreateAnimation(L"Dash_L", ResourceManager::Find<Texture>(L"Dash_L"), math::Vector2::Zero, math::Vector2(42.0f, 28.0f), 1, offset);
+		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(42.0f, 28.0f), 1, offset);
+		animator->CreateAnimation(L"Fall_L", ResourceManager::Find<Texture>(L"Fall_L"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
+		animator->CreateAnimation(L"Fall_R", ResourceManager::Find<Texture>(L"Fall_R"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
 	}
 
 	/*
@@ -178,9 +197,20 @@ namespace van
 	}
 	*/
 
+	void Player::ShowStatus(HDC _hdc)
+	{
+		const int SIZE = 50;
+		wchar_t szFloat[SIZE] = {};
+		swprintf_s(szFloat, SIZE, L"state : %d \n JumpCnt : %d", (UINT)mState, mJumpCnt);
+		int strLen = (int)wcsnlen_s(szFloat, SIZE);
+		TextOut(_hdc, 10, 50, szFloat, strLen);
+	}
+
 	void Player::Idle()
 	{
+		mJumpCnt = 0;	// Jump || DoubleJump -> Idle
 		Animator* animator = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
 
 		if (Input::GetKey(eKeyCode::Down))
 		{
@@ -210,7 +240,7 @@ namespace van
 		// Jump
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
-			// 방향에 맞는 점프 애니메이션 출력
+			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
 				animator->PlayAnimation(L"Jump_L");
@@ -219,14 +249,16 @@ namespace van
 			{
 				animator->PlayAnimation(L"Jump_R");
 			}
-			// 점프 구현
+
+			// Logic
 			RigidBody* rb = GetComponent<RigidBody>();
 			math::Vector2 velocity = rb->GetVelocity();
-			velocity.y = -500.0f;		// 윗방향 초기 속도(v0)
+			velocity.y = -850.0f;		// 윗방향 초기 속도(v0)
 			rb->SetVelocity(velocity);	// 속도 setter
 			rb->SetGround(false);		// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
-			++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
 
+			// State
+			++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
 			mState = PlayerState::Jump;
 		}
 
@@ -248,15 +280,29 @@ namespace van
 		// Dash
 		if (Input::GetKeyDown(eKeyCode::Z))
 		{
+			math::Vector2 velocity = rb->GetVelocity();
+			math::Vector2 gravity = rb->GetGravity();
+
 			if (mDirection == PlayerDirection::Left)
 			{
+				// Animmator
 				animator->PlayAnimation(L"Dash_L");
+
+				// Logic
+				velocity.x -= 500.0f;
+				rb->SetVelocity(velocity);
 			}
-			else if (mDirection == PlayerDirection::Right)
+			if (mDirection == PlayerDirection::Right)
 			{
+				// Animator
 				animator->PlayAnimation(L"Dash_R");
+
+				// Logic
+				velocity.x += 500.0f;
+				rb->SetVelocity(velocity);
 			}
 
+			// State
 			mState = PlayerState::Dash;
 		}
 
@@ -293,14 +339,14 @@ namespace van
 		// Walk_Right
 		if (Input::GetKey(eKeyCode::Left) && !Input::GetKey(eKeyCode::Right))
 		{
-			pos.x -= SPEED * Time::DeltaTime();
+			pos.x -= SPEED * Time::GetDeltaTime();
 			mDirection = PlayerDirection::Left;
 		}
 
 		// Walk_Left
 		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
 		{
-			pos.x += SPEED * Time::DeltaTime();
+			pos.x += SPEED * Time::GetDeltaTime();
 			mDirection = PlayerDirection::Right;
 		}
 
@@ -334,6 +380,7 @@ namespace van
 					animator->PlayAnimation(L"Idle_Weapon_R", true);
 					mState = PlayerState::Idle;
 				}
+
 				if (mDirection == PlayerDirection::Left)
 				{
 					animator->PlayAnimation(L"Idle_Weapon_L", true);
@@ -349,55 +396,64 @@ namespace van
 	void Player::Jump()
 	{
 		Animator* animator = GetComponent<Animator>();
-
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
-		// Fall
-		if (velocity.y >= 0.0f && rb->GetGround() == false)
+		// DoubleJump
+		if (Input::GetKeyDown(eKeyCode::C) && mJumpCnt < 2)	
 		{
+			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				// 떨어지는 애니메이션 L
+				animator->PlayAnimation(L"Jump_L");
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				// 떨어지는 애니메이션 R
+				animator->PlayAnimation(L"Jump_R");
 			}
 			else
 			{
 				__noop;
 			}
 
-			mState = PlayerState::Fall;
+			// Logic
+			RigidBody* rb = GetComponent<RigidBody>();
+			math::Vector2 velocity = rb->GetVelocity();
+			velocity.y = -850.0f;		// up Velocity
+			rb->SetVelocity(velocity);	// Velocity Setter
+			rb->SetGround(false);
+
+			// State
+			++mJumpCnt;
+			mState = PlayerState::DoubleJump;
 		}
 
-		mState = PlayerState::Idle;
+		// Fall
+		if (velocity.y >= 0.0f && rb->GetGround() == false)	
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+			
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+
+			// Logic
+
+			// State
+			mState = PlayerState::Fall;
+		}
 	}
 
 	void Player::Dash()
 	{
 		Animator* animator = GetComponent<Animator>();
-		Transform* tr = GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();
-
-		if (animator->IsActiveAnimationComplete())
-		{
-			if (mDirection == PlayerDirection::Left)
-			{
-				pos.x -= 50.0f;
-				tr->SetPosition(pos);
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
-			}
-			else if (mDirection == PlayerDirection::Right)
-			{
-				pos.x += 50.0f;
-				tr->SetPosition(pos);
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
-			}
-
-			mState = PlayerState::Idle;
-		}
+		RigidBody* rb = GetComponent<RigidBody>();
+		
 	}
 
 	void Player::AttackA()
@@ -430,7 +486,27 @@ namespace van
 
 	void Player::DoubleJump()
 	{
+		Animator* animator = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
 
+		// Fall
+		if (velocity.y >= 0.0f && rb->GetGround() == false)	// Fall
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+			// Logic
+
+			// State
+			mState = PlayerState::Fall;
+		}
 	}
 
 	void Player::DoubleDash()
@@ -441,15 +517,15 @@ namespace van
 	void Player::Fall()
 	{
 		Animator* animator = GetComponent<Animator>();
-
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 		
-		if (rb->GetGround() == false && velocity.y >= 0.0f && mJumpCnt < 2)	// 공중, 속도가 0보다 크고 아래방향, 점프횟수 2회 아래
+		// DoubleJump
+		if (Input::GetKeyDown(eKeyCode::C))
 		{
-			if (Input::GetKeyDown(eKeyCode::C))
+			if (rb->GetGround() == false && velocity.y >= 0.0f && mJumpCnt < 2)
 			{
-				// 방향에 맞는 점프 애니메이션 출력
+				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
 					animator->PlayAnimation(L"Jump_L");
@@ -458,30 +534,42 @@ namespace van
 				{
 					animator->PlayAnimation(L"Jump_R");
 				}
-				// 점프 구현
-				RigidBody* rb = GetComponent<RigidBody>();
-				math::Vector2 velocity = rb->GetVelocity();
-				velocity.y = -500.0f;		// 윗방향 초기 속도(v0)
-				rb->SetVelocity(velocity);	// 속도 setter
-				rb->SetGround(false);		// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
-				++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
 
-				mState = PlayerState::Jump;
+				// Logic
+				velocity.y = -850.0f;
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+
+				// State
+				++mJumpCnt;
+				mState = PlayerState::DoubleJump;
+			}
+			else
+			{
+				__noop;
 			}
 		}
-		else
+
+		// Idle
+		if (velocity.y == 0.0f && rb->GetGround() == true)
 		{
+			// Animation
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				mState = PlayerState::Idle;
+			}
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_L");
+				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				mState = PlayerState::Idle;
 			}
-			else if (mDirection == PlayerDirection::Right)
-			{
-				animator->PlayAnimation(L"Idle_Weapon_R");
-			}
+			
+			// Logic
 
+			// State
 			mState = PlayerState::Idle;
 		}
+		
 	}
-
 }

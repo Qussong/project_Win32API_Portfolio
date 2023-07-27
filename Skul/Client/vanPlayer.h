@@ -45,6 +45,8 @@ namespace van
 		//void ChangeState(PlayerState _state);
 		//void StillSameState();
 
+		void ShowStatus(HDC _hdc);
+
 		void Idle();
 		void Walk();
 		void Jump();
@@ -55,7 +57,6 @@ namespace van
 		void DoubleJump();
 		void DoubleDash();
 		void Fall();
-
 
 	private:
 		PlayerState mState;

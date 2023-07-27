@@ -36,7 +36,7 @@ namespace van
 			return;
 		}
 
-		mTime += Time::DeltaTime();					// 프레임의 흐름에 따른 mTime에 시간 누적
+		mTime += Time::GetDeltaTime();					// 프레임의 흐름에 따른 mTime에 시간 누적
 		if (mSpriteSheet[mIndex].duration < mTime)	// mIndex에 해당하는 이미지의 유지시간과 누적시간을 비교
 		{
 			// 유지시간 < 누적시간

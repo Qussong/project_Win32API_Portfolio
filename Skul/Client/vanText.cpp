@@ -14,7 +14,7 @@ namespace van
 	{
 	}
 
-	void Text::PrintwString(HDC _hdc, int _x, int _y, wchar_t const* const _Format)
+	void Text::PrintwString(HDC _hdc, int _x, int _y, wchar_t const * const _Format)
 	{
 		const int SIZE = 50;							// Buffer Å©±â
 		wchar_t szFloat[SIZE] = {};						// Buffer
