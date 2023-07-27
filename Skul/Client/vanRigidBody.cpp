@@ -8,27 +8,30 @@ namespace van
 		: Component(enums::eComponentType::RigidBody)
 		, mMass(1.0f)
 		, mFriction(10.0f)
+		, mForce(math::Vector2::Zero)
+		, mAccelation(math::Vector2::Zero)
+		, mVelocity(math::Vector2::Zero)
+		, mGravity(math::Vector2(0.0f, 800.0f))
+		, mLimitedVelocity(math::Vector2(200.0f, 1000.0f))
 		, mbGround(false)
 	{
-		mLimitedVelocity.x = 200.0f;
-		mLimitedVelocity.y = 1000.0f;
-		mGravity = math::Vector2(0.0f, 800.0f);
 	}
 
 	RigidBody::~RigidBody()
 	{
 		// nothing
 	}
+
 	void RigidBody::Init()
 	{
 		// nothing
 	}
+
 	void RigidBody::Update()
 	{
-		// F = m * a -> a = F / m
-		mAccelation = mForce / mMass;
-		// v1 = v0 + at
-		mVelocity += mAccelation * Time::DeltaTime();
+		
+		mAccelation = mForce / mMass;	// F = m * a -> a = F / m
+		mVelocity += mAccelation * Time::DeltaTime();	// v1 = v0 + at
 
 		if (mbGround)	// GameObject가 땅위에 있을 때
 		{

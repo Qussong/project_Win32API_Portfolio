@@ -13,9 +13,12 @@ namespace van
 		virtual void Update() override;
 		virtual void Render(HDC _hdc) override;
 
-		void AddForce(math::Vector2 _force) { mForce += _force; }
-		void SetMass(float _mass) { mMass = _mass; }
-		void SetGround(bool _ground) { mbGround = _ground; }
+		__forceinline void AddForce(math::Vector2 _force) { mForce += _force; }
+		__forceinline void SetMass(float _mass) { mMass = _mass; }
+		__forceinline void SetGround(bool _ground) { mbGround = _ground; }
+		__forceinline bool GetGround() { return mbGround; }
+		__forceinline math::Vector2 GetVelocity() { return mVelocity; }
+		__forceinline void SetVelocity(math::Vector2 _velocity) { mVelocity = _velocity; }
 
 	private:
 		float mMass;

@@ -45,8 +45,8 @@ namespace van
 		//void ChangeState(PlayerState _state);
 		//void StillSameState();
 
-		void Walk();
 		void Idle();
+		void Walk();
 		void Jump();
 		void Dash();
 		void AttackA();
@@ -61,6 +61,7 @@ namespace van
 		PlayerState mState;
 		PlayerDirection mDirection;
 		bool mbDoubleKey;
+		UINT mJumpCnt;
 	};
 }
 

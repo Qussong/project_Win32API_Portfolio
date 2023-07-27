@@ -101,6 +101,14 @@ namespace van::math
 			}
 		}
 
+		Vector2& operator *=(const float& _value)
+		{
+			x *= _value;
+			y *= _value;
+
+			return *this;
+		}
+
 		//bool operator!=(const Vector2 _other)
 		//{
 		//	if (x == _other.x && y == _other.y)
@@ -112,14 +120,6 @@ namespace van::math
 		//		return true;
 		//	}
 		//}
-
-		Vector2& operator *=(const float& _value)
-		{
-			x *= _value;
-			y *= _value;
-
-			return *this;
-		}
 
 		float length()
 		{

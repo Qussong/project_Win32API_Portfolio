@@ -15,6 +15,7 @@ namespace van
 		: mState(PlayerState::Idle)
 		, mDirection(PlayerDirection::Right)
 		, mbDoubleKey(false)
+		, mJumpCnt(0)
 	{
 		AddComponent<RigidBody>();
 		AddComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));;
@@ -101,7 +102,6 @@ namespace van
 		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
 		animator->CreateAnimation(L"Dash_L", ResourceManager::Find<Texture>(L"Dash_L"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
 		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(78.0f, 28.0f), 4, offset);
-		
 	}
 
 	/*
@@ -210,6 +210,7 @@ namespace van
 		// Jump
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			// 방향에 맞는 점프 애니메이션 출력
 			if (mDirection == PlayerDirection::Left)
 			{
 				animator->PlayAnimation(L"Jump_L");
@@ -218,10 +219,13 @@ namespace van
 			{
 				animator->PlayAnimation(L"Jump_R");
 			}
-			Collider* col = GetComponent<Collider>();
-			math::Vector2 pos = col->GetPos();
-			pos.y -= 500.0f;
-			
+			// 점프 구현
+			RigidBody* rb = GetComponent<RigidBody>();
+			math::Vector2 velocity = rb->GetVelocity();
+			velocity.y = -500.0f;		// 윗방향 초기 속도(v0)
+			rb->SetVelocity(velocity);	// 속도 setter
+			rb->SetGround(false);		// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
+			++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
 
 			mState = PlayerState::Jump;
 		}
@@ -344,17 +348,30 @@ namespace van
 
 	void Player::Jump()
 	{
-		Collider* col = GetComponent<Collider>();
 		Animator* animator = GetComponent<Animator>();
 
-		if (mDirection == PlayerDirection::Left)
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
+
+		// Fall
+		if (velocity.y >= 0.0f && rb->GetGround() == false)
 		{
-			animator->PlayAnimation(L"Idle_Weapon_L", true);
+			if (mDirection == PlayerDirection::Left)
+			{
+				// 떨어지는 애니메이션 L
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				// 떨어지는 애니메이션 R
+			}
+			else
+			{
+				__noop;
+			}
+
+			mState = PlayerState::Fall;
 		}
-		else if (mDirection == PlayerDirection::Right)
-		{
-			animator->PlayAnimation(L"Idle_Weapon_R", true);
-		}
+
 		mState = PlayerState::Idle;
 	}
 
@@ -423,7 +440,48 @@ namespace van
 
 	void Player::Fall()
 	{
+		Animator* animator = GetComponent<Animator>();
 
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
+		
+		if (rb->GetGround() == false && velocity.y >= 0.0f && mJumpCnt < 2)	// 공중, 속도가 0보다 크고 아래방향, 점프횟수 2회 아래
+		{
+			if (Input::GetKeyDown(eKeyCode::C))
+			{
+				// 방향에 맞는 점프 애니메이션 출력
+				if (mDirection == PlayerDirection::Left)
+				{
+					animator->PlayAnimation(L"Jump_L");
+				}
+				else if (mDirection == PlayerDirection::Right)
+				{
+					animator->PlayAnimation(L"Jump_R");
+				}
+				// 점프 구현
+				RigidBody* rb = GetComponent<RigidBody>();
+				math::Vector2 velocity = rb->GetVelocity();
+				velocity.y = -500.0f;		// 윗방향 초기 속도(v0)
+				rb->SetVelocity(velocity);	// 속도 setter
+				rb->SetGround(false);		// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
+				++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
+
+				mState = PlayerState::Jump;
+			}
+		}
+		else
+		{
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Idle_Weapon_L");
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Idle_Weapon_R");
+			}
+
+			mState = PlayerState::Idle;
+		}
 	}
 
 }
