@@ -76,7 +76,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_LoadingSkul\\Skul_Loading.bmp");
 
-
 		// Home
 		ResourceManager::Load<Texture>(L"BG_Home_1", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_BackGround.bmp");
 

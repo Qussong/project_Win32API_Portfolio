@@ -63,6 +63,8 @@ namespace van
 		PlayerDirection mDirection;
 		bool mbDoubleKey;
 		UINT mJumpCnt;
+		UINT mDashCnt;
+		BOOL mCombo;
 	};
 }
 

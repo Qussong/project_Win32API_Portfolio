@@ -156,12 +156,12 @@ namespace van::math
 		return Vector2(x, y);
 	}
 
-	inline float Dot(Vector2& _v1, Vector2& _v2)	// 내적(스칼라)
+	inline float Dot(Vector2& _v1, Vector2& _v2)	// 내적?
 	{
 		return _v1.x * _v2.x + _v1.y * _v2.y;
 	}
 
-	inline float Cross(Vector2 _v1, Vector2 _v2)	// 외적
+	inline float Cross(Vector2 _v1, Vector2 _v2)	// 외적?
 	{
 		return _v1.x * _v2.y - _v1.y * _v2.x;
 	}
