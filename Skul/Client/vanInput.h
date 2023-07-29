@@ -54,6 +54,7 @@ namespace van
 			return eKeys[(int)code].state == eKeyState::Pressed;
 		}
 		static bool CheckGetKey();
+		static bool CheckGetDirectionKey();
 		//static bool CheckGetKeyDown();
 		//static bool CheckGetKeyUp();
 		
