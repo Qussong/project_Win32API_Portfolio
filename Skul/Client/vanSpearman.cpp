@@ -17,8 +17,6 @@ namespace van
 
 	void Spearman::Init()
 	{
-		// Rout : \MyResources\skul\4_Monster_Stage2\4_Spearman
-		
 		// Idle
 		Texture* texture = ResourceManager::Load<Texture>(L"Idle_Texture"
 			, L"..\\MyResources\\skul\\4_Monster_Stage2\\4_Spearman\\1_Idle.bmp");

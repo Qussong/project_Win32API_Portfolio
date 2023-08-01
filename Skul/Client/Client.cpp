@@ -3,6 +3,10 @@
 //#include "framework.h"                    // "vanApplication.h"에 들어있다.
 #include "Client.h"
 #include "vanApplication.h"                 // 필요기능 구현,추가
+// 메모리 누수 확인
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 #define MAX_LOADSTRING 100
 
@@ -80,6 +84,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         
     }
+
+    _CrtDumpMemoryLeaks();  // 종료지점 바로 위에서 호출
 
     return (int) msg.wParam;
 }

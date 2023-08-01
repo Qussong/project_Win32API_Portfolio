@@ -22,6 +22,7 @@ namespace van
 	Animation::~Animation()
 	{
 		// nothing
+		// mTexture가 존재하면 nullptr로 변경한다.
 	}
 
 	void Animation::init()

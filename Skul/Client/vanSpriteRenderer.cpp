@@ -21,6 +21,7 @@ namespace van
 	SpriteRenderer::~SpriteRenderer()
 	{
 		// nothing
+		// mTexture가 존재하면 nullptr로 변경해준다.
 	}
 
 	void SpriteRenderer::Init()
