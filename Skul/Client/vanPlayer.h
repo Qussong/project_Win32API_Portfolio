@@ -64,7 +64,10 @@ namespace van
 		bool mbDoubleKey;
 		UINT mJumpCnt;
 		UINT mDashCnt;
-		BOOL mCombo;
+		BOOL mbCombo;
+		float mTime = 0.0f;
+		float mDashX1 = 0.0f;
+		float mDashX2 = 0.0f;
 	};
 }
 

@@ -10,8 +10,9 @@
 #include "vanFloor.h"
 #include "vanTime.h"
 
-#define DASH_FORCE_X	500.0f
-#define JUMP_FORCE_Y	850.0f
+#define DASH_FORCE_X	700.0f
+#define DASH_LIMIT		180.0f
+#define JUMP_FORCE_Y	950.0f
 #define WALK_SPEED		300.0f
 
 namespace van
@@ -22,7 +23,7 @@ namespace van
 		, mbDoubleKey(false)
 		, mJumpCnt(0)
 		, mDashCnt(0)
-		, mCombo(false)
+		, mbCombo(false)
 	{
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);
@@ -119,6 +120,8 @@ namespace van
 		animator->CreateAnimation(L"Attack_A_R", ResourceManager::Find<Texture>(L"Attack_A_R"), math::Vector2::Zero, math::Vector2(63.0f, 65.0f), 5, offset);
 		animator->CreateAnimation(L"Attack_B_L", ResourceManager::Find<Texture>(L"Attack_B_L"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
 		animator->CreateAnimation(L"Attack_B_R", ResourceManager::Find<Texture>(L"Attack_B_R"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_Attack_L", ResourceManager::Find<Texture>(L"Jump_Attack_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_Attack_R", ResourceManager::Find<Texture>(L"Jump_Attack_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
 		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
@@ -205,7 +208,7 @@ namespace van
 
 	void Player::ShowStatus(HDC _hdc)
 	{
-		const int SIZE = 50;
+		const int SIZE = 100;
 		wchar_t szFloat[SIZE] = {};
 		// State
 		swprintf_s(szFloat, SIZE, L"state : %d", (UINT)mState);
@@ -224,21 +227,30 @@ namespace van
 		swprintf_s(szFloat, SIZE, L"X : %f | Y : %f", pos.x, pos.y);
 		strLen = (int)wcsnlen_s(szFloat, SIZE);
 		TextOut(_hdc, 10, 110, szFloat, strLen);
+		// Velocity
+		math::Vector2 velocity = GetComponent<RigidBody>()->GetVelocity();
+		swprintf_s(szFloat, SIZE, L"Velocity.X : %f | Velocity.Y : %f", velocity.x, velocity.y);
+		strLen = (int)wcsnlen_s(szFloat, SIZE);
+		TextOut(_hdc, 10, 130, szFloat, strLen);
 		// Ground
 		bool ground = GetComponent<RigidBody>()->GetGround();
 		swprintf_s(szFloat, SIZE, L"Ground : %d (0 = Sky , 1 = Ground)", ground);
 		strLen = (int)wcsnlen_s(szFloat, SIZE);
-		TextOut(_hdc, 10, 130, szFloat, strLen);
+		TextOut(_hdc, 10, 150, szFloat, strLen);
 		// Key
 		bool input = Input::CheckGetKey();
 		swprintf_s(szFloat, SIZE, L"Input : %d (0 = No , 1 = Yes)", input);
 		strLen = (int)wcsnlen_s(szFloat, SIZE);
-		TextOut(_hdc, 10, 150, szFloat, strLen);
+		TextOut(_hdc, 10, 170, szFloat, strLen);
 	}
+
+	// Z : Dash / X : Attack / C : Jump
 
 	void Player::Idle()
 	{
 		mJumpCnt = 0;	// Jump || DoubleJump -> Idle
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		Animator* animator = GetComponent<Animator>();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
@@ -287,14 +299,10 @@ namespace van
 			{
 				animator->PlayAnimation(L"Jump_R");
 			}
-
 			// Logic
-			RigidBody* rb = GetComponent<RigidBody>();
-			math::Vector2 velocity = rb->GetVelocity();
 			velocity.y = -JUMP_FORCE_Y;		// 윗방향 초기 속도(v0)
 			rb->SetVelocity(velocity);		// 속도 setter
 			rb->SetGround(false);			// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
-
 			// State
 			++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
 			mState = PlayerState::Jump;
@@ -316,8 +324,10 @@ namespace van
 		}
 
 		// Dash
-		if (Input::GetKeyDown(eKeyCode::Z) && !Input::CheckGetDirectionKey())
+		if (Input::GetKeyDown(eKeyCode::Z) 
+			&& !Input::CheckGetDirectionKey())
 		{
+			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animmator
@@ -348,6 +358,7 @@ namespace van
 				mState = PlayerState::Walk;
 				mbDoubleKey = false;
 			}
+
 			if (Input::GetKeyUp(eKeyCode::Left))
 			{
 				animator->PlayAnimation(L"Walk_Weapon_R", true);
@@ -365,28 +376,32 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 		
-		// Walk_Right
-		if (Input::GetKey(eKeyCode::Left) && !Input::GetKey(eKeyCode::Right))
+		// Walk_Left
+		if (Input::GetKey(eKeyCode::Left) 
+			&& !Input::GetKey(eKeyCode::Right))
 		{
 			pos.x -= WALK_SPEED * Time::GetDeltaTime();
 			mDirection = PlayerDirection::Left;
 			tr->SetPosition(pos);
 		}
 
-		// Walk_Left
-		if (Input::GetKey(eKeyCode::Right) && !Input::GetKey(eKeyCode::Left))
+		// Walk_Right
+		if (Input::GetKey(eKeyCode::Right) 
+			&& !Input::GetKey(eKeyCode::Left))
 		{
 			pos.x += WALK_SPEED * Time::GetDeltaTime();
 			mDirection = PlayerDirection::Right;
 			tr->SetPosition(pos);
 		}
 
-		// Walk + Dash_L
-		if (Input::GetKeyDown(eKeyCode::Z) && Input::GetKey(eKeyCode::Left))
+		// Walk_L + Dash
+		if (Input::GetKeyDown(eKeyCode::Z) 
+			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
 			animator->PlayAnimation(L"Dash_L");
 			// Logic
+			mDashX1 = pos.x;
 			velocity.x -= DASH_FORCE_X;
 			rb->SetVelocity(velocity);
 			// State
@@ -395,18 +410,52 @@ namespace van
 			mState = PlayerState::Dash;
 		}
 
-		// Walk + Dash_R
-		if (Input::GetKeyDown(eKeyCode::Z) && Input::GetKey(eKeyCode::Right))
+		// Walk_R + Dash
+		if (Input::GetKeyDown(eKeyCode::Z) 
+			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
 			animator->PlayAnimation(L"Dash_R");
 			// Logic
+			mDashX1 = pos.x;
 			velocity.x += DASH_FORCE_X;
 			rb->SetVelocity(velocity);
 			// State
 			++mDashCnt;
 			mDirection = PlayerDirection::Right;
 			mState = PlayerState::Dash;
+		}
+
+		// Walk_L + Jump
+		if (Input::GetKey(eKeyCode::Left)
+			&& Input::GetKeyDown(eKeyCode::C))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_L");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Jump;
+		}
+
+		// Walk_R + Jump
+		if (Input::GetKey(eKeyCode::Right)
+			&& Input::GetKeyDown(eKeyCode::C))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_R");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Jump;
 		}
 
 		// Idle_Right
@@ -424,7 +473,8 @@ namespace van
 		}
 
 		// 동시키 입력(방향키)
-		if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+		if (Input::GetKey(eKeyCode::Right) 
+			&& Input::GetKey(eKeyCode::Left))
 		{
 			if (!mbDoubleKey)
 			{
@@ -447,8 +497,146 @@ namespace van
 	void Player::Jump()
 	{
 		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
+		bool isGround = rb->GetGround();
+
+		// Direction_L_Aimator
+		if (Input::GetKeyDown(eKeyCode::Left))
+		{
+			animator->PlayAnimation(L"Jump_L");
+		}
+
+		// Direction_R_Aimator
+		if (Input::GetKeyDown(eKeyCode::Right))
+		{
+			animator->PlayAnimation(L"Jump_R");
+		}
+
+		// Direction_L
+		if (Input::GetKey(eKeyCode::Left)
+			&& !Input::GetKey(eKeyCode::Right))
+		{
+			pos.x -= WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Left;
+			tr->SetPosition(pos);
+		}
+
+		// Direction_R
+		if (Input::GetKey(eKeyCode::Right)
+			&& !Input::GetKey(eKeyCode::Left))
+		{
+			pos.x += WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Right;
+			tr->SetPosition(pos);
+		}
+
+		// Dash
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& !Input::CheckGetDirectionKey())
+		{
+			if (mDirection == PlayerDirection::Left)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_L");
+				// Logic
+				mDashX1 = pos.x;
+				velocity.x -= DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_R");
+				// Logic
+				mDashX1 = pos.x;
+				velocity.x += DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_L
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_L");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x -= DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_R
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_R");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x += DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::Dash;
+		}
+
+		// JumpAttack
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& !Input::CheckGetDirectionKey())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_L
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_L");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_R
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_R");
+			// Logic
+			
+			// State
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::JumpAttack;
+		}
 
 		// DoubleJump
 		if (Input::GetKeyDown(eKeyCode::C) && mJumpCnt < 2)	
@@ -480,7 +668,8 @@ namespace van
 		}
 
 		// Fall
-		if (velocity.y >= 0.0f && rb->GetGround() == false)	
+		if (velocity.y >= 0.0f 
+			&& !isGround)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Left)
@@ -492,21 +681,83 @@ namespace van
 			{
 				animator->PlayAnimation(L"Fall_R");
 			}
-
 			// Logic
-
 			// State
 			mState = PlayerState::Fall;
 		}
+
+		// 동시키 입력(방향키)
+		/*if (Input::GetKey(eKeyCode::Right)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			if (!mbDoubleKey)
+			{
+				if (mDirection == PlayerDirection::Right)
+				{
+					
+				}
+
+				if (mDirection == PlayerDirection::Left)
+				{
+					
+				}
+				mbDoubleKey = true;
+			}
+		}*/
 	}
 
 	void Player::Dash()
 	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		Animator* animator = GetComponent<Animator>();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
+		bool isSky = rb->GetSkyDash();
 
-		// DoubleDash_L
+		// Dash 거리 제한
+		mDashX2 = pos.x;
+		float distance = abs(mDashX2 - mDashX1);
+		if (distance > DASH_LIMIT)
+		{
+			rb->SetVelocity(math::Vector2(0.0f, velocity.y));
+			mDashX1 = 0.0f;
+			mDashX2 = 0.0f;
+		}
+
+		// DoubleDash
+		if (velocity.x != 0
+			&& Input::GetKeyDown(eKeyCode::Z)
+			&& !Input::CheckGetDirectionKey())
+		{
+			if (mDirection == PlayerDirection::Left)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_L");
+				// Logic
+				mDashX1 = pos.x;
+				velocity.x = 0.0f;
+				rb->SetVelocity(velocity);
+				velocity.x -= DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_R");
+				// Logic
+				mDashX1 = pos.x;
+				velocity.x = 0.0f;
+				rb->SetVelocity(velocity);
+				velocity.x += DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			// State
+			++mDashCnt;
+			mState = PlayerState::DoubleDash;
+		}
+
+		// DoubleDash + Direction_L
 		if (velocity.x != 0
 			&& Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Left))
@@ -514,16 +765,16 @@ namespace van
 			// Animmator
 			animator->PlayAnimation(L"Dash_L");
 			// Logic
-			velocity.x = 0.0f;
-			rb->SetVelocity(velocity);
-			velocity.x -= DASH_FORCE_X;
+			mDashX1 = pos.x;
+			velocity.x = -DASH_FORCE_X;
 			rb->SetVelocity(velocity);
 			// State
 			++mDashCnt;
+			mDirection = PlayerDirection::Left;
 			mState = PlayerState::DoubleDash;
 		}
 
-		// DoubleDash_R
+		// DoubleDash + Direction_R
 		if(velocity.x != 0
 			&& Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Right))
@@ -531,35 +782,51 @@ namespace van
 			// Animator
 			animator->PlayAnimation(L"Dash_R");
 			// Logic
-			velocity.x = 0.0f;
-			rb->SetVelocity(velocity);
-			velocity.x += DASH_FORCE_X;
+			mDashX1 = pos.x;
+			velocity.x = DASH_FORCE_X;
 			rb->SetVelocity(velocity);
 			// State
 			++mDashCnt;
+			mDirection = PlayerDirection::Right;
 			mState = PlayerState::DoubleDash;
 		}
 
 		// Idle
-		if (velocity.x == 0)
+		if (velocity.x == 0 && !isSky)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
 				animator->PlayAnimation(L"Idle_Weapon_R", true);
-				mState = PlayerState::Idle;
 			}
 			if (mDirection == PlayerDirection::Left)
 			{
 				animator->PlayAnimation(L"Idle_Weapon_L", true);
-				mState = PlayerState::Idle;
 			}
-
 			// Logic
-
 			// State
 			mDashCnt = 0;
 			mState = PlayerState::Idle;
+		}
+
+		// fall
+		if (velocity.x == 0 && isSky)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+			// Logic
+			// State
+			mDashCnt = 0;
+			rb->SetSkyDash(false);
+			mState = PlayerState::Fall;
 		}
 	}
 
@@ -569,12 +836,12 @@ namespace van
 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
-			mCombo = true;
+			mbCombo = true;
 		}
 
 		if (animator->IsActiveAnimationComplete())
 		{
-			if (mCombo == true)	// AttackB
+			if (mbCombo == true)	// AttackB
 			{
 				// Animation
 				if (mDirection == PlayerDirection::Left)
@@ -589,7 +856,7 @@ namespace van
 				// Logic
 
 				// State
-				mCombo = false;
+				mbCombo = false;
 				mState = PlayerState::AttackB;
 			}
 			else  // Idle
@@ -637,17 +904,210 @@ namespace van
 
 	void Player::JumpAttack()
 	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+		Animator* animator = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
 
+		// Direction_L
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			pos.x -= WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Left;
+			tr->SetPosition(pos);
+		}
+
+		// Direction_R
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			pos.x += WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Right;
+			tr->SetPosition(pos);
+		}
+
+		// Idle
+		if (rb->GetGround())
+		{
+			if (mDirection == PlayerDirection::Left)
+			{
+				// Animation
+				animator->PlayAnimation(L"Idle_Weapon_L", true);
+			}
+			if(mDirection == PlayerDirection::Right)
+			{ 
+				// Animation
+				animator->PlayAnimation(L"Idle_Weapon_R", true);
+			}
+			// Logic
+			// State
+			mState = PlayerState::Idle;
+		}
+
+		// Fall
+		if (animator->IsActiveAnimationComplete())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::Fall;
+		}
 	}
 
 	void Player::DoubleJump()
 	{
 		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
+		bool isGround = rb->GetGround();
+
+		// Direction_L_Animation
+		if (Input::GetKeyDown(eKeyCode::Left))
+		{
+			animator->PlayAnimation(L"Jump_L");
+		}
+
+		// Direction_R_Animation
+		if (Input::GetKeyDown(eKeyCode::Right))
+		{
+			animator->PlayAnimation(L"Jump_R");
+		}
+
+		// Direction_L_Logic
+		if (Input::GetKey(eKeyCode::Left)
+			&& !Input::GetKey(eKeyCode::Right))
+		{
+			pos.x -= WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Left;
+			tr->SetPosition(pos);
+		}
+
+		// Direction_R_Logic
+		if (Input::GetKey(eKeyCode::Right)
+			&& !Input::GetKey(eKeyCode::Left))
+		{
+			pos.x += WALK_SPEED * Time::GetDeltaTime();
+			mDirection = PlayerDirection::Right;
+			tr->SetPosition(pos);
+		}
+
+		// Dash
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& !Input::CheckGetDirectionKey())
+		{
+			mDashX1 = pos.x;
+			if (mDirection == PlayerDirection::Left)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_L");
+				// Logic
+				velocity.x -= DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_R");
+				// Logic
+				velocity.x += DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_L
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_L");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x -= DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_R
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_R");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x += DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::Dash;
+		}
+
+		// JumpAttack
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& !Input::CheckGetDirectionKey())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_L
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_L");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_R
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_R");
+			// Logic
+
+			// State
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::JumpAttack;
+		}
 
 		// Fall
-		if (velocity.y >= 0.0f && rb->GetGround() == false)	// Fall
+		if (velocity.y >= 0.0f 
+			&& !isGround)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Left)
@@ -667,12 +1127,26 @@ namespace van
 
 	void Player::DoubleDash()
 	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		Animator* animator = GetComponent<Animator>();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
+		bool isSky = rb->GetSkyDash();
+
+		// Dash 거리 제한
+		mDashX2 = pos.x;
+		float distance = abs(mDashX2 - mDashX1);
+		if (distance > DASH_LIMIT)
+		{
+			rb->SetVelocity(math::Vector2(0.0f, velocity.y));
+			mDashX1 = 0.0f;
+			mDashX2 = 0.0f;
+		}
 
 		// Idle
-		if (velocity.x == 0)
+		if (velocity.x == 0
+			&& !isSky)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Right)
@@ -690,65 +1164,307 @@ namespace van
 			mDashCnt = 0;
 			mState = PlayerState::Idle;
 		}
+
+		// Fall
+		if (velocity.x == 0
+			&& isSky
+			&& !Input::CheckGetDirectionKey())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+			// Logic
+			// State
+			mDashCnt = 0;
+			rb->SetSkyDash(false);
+			mState = PlayerState::Fall;
+		}
+
+		// Fall + Direction_L
+		if (velocity.x == 0
+			&& isSky
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animation
+			animator->PlayAnimation(L"Fall_L");
+			// Logic
+			// State
+			mDashCnt = 0;
+			rb->SetSkyDash(false);
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Fall;
+		}
+		
+		// Fall + Direction_R
+		if (velocity.x == 0
+			&& isSky
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animation
+			animator->PlayAnimation(L"Fall_R");
+			// Logic
+			// State
+			mDashCnt = 0;
+			rb->SetSkyDash(false);
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::Fall;
+		}
 	}
 
 	void Player::Fall()
 	{
 		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
-		
-		// DoubleJump
-		if (Input::GetKeyDown(eKeyCode::C))
-		{
-			if (rb->GetGround() == false && velocity.y >= 0.0f && mJumpCnt < 2)
-			{
-				// Animation
-				if (mDirection == PlayerDirection::Left)
-				{
-					animator->PlayAnimation(L"Jump_L");
-				}
-				else if (mDirection == PlayerDirection::Right)
-				{
-					animator->PlayAnimation(L"Jump_R");
-				}
-
-				// Logic
-				velocity.y = -JUMP_FORCE_Y;
-				rb->SetVelocity(velocity);
-				rb->SetGround(false);
-
-				// State
-				++mJumpCnt;
-				mState = PlayerState::DoubleJump;
-			}
-			else
-			{
-				__noop;
-			}
-		}
+		bool isGround = rb->GetGround();
 
 		// Idle
-		if (velocity.y == 0.0f && rb->GetGround() == true)
+		if (/*velocity.y == 0.0f && */isGround)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
 				animator->PlayAnimation(L"Idle_Weapon_R", true);
-				mState = PlayerState::Idle;
 			}
 			if (mDirection == PlayerDirection::Left)
 			{
 				animator->PlayAnimation(L"Idle_Weapon_L", true);
-				mState = PlayerState::Idle;
 			}
-			
 			// Logic
-
 			// State
 			rb->SetGround(true);
 			mState = PlayerState::Idle;
 		}
+
+		// Direction_L_Animation
+		if (Input::GetKeyDown(eKeyCode::Left))
+		{
+			animator->PlayAnimation(L"Fall_L");
+		}
+
+		// Direction_R_Animation
+		if (Input::GetKeyDown(eKeyCode::Right))
+		{
+			animator->PlayAnimation(L"Fall_R");
+		}
+
+		// Direction_L_Logic
+		if (Input::GetKey(eKeyCode::Left)
+			&& !Input::GetKey(eKeyCode::Right))
+		{
+			pos.x -= WALK_SPEED * Time::GetDeltaTime();
+			tr->SetPosition(pos);
+			// State
+			mDirection = PlayerDirection::Left;
+		}
+
+		// Direction_R_Logic
+		if (Input::GetKey(eKeyCode::Right)
+			&& !Input::GetKey(eKeyCode::Left))
+		{
+			pos.x += WALK_SPEED * Time::GetDeltaTime();
+			tr->SetPosition(pos);
+			// State
+			mDirection = PlayerDirection::Right;
+		}
 		
+		// Dash
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& !Input::CheckGetDirectionKey())
+		{
+			mDashX1 = pos.x;
+			if (mDirection == PlayerDirection::Left)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_L");
+				// Logic
+				velocity.x -= DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				// Animation
+				animator->PlayAnimation(L"Dash_R");
+				// Logic
+				velocity.x += DASH_FORCE_X;
+				rb->SetVelocity(velocity);
+			}
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_L
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_L");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x -= DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Dash;
+		}
+
+		// Dash + Direction_R
+		if (Input::GetKeyDown(eKeyCode::Z)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animmator
+			animator->PlayAnimation(L"Dash_R");
+			// Logic
+			mDashX1 = pos.x;
+			velocity.x += DASH_FORCE_X;
+			rb->SetVelocity(velocity);
+			// State
+			++mDashCnt;
+			rb->SetSkyDash(true);
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::Dash;
+		}
+
+		// Jump
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& !Input::CheckGetDirectionKey()
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// not yet
+		}
+
+		// Jump + Direction_L
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Left)
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// not yet
+		}
+
+		// Jump + Direction_R
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Right)
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// not yet
+		}
+
+		// JumpAttack
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& !Input::CheckGetDirectionKey())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_L
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_L");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_R
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_R");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::JumpAttack;
+		}
+
+		// DoubleJump
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& !Input::CheckGetDirectionKey()
+			&& !isGround
+			&& mJumpCnt == 1)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mState = PlayerState::DoubleJump;
+		}
+
+		// DoubleJump + Direction_L
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Left)
+			&& !isGround
+			&& mJumpCnt == 1)
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_L");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::DoubleJump;
+		}
+
+		// DoubleJump + Direction_R
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Right)
+			&& !isGround
+			&& mJumpCnt == 1)
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_R");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::DoubleJump;
+		}
 	}
 }

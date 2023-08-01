@@ -12,8 +12,9 @@ namespace van
 		, mAccelation(math::Vector2::Zero)
 		, mVelocity(math::Vector2::Zero)
 		, mGravity(math::Vector2(0.0f, 2000.0f))
-		, mLimitedVelocity(math::Vector2(500.0f, 2000.0f))
+		, mLimitedVelocity(math::Vector2(1000.0f, 2000.0f))
 		, mbGround(false)
+		, mbSkyDash(false)
 	{
 	}
 
@@ -29,12 +30,11 @@ namespace van
 
 	void RigidBody::Update()
 	{
-		
 		mAccelation = mForce / mMass;	// F = m * a -> a = F / m
 		mVelocity += mAccelation * Time::GetDeltaTime();	// v1 = v0 + at
 
 
-		if (mbGround)	// GameObject가 땅위에 있을 때
+		if (mbGround || mbSkyDash)	// GameObject가 땅위에 있을 때
 		{
 			math::Vector2 gravity = mGravity;			// 중력 초기값 -> x = 0, y = 980
 			gravity.normalize();						// 중력 -> x = 0, y = 1

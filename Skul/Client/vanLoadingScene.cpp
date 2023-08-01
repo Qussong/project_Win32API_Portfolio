@@ -63,7 +63,6 @@ namespace van
 		Text::PrintwString(_hdc, 10, 30, str);
 	}
 
-	
 	void LoadingScene::LoadTexture()	// 첨조할 이미지 모두 여기서 로드
 	{
 		Texture* img = new Texture();
