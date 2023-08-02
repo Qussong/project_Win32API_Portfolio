@@ -127,6 +127,12 @@
     <Filter Include="Engine\Component\Collider">
       <UniqueIdentifier>{e45ccba8-abf2-4b08-82dd-a6810098cc2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Contents\GameObject\Range">
+      <UniqueIdentifier>{83111f78-0987-4cae-94bc-f3270244bb15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\Range\Attack">
+      <UniqueIdentifier>{6fae6264-ebd5-4f84-84e5-809f429b9650}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -252,6 +258,12 @@
     <ClInclude Include="vanLoadingScene.h">
       <Filter>Engine\Contents\Scene\01_LoadingScene</Filter>
     </ClInclude>
+    <ClInclude Include="vanRange.h">
+      <Filter>Engine\Contents\GameObject\Range</Filter>
+    </ClInclude>
+    <ClInclude Include="vanAttack.h">
+      <Filter>Engine\Contents\GameObject\Range\Attack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -372,6 +384,12 @@
     </ClCompile>
     <ClCompile Include="vanLoadingScene.cpp">
       <Filter>Engine\Contents\Scene\01_LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="vanRange.cpp">
+      <Filter>Engine\Contents\GameObject\Range</Filter>
+    </ClCompile>
+    <ClCompile Include="vanAttack.cpp">
+      <Filter>Engine\Contents\GameObject\Range\Attack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
