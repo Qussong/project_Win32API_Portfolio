@@ -19,10 +19,15 @@ namespace van
 
 		__forceinline math::Vector2 GetSize() { return mSize; }
 		__forceinline void SetSize(math::Vector2 _size) { mSize = _size; }
+
 		__forceinline math::Vector2 GetOffset() { return mOffset; }
 		__forceinline void SetOffset(math::Vector2 _offset) { mOffset = _offset; }
+
 		__forceinline math::Vector2 GetPos() { return mPos; }
 		__forceinline UINT GetCollisionNum() { return mCollisionNum; }
+
+		__forceinline void SetLineColor(COLORREF _color) { lineColor = _color; }
+		__forceinline void SetCollisionLineColor(COLORREF _color) { collisionLineColor = _color; }
 
 	private:
 		static UINT mCollisionCount;	// ???
@@ -33,6 +38,9 @@ namespace van
 
 		UINT mCollisionNum;				// 
 		bool mbIsCollision;				// 충돌 여부 (충돌시 true)
+
+		COLORREF lineColor;
+		COLORREF collisionLineColor;
 	};
 }
 

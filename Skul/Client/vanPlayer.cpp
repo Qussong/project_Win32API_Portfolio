@@ -10,6 +10,8 @@
 #include "vanFloor.h"
 #include "vanTime.h"
 
+#include "vanAttack.h"
+
 #define DASH_FORCE_X	700.0f
 #define DASH_LIMIT		180.0f
 #define JUMP_FORCE_Y	950.0f
@@ -27,8 +29,7 @@ namespace van
 		, mbMove(false)
 		, mbMove2(false)
 	{
-		RigidBody* rb = AddComponent<RigidBody>();
-		rb->SetMass(50.0f);
+		
 	}
 
 	Player::~Player()
@@ -41,6 +42,13 @@ namespace van
 		MakeAnimation();
 		GetComponent<Animator>()->PlayAnimation(L"Idle_Weapon_R", true);
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
+
+		RigidBody* rb = AddComponent<RigidBody>();
+		rb->SetMass(50.0f);
+
+		attackBox = Object::Instantiate<Attack>(enums::eLayerType::Effect);
+		attackBox->SetOwner(this);
+		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 	}
 
 	void Player::Update()

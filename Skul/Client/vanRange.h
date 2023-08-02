@@ -18,11 +18,8 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;
 		virtual void OnCollisionExit(class Collider* _other) override;
 
-		void SetOwner(GameObject _owner) { owner = _owner; }
-		GameObject GetOwner() { return owner; }
-
 	private:
-		GameObject owner;
+		
 	};
 }
 

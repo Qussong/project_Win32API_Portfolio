@@ -4,12 +4,12 @@ namespace van
 {
 	Range::Range()
 	{
-
+		// nothing
 	}
 
 	Range::~Range()
 	{
-
+		// nothing
 	}
 
 	void Range::Init()
@@ -19,12 +19,12 @@ namespace van
 
 	void Range::Update()
 	{
-
+		GameObject::Update();
 	}
 
 	void Range::Render(HDC _hdc)
 	{
-
+		GameObject::Render(_hdc);
 	}
 
 	void Range::MakeAnimation()

@@ -1,9 +1,12 @@
 #pragma once
 #include "vanGameObject.h"
 
+
+
 namespace van
 {
 	class Animator;
+	class Attack;
 
 	class Player : public GameObject
 	{
@@ -58,6 +61,10 @@ namespace van
 		void DoubleDash();
 		void Fall();
 
+		__forceinline PlayerDirection GetPlayerDirection() { return mDirection; }
+		__forceinline PlayerState GetPlayerState() { return mState; }
+
+
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;
@@ -72,6 +79,8 @@ namespace van
 		float mDashX2 = 0.0f;
 		float mAttackDashX1 = 0.0f;
 		float mAttackDashX2 = 0.0f;
+
+		Attack* attackBox;
 	};
 }
 

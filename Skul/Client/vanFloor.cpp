@@ -49,7 +49,7 @@ namespace van
 			rb = player->GetComponent<RigidBody>();		// RigidBody
 			objPos = tr->GetPosition();					// Floor 객체와 충돌한 객체의 위치값 저장
 
-			float gap = fabs(_other->GetPos().y - this->GetComponent<Collider>()->GetPos().y);	// 현재 프레임에서 충돌체들의 떨어져있는 거리 (중심좌표 기준)
+			float gap = fabs(_other->GetPos().y - this->GetComponent<Collider>()->GetPos().y);						// 현재 프레임에서 충돌체들의 떨어져있는 거리 (중심좌표 기준)
 			float mazino = fabs(_other->GetSize().y / 2.0f + this->GetComponent<Collider>()->GetSize().y / 2.0f);	// 두물체가 떨어져가 떨어져있기 위한 최소거리
 
 			if (gap < mazino)	// 두 물체가 겹쳐 있는 경우
