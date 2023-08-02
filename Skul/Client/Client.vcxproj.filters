@@ -25,15 +25,6 @@
     <Filter Include="Engine\Layer">
       <UniqueIdentifier>{9c67cf4e-9bec-43e5-9da1-294e2cda3845}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component">
-      <UniqueIdentifier>{1696bf8b-48e0-46ad-be0f-705b9c22f38d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Component\Transform">
-      <UniqueIdentifier>{3d2cee4e-a9f9-40b5-bf8f-c270d63cf846}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Component\SpriteRenderer">
-      <UniqueIdentifier>{c40ff288-dfd6-4667-bddf-bf70609e0f8b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Contents">
       <UniqueIdentifier>{7272b3a5-1ac6-44d6-8316-1bd44996c9ed}</UniqueIdentifier>
     </Filter>
@@ -66,9 +57,6 @@
     </Filter>
     <Filter Include="Engine\Contents\Scene">
       <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Component\Animator">
-      <UniqueIdentifier>{2dcceb9b-5ba6-4e87-864e-2ae73fb3cb2d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Resource\Animation">
       <UniqueIdentifier>{eb63946b-f230-4b99-a4fd-0c4451414f26}</UniqueIdentifier>
@@ -106,14 +94,8 @@
     <Filter Include="Engine\Contents\GameObject\NPC\TiedSkul">
       <UniqueIdentifier>{a6f4158f-8aa9-44e7-a2fb-48dffa54a379}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component\RigidBody">
-      <UniqueIdentifier>{07105988-c6b1-48d9-93c8-e77347b9385f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Contents\GameObject\Floor">
       <UniqueIdentifier>{bab4dd4e-1fdd-4ed0-ace5-6c79b7aee92c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Component\Collider">
-      <UniqueIdentifier>{e45ccba8-abf2-4b08-82dd-a6810098cc2c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Contents\Scene\01_LoadingScene">
       <UniqueIdentifier>{ea67622b-c8b5-4e4f-92fd-30a44e2008f3}</UniqueIdentifier>
@@ -124,8 +106,26 @@
     <Filter Include="Engine\Contents\Scene\03_StageScene">
       <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\Scene\04_EndingScene">
+    <Filter Include="Engine\Contents\Scene\04_BossScene">
       <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{1696bf8b-48e0-46ad-be0f-705b9c22f38d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{3d2cee4e-a9f9-40b5-bf8f-c270d63cf846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\SpriteRenderer">
+      <UniqueIdentifier>{c40ff288-dfd6-4667-bddf-bf70609e0f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animator">
+      <UniqueIdentifier>{2dcceb9b-5ba6-4e87-864e-2ae73fb3cb2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{07105988-c6b1-48d9-93c8-e77347b9385f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{e45ccba8-abf2-4b08-82dd-a6810098cc2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +189,8 @@
     <ClInclude Include="vanStageScene.h">
       <Filter>Engine\Contents\Scene\03_StageScene</Filter>
     </ClInclude>
-    <ClInclude Include="vanEndingScene.h">
-      <Filter>Engine\Contents\Scene\04_EndingScene</Filter>
+    <ClInclude Include="vanBossScene.h">
+      <Filter>Engine\Contents\Scene\04_BossScene</Filter>
     </ClInclude>
     <ClInclude Include="vanMonster.h">
       <Filter>Engine\Contents\GameObject\Monster</Filter>
@@ -310,8 +310,8 @@
     <ClCompile Include="vanStageScene.cpp">
       <Filter>Engine\Contents\Scene\03_StageScene</Filter>
     </ClCompile>
-    <ClCompile Include="vanEndingScene.cpp">
-      <Filter>Engine\Contents\Scene\04_EndingScene</Filter>
+    <ClCompile Include="vanBossScene.cpp">
+      <Filter>Engine\Contents\Scene\04_BossScene</Filter>
     </ClCompile>
     <ClCompile Include="vanMonster.cpp">
       <Filter>Engine\Contents\GameObject\Monster</Filter>

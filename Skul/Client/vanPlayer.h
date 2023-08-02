@@ -65,9 +65,13 @@ namespace van
 		UINT mJumpCnt;
 		UINT mDashCnt;
 		BOOL mbCombo;
+		BOOL mbMove;
+		BOOL mbMove2;
 		float mTime = 0.0f;
 		float mDashX1 = 0.0f;
 		float mDashX2 = 0.0f;
+		float mAttackDashX1 = 0.0f;
+		float mAttackDashX2 = 0.0f;
 	};
 }
 

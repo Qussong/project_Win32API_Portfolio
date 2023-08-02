@@ -11,6 +11,13 @@
 #include "vanSpearman.h"
 #include "vanCarleonRecruit.h"
 
+#include "vanFloor.h"
+#include "vanCollider.h"
+
+#include "vanCarleonRecruit.h"
+#include "vanCollisionManager.h"
+#include "vanPlayer.h"
+
 van::StageScene::StageScene()
 {
 	// nothing
@@ -23,8 +30,26 @@ van::StageScene::~StageScene()
 
 void van::StageScene::Init()
 {	
+	// Player
+	Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+	Animator* at = player->GetComponent<Animator>();
+	at->SetScale(math::Vector2(2.0f, 2.0f));
+	at->SetAffectedCamera(true);
 
-	//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
+	// Carleon Recruit
+	CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+	at = carleon->GetComponent<Animator>();
+	at->SetScale(math::Vector2(2.0f, 2.0f));
+	at->SetAffectedCamera(true);
+
+	// Floor 객체 
+	Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+	floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
+	floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
+
+	CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+
+	SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
 	Camera::SetTarget(GetSceneTarget());
 }
 

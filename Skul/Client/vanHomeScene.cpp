@@ -42,25 +42,19 @@ namespace van
 		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::Monster);		
 		Animator* at = tiedSkul->GetComponent<Animator>();
 		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(-500.0f, 125.0f));
-		tiedSkul->MakeAnimation();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
-		at->PlayAnimation(L"Tied_Skul_NPC", true);
 		at->SetAffectedCamera(true);
 
 		// 3) Player 객체
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(0, 140));
-		player->MakeAnimation();
 		at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
-		at->PlayAnimation(L"Idle_Weapon_R", true);
 		at->SetAffectedCamera(true);
 
 		// 4) Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
-		Collider* col = floor->AddComponent<Collider>();
-		col->SetSize(math::Vector2(1500.0f, 50.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 200.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
 
 		// Player 레이어와 Monster 레이어의 충돌 체크여부(true) 설정
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);

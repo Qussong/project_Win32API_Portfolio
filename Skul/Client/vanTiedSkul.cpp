@@ -8,7 +8,6 @@ namespace van
 	TiedSkul::TiedSkul()
 	{
 		AddComponent<RigidBody>();
-		AddComponent<Collider>()->SetSize(math::Vector2(70.0f, 100.0f));;
 	}
 
 	TiedSkul::~TiedSkul()
@@ -18,7 +17,9 @@ namespace van
 
 	void TiedSkul::Init()
 	{
-		// nothing
+		MakeAnimation();
+		GetComponent<Animator>()->PlayAnimation(L"Tied_Skul_NPC", true);
+		GetComponent<Collider>()->SetSize(math::Vector2(70.0f, 100.0f));
 	}
 
 	void TiedSkul::Update()
@@ -35,7 +36,6 @@ namespace van
 	{
 		Animator* animator = GetComponent<Animator>();
 
-		animator->CreateAnimationFolder(L"Tied_Skul_NPC"
-			, L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");
+		animator->CreateAnimationFolder(L"Tied_Skul_NPC", L"..\\MyResources\\skul\\1_NPC\\Tied_Skul");
 	}
 }

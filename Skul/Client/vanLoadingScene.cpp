@@ -96,8 +96,18 @@ namespace van
 		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\11_Skul\\Fall_L\\Fall_L.bmp");
 		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\11_Skul\\Fall_R\\Fall_R.bmp");
 
+		// Carleon Recruit
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\2_Walk_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\2_Walk_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\3_AttackReady_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\3_AttackReady_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_R.bmp");
 
-		//
+
+
 		//ResourceManager::Load<Texture>();
 	}
 }

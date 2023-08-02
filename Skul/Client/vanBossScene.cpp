@@ -1,4 +1,4 @@
-#include "vanEndingScene.h"
+#include "vanBossScene.h"
 #include "vanObject.h"
 #include "vanSpriteRenderer.h"
 #include "vanPlayer.h"
@@ -11,35 +11,35 @@
 
 namespace van
 {
-	EndingScene::EndingScene()
+	BossScene::BossScene()
 	{
 		// nothing
 	}
 
-	EndingScene::~EndingScene()
+	BossScene::~BossScene()
 	{
 		// nothing
 	}
 
-	void EndingScene::Init()
+	void BossScene::Init()
 	{
 
 		//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
 	}
 
-	void EndingScene::Update()
+	void BossScene::Update()
 	{
 		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 
-	void EndingScene::Render(HDC _hdc)
+	void BossScene::Render(HDC _hdc)
 	{
 		Scene::Render(_hdc);
 
 		// Scene 구분
-		const wchar_t* str = L"[ EndingScene ]";
+		const wchar_t* str = L"[ BossScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}

@@ -24,10 +24,11 @@ namespace van
 		, mJumpCnt(0)
 		, mDashCnt(0)
 		, mbCombo(false)
+		, mbMove(false)
+		, mbMove2(false)
 	{
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);
-		AddComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));;
 	}
 
 	Player::~Player()
@@ -37,7 +38,9 @@ namespace van
 
 	void Player::Init()
 	{
-		// nothing
+		MakeAnimation();
+		GetComponent<Animator>()->PlayAnimation(L"Idle_Weapon_R", true);
+		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 	}
 
 	void Player::Update()
@@ -111,7 +114,6 @@ namespace van
 		Animator* animator = GetComponent<Animator>();
 		math::Vector2 offset = GetOffset();	// 기본값 math::Vector2::Zero
 
-		// Idle_L
 		animator->CreateAnimation(L"Idle_Weapon_L", ResourceManager::Find<Texture>(L"Idle_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
 		animator->CreateAnimation(L"Idle_Weapon_R", ResourceManager::Find<Texture>(L"Idle_Weapon_R"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
 		animator->CreateAnimation(L"Walk_Weapon_L", ResourceManager::Find<Texture>(L"Walk_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
@@ -470,6 +472,26 @@ namespace van
 		{
 			animator->PlayAnimation(L"Idle_Weapon_L", true);
 			mState = PlayerState::Idle;
+		}
+
+		// AttackA
+		if (Input::GetKeyDown(eKeyCode::X))
+		{
+			mAttackDashX1 = pos.x;
+			if (mDirection == PlayerDirection::Left)
+			{
+				velocity.x -= DASH_FORCE_X;
+				animator->PlayAnimation(L"Attack_A_L", false);
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				velocity.x += DASH_FORCE_X;
+				animator->PlayAnimation(L"Attack_A_R", false);
+			}
+			rb->SetVelocity(velocity);
+			// State
+			mbMove = true;
+			mState = PlayerState::AttackA;
 		}
 
 		// 동시키 입력(방향키)
@@ -833,16 +855,55 @@ namespace van
 	void Player::AttackA()
 	{
 		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
 
-		if (Input::GetKeyDown(eKeyCode::X))
+		if (mbMove)
+		{
+			mAttackDashX2 = pos.x;
+			float distance = abs(mAttackDashX2 - mAttackDashX1);
+			if (distance >= 50.0f)
+			{
+				rb->SetVelocity(math::Vector2(0.0f, velocity.y));
+				mbMove = false;
+			}
+		}
+
+		// AttackB Flag
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& !Input::CheckGetDirectionKey())
 		{
 			mbCombo = true;
 		}
 
+		// AttackB + Move Flag
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::CheckGetDirectionKey())
+		{
+			mbCombo = true;
+			mbMove2 = true; 
+		}
+
+		// Action
 		if (animator->IsActiveAnimationComplete())
 		{
 			if (mbCombo == true)	// AttackB
 			{
+				if (mbMove2 == true)
+				{
+					mAttackDashX1 = pos.x;
+					if (Input::GetKey(eKeyCode::Left))
+					{
+						velocity.x -= DASH_FORCE_X;
+					}
+					if (Input::GetKey(eKeyCode::Right))
+					{
+						velocity.x += DASH_FORCE_X;
+					}
+					rb->SetVelocity(velocity);
+				}
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
@@ -852,9 +913,7 @@ namespace van
 				{
 					animator->PlayAnimation(L"Attack_B_R", false);
 				}
-
 				// Logic
-
 				// State
 				mbCombo = false;
 				mState = PlayerState::AttackB;
@@ -882,6 +941,21 @@ namespace van
 	void Player::AttackB()
 	{
 		Animator* animator = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
+
+		if (mbMove2)
+		{
+			mAttackDashX2 = pos.x;
+			float distance = abs(mAttackDashX2 - mAttackDashX1);
+			if (distance >= 50.0f)
+			{
+				rb->SetVelocity(math::Vector2(0.0f, velocity.y));
+				mbMove2 = false;
+			}
+		}
 
 		if (animator->IsActiveAnimationComplete())
 		{
@@ -894,9 +968,7 @@ namespace van
 			{
 				animator->PlayAnimation(L"Idle_Weapon_R", true);
 			}
-
 			// Logic
-
 			// State
 			mState = PlayerState::Idle;
 		}

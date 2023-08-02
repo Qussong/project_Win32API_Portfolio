@@ -156,7 +156,7 @@
     <ClInclude Include="vanText.h" />
     <ClInclude Include="vanApplication.h" />
     <ClInclude Include="vanComponent.h" />
-    <ClInclude Include="vanEndingScene.h" />
+    <ClInclude Include="vanBossScene.h" />
     <ClInclude Include="vanEntity.h" />
     <ClInclude Include="vanGameObject.h" />
     <ClInclude Include="vanInput.h" />
@@ -196,7 +196,7 @@
     <ClCompile Include="vanText.cpp" />
     <ClCompile Include="vanApplication.cpp" />
     <ClCompile Include="vanComponent.cpp" />
-    <ClCompile Include="vanEndingScene.cpp" />
+    <ClCompile Include="vanBossScene.cpp" />
     <ClCompile Include="vanEntity.cpp" />
     <ClCompile Include="vanGameObject.cpp" />
     <ClCompile Include="vanInput.cpp" />
