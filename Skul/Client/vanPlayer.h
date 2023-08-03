@@ -64,7 +64,6 @@ namespace van
 		__forceinline PlayerDirection GetPlayerDirection() { return mDirection; }
 		__forceinline PlayerState GetPlayerState() { return mState; }
 
-
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;

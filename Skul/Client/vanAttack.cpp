@@ -4,13 +4,15 @@
 #include "vanCollider.h"
 
 #include "vanCollisionManager.h"
+#include "vanPlayer.h"
 
 namespace van
 {
 	Attack::Attack()
-		: owner(nullptr)
-		, ownerPos(math::Vector2::Zero)
-		, offset(math::Vector2::Zero)
+		: mOwner(nullptr)
+		, mOwnerPos(math::Vector2::Zero)
+		, mOwnerState((UINT)Player::PlayerState::None)
+		, mOffset(math::Vector2::Zero)
 	{
 		// nothing
 	}
@@ -29,37 +31,38 @@ namespace van
 	{
 		GameObject::Update();
 
-		Player* player = dynamic_cast<Player*>(owner);
+		Player* player = dynamic_cast<Player*>(mOwner);
+
 		if (player != nullptr)
 		{
-			Player::PlayerDirection direction =  player->GetPlayerDirection();
-			math::Vector2 size = owner->GetComponent<Collider>()->GetSize();
+			Player::PlayerDirection direction =  player->GetPlayerDirection();	// Player의 방향을 읽어옴
+			math::Vector2 size = mOwner->GetComponent<Collider>()->GetSize();	// Player의 Collider 상자 크기를 읽어옴
 
-			if (direction == Player::PlayerDirection::Left)
+			if (direction == Player::PlayerDirection::Left)						// Player의 방향이 왼쪽일 때
 			{
-				offset = math::Vector2(-(size.x / 2 ), 0.0f);
+				mOffset = math::Vector2(-(size.x / 2 ), 0.0f);
 			}
-			if (direction == Player::PlayerDirection::Right)
+			if (direction == Player::PlayerDirection::Right)			// Player의 방향이 오른쪽일 때
 			{
-				offset = math::Vector2(size.x / 2, 0.0f);
+				mOffset = math::Vector2(size.x / 2, 0.0f);
 			}
 
-			Player::PlayerState state = player->GetPlayerState();
-			if(state == Player::PlayerState::AttackA || state == Player::PlayerState::AttackB)
+			mOwnerState = (UINT)(player->GetPlayerState());				// Player의 상태를 읽어옴
+			if(mOwnerState == (UINT)Player::PlayerState::AttackA
+				|| mOwnerState == (UINT)Player::PlayerState::AttackB)	// Player가 공격상태일 때
 			{
+				GetComponent<Collider>()->SetActive(true);
 				CollisionManager::CollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
 			}
 			else
 			{
+				GetComponent<Collider>()->SetActive(false);
 				CollisionManager::CollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, false);
 			}
 		}
 
-		ownerPos = owner->GetComponent<Transform>()->GetPosition();
-		/*this->*/GetComponent<Transform>()->SetPosition(ownerPos + offset);
-
-
-		
+		mOwnerPos = mOwner->GetComponent<Transform>()->GetPosition();
+		/*this->*/GetComponent<Transform>()->SetPosition(mOwnerPos + mOffset);
 	}
 
 	void Attack::Render(HDC _hdc)
@@ -84,6 +87,6 @@ namespace van
 
 	void Attack::OnCollisionExit(Collider* _other)
 	{
-
+		
 	}
 }

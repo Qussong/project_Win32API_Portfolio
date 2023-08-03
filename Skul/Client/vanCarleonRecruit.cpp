@@ -8,6 +8,8 @@
 
 #include "vanTime.h"
 #include "vanTransform.h"
+#include "vanAttack.h"
+#include "vanPlayer.h"
 
 #define WALK_SPEED		150.0f
 
@@ -34,8 +36,6 @@ namespace van
 		mDirection = MonsterDirection::Left;
 		mState = MonsterState::Patrol;
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));
-
-		
 	}
 
 	void CarleonRecruit::Update()
@@ -59,6 +59,9 @@ namespace van
 		case CarleonRecruit::MonsterState::Attack:
 			Attack();
 			break;
+		case CarleonRecruit::MonsterState::Hit:
+			Hit();
+			break;
 		default:
 			__noop;
 		}
@@ -81,6 +84,38 @@ namespace van
 		animator->CreateAnimation(L"Attack_Ready_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(38.0f, 67.0f), 1, math::Vector2(0.0f, -2.0f));
 		animator->CreateAnimation(L"Attack_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_L"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 67.0f), 5, math::Vector2(0.0f, -2.0f));
 		animator->CreateAnimation(L"Attack_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_R"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 67.0f), 5, math::Vector2(0.0f, -2.0f));
+
+		animator->CreateAnimation(L"CarleonRecruit_Hit_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Hit_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 51.0f), 1);
+		animator->CreateAnimation(L"CarleonRecruit_Hit_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Hit_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 51.0f), 1);
+		animator->CreateAnimation(L"CarleonRecruit_Dead_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Dead_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 47.0f), 1);
+		animator->CreateAnimation(L"CarleonRecruit_Dead_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Dead_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 47.0f), 1);
+
+	}
+
+	void CarleonRecruit::OnCollisionEnter(Collider* _other)
+	{
+
+	}
+
+	void CarleonRecruit::OnCollisionStay(Collider* _other)
+	{
+		GameObject* obj = _other->GetOwner();
+		van::Attack* attack = dynamic_cast<van::Attack*>(obj);
+
+		if (attack != nullptr)
+		{
+			UINT state = attack->GetOwnerState();
+			if (state == (UINT)Player::PlayerState::AttackA
+				|| state == (UINT)Player::PlayerState::AttackB)
+			{
+				mState = MonsterState::Hit;
+			}
+		}
+	}
+
+	void CarleonRecruit::OnCollisionExit(Collider* _other)
+	{
+
 	}
 
 	void CarleonRecruit::Idle()
@@ -185,5 +220,19 @@ namespace van
 	void CarleonRecruit::Attack()
 	{
 
+	}
+
+	void CarleonRecruit::Hit()
+	{
+		Animator* at = GetComponent<Animator>();
+
+		if (mDirection == MonsterDirection::Left)
+		{
+			at->PlayAnimation(L"CarleonRecruit_Hit_L", false);
+		}
+		if (mDirection == MonsterDirection::Right)
+		{
+			at->PlayAnimation(L"CarleonRecruit_Hit_R", false);
+		}
 	}
 }

@@ -10,13 +10,15 @@ namespace van
 	// 생성자
 	Collider::Collider()	
 		: Component(enums::eComponentType::Collider)
-		, mSize(math::Vector2::Zero)	// 충돌체 기본크기 0
-		, mOffset(math::Vector2::Zero)	// 객체의 중점으로부터 충돌체의 위치수정값
-		, mPos(math::Vector2::Zero)		// 충돌체의 중심좌표 : (0,0)
-		, mCollisionNum(-1)				// 이름 기본값 : -1
-		, mbIsCollision(false)			// 충돌여부 기본값 : 비충돌상태
-		, lineColor(RGB(50, 255, 50))	// 형광 초록색
+		, mSize(math::Vector2::Zero)			// 충돌체 기본크기 0
+		, mOffset(math::Vector2::Zero)			// 객체의 중점으로부터 충돌체의 위치수정값
+		, mPos(math::Vector2::Zero)				// 충돌체의 중심좌표 : (0,0)
+		, mCollisionNum(-1)						// 이름 기본값 : -1
+		, mbIsCollision(false)					// 충돌여부 기본값 : 비충돌상태
+		, lineColor(RGB(50, 255, 50))			// 형광 초록색
 		, collisionLineColor(RGB(255, 50, 50))	// 붉은색
+		, inActiveLineColor(RGB(128, 128, 128))	// 회색
+		, mbActive(true)
 	{
 		// 충돌체 Numbering : 0 ~ ...
 		mCollisionNum = mCollisionCount;	// 충돌체가 생성되면 몇번째 충돌체인지 이름을 받고
@@ -61,13 +63,20 @@ namespace van
 
 		HPEN newPen = NULL;
 
-		if (mbIsCollision)
+		if (mbActive == true)
 		{
-			newPen = CreatePen(PS_SOLID, 2, collisionLineColor);
+			if (mbIsCollision == true)	// 충돌
+			{
+				newPen = CreatePen(PS_SOLID, 2, collisionLineColor);
+			}
+			else // 비충돌 or 충돌탈출
+			{
+				newPen = CreatePen(PS_SOLID, 2, lineColor);
+			}
 		}
 		else
 		{
-			newPen = CreatePen(PS_SOLID, 2, lineColor);
+			newPen = CreatePen(PS_SOLID, 2, inActiveLineColor);
 		}
 
 		HPEN oldPen = (HPEN)SelectObject(hdc, newPen);	// 충돌여부에 따른 색상을 가지고 있는 PEN으로 변경

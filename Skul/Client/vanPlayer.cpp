@@ -28,6 +28,7 @@ namespace van
 		, mbCombo(false)
 		, mbMove(false)
 		, mbMove2(false)
+		, attackBox(nullptr)
 	{
 		
 	}

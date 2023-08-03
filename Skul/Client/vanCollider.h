@@ -29,18 +29,24 @@ namespace van
 		__forceinline void SetLineColor(COLORREF _color) { lineColor = _color; }
 		__forceinline void SetCollisionLineColor(COLORREF _color) { collisionLineColor = _color; }
 
+		__forceinline BOOL GetActive() { return mbActive; }
+		__forceinline void SetActive(BOOL _active) { mbActive = _active; }
+
 	private:
-		static UINT mCollisionCount;	// ???
+		static UINT mCollisionCount;
 
-		math::Vector2 mSize;			// 그려질 도형(사각형)의 크기
-		math::Vector2 mOffset;			// 그려질 도형(사각형)의 위치조정 값
-		math::Vector2 mPos;				// 그려질 도형의 중심좌표
+		math::Vector2 mSize;		// 그려질 도형(사각형)의 크기
+		math::Vector2 mOffset;		// 그려질 도형(사각형)의 위치조정 값
+		math::Vector2 mPos;			// 그려질 도형의 중심좌표
 
-		UINT mCollisionNum;				// 
-		bool mbIsCollision;				// 충돌 여부 (충돌시 true)
+		UINT mCollisionNum;
+		BOOL mbIsCollision;			// 충돌 여부 (충돌시 true)
 
 		COLORREF lineColor;
 		COLORREF collisionLineColor;
+		COLORREF inActiveLineColor;
+
+		BOOL mbActive;				// 충돌처리 활성화 여부
 	};
 }
 

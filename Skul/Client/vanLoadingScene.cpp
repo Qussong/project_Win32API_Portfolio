@@ -105,8 +105,10 @@ namespace van
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\3_AttackReady_R.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_L.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_R.bmp");
-
-
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_R.bmp");
 
 		//ResourceManager::Load<Texture>();
 	}

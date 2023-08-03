@@ -13,6 +13,7 @@ namespace van
 			Patrol,
 			AttackReady,
 			Attack,
+			Hit,
 			None,
 		};
 
@@ -31,11 +32,16 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 		virtual void MakeAnimation() override;
 
+		virtual void OnCollisionEnter(class Collider* _other) override;
+		virtual void OnCollisionStay(class Collider* _other) override;
+		virtual void OnCollisionExit(class Collider* _other) override;
+
 		void Idle();
 		void Walk();
 		void Patrol();
 		void AttackReady();
 		void Attack();
+		void Hit();
 
 	private:
 		MonsterState mState;
