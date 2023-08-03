@@ -47,7 +47,7 @@ void van::StageScene::Init()
 	floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
 	floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
 
-	CollisionManager::CollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+	CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 
 	SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
 	Camera::SetTarget(GetSceneTarget());

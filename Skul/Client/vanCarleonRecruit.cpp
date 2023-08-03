@@ -18,6 +18,7 @@ namespace van
 	CarleonRecruit::CarleonRecruit()
 		: mState(MonsterState::None)
 		, mDirection(MonsterDirection::None)
+		, mHitDirection(MonsterDirection::None)
 		, mTimer(0.0f)
 		, mbPatrol(false)
 		, mbPlayAnimation(true)
@@ -36,6 +37,7 @@ namespace van
 		mDirection = MonsterDirection::Left;
 		mState = MonsterState::Patrol;
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));
+		GetComponent<RigidBody>()->SetMass(10.0f);
 	}
 
 	void CarleonRecruit::Update()
@@ -105,6 +107,8 @@ namespace van
 		if (attack != nullptr)
 		{
 			UINT state = attack->GetOwnerState();
+			mHitDirection = (MonsterDirection)(attack->GetOwnerDirection());
+
 			if (state == (UINT)Player::PlayerState::AttackA
 				|| state == (UINT)Player::PlayerState::AttackB)
 			{
@@ -225,14 +229,28 @@ namespace van
 	void CarleonRecruit::Hit()
 	{
 		Animator* at = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
 
-		if (mDirection == MonsterDirection::Left)
-		{
-			at->PlayAnimation(L"CarleonRecruit_Hit_L", false);
-		}
-		if (mDirection == MonsterDirection::Right)
+		if (mHitDirection == MonsterDirection::Left)
 		{
 			at->PlayAnimation(L"CarleonRecruit_Hit_R", false);
+			rb->SetHit(true);
+			rb->SetGround(false);
+			velocity.x = -50.0f;
+			velocity.y = -300.0f;
+			rb->SetVelocity(velocity);
 		}
+		if (mHitDirection == MonsterDirection::Right)
+		{
+			at->PlayAnimation(L"CarleonRecruit_Hit_L", false);
+			rb->SetHit(true);
+			rb->SetGround(false);
+			velocity.x = 50.0f;
+			velocity.y = -300.0f;
+			rb->SetVelocity(velocity);
+		}
+
+		mHitDirection = MonsterDirection::None;
 	}
 }

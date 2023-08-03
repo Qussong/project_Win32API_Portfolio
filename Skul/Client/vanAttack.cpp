@@ -12,6 +12,7 @@ namespace van
 		: mOwner(nullptr)
 		, mOwnerPos(math::Vector2::Zero)
 		, mOwnerState((UINT)Player::PlayerState::None)
+		, mOwnerDirection((UINT)Player::PlayerDirection::None)
 		, mOffset(math::Vector2::Zero)
 	{
 		// nothing
@@ -33,6 +34,7 @@ namespace van
 
 		Player* player = dynamic_cast<Player*>(mOwner);
 
+		// Attack 클래스의 소유자가 Player 인 경우
 		if (player != nullptr)
 		{
 			Player::PlayerDirection direction =  player->GetPlayerDirection();	// Player의 방향을 읽어옴
@@ -52,12 +54,13 @@ namespace van
 				|| mOwnerState == (UINT)Player::PlayerState::AttackB)	// Player가 공격상태일 때
 			{
 				GetComponent<Collider>()->SetActive(true);
-				CollisionManager::CollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
+				mOwnerDirection = (UINT)(player->GetPlayerDirection());
 			}
 			else
 			{
 				GetComponent<Collider>()->SetActive(false);
-				CollisionManager::CollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, false);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, false);
 			}
 		}
 
@@ -82,7 +85,7 @@ namespace van
 
 	void Attack::OnCollisionStay(Collider* _other)
 	{
-
+		
 	}
 
 	void Attack::OnCollisionExit(Collider* _other)

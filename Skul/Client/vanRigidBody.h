@@ -15,12 +15,19 @@ namespace van
 
 		__forceinline void AddForce(math::Vector2 _force) { mForce += _force; }
 		__forceinline void SetMass(float _mass) { mMass = _mass; }
+
 		__forceinline void SetGround(bool _ground) { mbGround = _ground; }
 		__forceinline bool GetGround() { return mbGround; }
+
 		__forceinline void SetSkyDash(bool _skyDash) { mbSkyDash = _skyDash; }
 		__forceinline bool GetSkyDash() { return mbSkyDash; }
+
+		__forceinline void SetHit(bool _hit) { mbHit = _hit; }
+		__forceinline bool GetHit() { return mbHit; }
+
 		__forceinline math::Vector2 GetVelocity() { return mVelocity; }
 		__forceinline void SetVelocity(math::Vector2 _velocity) { mVelocity = _velocity; }
+
 		__forceinline void SetGravity(math::Vector2 _gravity) { mGravity = _gravity; }
 		__forceinline math::Vector2 GetGravity() { return mGravity; }
 
@@ -39,6 +46,7 @@ namespace van
 
 		bool mbGround;
 		bool mbSkyDash;
+		bool mbHit;
 	};
 }
 

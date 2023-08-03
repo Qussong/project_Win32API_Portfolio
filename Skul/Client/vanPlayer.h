@@ -70,9 +70,9 @@ namespace van
 		bool mbDoubleKey;
 		UINT mJumpCnt;
 		UINT mDashCnt;
-		BOOL mbCombo;
-		BOOL mbMove;
-		BOOL mbMove2;
+		bool mbCombo;
+		bool mbMove;
+		bool mbMove2;
 		float mTime = 0.0f;
 		float mDashX1 = 0.0f;
 		float mDashX2 = 0.0f;
@@ -82,5 +82,3 @@ namespace van
 		Attack* attackBox;
 	};
 }
-
-

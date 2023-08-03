@@ -315,7 +315,7 @@ namespace van
 			rb->SetVelocity(velocity);		// 속도 setter
 			rb->SetGround(false);			// 점프했기에 공중에 있음을 표시 (mGround = false -> 공중)
 			// State
-			++mJumpCnt;					// 점프횟수 + 1 (최대 2 회)
+			++mJumpCnt;						// 점프횟수 + 1 (최대 2 회)
 			mState = PlayerState::Jump;
 		}
 

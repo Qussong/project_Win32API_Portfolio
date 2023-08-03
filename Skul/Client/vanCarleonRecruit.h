@@ -46,9 +46,10 @@ namespace van
 	private:
 		MonsterState mState;
 		MonsterDirection mDirection;
+		MonsterDirection mHitDirection;
 		float mTimer;
-		BOOL mbPatrol;
-		BOOL mbPlayAnimation;
+		bool mbPatrol;
+		bool mbPlayAnimation;
 	};
 }
 

@@ -43,7 +43,7 @@ namespace van
         mCollisionMap.clear();  // map의 모든 요소를 지운다. 즉, map을 비운다. (동적)
     }
 
-    void CollisionManager::CollisionLayerCheck(eLayerType _left, eLayerType _right, bool _enable)
+    void CollisionManager::SetCollisionLayerCheck(eLayerType _left, eLayerType _right, bool _enable)
     {
         int row = -1;
         int col = -1;
@@ -99,7 +99,7 @@ namespace van
             iter = mCollisionMap.find(ID.id);
         }
 
-        //충돌함수 호출
+        // 충돌함수 호출
         if (Intersect(_left, _right))   // 충돌상태
         {
             if (iter->second == false)  // 처음 충돌하는 상태

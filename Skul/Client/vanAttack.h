@@ -23,10 +23,13 @@ namespace van
 
 		__forceinline UINT GetOwnerState() { return mOwnerState; }
 
+		__forceinline UINT GetOwnerDirection() { return mOwnerDirection; }
+
 	private:
 		GameObject* mOwner;
 		math::Vector2 mOwnerPos;
 		UINT mOwnerState;
+		UINT mOwnerDirection;
 		math::Vector2 mOffset;
 	};
 }
