@@ -6,7 +6,7 @@
 namespace van
 {
 	class Animator;
-	class Attack;
+	class PlayerAttack;
 
 	class Player : public GameObject
 	{
@@ -48,8 +48,7 @@ namespace van
 		//void ChangeState(PlayerState _state);
 		//void StillSameState();
 
-		void ShowStatus(HDC _hdc);
-
+		void ShowStatus(HDC _hdc);	// Player 관련 각종 정보를 화면 죄측 상단에 출력
 		void Idle();
 		void Walk();
 		void Jump();
@@ -67,20 +66,18 @@ namespace van
 		__forceinline bool GetCombo() { return mbCombo; }
 
 	private:
-		PlayerState mState;
-		PlayerDirection mDirection;
-		bool mbDoubleKey;
-		UINT mJumpCnt;
-		UINT mDashCnt;
-		bool mbCombo;
-		bool mbMove;
-		bool mbMove2;
-		float mTime = 0.0f;
-		float mDashX1 = 0.0f;
-		float mDashX2 = 0.0f;
-		float mAttackDashX1 = 0.0f;
-		float mAttackDashX2 = 0.0f;
-
-		Attack* attackBox;
+		PlayerState mState;				// 현재 Player의 상태
+		PlayerDirection mDirection;		// 현재 Player가 바라보고 있는 방향 (Left, Right)
+		bool mbDoubleKey;				// 이중키 입력 여부 (방향키에서 사용)
+		UINT mJumpCnt;					// Jump 횟수 (최대 2번)
+		UINT mDashCnt;					// Dash 횟수 (최대 2번)
+		bool mbCombo;					// AttackA 다음 AttackB 수행여부
+		bool mbAttackMove;				// AttackA시 위치 이동 여부
+		bool mbAttackMove2;				// AttackB시 위치 이동 여부
+		float mDashX1 = 0.0f;			// Dash 시작지점
+		float mDashX2 = 0.0f;			// Dash 도착지점
+		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점
+		float mAttackDashX2 = 0.0f;		// AttackDash 도착지점
+		PlayerAttack* attackBox;				// Player의 기본공격 충돌 판정 범위
 	};
 }

@@ -8,11 +8,13 @@
 
 #include "vanTime.h"
 #include "vanTransform.h"
-#include "vanAttack.h"
+#include "vanPlayerAttack.h"
 #include "vanPlayer.h"
 
 #define WALK_SPEED		150.0f
-
+#define HIT_BUMP_X		50.0f
+#define HIT_BUMP_Y		-300.0f
+	
 namespace van
 {
 	CarleonRecruit::CarleonRecruit()
@@ -22,6 +24,7 @@ namespace van
 		, mTimer(0.0f)
 		, mbPatrol(false)
 		, mbPlayAnimation(true)
+		, mbHit(false)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -102,7 +105,7 @@ namespace van
 	void CarleonRecruit::OnCollisionStay(Collider* _other)
 	{
 		GameObject* obj = _other->GetOwner();
-		van::Attack* attack = dynamic_cast<van::Attack*>(obj);
+		van::PlayerAttack* attack = dynamic_cast<van::PlayerAttack*>(obj);
 
 		// 충돌한 객체가 Attack 클래스인 경우
 		if (attack != nullptr)
@@ -110,11 +113,28 @@ namespace van
 			std::set<GameObject*>* list = attack->GetAttackList();
 			if (list->find(this) == list->end())
 			{
+				mbHit = true;
 				UINT state = attack->GetOwnerState();
-				mHitDirection = (MonsterDirection)(attack->GetOwnerDirection());	// 공격당한 방향 저장
+				Player::PlayerDirection playerDirection = (Player::PlayerDirection)(attack->GetOwnerDirection());
 
+				// 공격받은 방향 저장
+				if (playerDirection == Player::PlayerDirection::Left)
+				{
+					// Player의 공격시 방향이 Left 라면
+					// Monster 입장에서 Right에서 공격받은거임
+					mHitDirection = MonsterDirection::Right;
+					mDirection = MonsterDirection::Right;
+				}
+				else
+				{
+					mHitDirection = MonsterDirection::Left;
+					mDirection = MonsterDirection::Left;
+				}
+
+				// Hit 판정
 				if (state == (UINT)Player::PlayerState::AttackA
-					|| state == (UINT)Player::PlayerState::AttackB)
+					|| state == (UINT)Player::PlayerState::AttackB
+					|| state == (UINT)Player::PlayerState::JumpAttack)
 				{
 					mState = MonsterState::Hit;
 				}
@@ -142,13 +162,21 @@ namespace van
 				mTimer = 0.0f;
 				mState = MonsterState::Walk;
 				mbPlayAnimation = true;
-				if (mDirection == MonsterDirection::Left)
+				if (mbHit)
 				{
-					mDirection = MonsterDirection::Right;
+					// Hit 당한 상태에선 Patrol 상태로 넘어갈 때 한번 방향을 바꾸지 않음
+					mbHit = false;
 				}
 				else
 				{
-					mDirection = MonsterDirection::Left;
+					if (mDirection == MonsterDirection::Left)
+					{
+						mDirection = MonsterDirection::Right;
+					}
+					else
+					{
+						mDirection = MonsterDirection::Left;
+					}
 				}
 
 				return;
@@ -242,23 +270,39 @@ namespace van
 
 		if (mHitDirection == MonsterDirection::Left)
 		{
-			at->PlayAnimation(L"CarleonRecruit_Hit_R", false);
+			at->PlayAnimation(L"CarleonRecruit_Hit_L", false);
 			rb->SetHit(true);
 			rb->SetGround(false);
-			velocity.x = -50.0f;
-			velocity.y = -300.0f;
+			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
+			velocity.x = HIT_BUMP_X;
+			velocity.y = HIT_BUMP_Y;
 			rb->SetVelocity(velocity);
 		}
 		if (mHitDirection == MonsterDirection::Right)
 		{
-			at->PlayAnimation(L"CarleonRecruit_Hit_L", false);
+			at->PlayAnimation(L"CarleonRecruit_Hit_R", false);
 			rb->SetHit(true);
 			rb->SetGround(false);
-			velocity.x = 50.0f;
-			velocity.y = -300.0f;
+			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
+			velocity.x = -HIT_BUMP_X;
+			velocity.y = HIT_BUMP_Y;
 			rb->SetVelocity(velocity);
 		}
 
 		mHitDirection = MonsterDirection::None;
+
+		// 공격받은 후 땅에 닿으면 Idle 상태
+		if (rb->GetGround() == true)
+		{
+			mState = MonsterState::Idle;
+			if (mDirection == MonsterDirection::Left)
+			{
+				at->PlayAnimation(L"Idle_L", true);
+			}
+			if (mDirection == MonsterDirection::Right)
+			{
+				at->PlayAnimation(L"Idle_R", true);
+			}
+		}
 	}
 }

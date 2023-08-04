@@ -10,7 +10,7 @@
 #include "vanFloor.h"
 #include "vanTime.h"
 
-#include "vanAttack.h"
+#include "vanPlayerAttack.h"
 
 #define DASH_FORCE_X	700.0f
 #define DASH_LIMIT		180.0f
@@ -26,8 +26,8 @@ namespace van
 		, mJumpCnt(0)
 		, mDashCnt(0)
 		, mbCombo(false)
-		, mbMove(false)
-		, mbMove2(false)
+		, mbAttackMove(false)
+		, mbAttackMove2(false)
 		, attackBox(nullptr)
 	{
 		
@@ -47,7 +47,7 @@ namespace van
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);
 
-		attackBox = Object::Instantiate<Attack>(enums::eLayerType::Effect);
+		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Effect);
 		attackBox->SetOwner(this);
 		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 	}
@@ -499,7 +499,7 @@ namespace van
 			}
 			rb->SetVelocity(velocity);
 			// State
-			mbMove = true;
+			mbAttackMove = true;
 			mState = PlayerState::AttackA;
 		}
 
@@ -716,25 +716,6 @@ namespace van
 			// State
 			mState = PlayerState::Fall;
 		}
-
-		// 동시키 입력(방향키)
-		/*if (Input::GetKey(eKeyCode::Right)
-			&& Input::GetKey(eKeyCode::Left))
-		{
-			if (!mbDoubleKey)
-			{
-				if (mDirection == PlayerDirection::Right)
-				{
-					
-				}
-
-				if (mDirection == PlayerDirection::Left)
-				{
-					
-				}
-				mbDoubleKey = true;
-			}
-		}*/
 	}
 
 	void Player::Dash()
@@ -869,14 +850,14 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
-		if (mbMove)
+		if (mbAttackMove)
 		{
 			mAttackDashX2 = pos.x;
 			float distance = abs(mAttackDashX2 - mAttackDashX1);
 			if (distance >= 50.0f)
 			{
 				rb->SetVelocity(math::Vector2(0.0f, velocity.y));
-				mbMove = false;
+				mbAttackMove = false;
 			}
 		}
 
@@ -892,7 +873,7 @@ namespace van
 			&& Input::CheckGetDirectionKey())
 		{
 			mbCombo = true;
-			mbMove2 = true;
+			mbAttackMove2 = true;
 		}
 
 		// Action
@@ -900,7 +881,7 @@ namespace van
 		{
 			if (mbCombo == true)	// AttackB
 			{
-				if (mbMove2 == true)
+				if (mbAttackMove2 == true)
 				{
 					mAttackDashX1 = pos.x;
 					if (Input::GetKey(eKeyCode::Left))
@@ -957,14 +938,14 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
-		if (mbMove2)
+		if (mbAttackMove2)
 		{
 			mAttackDashX2 = pos.x;
 			float distance = abs(mAttackDashX2 - mAttackDashX1);
 			if (distance >= 50.0f)
 			{
 				rb->SetVelocity(math::Vector2(0.0f, velocity.y));
-				mbMove2 = false;
+				mbAttackMove2 = false;
 			}
 		}
 

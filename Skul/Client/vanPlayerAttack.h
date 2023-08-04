@@ -3,11 +3,11 @@
 
 namespace van
 {
-	class Attack : public Range
+	class PlayerAttack : public Range
 	{
 	public:
-		Attack();
-		virtual ~Attack();
+		PlayerAttack();
+		virtual ~PlayerAttack();
 
 		virtual void Init() override;
 		virtual void Update() override;

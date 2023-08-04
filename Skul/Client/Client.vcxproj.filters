@@ -64,9 +64,6 @@
     <Filter Include="Engine\Contents\Scene\00_TitleScene">
       <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\GameObject\Monster\Spearman">
-      <UniqueIdentifier>{ff32ac6a-11b8-426e-a3f2-cda1b33f0da1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Contents\GameObject\Monster\CarleonRecruit">
       <UniqueIdentifier>{61b154b0-1ed0-4502-ad32-34dbfdd91a54}</UniqueIdentifier>
     </Filter>
@@ -130,8 +127,14 @@
     <Filter Include="Engine\Contents\GameObject\Range">
       <UniqueIdentifier>{83111f78-0987-4cae-94bc-f3270244bb15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Contents\GameObject\Range\Attack">
+    <Filter Include="Engine\Contents\GameObject\Range\AttackReady">
+      <UniqueIdentifier>{c326fd74-aa3a-4885-8b1d-7d2b9b17b3fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\Range\PlayerAttack">
       <UniqueIdentifier>{6fae6264-ebd5-4f84-84e5-809f429b9650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Contents\GameObject\Range\MonsterAttack">
+      <UniqueIdentifier>{52623c53-dc6e-48cc-8bb2-97e320e1a8b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -231,9 +234,6 @@
     <ClInclude Include="vanAnimation.h">
       <Filter>Engine\Resource\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="vanSpearman.h">
-      <Filter>Engine\Contents\GameObject\Monster\Spearman</Filter>
-    </ClInclude>
     <ClInclude Include="vanCarleonRecruit.h">
       <Filter>Engine\Contents\GameObject\Monster\CarleonRecruit</Filter>
     </ClInclude>
@@ -261,8 +261,8 @@
     <ClInclude Include="vanRange.h">
       <Filter>Engine\Contents\GameObject\Range</Filter>
     </ClInclude>
-    <ClInclude Include="vanAttack.h">
-      <Filter>Engine\Contents\GameObject\Range\Attack</Filter>
+    <ClInclude Include="vanPlayerAttack.h">
+      <Filter>Engine\Contents\GameObject\Range\PlayerAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -358,9 +358,6 @@
     <ClCompile Include="vanAnimation.cpp">
       <Filter>Engine\Resource\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="vanSpearman.cpp">
-      <Filter>Engine\Contents\GameObject\Monster\Spearman</Filter>
-    </ClCompile>
     <ClCompile Include="vanCarleonRecruit.cpp">
       <Filter>Engine\Contents\GameObject\Monster\CarleonRecruit</Filter>
     </ClCompile>
@@ -388,8 +385,8 @@
     <ClCompile Include="vanRange.cpp">
       <Filter>Engine\Contents\GameObject\Range</Filter>
     </ClCompile>
-    <ClCompile Include="vanAttack.cpp">
-      <Filter>Engine\Contents\GameObject\Range\Attack</Filter>
+    <ClCompile Include="vanPlayerAttack.cpp">
+      <Filter>Engine\Contents\GameObject\Range\PlayerAttack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -50,6 +50,7 @@ namespace van
 		float mTimer;
 		bool mbPatrol;
 		bool mbPlayAnimation;
+		bool mbHit;
 	};
 }
 

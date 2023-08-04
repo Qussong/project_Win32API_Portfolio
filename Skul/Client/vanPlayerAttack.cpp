@@ -1,4 +1,4 @@
-#include "vanAttack.h"
+#include "vanPlayerAttack.h"
 #include "vanTransform.h"
 #include "vanPlayer.h"
 #include "vanCollider.h"
@@ -8,7 +8,7 @@
 
 namespace van
 {
-	Attack::Attack()
+	PlayerAttack::PlayerAttack()
 		: mOwner(nullptr)
 		, mOwnerPos(math::Vector2::Zero)
 		, mOwnerState((UINT)Player::PlayerState::None)
@@ -19,17 +19,17 @@ namespace van
 		// nothing
 	}
 
-	Attack::~Attack()
+	PlayerAttack::~PlayerAttack()
 	{
 		// nothing
 	}
 
-	void Attack::Init()
+	void PlayerAttack::Init()
 	{
 		GetComponent<Collider>()->SetLineColor(RGB(0, 0, 255));	// Collider 의 상자 색을 파란색으로 변경
 	}
 
-	void Attack::Update()
+	void PlayerAttack::Update()
 	{
 		GameObject::Update();
 
@@ -51,7 +51,8 @@ namespace van
 			}
 
 			mOwnerState = (UINT)(player->GetPlayerState());				// Player의 상태를 읽어옴
-			if(mOwnerState == (UINT)Player::PlayerState::AttackA)		// Player가 공격상태일 때(AttackA)
+			if(mOwnerState == (UINT)Player::PlayerState::AttackA
+				|| mOwnerState == (UINT)Player::PlayerState::JumpAttack)	// Player가 공격상태일 때(AttackA,JumpAttack)
 			{
 				GetComponent<Collider>()->SetActive(true);
 				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
@@ -59,7 +60,7 @@ namespace van
 
 				mbCombo = player->GetCombo();
 			}
-			else if (mOwnerState == (UINT)Player::PlayerState::AttackB)	// Player가 공격상태일 때(AttackB)
+			else if (mOwnerState == (UINT)Player::PlayerState::AttackB)		// Player가 공격상태일 때(AttackB)
 			{
 				if (mbCombo)
 				{
@@ -82,28 +83,28 @@ namespace van
 		/*this->*/GetComponent<Transform>()->SetPosition(mOwnerPos + mOffset);
 	}
 
-	void Attack::Render(HDC _hdc)
+	void PlayerAttack::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
 	}
 
-	void Attack::MakeAnimation()
+	void PlayerAttack::MakeAnimation()
 	{
-
+		// nothing
 	}
 
-	void Attack::OnCollisionEnter(Collider* _other)
+	void PlayerAttack::OnCollisionEnter(Collider* _other)
 	{
-
+		// nothing
 	}
 
-	void Attack::OnCollisionStay(Collider* _other)
+	void PlayerAttack::OnCollisionStay(Collider* _other)
 	{
-		
+		// nothing
 	}
 
-	void Attack::OnCollisionExit(Collider* _other)
+	void PlayerAttack::OnCollisionExit(Collider* _other)
 	{
-		
+		// nothing
 	}
 }

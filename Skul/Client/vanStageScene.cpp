@@ -8,7 +8,6 @@
 #include "vanCamera.h"
 #include "vanBackGround.h"
 
-#include "vanSpearman.h"
 #include "vanCarleonRecruit.h"
 
 #include "vanFloor.h"

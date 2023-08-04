@@ -139,7 +139,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="vanAnimation.h" />
     <ClInclude Include="vanAnimator.h" />
-    <ClInclude Include="vanAttack.h" />
+    <ClInclude Include="vanPlayerAttack.h" />
     <ClInclude Include="vanBackGround.h" />
     <ClInclude Include="vanCamera.h" />
     <ClInclude Include="vanCarleonRecruit.h" />
@@ -151,7 +151,6 @@
     <ClInclude Include="vanNPC.h" />
     <ClInclude Include="vanRange.h" />
     <ClInclude Include="vanRigidBody.h" />
-    <ClInclude Include="vanSpearman.h" />
     <ClInclude Include="vanTexture.h" />
     <ClInclude Include="vanResource.h" />
     <ClInclude Include="vanResourceManager.h" />
@@ -180,7 +179,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="vanAnimation.cpp" />
     <ClCompile Include="vanAnimator.cpp" />
-    <ClCompile Include="vanAttack.cpp" />
+    <ClCompile Include="vanPlayerAttack.cpp" />
     <ClCompile Include="vanBackGround.cpp" />
     <ClCompile Include="vanCamera.cpp" />
     <ClCompile Include="vanCarleonRecruit.cpp" />
@@ -192,7 +191,6 @@
     <ClCompile Include="vanNPC.cpp" />
     <ClCompile Include="vanRange.cpp" />
     <ClCompile Include="vanRigidBody.cpp" />
-    <ClCompile Include="vanSpearman.cpp" />
     <ClCompile Include="vanTexture.cpp" />
     <ClCompile Include="vanMath.cpp" />
     <ClCompile Include="vanResource.cpp" />
