@@ -104,15 +104,23 @@ namespace van
 		GameObject* obj = _other->GetOwner();
 		van::Attack* attack = dynamic_cast<van::Attack*>(obj);
 
+		// 충돌한 객체가 Attack 클래스인 경우
 		if (attack != nullptr)
 		{
-			UINT state = attack->GetOwnerState();
-			mHitDirection = (MonsterDirection)(attack->GetOwnerDirection());
-
-			if (state == (UINT)Player::PlayerState::AttackA
-				|| state == (UINT)Player::PlayerState::AttackB)
+			std::set<GameObject*>* list = attack->GetAttackList();
+			if (list->find(this) == list->end())
 			{
-				mState = MonsterState::Hit;
+				UINT state = attack->GetOwnerState();
+				mHitDirection = (MonsterDirection)(attack->GetOwnerDirection());	// 공격당한 방향 저장
+
+				if (state == (UINT)Player::PlayerState::AttackA
+					|| state == (UINT)Player::PlayerState::AttackB)
+				{
+					mState = MonsterState::Hit;
+				}
+
+				// 공격판정 범위에 충돌한 충돌체 저장
+				list->insert(this);
 			}
 		}
 	}

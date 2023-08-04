@@ -64,6 +64,8 @@ namespace van
 		__forceinline PlayerDirection GetPlayerDirection() { return mDirection; }
 		__forceinline PlayerState GetPlayerState() { return mState; }
 
+		__forceinline bool GetCombo() { return mbCombo; }
+
 	private:
 		PlayerState mState;
 		PlayerDirection mDirection;

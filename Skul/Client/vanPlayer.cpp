@@ -892,7 +892,7 @@ namespace van
 			&& Input::CheckGetDirectionKey())
 		{
 			mbCombo = true;
-			mbMove2 = true; 
+			mbMove2 = true;
 		}
 
 		// Action
@@ -906,10 +906,12 @@ namespace van
 					if (Input::GetKey(eKeyCode::Left))
 					{
 						velocity.x -= DASH_FORCE_X;
+						mDirection = PlayerDirection::Left;
 					}
 					if (Input::GetKey(eKeyCode::Right))
 					{
 						velocity.x += DASH_FORCE_X;
+						mDirection = PlayerDirection::Right;
 					}
 					rb->SetVelocity(velocity);
 				}

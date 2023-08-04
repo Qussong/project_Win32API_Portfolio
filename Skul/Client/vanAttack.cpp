@@ -14,6 +14,7 @@ namespace van
 		, mOwnerState((UINT)Player::PlayerState::None)
 		, mOwnerDirection((UINT)Player::PlayerDirection::None)
 		, mOffset(math::Vector2::Zero)
+		, mbCombo(false)
 	{
 		// nothing
 	}
@@ -50,10 +51,21 @@ namespace van
 			}
 
 			mOwnerState = (UINT)(player->GetPlayerState());				// Player의 상태를 읽어옴
-			if(mOwnerState == (UINT)Player::PlayerState::AttackA
-				|| mOwnerState == (UINT)Player::PlayerState::AttackB)	// Player가 공격상태일 때
+			if(mOwnerState == (UINT)Player::PlayerState::AttackA)		// Player가 공격상태일 때(AttackA)
 			{
 				GetComponent<Collider>()->SetActive(true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
+				mOwnerDirection = (UINT)(player->GetPlayerDirection());
+
+				mbCombo = player->GetCombo();
+			}
+			else if (mOwnerState == (UINT)Player::PlayerState::AttackB)	// Player가 공격상태일 때(AttackB)
+			{
+				if (mbCombo)
+				{
+					attackList.clear();
+					mbCombo = false;
+				}
 				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, true);
 				mOwnerDirection = (UINT)(player->GetPlayerDirection());
 			}
@@ -61,6 +73,8 @@ namespace van
 			{
 				GetComponent<Collider>()->SetActive(false);
 				CollisionManager::SetCollisionLayerCheck(eLayerType::Effect, eLayerType::Monster, false);
+
+				attackList.clear();	// 공격판정이 끝나면 공격범위 충돌 내역을 비워준다.
 			}
 		}
 

@@ -25,12 +25,17 @@ namespace van
 
 		__forceinline UINT GetOwnerDirection() { return mOwnerDirection; }
 
+		__forceinline std::set<GameObject*>* GetAttackList() { return &attackList; }
+
 	private:
 		GameObject* mOwner;
 		math::Vector2 mOwnerPos;
 		UINT mOwnerState;
 		UINT mOwnerDirection;
 		math::Vector2 mOffset;
+
+		std::set <GameObject*> attackList;
+		bool mbCombo;
 	};
 }
 
