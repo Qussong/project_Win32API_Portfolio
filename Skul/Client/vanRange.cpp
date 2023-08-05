@@ -3,6 +3,11 @@
 namespace van
 {
 	Range::Range()
+		: mOwner(nullptr)
+		, mOwnerPos(math::Vector2::Zero)
+		, mOwnerState(0)
+		, mOwnerDirection(0)
+		, mOffset(math::Vector2::Zero)
 	{
 		// nothing
 	}

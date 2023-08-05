@@ -3,6 +3,8 @@
 
 namespace van
 {
+	class MonsterTrace;
+
 	class CarleonRecruit : public Monster
 	{
 	public:
@@ -11,6 +13,7 @@ namespace van
 			Idle,
 			Walk,
 			Patrol,
+			Trace,
 			AttackReady,
 			Attack,
 			Hit,
@@ -39,9 +42,16 @@ namespace van
 		void Idle();
 		void Walk();
 		void Patrol();
+		void Trace();
 		void AttackReady();
 		void Attack();
 		void Hit();
+
+		__forceinline bool GetAttackFlag() { return mbAttack; }
+		__forceinline void SetAttackFlag(bool _flag) { mbAttack = _flag; }
+
+		__forceinline bool GetTraceFlag() { return mbTrace; }
+		__forceinline void SetTraceFlag(bool _flag) { mbTrace = _flag; }
 
 	private:
 		MonsterState mState;
@@ -51,6 +61,10 @@ namespace van
 		bool mbPatrol;
 		bool mbPlayAnimation;
 		bool mbHit;
+		bool mbAttack;	// Attack 범위 판정
+		bool mbTrace;	// Trace 범위 판정
+
+		MonsterTrace* traceBox;				// Monster의 Trace판정 범위
 	};
 }
 

@@ -11,6 +11,9 @@
 #include "vanPlayerAttack.h"
 #include "vanPlayer.h"
 
+#include "vanMonsterTrace.h"
+#include "vanObject.h"
+
 #define WALK_SPEED		150.0f
 #define HIT_BUMP_X		50.0f
 #define HIT_BUMP_Y		-300.0f
@@ -25,6 +28,9 @@ namespace van
 		, mbPatrol(false)
 		, mbPlayAnimation(true)
 		, mbHit(false)
+		, mbAttack(false)
+		, mbTrace(false)
+		, traceBox(nullptr)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -36,16 +42,31 @@ namespace van
 
 	void CarleonRecruit::Init()
 	{
-		MakeAnimation();
-		mDirection = MonsterDirection::Left;
-		mState = MonsterState::Patrol;
-		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));
-		GetComponent<RigidBody>()->SetMass(10.0f);
+		MakeAnimation();	// 애니메이션 생성
+
+		mDirection = MonsterDirection::Left;	// 초기값 설정
+		mState = MonsterState::Patrol;			// 초기값 설정
+		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));	// 충돌체 크기 설정
+		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
+
+		// MonsterTrace 클래스 값 설정 (변수명 : traceBox)
+		traceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Trace);	// 객체생성
+		traceBox->SetOwner(this);													// 소유자 설정
+		traceBox->GetComponent<Collider>()->SetSize(math::Vector2(200.0f, 110.0f));	// traceBox 충돌체의 크기 설정
 	}
 
 	void CarleonRecruit::Update()
 	{
 		GameObject::Update();
+
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+
+		// TraceBox 값세팅
+		traceBox->SetOwnerPos(pos);
+		traceBox->SetOwnerState((UINT)mState);
+		traceBox->SetOwnerDirection((UINT)mDirection);
+		traceBox->SetOffset(math::Vector2::Zero);
 
 		switch (mState)
 		{
@@ -105,12 +126,15 @@ namespace van
 	void CarleonRecruit::OnCollisionStay(Collider* _other)
 	{
 		GameObject* obj = _other->GetOwner();
-		van::PlayerAttack* attack = dynamic_cast<van::PlayerAttack*>(obj);
+		van::PlayerAttack* attack = dynamic_cast<van::PlayerAttack*>(obj);	// 충돌한 객체가 Attack 클래스인지 확인
 
-		// 충돌한 객체가 Attack 클래스인 경우
+		// 충돌한 객체가 PlayerAttack 클래스인 경우 = 피격(Hit)판정
 		if (attack != nullptr)
 		{
+			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
 			std::set<GameObject*>* list = attack->GetAttackList();
+			
+			// 해당 클래스의 정보가 충돌체 저장 list에 존재하지 않는다면 Hit 판정
 			if (list->find(this) == list->end())
 			{
 				mbHit = true;
@@ -250,6 +274,11 @@ namespace van
 	{
 		mbPatrol = true;
 		mState = MonsterState::Walk;
+	}
+
+	void CarleonRecruit::Trace()
+	{
+
 	}
 
 	void CarleonRecruit::AttackReady()

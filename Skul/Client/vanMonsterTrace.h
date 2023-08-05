@@ -3,11 +3,12 @@
 
 namespace van
 {
-	class PlayerAttack : public Range
+	// 몬스터가 Player를 인식하는 범위
+	class MonsterTrace : public Range
 	{
 	public:
-		PlayerAttack();
-		virtual ~PlayerAttack();
+		MonsterTrace();
+		virtual ~MonsterTrace();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -18,11 +19,7 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;
 		virtual void OnCollisionExit(class Collider* _other) override;
 
-		__forceinline std::set<GameObject*>* GetAttackList() { return &attackList; }
-
 	private:
-		std::set <GameObject*> attackList;	// 충돌한 GameObject 들을 저장
-		bool mbCombo;						// Attack이 콤보로 이어질지에대한 여부(true = 콤보o, false = 콤보x)
+
 	};
 }
-

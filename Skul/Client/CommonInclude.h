@@ -39,7 +39,9 @@ namespace van::enums
 		Floor,
 		Monster,
 		Player,
-		Effect,
+		/*Effect,*/
+		Range_Attack,
+		Range_Trace,
 		UI,
 		End,
 	};

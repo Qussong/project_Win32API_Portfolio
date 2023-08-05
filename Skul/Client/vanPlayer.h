@@ -78,6 +78,6 @@ namespace van
 		float mDashX2 = 0.0f;			// Dash 도착지점
 		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점
 		float mAttackDashX2 = 0.0f;		// AttackDash 도착지점
-		PlayerAttack* attackBox;				// Player의 기본공격 충돌 판정 범위
+		PlayerAttack* attackBox;		// Player의 기본공격 충돌 판정 범위
 	};
 }

@@ -47,9 +47,9 @@ namespace van
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);
 
-		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Effect);
-		attackBox->SetOwner(this);
-		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
+		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Range_Attack);	// PlayerAttack 클래스 객체 생성
+		attackBox->SetOwner(this);													// PlayerAttack 클래스의 소유자 설정
+		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));	// PlayerAttack 클래스의 충돌체 크기 설정
 	}
 
 	void Player::Update()
