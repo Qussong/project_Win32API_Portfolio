@@ -22,8 +22,7 @@ namespace van
 {
 	CarleonRecruit::CarleonRecruit()
 		: mTimer(0.0f)
-		, mbPlayAnimation(true)
-		, traceBox(nullptr)
+		//, traceBox(nullptr)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -39,15 +38,15 @@ namespace van
 
 		// Monaster 초기설정
 		SetMonsterDirection(MonsterDirection::Left);	// 방향
-		SetMonsterState(MonsterState::Idle);			// 상태
+		SetMonsterState(MonsterState::Patrol);			// 상태
 
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));	// 충돌체 크기 설정
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 
 		// MonsterTrace 클래스 값 설정 (변수명 : traceBox)
-		traceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Trace);	// 객체생성
-		traceBox->SetOwner(this);														// 소유자 설정
-		traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));		// traceBox 충돌체의 크기 설정
+		//traceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Trace);	// 객체생성
+		//traceBox->SetOwner(this);														// 소유자 설정
+		//traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));		// traceBox 충돌체의 크기 설정
 	}
 
 	void CarleonRecruit::Update()
@@ -58,10 +57,12 @@ namespace van
 		math::Vector2 pos = tr->GetPosition();
 
 		// TraceBox 값세팅
-		traceBox->SetOwnerPos(pos);
-		traceBox->SetOwnerState((UINT)GetMonsterState());
-		traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
-		traceBox->SetOffset(math::Vector2::Zero);
+		//traceBox->SetOwnerPos(pos);
+		//traceBox->SetOwnerState((UINT)GetMonsterState());
+		//traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
+		//traceBox->SetOffset(math::Vector2::Zero);
+
+		SetMonsterPastState(GetMonsterState());	// 현재 몬스터의 상태를 저장
 
 		switch (GetMonsterState())
 		{
@@ -89,6 +90,13 @@ namespace van
 		default:
 			__noop;
 		}
+
+		// 만약 몬스터의 상태가 바꼈다면
+		if (GetMonsterState() != GetMonsterPastState())
+		{
+			SetPlayAnimation(true);
+		}
+		
 	}
 
 	void CarleonRecruit::Render(HDC _hdc)
@@ -118,7 +126,7 @@ namespace van
 
 	void CarleonRecruit::OnCollisionEnter(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void CarleonRecruit::OnCollisionStay(Collider* _other)
@@ -135,7 +143,7 @@ namespace van
 			// 해당 클래스의 정보가 충돌체 저장 list에 존재하지 않는다면 Hit 판정
 			if (list->find(this) == list->end())
 			{
-				SetHitFlag(true);
+				//SetHitFlag(true);
 				UINT state = attack->GetOwnerState();
 				Player::PlayerDirection playerDirection = (Player::PlayerDirection)(attack->GetOwnerDirection());
 
@@ -159,6 +167,8 @@ namespace van
 					|| state == (UINT)Player::PlayerState::JumpAttack)
 				{
 					SetMonsterState(MonsterState::Hit);
+					// Hit 판정을 받으면 Patrol 상태가 아니기에 Patrol Flag를 꺼준다.
+					SetPatrolFlag(false);
 				}
 
 				// 공격판정 범위에 충돌한 충돌체 저장
@@ -169,57 +179,60 @@ namespace van
 
 	void CarleonRecruit::OnCollisionExit(Collider* _other)
 	{
-
+		 // nothing
 	}
 
 	void CarleonRecruit::Idle()
 	{
 		Animator* at = GetComponent<Animator>();
 
-		if (GetPatroFlag())
+		// Patrol 상태일 때 
+		if (GetPatrolFlag() == true)
 		{
+			// 시간 누적
 			mTimer += Time::GetDeltaTime();
 
-			if (mTimer >= 3.0f)
+			// 누적된 시간이 3초 이상이되면
+			if (mTimer >= 3.0f)				
 			{
-				mTimer = 0.0f;
-				SetMonsterState(MonsterState::Walk);
-				mbPlayAnimation = true;
-				if (GetHitFlag())
+				mTimer = 0.0f;							// 누적시간 0초로 초기화
+				SetMonsterState(MonsterState::Walk);	// Monster의 상태를 Walk 로 변경
+
+				// 방향전환
+				if (GetMonsterDirection() == MonsterDirection::Left)
 				{
-					// Hit 당한 상태에선 Patrol 상태로 넘어갈 때 한번 방향을 바꾸지 않음
-					SetHitFlag(false);
+					SetMonsterDirection(MonsterDirection::Right);
 				}
 				else
 				{
-					if (GetMonsterDirection() == MonsterDirection::Left)
+					SetMonsterDirection(MonsterDirection::Left);
+				}
+			}
+			// 누적된 시간이 3초 이상이 아니라면
+			else
+			{
+				if (GetMonsterDirection() == MonsterDirection::Left)
+				{
+					if (GetPlayAnimation() == true)
 					{
-						SetMonsterDirection(MonsterDirection::Right);
-					}
-					else
-					{
-						SetMonsterDirection(MonsterDirection::Left);
+						at->PlayAnimation(L"Idle_L", true);
+						SetPlayAnimation(false);
 					}
 				}
-				return;
+				else
+				{
+					if (GetPlayAnimation() == true)
+					{
+						at->PlayAnimation(L"Idle_R", true);
+						SetPlayAnimation(false);
+					}
+				}
 			}
 		}
-
-		if (GetMonsterDirection() == MonsterDirection::Left)
-		{
-			if (mbPlayAnimation == true)
-			{
-				at->PlayAnimation(L"Idle_L", true);
-				mbPlayAnimation = false;
-			}
-		}
+		// Patrol 상태가 아닐때
 		else
 		{
-			if (mbPlayAnimation == true)
-			{
-				at->PlayAnimation(L"Idle_R", true);
-				mbPlayAnimation = false;
-			}
+			int a = 0;
 		}
 	}
 
@@ -229,58 +242,80 @@ namespace van
 		math::Vector2 pos = tr->GetPosition();
 		Animator* at = GetComponent<Animator>();
 
-		if (GetPatroFlag())
+		// Patrol 상태일 때 
+		if (GetPatrolFlag() == true)
 		{
+			// 시간 누적
 			mTimer += Time::GetDeltaTime();
+
+			// 누적된 시간이 2초 이상이되면
 			if (mTimer >= 2.0f)
 			{
 				mTimer = 0.0f;
 				SetMonsterState(MonsterState::Idle);
-				mbPlayAnimation = true;
-
-				return;
+			}
+			// 누적된 시간이 2초 이상이 아니라면
+			else
+			{
+				// Walk_L
+				if (GetMonsterDirection() == MonsterDirection::Left)
+				{
+					// Patrol 상태일때
+					if (GetPlayAnimation() == true)
+					{
+						at->PlayAnimation(L"Walk_L", true);
+						SetPlayAnimation(false);
+					}
+					pos.x -= (WALK_SPEED * Time::GetDeltaTime());
+					tr->SetPosition(pos);
+				}
+				// Walk_R
+				if (GetMonsterDirection() == MonsterDirection::Right)
+				{
+					// Patrol 상태일때
+					if (GetPlayAnimation() == true)
+					{
+						at->PlayAnimation(L"Walk_R", true);
+						SetPlayAnimation(false);
+					}
+					pos.x += (WALK_SPEED * Time::GetDeltaTime());
+					tr->SetPosition(pos);
+				}
 			}
 		}
-
-		// Walk_L
-		if (GetMonsterDirection() == MonsterDirection::Left)
+		// Patrol 상태가 아닐때
+		else
 		{
-			// Patrol 상태일때
-			if (GetPatroFlag() && mbPlayAnimation == true)
-			{
-				at->PlayAnimation(L"Walk_L", true);
-				mbPlayAnimation = false;
-			}
-
-			pos.x -= (WALK_SPEED * Time::GetDeltaTime());
-			tr->SetPosition(pos);
-		}
-
-		// Walk_R
-		if (GetMonsterDirection() == MonsterDirection::Right)
-		{
-			// Patrol 상태일때
-			if (GetPatroFlag() && mbPlayAnimation == true)
-			{
-				at->PlayAnimation(L"Walk_R", true);
-				mbPlayAnimation = false;
-			}
-
-			pos.x += (WALK_SPEED * Time::GetDeltaTime());
-			tr->SetPosition(pos);
+			int a = 1;
 		}
 	}
 
 	void CarleonRecruit::Patrol()
 	{
-		SetPatroFlag(true);
-		SetMonsterState(MonsterState::Walk);
+		SetPatrolFlag(true);
+		SetMonsterState(MonsterState::Idle);
 	}
 
 	void CarleonRecruit::Trace()
 	{
 		// Trace 로직 구현
-		SetPatroFlag(false);
+
+		// 위치를 비교하여 Monster 기준으로 Target이 어디있는지 찾는다.
+		math::Vector2 targetPos = GetMonsterTarget()->GetComponent<Transform>()->GetPosition();
+		math::Vector2 monsterPos = GetComponent<Transform>()->GetPosition();
+		if (targetPos.x < monsterPos.x)
+		{
+			// Target이 Monster의 Left에 있다.
+			// Monster의 이동 방향을 Left로 변경
+			SetMonsterDirection(Monster::MonsterDirection::Left);
+		}
+		else
+		{
+			// Target이 Monster의 Right에 있다.
+			// Monster의 이동 방향을 Right로 변경
+			SetMonsterDirection(Monster::MonsterDirection::Right);
+		}
+
 		SetMonsterState(MonsterState::Walk);
 	}
 
@@ -309,7 +344,10 @@ namespace van
 			velocity.x = HIT_BUMP_X;
 			velocity.y = HIT_BUMP_Y;
 			rb->SetVelocity(velocity);
+
+			SetMonsterDirection(MonsterDirection::Left);
 		}
+
 		if (GetMonsterHitDirection() == MonsterDirection::Right)
 		{
 			at->PlayAnimation(L"CarleonRecruit_Hit_R", false);
@@ -319,6 +357,8 @@ namespace van
 			velocity.x = -HIT_BUMP_X;
 			velocity.y = HIT_BUMP_Y;
 			rb->SetVelocity(velocity);
+
+			SetMonsterDirection(MonsterDirection::Right);
 		}
 
 		SetMonsterHitDirection(MonsterDirection::None);
@@ -327,6 +367,7 @@ namespace van
 		if (rb->GetGround() == true)
 		{
 			SetMonsterState(MonsterState::Idle);
+
 			if (GetMonsterDirection() == MonsterDirection::Left)
 			{
 				at->PlayAnimation(L"Idle_L", true);

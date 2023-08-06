@@ -30,8 +30,7 @@ namespace van
 
 	private:
 		float mTimer;
-		bool mbPlayAnimation;	// Animation 재생 여부
-		MonsterTrace* traceBox;	// Monster의 Trace판정 범위
+		//MonsterTrace* traceBox;	// Monster의 Trace판정 범위
 	};
 }
 

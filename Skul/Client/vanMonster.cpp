@@ -8,13 +8,12 @@
 namespace van
 {
 	Monster::Monster()
-		: mState(MonsterState::None)
+		: mTarget(nullptr)
+		, mState(MonsterState::None)
 		, mDirection(MonsterDirection::None)
 		, mHitDirection(MonsterDirection::None)
-		, mbPatrol(false)
-		, mbTrace(false)
-		, mbAttack(false)
-		, mbHit(false)
+		, mPastState(MonsterState::None)
+		, mbPlayAnimation(true)
 	{
 		// nothing
 	}

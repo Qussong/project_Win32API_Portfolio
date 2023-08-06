@@ -29,7 +29,6 @@ namespace van
 	void MonsterTrace::Update()
 	{
 		GameObject::Update();
-
 		Transform* tr = GetComponent<Transform>();
 
 		// 위치 설정
@@ -55,29 +54,15 @@ namespace van
 	{
 		GameObject* obj = _other->GetOwner();
 		Player* player = dynamic_cast<Player*>(obj);
-
+		Monster* monster = (Monster*)GetOwner();	// MonsterTrace 클래스를 소유하고 있는 Monster 클래스의 주소저장
 		
-		if (player != nullptr)	// 충돌한 객체가 Player 인 경우
+		//if (player != nullptr && !(monster->GetTraceFlag()))	// 충돌한 객체가 Player이고 아직 Trace상태가 아닐 때
+		if (player != nullptr && monster->GetMonsterState() != Monster::MonsterState::Trace)
 		{
+			// 몬스터의 타겟 설정
+			monster->SetMonsterTarget(player);
 			// 몬스터의 상태를 Trace 로 변경
-			Monster* monster = (Monster*)GetOwner();
 			monster->SetMonsterState(Monster::MonsterState::Trace);
-
-			// 위치를 비교하여 Monster 기준으로 왼쪽인지 오른쪽인지 구분
-			math::Vector2 playerPos = player->GetComponent<Transform>()->GetPosition();
-			math::Vector2 monsterPos = monster->GetComponent<Transform>()->GetPosition();
-			if (playerPos.x < monsterPos.x)
-			{
-				// Player가 Monster의 Left에 있다.
-				// Monster의 이동 방향을 Left로 변경
-				monster->SetMonsterDirection(Monster::MonsterDirection::Left);
-			}
-			else
-			{
-				// Player가 Monster의 Right에 있다.
-				// Monster의 이동 방향을 Right로 변경
-				monster->SetMonsterDirection(Monster::MonsterDirection::Right);
-			}
 		}
 	}
 
@@ -85,11 +70,11 @@ namespace van
 	{
 		GameObject* obj = _other->GetOwner();
 		Player* player = dynamic_cast<Player*>(obj);
+		Monster* monster = (Monster*)GetOwner();
 
 		if (player != nullptr)	// 충돌에서 벗어난 객체가 Player 인 경우
 		{
 			// 몬스터의 상태를 Idle 로 변경
-			Monster* monster = (Monster*)GetOwner();
 			monster->SetMonsterState(Monster::MonsterState::Idle);
 		}
 	}
