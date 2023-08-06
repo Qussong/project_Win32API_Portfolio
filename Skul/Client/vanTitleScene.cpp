@@ -29,7 +29,7 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Title_Art"));
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Title_Art"));
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 
@@ -37,7 +37,7 @@ namespace van
 		BackGround* logo = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		logo->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 200));
 		bgsr = logo->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Title_Logo"));
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Title_Logo"));
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 

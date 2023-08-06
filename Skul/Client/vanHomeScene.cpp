@@ -56,10 +56,6 @@ namespace van
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
 
-		// Player 레이어와 Monster 레이어의 충돌 체크여부(true) 설정
-		//CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Monster, true);
-		//CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
-
 		SetSceneTarget(player);
 		Camera::SetTarget(GetSceneTarget());
 	}

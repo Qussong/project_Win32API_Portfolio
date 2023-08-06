@@ -30,7 +30,7 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Black_BackGround"));
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Black_BackGround"));
 		bgsr->SetScale(math::Vector2::One);
 		bgsr->SetAffectCamera(false);
 
@@ -67,12 +67,15 @@ namespace van
 	{
 		Texture* img = new Texture();
 
+		// BG Image
+		ResourceManager::Load<Texture>(L"BG_Sample", L"..\\MyResources\\skul\\0_BG\\0_Sample\\Background_Grid.bmp");
+
 		// Title
-		ResourceManager::Load<Texture>(L"Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
-		ResourceManager::Load<Texture>(L"Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
+		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
+		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
 
 		// Loading
-		ResourceManager::Load<Texture>(L"Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
+		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_LoadingSkul\\Skul_Loading.bmp");
 
 		// Home
