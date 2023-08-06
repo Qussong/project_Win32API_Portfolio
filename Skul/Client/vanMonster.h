@@ -46,11 +46,14 @@ namespace van
 		__forceinline MonsterState GetMonsterState() { return mState; }
 		__forceinline void SetMonsterState(MonsterState _state) { mState = _state; }
 		
+		__forceinline MonsterState GetMonsterPastState() { return mPastState; }
+		__forceinline void SetMonsterPastState(MonsterState _state) { mPastState = _state; }
+
 		__forceinline MonsterDirection GetMonsterDirection() { return mDirection; }
 		__forceinline void SetMonsterDirection(MonsterDirection _direction) { mDirection = _direction; }
 
-		__forceinline MonsterState GetMonsterPastState() { return mPastState; }
-		__forceinline void SetMonsterPastState(MonsterState _state) { mPastState = _state; }
+		__forceinline MonsterDirection GetMonsterPastDirection() { return mPastDirection; }
+		__forceinline void SetMonsterPastDirection(MonsterDirection _direction) { mPastDirection = _direction; }
 
 		__forceinline MonsterDirection GetMonsterHitDirection() { return mHitDirection; }
 		__forceinline void SetMonsterHitDirection(MonsterDirection _direction) { mHitDirection = _direction; }
@@ -58,17 +61,25 @@ namespace van
 		__forceinline bool GetPatrolFlag() { return mbPatrol; }
 		__forceinline void SetPatrolFlag(bool _flag) { mbPatrol = _flag; }
 
+		__forceinline bool GetTraceFlag() { return mbTrace; }
+		__forceinline void SetTraceFlag(bool _flag) { mbTrace = _flag; }
+
 		__forceinline bool GetPlayAnimation() { return mbPlayAnimation; }
 		__forceinline void SetPlayAnimation(bool _flag) { mbPlayAnimation = _flag; }
 
 	private:
-		GameObject* mTarget;	// Monster의 목표대상
+		GameObject* mTarget;			// Monster의 목표대상(Trace)
+
 		MonsterState mState;
-		MonsterDirection mDirection;
-		MonsterDirection mHitDirection;
 		MonsterState mPastState;
 
-		bool mbPatrol;
+		MonsterDirection mDirection;
+		MonsterDirection mPastDirection;
+
+		MonsterDirection mHitDirection;
+
+		bool mbPatrol;			// Monster가 각 상태에서 Patrol 행동을 보이도록 해줌
+		bool mbTrace;			// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
 		bool mbPlayAnimation;	// Animation 재생 여부
 	};
 }

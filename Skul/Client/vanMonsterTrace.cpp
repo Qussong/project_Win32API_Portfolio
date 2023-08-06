@@ -56,8 +56,8 @@ namespace van
 		Player* player = dynamic_cast<Player*>(obj);
 		Monster* monster = (Monster*)GetOwner();	// MonsterTrace 클래스를 소유하고 있는 Monster 클래스의 주소저장
 		
-		//if (player != nullptr && !(monster->GetTraceFlag()))	// 충돌한 객체가 Player이고 아직 Trace상태가 아닐 때
-		if (player != nullptr && monster->GetMonsterState() != Monster::MonsterState::Trace)
+		// 충돌한 대상이 Player이고 Monster에게 Target이 없을 때
+		if (player != nullptr && monster->GetMonsterTarget() == nullptr)	
 		{
 			// 몬스터의 타겟 설정
 			monster->SetMonsterTarget(player);
@@ -72,10 +72,13 @@ namespace van
 		Player* player = dynamic_cast<Player*>(obj);
 		Monster* monster = (Monster*)GetOwner();
 
-		if (player != nullptr)	// 충돌에서 벗어난 객체가 Player 인 경우
+		// 충돌에서 벗어난 객체가 Player 인 경우
+		if (player != nullptr)	
 		{
-			// 몬스터의 상태를 Idle 로 변경
-			monster->SetMonsterState(Monster::MonsterState::Idle);
+			// 몬스터의 타겟을 없앤다.
+			monster->SetMonsterTarget(nullptr);
+			// 몬스터의 상태를 Patrol 로 변경
+			monster->SetMonsterState(Monster::MonsterState::Patrol);
 		}
 	}
 }

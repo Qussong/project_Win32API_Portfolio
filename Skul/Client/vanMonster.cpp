@@ -10,9 +10,12 @@ namespace van
 	Monster::Monster()
 		: mTarget(nullptr)
 		, mState(MonsterState::None)
-		, mDirection(MonsterDirection::None)
-		, mHitDirection(MonsterDirection::None)
 		, mPastState(MonsterState::None)
+		, mDirection(MonsterDirection::None)
+		, mPastDirection(MonsterDirection::None)
+		, mHitDirection(MonsterDirection::None)
+		, mbPatrol(false)
+		, mbTrace(false)
 		, mbPlayAnimation(true)
 	{
 		// nothing

@@ -30,7 +30,7 @@ namespace van
 
 	private:
 		float mTimer;
-		//MonsterTrace* traceBox;	// Monster의 Trace판정 범위
+		MonsterTrace* traceBox;	// Monster의 Trace판정 범위
 	};
 }
 

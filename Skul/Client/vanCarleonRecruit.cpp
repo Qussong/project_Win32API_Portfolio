@@ -22,7 +22,7 @@ namespace van
 {
 	CarleonRecruit::CarleonRecruit()
 		: mTimer(0.0f)
-		//, traceBox(nullptr)
+		, traceBox(nullptr)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -44,9 +44,9 @@ namespace van
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 
 		// MonsterTrace 클래스 값 설정 (변수명 : traceBox)
-		//traceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Trace);	// 객체생성
-		//traceBox->SetOwner(this);														// 소유자 설정
-		//traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));		// traceBox 충돌체의 크기 설정
+		traceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Trace);	// 객체생성
+		traceBox->SetOwner(this);														// 소유자 설정
+		traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));		// traceBox 충돌체의 크기 설정
 	}
 
 	void CarleonRecruit::Update()
@@ -57,12 +57,13 @@ namespace van
 		math::Vector2 pos = tr->GetPosition();
 
 		// TraceBox 값세팅
-		//traceBox->SetOwnerPos(pos);
-		//traceBox->SetOwnerState((UINT)GetMonsterState());
-		//traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
-		//traceBox->SetOffset(math::Vector2::Zero);
+		traceBox->SetOwnerPos(pos);
+		traceBox->SetOwnerState((UINT)GetMonsterState());
+		traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
+		traceBox->SetOffset(math::Vector2::Zero);
 
 		SetMonsterPastState(GetMonsterState());	// 현재 몬스터의 상태를 저장
+		SetMonsterPastDirection(GetMonsterDirection());	// 현재 몬스터의 방향을 저장
 
 		switch (GetMonsterState())
 		{
@@ -91,8 +92,9 @@ namespace van
 			__noop;
 		}
 
-		// 만약 몬스터의 상태가 바꼈다면
-		if (GetMonsterState() != GetMonsterPastState())
+		// 만약 몬스터의 상태,방향이 바꼈다면
+		if (GetMonsterState() != GetMonsterPastState()
+			|| GetMonsterDirection() != GetMonsterPastDirection())
 		{
 			SetPlayAnimation(true);
 		}
@@ -134,7 +136,7 @@ namespace van
 		GameObject* obj = _other->GetOwner();
 		van::PlayerAttack* attack = dynamic_cast<van::PlayerAttack*>(obj);	// 충돌한 객체가 Attack 클래스인지 확인
 
-		// 충돌한 객체가 PlayerAttack 클래스인 경우 = 피격(Hit)판정
+		// 충돌한 객체가 PlayerAttack 클래스인 경우 == 피격(Hit)판정
 		if (attack != nullptr)
 		{
 			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
@@ -260,7 +262,6 @@ namespace van
 				// Walk_L
 				if (GetMonsterDirection() == MonsterDirection::Left)
 				{
-					// Patrol 상태일때
 					if (GetPlayAnimation() == true)
 					{
 						at->PlayAnimation(L"Walk_L", true);
@@ -272,7 +273,6 @@ namespace van
 				// Walk_R
 				if (GetMonsterDirection() == MonsterDirection::Right)
 				{
-					// Patrol 상태일때
 					if (GetPlayAnimation() == true)
 					{
 						at->PlayAnimation(L"Walk_R", true);
@@ -283,39 +283,72 @@ namespace van
 				}
 			}
 		}
-		// Patrol 상태가 아닐때
+		// Trace 상태일 때
+		else if(GetTraceFlag() == true)
+		{
+			// Monster 기준으로 Target의 위치탐색
+			math::Vector2 targetPos = GetMonsterTarget()->GetComponent<Transform>()->GetPosition();	// Target의 위치
+			math::Vector2 monsterPos = GetComponent<Transform>()->GetPosition();					// Monster의 위치
+			// Target이 Monster의 Left에 있을 때
+			if (targetPos.x < monsterPos.x)
+			{
+				// Monster의 이동 방향을 Left로 변경
+				SetMonsterDirection(Monster::MonsterDirection::Left);
+			}
+			// Target이 Monster의 Right에 있을 때
+			else
+			{
+				// Monster의 이동 방향을 Right로 변경
+				SetMonsterDirection(Monster::MonsterDirection::Right);
+			}
+
+			// Walk_L
+			if (GetMonsterDirection() == MonsterDirection::Left)
+			{
+				if (GetPlayAnimation() == true)
+				{
+					at->PlayAnimation(L"Walk_L", true);
+					SetPlayAnimation(false);
+				}
+				pos.x -= (WALK_SPEED * Time::GetDeltaTime());
+				tr->SetPosition(pos);
+			}
+			// Walk_R
+			if (GetMonsterDirection() == MonsterDirection::Right)
+			{
+				if (GetPlayAnimation() == true)
+				{
+					at->PlayAnimation(L"Walk_R", true);
+					SetPlayAnimation(false);
+				}
+				pos.x += (WALK_SPEED * Time::GetDeltaTime());
+				tr->SetPosition(pos);
+			}
+		}
+		// Patrol, Trace 상태가 아닐때
 		else
 		{
-			int a = 1;
+			__noop;
 		}
 	}
 
 	void CarleonRecruit::Patrol()
 	{
+		// 몬스터가 모든 상태에서 Patrol 행동을 보이도록 설정
 		SetPatrolFlag(true);
+		// Patrol 상태로 전환됐기에 Trace Flag는 꺼준다.
+		SetTraceFlag(false);
+		// Patrol시 Idle 부터 시작하도록 한다.
 		SetMonsterState(MonsterState::Idle);
 	}
 
 	void CarleonRecruit::Trace()
 	{
-		// Trace 로직 구현
-
-		// 위치를 비교하여 Monster 기준으로 Target이 어디있는지 찾는다.
-		math::Vector2 targetPos = GetMonsterTarget()->GetComponent<Transform>()->GetPosition();
-		math::Vector2 monsterPos = GetComponent<Transform>()->GetPosition();
-		if (targetPos.x < monsterPos.x)
-		{
-			// Target이 Monster의 Left에 있다.
-			// Monster의 이동 방향을 Left로 변경
-			SetMonsterDirection(Monster::MonsterDirection::Left);
-		}
-		else
-		{
-			// Target이 Monster의 Right에 있다.
-			// Monster의 이동 방향을 Right로 변경
-			SetMonsterDirection(Monster::MonsterDirection::Right);
-		}
-
+		// 몬스터가 모든 상태에서 Patrol 행동을 보이도록 설정
+		SetTraceFlag(true);
+		// Trace 상태로 전환됐기에 Patrol Flag는 꺼준다.
+		SetPatrolFlag(false);
+		// Trace시 Target을 쫓아가기에 Walk 부터 시작
 		SetMonsterState(MonsterState::Walk);
 	}
 
