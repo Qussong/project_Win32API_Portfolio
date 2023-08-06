@@ -11,6 +11,7 @@
 #include "vanTime.h"
 
 #include "vanPlayerAttack.h"
+#include "vanCollisionManager.h"
 
 #define DASH_FORCE_X	700.0f
 #define DASH_LIMIT		180.0f
@@ -43,6 +44,8 @@ namespace van
 		MakeAnimation();
 		GetComponent<Animator>()->PlayAnimation(L"Idle_Weapon_R", true);
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);

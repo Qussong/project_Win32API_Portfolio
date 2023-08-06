@@ -46,7 +46,7 @@ namespace van
 		COLORREF collisionLineColor;
 		COLORREF inActiveLineColor;
 
-		BOOL mbActive;				// 충돌처리 활성화 여부
+		BOOL mbActive;				// 충돌처리 활성화 여부(기본값 : true/활성화)
 	};
 }
 

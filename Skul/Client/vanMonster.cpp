@@ -3,9 +3,18 @@
 #include "vanTransform.h"
 #include "vanAnimator.h"
 
+#include "vanCollisionManager.h"
+
 namespace van
 {
 	Monster::Monster()
+		: mState(MonsterState::None)
+		, mDirection(MonsterDirection::None)
+		, mHitDirection(MonsterDirection::None)
+		, mbPatrol(false)
+		, mbTrace(false)
+		, mbAttack(false)
+		, mbHit(false)
 	{
 		// nothing
 	}
@@ -17,7 +26,7 @@ namespace van
 
 	void Monster::Init()
 	{
-		// nothing
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 	}
 
 	void Monster::Update()
