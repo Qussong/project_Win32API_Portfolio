@@ -125,14 +125,14 @@ namespace van
 				_hdc
 				, (int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
 				, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
-				, _size.x * _scale.x
-				, _size.y * _scale.y
+				, (int)(_size.x * _scale.x)
+				, (int)(_size.y * _scale.y)
 				// source
 				, mHdc
-				, _leftTop.x
-				, _leftTop.y
-				, _rightBottom.x
-				, _rightBottom.y
+				, (int)_leftTop.x
+				, (int)_leftTop.y
+				, (int)_rightBottom.x
+				, (int)_rightBottom.y
 				// option
 				, RGB(255, 0, 255));
 		}
@@ -142,7 +142,7 @@ namespace van
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;
 			func.AlphaFormat = AC_SRC_ALPHA;
-			int alpha = 1.0f;
+			int alpha = 1;
 			alpha = (int)(alpha * 255.0f);	// 0.0f ~ 1.0f -> 0 ~ 255
 
 			if (alpha <= 0)
@@ -155,14 +155,14 @@ namespace van
 				_hdc
 				, (int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
 				, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
-				, _size.x * _scale.x
-				, _size.y * _scale.y
+				, (int)(_size.x * _scale.x)
+				, (int)(_size.y * _scale.y)
 				// source
 				, mHdc
-				, _leftTop.x
-				, _leftTop.y
-				, _rightBottom.x
-				, _rightBottom.y
+				, (int)_leftTop.x
+				, (int)_leftTop.y
+				, (int)_rightBottom.x
+				, (int)_rightBottom.y
 				// option
 				, func);
 		}
@@ -183,10 +183,10 @@ namespace van
 					, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
 					, (int)(_size.x * _scale.x)
 					, (int)(_size.y * _scale.y))
-				, _leftTop.x
-				, _leftTop.y
-				, _rightBottom.x
-				, _rightBottom.y
+				, (int)_leftTop.x
+				, (int)_leftTop.y
+				, (int)_rightBottom.x
+				, (int)_rightBottom.y
 				, Gdiplus::UnitPixel
 				, nullptr);
 		}
@@ -194,8 +194,10 @@ namespace van
 			__noop;
 
 		Rectangle(_hdc
-			, _pos.x, _pos.y
-			, _pos.x + 10, _pos.y + 10);
+			, (int)_pos.x
+			, (int)_pos.y
+			, (int)_pos.x + 10
+			, (int)_pos.y + 10);
 	}
 
 }

@@ -51,15 +51,14 @@ namespace van
 		rb->SetMass(50.0f);
 
 		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Range_Attack);	// PlayerAttack 클래스 객체 생성
-		attackBox->SetOwner(this);													// PlayerAttack 클래스의 소유자 설정
-		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));	// PlayerAttack 클래스의 충돌체 크기 설정
+		attackBox->SetOwner(this);														// PlayerAttack 클래스의 소유자 설정
+		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));		// PlayerAttack 클래스의 충돌체 크기 설정
 	}
 
 	void Player::Update()
 	{
 		GameObject::Update();
 		
-		//math::Vector2 pos = GetComponent<Transform>()->GetPosition();	// 디버깅시 Player 객체 위치 확인용
 		//StillSameState();
 
 		// z : Dash, x : Attack , c : Jump
@@ -486,7 +485,7 @@ namespace van
 			mState = PlayerState::Idle;
 		}
 
-		// AttackA
+		// Walk + AttackA
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
 			mAttackDashX1 = pos.x;
@@ -853,6 +852,7 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
+		// 어택과 동시에 방향키를 누른경우 공격시 일정거리 이동한다.
 		if (mbAttackMove)
 		{
 			mAttackDashX2 = pos.x;
@@ -864,7 +864,7 @@ namespace van
 			}
 		}
 
-		// AttackB Flag
+		// 콤보공격(AttackB)으로 연결될지 확인
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& !Input::CheckGetDirectionKey())
 		{
@@ -872,6 +872,7 @@ namespace van
 		}
 
 		// AttackB + Move Flag
+		// 콤보공격시 방향키를 누르고 있으면 일정거리 이동하면서 공격
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::CheckGetDirectionKey())
 		{
@@ -879,11 +880,13 @@ namespace van
 			mbAttackMove2 = true;
 		}
 
-		// Action
+		// Attack Action
 		if (animator->IsActiveAnimationComplete())
 		{
-			if (mbCombo == true)	// AttackB
+			// AttackB로 이어져야 할때
+			if (mbCombo == true)
 			{
+				// 이동공격이라면 이동시켜준다.
 				if (mbAttackMove2 == true)
 				{
 					mAttackDashX1 = pos.x;
@@ -899,6 +902,7 @@ namespace van
 					}
 					rb->SetVelocity(velocity);
 				}
+
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
@@ -913,7 +917,8 @@ namespace van
 				mbCombo = false;
 				mState = PlayerState::AttackB;
 			}
-			else  // Idle
+			// AttackA 후 콤보공격으로 이어지지 않고 Idle 상태로 이어질 때
+			else 
 			{
 				// Animation
 				if (mDirection == PlayerDirection::Left)
@@ -924,9 +929,7 @@ namespace van
 				{
 					animator->PlayAnimation(L"Idle_Weapon_R", true);
 				}
-
 				// Logic
-
 				// State
 				mState = PlayerState::Idle;
 			}

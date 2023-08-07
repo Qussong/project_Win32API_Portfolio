@@ -267,6 +267,9 @@
     <ClInclude Include="vanMonsterTrace.h">
       <Filter>Engine\Contents\GameObject\Range\MonsterTrace</Filter>
     </ClInclude>
+    <ClInclude Include="vanMonsterAttack.h">
+      <Filter>Engine\Contents\GameObject\Range\MonsterAttack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -393,6 +396,9 @@
     </ClCompile>
     <ClCompile Include="vanMonsterTrace.cpp">
       <Filter>Engine\Contents\GameObject\Range\MonsterTrace</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMonsterAttack.cpp">
+      <Filter>Engine\Contents\GameObject\Range\MonsterAttack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -37,11 +37,12 @@ namespace van::enums
 	{
 		BackGround,
 		Floor,
-		Monster,
-		Player,
 		/*Effect,*/
 		Range_Attack,
-		Range_Trace,
+		Range_Monster_Trace,
+		Range_Monster_Attack,
+		Monster,
+		Player,
 		UI,
 		End,
 	};

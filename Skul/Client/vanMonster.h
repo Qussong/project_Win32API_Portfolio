@@ -64,6 +64,9 @@ namespace van
 		__forceinline bool GetTraceFlag() { return mbTrace; }
 		__forceinline void SetTraceFlag(bool _flag) { mbTrace = _flag; }
 
+		__forceinline bool GetAttackFlag() { return mbAttack; }
+		__forceinline void SetAttackFlag(bool _flag) { mbAttack = _flag; }
+
 		__forceinline bool GetPlayAnimation() { return mbPlayAnimation; }
 		__forceinline void SetPlayAnimation(bool _flag) { mbPlayAnimation = _flag; }
 
@@ -80,6 +83,7 @@ namespace van
 
 		bool mbPatrol;			// Monster가 각 상태에서 Patrol 행동을 보이도록 해줌
 		bool mbTrace;			// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
+		bool mbAttack;			// Monster가 각 상태에서 Attack 행동을 보이도록 해줌
 		bool mbPlayAnimation;	// Animation 재생 여부
 	};
 }

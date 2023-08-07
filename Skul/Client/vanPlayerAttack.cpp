@@ -9,11 +9,6 @@
 namespace van
 {
 	PlayerAttack::PlayerAttack()
-		//: mOwner(nullptr)
-		//, mOwnerPos(math::Vector2::Zero)
-		//, mOwnerState((UINT)Player::PlayerState::None)
-		//, mOwnerDirection((UINT)Player::PlayerDirection::None)
-		//, mOffset(math::Vector2::Zero)
 		: mbCombo(false)
 	{
 		// nothing
@@ -38,6 +33,7 @@ namespace van
 		// PlayerAttack 클래스의 소유자가 Player 인 경우
 		if (player != nullptr)
 		{
+			// PlayerAttack 의 Collider 위치 설정
 			Player::PlayerDirection direction =  player->GetPlayerDirection();		// Player의 방향을 읽어옴
 			math::Vector2 size = GetOwner()->GetComponent<Collider>()->GetSize();	// Player의 Collider 상자 크기를 읽어옴
 
@@ -50,6 +46,7 @@ namespace van
 				SetOffset(math::Vector2(size.x / 2, 0.0f));
 			}
 
+			// 활성화 여부 설정
 			SetOwnerState((UINT)(player->GetPlayerState()));						// Player의 상태를 읽어옴
 			if(GetOwnerState() == (UINT)Player::PlayerState::AttackA
 				|| GetOwnerState() == (UINT)Player::PlayerState::JumpAttack)		// Player가 공격상태일 때(AttackA,JumpAttack)

@@ -16,6 +16,7 @@ namespace van
 		, mHitDirection(MonsterDirection::None)
 		, mbPatrol(false)
 		, mbTrace(false)
+		, mbAttack(false)
 		, mbPlayAnimation(true)
 	{
 		// nothing
