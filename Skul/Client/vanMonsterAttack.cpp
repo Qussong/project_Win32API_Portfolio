@@ -82,6 +82,7 @@ namespace van
 			// Monster가 Attack을 수행하도록 mbAttack 을 true로 변경
 			// 이로인해 해당 클래스를 소유한 몬스터 클래스의 Trace()에서 Attack Ready로 상태변경해준다.
 			monster->SetAttackFlag(true);
+			monster->SetTraceFlag(false);
 			// AttackReady를 실행했기에 실행여부 true로 설정
 			mbAttackReadyFlag = true;
 		}

@@ -337,7 +337,12 @@ namespace van
 				tr->SetPosition(pos);
 			}
 		}
-		// Patrol, Trace 상태가 아닐때
+		// Attack 상태일 때
+		else if (GetAttackFlag() == true)
+		{
+			SetMonsterState(MonsterState::AttackReady);
+		}
+		// Patrol, Trace, Attack 상태가 아닐때
 		else
 		{
 			__noop;
@@ -363,20 +368,23 @@ namespace van
 		// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
 		mTimer = 0.0f;	
 
+		// Trace시 Target을 쫓아가기에 Walk 부터 시작
+		SetMonsterState(MonsterState::Walk);
+
 		// Monster의 Attack 영역에 Player가 들어오지 않았을 경우
-		if (GetAttackFlag() == false)
-		{
-			// Trace시 Target을 쫓아가기에 Walk 부터 시작
-			SetMonsterState(MonsterState::Walk);
-		}
-		// Monster의 Attack 영역에 Player가 들어왔을 경우
-		else
-		{
-			// Attack 수행하기에 Trace Flag 꺼준다.
-			SetTraceFlag(false);
-			// Attack Ready로 상태변경
-			SetMonsterState(MonsterState::AttackReady);
-		}
+		//if (GetAttackFlag() == false)
+		//{
+		//	// Trace시 Target을 쫓아가기에 Walk 부터 시작
+		//	SetMonsterState(MonsterState::Walk);
+		//}
+		//// Monster의 Attack 영역에 Player가 들어왔을 경우
+		//else
+		//{
+		//	// Attack 수행하기에 Trace Flag 꺼준다.
+		//	SetTraceFlag(false);
+		//	// Attack Ready로 상태변경
+		//	SetMonsterState(MonsterState::AttackReady);
+		//}
 	}
 
 	void CarleonRecruit::AttackReady()

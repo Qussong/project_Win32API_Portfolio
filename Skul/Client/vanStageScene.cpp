@@ -45,6 +45,7 @@ void van::StageScene::Init()
 
 	// Carleon Recruit
 	CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+	carleon->GetComponent<Transform>()->SetPosition(math::Vector2(-400.0f, 0.0f));
 	at = carleon->GetComponent<Animator>();
 	at->SetScale(math::Vector2(2.0f, 2.0f));
 	at->SetAffectedCamera(true);
