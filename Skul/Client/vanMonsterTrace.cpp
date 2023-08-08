@@ -56,23 +56,17 @@ namespace van
 		
 		// Monster의 상태가 AttackReady, Attack 이 아닌경우
 		if (monster->GetMonsterState() != Monster::MonsterState::AttackReady
-			&& monster->GetMonsterState() != Monster::MonsterState::Attack)
+			|| monster->GetMonsterState() != Monster::MonsterState::Attack)
 		{
 			// 충돌한 대상이 Player이고 Monster에게 Target이 없을 때
 			if (player != nullptr && monster->GetMonsterTarget() == nullptr)	
 			{
+				// // Monster가 Trace을 수행하도록 mbTrace 을 true로 변경
+				monster->SetTraceFlag(true);
 				// 몬스터의 타겟 설정
 				monster->SetMonsterTarget(player);
-				// 몬스터의 상태를 Trace 로 변경
-				monster->SetMonsterState(Monster::MonsterState::Trace);
 			}
 		}
-		// Monster의 상태가 AttackReady, Attack 일때
-		else
-		{
-			__noop;
-		}
-
 	}
 
 	void MonsterTrace::OnCollisionExit(Collider* _other)

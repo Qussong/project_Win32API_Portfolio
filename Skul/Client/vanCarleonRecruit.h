@@ -27,6 +27,7 @@ namespace van
 		void Trace();
 		void AttackReady();
 		void Attack();
+		void AttackEnd();
 		void Hit();
 
 	private:

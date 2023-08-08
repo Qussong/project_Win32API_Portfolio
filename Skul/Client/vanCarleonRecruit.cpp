@@ -52,8 +52,8 @@ namespace van
 		// mAttackBox의 초기값 설정
 		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
 		mAttackBox->SetOwner(this);
-		mAttackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 110.0f));
-		mAttackBox->SetOffset(math::Vector2(55.0f, 0.0f));
+		mAttackBox->GetComponent<Collider>()->SetSize(math::Vector2(110.0f, 110.0f));
+		mAttackBox->SetOffset(math::Vector2(25.0f, 0.0f));
 	}
 
 	void CarleonRecruit::Update()
@@ -73,7 +73,8 @@ namespace van
 		mAttackBox->SetOwnerState((UINT)GetMonsterState());
 		mAttackBox->SetOwnerDirection((UINT)GetMonsterDirection());
 
-		SetMonsterPastState(GetMonsterState());	// 현재 몬스터의 상태를 저장
+		// Animation 재생여부 판정_1
+		SetMonsterPastState(GetMonsterState());			// 현재 몬스터의 상태를 저장
 		SetMonsterPastDirection(GetMonsterDirection());	// 현재 몬스터의 방향을 저장
 
 		switch (GetMonsterState())
@@ -96,6 +97,9 @@ namespace van
 		case CarleonRecruit::MonsterState::Attack:
 			Attack();
 			break;
+		case CarleonRecruit::MonsterState::AttackEnd:
+			AttackEnd();
+			break;
 		case CarleonRecruit::MonsterState::Hit:
 			Hit();
 			break;
@@ -103,6 +107,7 @@ namespace van
 			__noop;
 		}
 
+		// Animation 재생여부 판정_2
 		// 만약 몬스터의 상태,방향이 바꼈다면
 		if (GetMonsterState() != GetMonsterPastState()
 			|| GetMonsterDirection() != GetMonsterPastDirection())
@@ -203,6 +208,12 @@ namespace van
 		// Patrol 상태일 때 
 		if (GetPatrolFlag() == true)
 		{
+			// Trace 범위에 Player가 들어왔을 경우 Trace 상태로 전환
+			if (GetTraceFlag() == true)
+			{
+				SetMonsterState(MonsterState::Trace);
+			}
+
 			// 시간 누적
 			mTimer += Time::GetDeltaTime();
 
@@ -259,6 +270,12 @@ namespace van
 		// Patrol 상태일 때 
 		if (GetPatrolFlag() == true)
 		{
+			// Trace 범위에 Player가 들어왔을 경우
+			if (GetTraceFlag() == true)
+			{
+				SetMonsterState(MonsterState::Trace);
+			}
+
 			// 시간 누적
 			mTimer += Time::GetDeltaTime();
 
@@ -298,9 +315,16 @@ namespace van
 		// Trace 상태일 때
 		else if(GetTraceFlag() == true)
 		{
+			// Trace 범위에 Player가 들어왔을 경우
+			if (GetAttackFlag() == true)
+			{
+				SetMonsterState(MonsterState::AttackReady);
+			}
+
 			// Monster 기준으로 Target의 위치탐색
 			math::Vector2 targetPos = GetMonsterTarget()->GetComponent<Transform>()->GetPosition();	// Target의 위치
 			math::Vector2 monsterPos = GetComponent<Transform>()->GetPosition();					// Monster의 위치
+
 			// Target이 Monster의 Left에 있을 때
 			if (targetPos.x < monsterPos.x)
 			{
@@ -337,12 +361,7 @@ namespace van
 				tr->SetPosition(pos);
 			}
 		}
-		// Attack 상태일 때
-		else if (GetAttackFlag() == true)
-		{
-			SetMonsterState(MonsterState::AttackReady);
-		}
-		// Patrol, Trace, Attack 상태가 아닐때
+		// Patrol, Trace 상태가 아닐때
 		else
 		{
 			__noop;
@@ -353,7 +372,8 @@ namespace van
 	{
 		// 몬스터가 모든 상태에서 Patrol 행동을 보이도록 설정
 		SetPatrolFlag(true);
-		// Patrol 상태로 전환됐기에 Trace Flag는 꺼준다.
+		// Patrol 상태로 전환됐기에 Trace, Attack Flag는 꺼준다.
+		SetAttackFlag(false);
 		SetTraceFlag(false);
 		// Patrol시 Idle 부터 시작하도록 한다.
 		SetMonsterState(MonsterState::Idle);
@@ -361,39 +381,27 @@ namespace van
 
 	void CarleonRecruit::Trace()
 	{
-		// 몬스터가 모든 상태에서 Trace 행동을 보이도록 설정
-		SetTraceFlag(true);
-		// Trace 상태로 전환됐기에 Patrol Flag는 꺼준다.
+		// Trace 상태로 전환됐기에 Patrol, Attack Flag는 꺼준다.
 		SetPatrolFlag(false);
+		SetAttackFlag(false);
 		// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
 		mTimer = 0.0f;	
 
 		// Trace시 Target을 쫓아가기에 Walk 부터 시작
 		SetMonsterState(MonsterState::Walk);
-
-		// Monster의 Attack 영역에 Player가 들어오지 않았을 경우
-		//if (GetAttackFlag() == false)
-		//{
-		//	// Trace시 Target을 쫓아가기에 Walk 부터 시작
-		//	SetMonsterState(MonsterState::Walk);
-		//}
-		//// Monster의 Attack 영역에 Player가 들어왔을 경우
-		//else
-		//{
-		//	// Attack 수행하기에 Trace Flag 꺼준다.
-		//	SetTraceFlag(false);
-		//	// Attack Ready로 상태변경
-		//	SetMonsterState(MonsterState::AttackReady);
-		//}
 	}
 
 	void CarleonRecruit::AttackReady()
 	{
+		// Attack 상태로 전환됐기에 Patrol, Trace Flag는 꺼준다.
+		SetPatrolFlag(false);
+		SetTraceFlag(false);
+
 		Animator* ani = GetComponent<Animator>();
 		Monster::MonsterDirection direction = GetMonsterDirection();
 		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
 
-		// Attack Ready 재생
+		// Attack Ready 애니메이션 재생
 		if (GetPlayAnimation() == true)
 		{
 			// Monster의 방향이 Left인 경우
@@ -406,28 +414,33 @@ namespace van
 			{
 				ani->PlayAnimation(L"Attack_Ready_R", false);
 			}
-
 			SetPlayAnimation(false);
 		}
 
-		// Timer로 1~2초 카운트
-		// 카운트중에 피격되면 Timer 리셋, AttackReadyFlag = false ( Hit()에서 수행 )
+		// 카운트 시작
+		// 1) 카운트중에 피격되면 Timer 리셋
+		// 2) AttackReadyFlag = false ( Hit()에서 수행 )
 		mTimer += Time::GetDeltaTime();
 		
-		// 카운트 완료시 Attack 상태로 넘어간다, Timer 리셋
+		// 카운트 완료시 
+		// 1) Attack Ready를 완료했음
+		// 2) Attack 상태로 넘어간다
+		// 3) Timer 리셋
+		// 4) Attack Dash 시작지점 저장
 		if (mTimer >= 2.0f)
 		{
+			mAttackBox->SetAttackReadyFlag(true);
 			mTimer = 0.0f;
-			SetMonsterState(Monster::MonsterState::Attack);
 			mAttackDashX1 = pos.x;	// Attack Dash 시 시작위치
+			SetMonsterState(Monster::MonsterState::Attack);
 		}
 	}
 
 	void CarleonRecruit::Attack()
 	{
 		Animator* ani = GetComponent<Animator>();
-		Monster::MonsterDirection direction = GetMonsterDirection();
 		RigidBody* rb = GetComponent<RigidBody>();
+		Monster::MonsterDirection direction = GetMonsterDirection();
 		math::Vector2 velocity = rb->GetVelocity();
 		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
 		std::set<GameObject*>* list = mAttackBox->GetMonsterAttackList();
@@ -472,8 +485,8 @@ namespace van
 			moveComplete = true;
 		}
 
-
-		// Animation 재생이 완료 && 일정거리 이동 완료시 
+		// 공격 완료
+		// 조건 : Animation 재생이 완료 && 일정거리 이동 완료
 		// 1) AttackReadyFlag = false
 		// 2) AttacList 초기화
 		// 3) Attack Flag false 전환
@@ -481,19 +494,34 @@ namespace van
 		if (ani->IsActiveAnimationComplete() == true
 			&& moveComplete == true)
 		{
-
+			// 공격을 수행했기에 다시 Attack Ready를 해줘야한다.
 			mAttackBox->SetAttackReadyFlag(false);
-
+			// 동일 대상에대한 공격이 가능하도록해준다.
 			list->clear();
-
+			// Attack 을 수행했기에 mbAttack 을 false로 변경
 			SetAttackFlag(false);
+			// Trace 상태가 될 수 있도록 대상 풀어준다.
+			SetMonsterTarget(nullptr);
+			// Attack End 상태 만들기
+			SetMonsterState(MonsterState::AttackEnd);
+		}
+	}
 
-			//SetTraceFlag(true);
-			//SetMonsterState(MonsterState::Trace);
-
-			SetPatrolFlag(true);
+	void CarleonRecruit::AttackEnd()
+	{
+		if (GetAttackFlag() == true)
+		{
+			SetMonsterState(MonsterState::AttackReady);
+		}
+		else if (GetTraceFlag() == true)
+		{
+			SetMonsterState(MonsterState::Trace);
+		}
+		else
+		{
 			SetMonsterState(MonsterState::Patrol);
 		}
+		
 	}
 
 	void CarleonRecruit::Hit()
@@ -502,14 +530,10 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
-		// AttackReady중에 피격당하면 
-		// 1) mTimer를 0.0f로 초기화 
-		// 2) AttackReady수행여부를 false로 변경
-		// 3) mbAttack을 false로 변경
+		// AttackReady중에 피격당하면 mTimer를 0.0f로 초기화 
 		mTimer = 0.0f;
-		mAttackBox->SetAttackReadyFlag(false);
-		SetAttackFlag(false);
-			
+		
+		// 피격 애니메이션
 		// Monster가 왼쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Left)
 		{
@@ -536,22 +560,13 @@ namespace van
 
 			SetMonsterDirection(MonsterDirection::Right);
 		}
-		// 몬스터의 공격받은 방향을 초기화해준다.
+		// 몬스터가 공격받은 방향을 초기화해준다.
 		SetMonsterHitDirection(MonsterDirection::None);
 
 		// 공격받은 후 땅에 닿으면 Trace 상태로 전환
 		if (rb->GetGround() == true)
 		{
-			//SetMonsterState(MonsterState::Idle);
-			//if (GetMonsterDirection() == MonsterDirection::Left)
-			//{
-			//	at->PlayAnimation(L"Idle_L", true);
-			//}
-			//if (GetMonsterDirection() == MonsterDirection::Right)
-			//{
-			//	at->PlayAnimation(L"Idle_R", true);
-			//}
-			SetMonsterState(MonsterState::Trace);
+			SetMonsterState(MonsterState::AttackReady);
 		}
 	}
 }

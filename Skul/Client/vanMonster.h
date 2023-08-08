@@ -17,6 +17,7 @@ namespace van
 			Trace,
 			AttackReady,
 			Attack,
+			AttackEnd,
 			Hit,
 			None,
 		};
