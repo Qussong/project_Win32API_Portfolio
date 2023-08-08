@@ -31,8 +31,8 @@ namespace van
 		void Hit();
 
 	private:
-		MonsterTrace* mTraceBox;	// Monster의 Trace판정 범위
-		MonsterAttack* mAttackBox;	// Monster의 Attack판정 범위
+		//MonsterTrace* mTraceBox;	// Monster의 Trace판정 범위
+		//MonsterAttack* mAttackBox;	// Monster의 Attack판정 범위
 
 		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점
 		float mAttackDashX2 = 0.0f;		// AttackDash 도착지점

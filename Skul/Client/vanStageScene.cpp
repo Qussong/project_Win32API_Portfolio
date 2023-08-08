@@ -7,12 +7,9 @@
 #include "vanAnimator.h"
 #include "vanCamera.h"
 #include "vanBackGround.h"
-
 #include "vanCarleonRecruit.h"
-
 #include "vanFloor.h"
 #include "vanCollider.h"
-
 #include "vanCarleonRecruit.h"
 #include "vanCollisionManager.h"
 #include "vanPlayer.h"

@@ -2,8 +2,11 @@
 #include "vanInput.h"
 #include "vanTransform.h"
 #include "vanAnimator.h"
-
 #include "vanCollisionManager.h"
+
+#include "vanObject.h"
+#include "vanMonsterTrace.h"
+#include "vanMonsterAttack.h"
 
 namespace van
 {
@@ -19,6 +22,8 @@ namespace van
 		, mbTrace(false)
 		, mbAttack(false)
 		, mbPlayAnimation(true)
+		, mTraceBox(nullptr)
+		, mAttackBox(nullptr)
 	{
 		// nothing
 	}
@@ -31,6 +36,10 @@ namespace van
 	void Monster::Init()
 	{
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+
+		//
+		mTraceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Monster_Trace);
+		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
 	}
 
 	void Monster::Update()

@@ -143,6 +143,8 @@ namespace van
 		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(42.0f, 28.0f), 1, offset);
 		animator->CreateAnimation(L"Fall_L", ResourceManager::Find<Texture>(L"Fall_L"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Fall_R", ResourceManager::Find<Texture>(L"Fall_R"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
+		animator->CreateAnimation(L"Fall_Repeat_L", ResourceManager::Find<Texture>(L"Fall_Repeat_L"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
+		animator->CreateAnimation(L"Fall_Repeat_R", ResourceManager::Find<Texture>(L"Fall_Repeat_R"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
 	}
 
 	/*
@@ -536,13 +538,13 @@ namespace van
 		math::Vector2 velocity = rb->GetVelocity();
 		bool isGround = rb->GetGround();
 
-		// Direction_L_Aimator
+		// Direction_L_Animator
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
 			animator->PlayAnimation(L"Jump_L");
 		}
 
-		// Direction_R_Aimator
+		// Direction_R_Animator
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
 			animator->PlayAnimation(L"Jump_R");
@@ -1298,7 +1300,7 @@ namespace van
 		bool isGround = rb->GetGround();
 
 		// Idle
-		if (/*velocity.y == 0.0f && */isGround)
+		if (isGround == true)
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Right)
@@ -1315,16 +1317,29 @@ namespace van
 			mState = PlayerState::Idle;
 		}
 
-		// Direction_L_Animation
-		if (Input::GetKeyDown(eKeyCode::Left))
+		// Fall_Repeat Animation
+		if (animator->IsActiveAnimationComplete())
 		{
-			animator->PlayAnimation(L"Fall_L");
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_Repeat_L", true);
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_Repeat_R", true);
+			}
 		}
 
-		// Direction_R_Animation
+		// Direction_L Fall_Repeat Animation
+		if (Input::GetKeyDown(eKeyCode::Left))
+		{
+			animator->PlayAnimation(L"Fall_Repeat_L", true);
+		}
+
+		// Direction_R Fall_Repeat Animation
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Fall_R");
+			animator->PlayAnimation(L"Fall_Repeat_R", true);
 		}
 
 		// Direction_L_Logic

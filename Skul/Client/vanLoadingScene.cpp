@@ -98,6 +98,8 @@ namespace van
 		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\11_Skul\\Dash_R\\Dash_R.bmp");
 		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\11_Skul\\Fall_L\\Fall_L.bmp");
 		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\11_Skul\\Fall_R\\Fall_R.bmp");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
 
 		// Carleon Recruit
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_L.bmp");

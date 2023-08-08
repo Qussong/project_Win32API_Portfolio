@@ -21,8 +21,8 @@
 namespace van
 {
 	CarleonRecruit::CarleonRecruit()
-		: mTraceBox(nullptr)
-		, mAttackBox(nullptr)
+		//: mTraceBox(nullptr)
+		//, mAttackBox(nullptr)
 		//, mTimer(0.0f)
 	{
 		AddComponent<RigidBody>();
@@ -35,6 +35,9 @@ namespace van
 
 	void CarleonRecruit::Init()
 	{
+
+		Monster::Init();
+
 		MakeAnimation();	// 애니메이션 생성
 
 		// Monster 초기설정
@@ -43,17 +46,17 @@ namespace van
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));	// 충돌체 크기 설정
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 
-		// mTraaceBox의 초기값 설정
-		mTraceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Monster_Trace);	// 객체생성
-		mTraceBox->SetOwner(this);																// 소유자 설정
-		mTraceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));			// traceBox 충돌체의 크기 설정
-		mTraceBox->SetOffset(math::Vector2::Zero);
+		// traaceBox의 초기값 설정
+		MonsterTrace* traceBox = GetMonsterTraceBox();
+		traceBox->SetOwner(this);
+		traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));
+		traceBox->SetOffset(math::Vector2::Zero);
 
-		// mAttackBox의 초기값 설정
-		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
-		mAttackBox->SetOwner(this);
-		mAttackBox->GetComponent<Collider>()->SetSize(math::Vector2(110.0f, 110.0f));
-		mAttackBox->SetOffset(math::Vector2(25.0f, 0.0f));
+		// attackBox의 초기값 설정
+		MonsterAttack* attackBox = GetMonsterAttackBox();
+		attackBox->SetOwner(this);
+		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(110.0f, 110.0f));
+		attackBox->SetOffset(math::Vector2(25.0f, 0.0f));
 	}
 
 	void CarleonRecruit::Update()
@@ -63,15 +66,17 @@ namespace van
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
 
-		// mTraceBox 값세팅
-		mTraceBox->SetOwnerPos(pos);
-		mTraceBox->SetOwnerState((UINT)GetMonsterState());
-		mTraceBox->SetOwnerDirection((UINT)GetMonsterDirection());
+		// traceBox 값세팅
+		MonsterTrace* traceBox = GetMonsterTraceBox();
+		traceBox->SetOwnerPos(pos);
+		traceBox->SetOwnerState((UINT)GetMonsterState());
+		traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
 
-		// mAttackBox 값세팅
-		mAttackBox->SetOwnerPos(pos);
-		mAttackBox->SetOwnerState((UINT)GetMonsterState());
-		mAttackBox->SetOwnerDirection((UINT)GetMonsterDirection());
+		// attackBox 값세팅
+		MonsterAttack* attackBox = GetMonsterAttackBox();
+		attackBox->SetOwnerPos(pos);
+		attackBox->SetOwnerState((UINT)GetMonsterState());
+		attackBox->SetOwnerDirection((UINT)GetMonsterDirection());
 
 		// Animation 재생여부 판정_1
 		SetMonsterPastState(GetMonsterState());			// 현재 몬스터의 상태를 저장
@@ -400,6 +405,7 @@ namespace van
 		Animator* ani = GetComponent<Animator>();
 		Monster::MonsterDirection direction = GetMonsterDirection();
 		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
+		MonsterAttack* attackBox = GetMonsterAttackBox();
 
 		// Attack Ready 애니메이션 재생
 		if (GetPlayAnimation() == true)
@@ -429,7 +435,7 @@ namespace van
 		// 4) Attack Dash 시작지점 저장
 		if (GetTimer() >= 2.0f)
 		{
-			mAttackBox->SetAttackReadyFlag(true);
+			attackBox->SetAttackReadyFlag(true);
 			SetTimer(0.0f);
 			mAttackDashX1 = pos.x;	// Attack Dash 시 시작위치
 			SetMonsterState(Monster::MonsterState::Attack);
@@ -443,7 +449,8 @@ namespace van
 		Monster::MonsterDirection direction = GetMonsterDirection();
 		math::Vector2 velocity = rb->GetVelocity();
 		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
-		std::set<GameObject*>* list = mAttackBox->GetMonsterAttackList();
+		MonsterAttack* attackBox = GetMonsterAttackBox();
+		std::set<GameObject*>* list = attackBox->GetMonsterAttackList();
 		bool moveComplete = false;
 
 		// Attack시 이동
@@ -495,7 +502,7 @@ namespace van
 			&& moveComplete == true)
 		{
 			// 공격을 수행했기에 다시 Attack Ready를 해줘야한다.
-			mAttackBox->SetAttackReadyFlag(false);
+			attackBox->SetAttackReadyFlag(false);
 			// 동일 대상에대한 공격이 가능하도록해준다.
 			list->clear();
 			// Attack 을 수행했기에 mbAttack 을 false로 변경
