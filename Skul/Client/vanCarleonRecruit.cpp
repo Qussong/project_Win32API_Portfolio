@@ -21,9 +21,9 @@
 namespace van
 {
 	CarleonRecruit::CarleonRecruit()
-		: mTimer(0.0f)
-		, mTraceBox(nullptr)
+		: mTraceBox(nullptr)
 		, mAttackBox(nullptr)
+		//, mTimer(0.0f)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -215,12 +215,12 @@ namespace van
 			}
 
 			// 시간 누적
-			mTimer += Time::GetDeltaTime();
+			AddTimer(Time::GetDeltaTime());
 
 			// 누적된 시간이 3초 이상이되면
-			if (mTimer >= 3.0f)				
+			if (GetTimer() >= 3.0f)
 			{
-				mTimer = 0.0f;							// 누적시간 0초로 초기화
+				SetTimer(0.0f);							// 누적시간 0초로 초기화
 				SetMonsterState(MonsterState::Walk);	// Monster의 상태를 Walk 로 변경
 
 				// 방향전환
@@ -277,12 +277,12 @@ namespace van
 			}
 
 			// 시간 누적
-			mTimer += Time::GetDeltaTime();
+			AddTimer(Time::GetDeltaTime());
 
 			// 누적된 시간이 2초 이상이되면
-			if (mTimer >= 2.0f)
+			if (GetTimer() >= 2.0f)
 			{
-				mTimer = 0.0f;
+				SetTimer(0.0f);
 				SetMonsterState(MonsterState::Idle);
 			}
 			// 누적된 시간이 2초 이상이 아니라면
@@ -385,7 +385,7 @@ namespace van
 		SetPatrolFlag(false);
 		SetAttackFlag(false);
 		// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
-		mTimer = 0.0f;	
+		SetTimer(0.0f);
 
 		// Trace시 Target을 쫓아가기에 Walk 부터 시작
 		SetMonsterState(MonsterState::Walk);
@@ -420,17 +420,17 @@ namespace van
 		// 카운트 시작
 		// 1) 카운트중에 피격되면 Timer 리셋
 		// 2) AttackReadyFlag = false ( Hit()에서 수행 )
-		mTimer += Time::GetDeltaTime();
+		AddTimer(Time::GetDeltaTime());
 		
 		// 카운트 완료시 
 		// 1) Attack Ready를 완료했음
 		// 2) Attack 상태로 넘어간다
 		// 3) Timer 리셋
 		// 4) Attack Dash 시작지점 저장
-		if (mTimer >= 2.0f)
+		if (GetTimer() >= 2.0f)
 		{
 			mAttackBox->SetAttackReadyFlag(true);
-			mTimer = 0.0f;
+			SetTimer(0.0f);
 			mAttackDashX1 = pos.x;	// Attack Dash 시 시작위치
 			SetMonsterState(Monster::MonsterState::Attack);
 		}
@@ -531,7 +531,7 @@ namespace van
 		math::Vector2 velocity = rb->GetVelocity();
 
 		// AttackReady중에 피격당하면 mTimer를 0.0f로 초기화 
-		mTimer = 0.0f;
+		SetTimer(0.0f);
 		
 		// 피격 애니메이션
 		// Monster가 왼쪽에서 공격받았을 경우

@@ -14,6 +14,7 @@ namespace van
 		, mDirection(MonsterDirection::None)
 		, mPastDirection(MonsterDirection::None)
 		, mHitDirection(MonsterDirection::None)
+		, mTimer(0.0f)
 		, mbPatrol(false)
 		, mbTrace(false)
 		, mbAttack(false)

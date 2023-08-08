@@ -59,6 +59,10 @@ namespace van
 		__forceinline MonsterDirection GetMonsterHitDirection() { return mHitDirection; }
 		__forceinline void SetMonsterHitDirection(MonsterDirection _direction) { mHitDirection = _direction; }
 
+		__forceinline float GetTimer() { return mTimer; }
+		__forceinline void SetTimer(float _timer) { mTimer = _timer; }
+		__forceinline void AddTimer(float _time) { mTimer += _time; }
+
 		__forceinline bool GetPatrolFlag() { return mbPatrol; }
 		__forceinline void SetPatrolFlag(bool _flag) { mbPatrol = _flag; }
 
@@ -76,12 +80,11 @@ namespace van
 
 		MonsterState mState;
 		MonsterState mPastState;
-
 		MonsterDirection mDirection;
 		MonsterDirection mPastDirection;
-
 		MonsterDirection mHitDirection;
 
+		float mTimer;
 		bool mbPatrol;			// Monster가 각 상태에서 Patrol 행동을 보이도록 해줌
 		bool mbTrace;			// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
 		bool mbAttack;			// Monster가 각 상태에서 Attack 행동을 보이도록 해줌
