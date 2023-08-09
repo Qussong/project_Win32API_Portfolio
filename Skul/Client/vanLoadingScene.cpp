@@ -80,6 +80,9 @@ namespace van
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
 
 		// BG_Home_Scene
+		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_24.bmp");
+		ResourceManager::Load<Texture>(L"Home_Tile", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_Tile_24.bmp");
+		ResourceManager::Load<Texture>(L"Home_Rubble", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_Rubble_24.bmp");
 
 		// BG_Stage1_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
@@ -107,6 +110,12 @@ namespace van
 
 		// BG_EndingScene
 
+
+		// Door1
+		ResourceManager::Load<Texture>(L"Stage1_Door_1", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_1\\Stage1_Door_1.bmp");
+
+		// Door2
+		ResourceManager::Load<Texture>(L"Stage1_Door_2", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_2\\Stage1_Door_2.bmp");
 
 		// Player
 		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");

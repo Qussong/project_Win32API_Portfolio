@@ -31,7 +31,7 @@ namespace van
 		, mbAttackMove2(false)
 		, attackBox(nullptr)
 	{
-		
+		// nothing
 	}
 
 	Player::~Player()

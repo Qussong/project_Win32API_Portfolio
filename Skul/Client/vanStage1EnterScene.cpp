@@ -15,6 +15,7 @@
 #include "vanRigidBody.h"
 
 #include "vanFloor.h"
+#include "vanDoor.h"
 
 namespace van
 {
@@ -30,31 +31,38 @@ namespace van
 
 	void Stage1EnterScene::Init()
 	{
-		// 1) BackGround 객체
+		// BackGround
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, -80.0f));			// 위치값 설정
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Enter"));						// BackGround 객체의 texture 설정
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Enter"));				// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(1.0f, 1.0f));											// Scale 설정
 		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
 		
-		// 2) Tied_Skul_NPC
+		// Tied_Skul_NPC
 		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::Monster);		
 		Animator* at = tiedSkul->GetComponent<Animator>();
 		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(-500.0f, 125.0f));
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
-		// 3) Player 객체
+		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
-		// 4) Floor 객체 
+		// Floor
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
+
+		// Door
+		Door* door = Object::Instantiate<Door>(eLayerType::Door);
+		door->GetComponent<Transform>()->SetPosition(math::Vector2(-200.0f, 50.0f));
+		at = door->GetComponent<Animator>();
+		at->PlayAnimation(L"Stage1_Door_2", true);
+		at->SetScale(math::Vector2(2.0f, 2.0f));
 
 		SetSceneTarget(player);
 		Camera::SetTarget(GetSceneTarget());

@@ -25,6 +25,7 @@ namespace van
 	{
 
 		CreateScene<LoadingScene>(L"LoadingScene");	// 제일 먼저 생성해줘야한다.
+
 		CreateScene<TitleScene>(L"TitleScene");
 		CreateScene<EndingScene>(L"EndingScene");
 		CreateScene<TestScene>(L"TestScene");
@@ -40,35 +41,27 @@ namespace van
 		CreateScene<Stage2BossEnterScene>(L"Stage2BossEnterScene");
 		CreateScene<Stage2BossScene>(L"Stage2BossScene");
 
-
 		LoadScene(L"TitleScene");
 	}
 
 	void SceneManager::Update()
 	{
 		// 화면 전환
-		if (Input::GetKey(eKeyCode::T))
-		{
-			LoadScene(L"TitleScene");
-		}
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1Scene");	// 편집용
+			LoadScene(L"Stage1EnterScene");	// 편집용
 		}
-
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))
 		{
 			LoadScene(L"TestScene");
 		}
-
 		// 화면전환_Next
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			std::wstring name = mActiveScene->GetName();
 			Next(name);
 		}
-
 		// 화면전환_Previous
 		if (Input::GetKeyDown(eKeyCode::P))
 		{

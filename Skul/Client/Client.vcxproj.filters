@@ -160,6 +160,9 @@
     <Filter Include="Engine\Contents\Scene\11_Ending_Scene">
       <UniqueIdentifier>{e76b5cf9-1bf6-425d-a475-1ed461e45f86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Contents\GameObject\Door">
+      <UniqueIdentifier>{9f53c50c-41c2-4270-b9bc-c0eb4d60a2f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -318,6 +321,9 @@
     <ClInclude Include="vanStage2BossScene.h">
       <Filter>Engine\Contents\Scene\10_Stage2_Boss_Scene</Filter>
     </ClInclude>
+    <ClInclude Include="vanDoor.h">
+      <Filter>Engine\Contents\GameObject\Door</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -471,6 +477,9 @@
     </ClCompile>
     <ClCompile Include="vanStage2BossScene.cpp">
       <Filter>Engine\Contents\Scene\10_Stage2_Boss_Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="vanDoor.cpp">
+      <Filter>Engine\Contents\GameObject\Door</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

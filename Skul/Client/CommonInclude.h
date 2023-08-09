@@ -37,6 +37,7 @@ namespace van::enums
 	{
 		BackGround,
 		Floor,
+		Door,
 		/*Effect,*/
 		Range_Attack,
 		Range_Monster_Trace,

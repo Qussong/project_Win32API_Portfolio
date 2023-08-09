@@ -56,18 +56,14 @@ namespace van
 			// 두물체가 떨어져있기 위한 최소거리
 			float mazino = fabs(_other->GetSize().y / 2.0f + this->GetComponent<Collider>()->GetSize().y / 2.0f);
 
-			if (state == Player::PlayerState::Fall 
-				|| state == Player::PlayerState::Idle)
+			// 두 물체가 겹쳐 있는 경우
+			if (gap < mazino)
 			{
-				// 두 물체가 겹쳐 있는 경우
-				if (gap < mazino)
-				{
-					objPos.y -= (mazino - gap) - 1.0f;
-					tr->SetPosition(objPos);
-				}
-
-				rb->SetGround(true);	// Floor 객체와 충돌한 객체가 땅에 붙어있는 상태로 만들어준다.
+				objPos.y -= (mazino - gap) - 1.0f;
+				tr->SetPosition(objPos);
 			}
+
+			rb->SetGround(true);	// Floor 객체와 충돌한 객체가 땅에 붙어있는 상태로 만들어준다.
 		}
 
 		if (npc != nullptr)
