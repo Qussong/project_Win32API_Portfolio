@@ -11,9 +11,9 @@ namespace van
 		static void Render(HDC _hdc);
 
 		template <typename T>
-		static __inline T* CreateScene(const std::wstring& name)
+		__forceinline static T* CreateScene(const std::wstring& name)
 		{
-			T* scene = new T();	
+			T* scene = new T();
 			scene->SetName(name);
 			mScenes.insert(std::make_pair(name, scene));	// mScenes 俊 积己等 scene 持扁
 			mActiveScene = scene;							// mActiveScene 汲沥
@@ -21,9 +21,11 @@ namespace van
 
 			return scene;
 		}
-
-		static Scene* LoadScene(const std::wstring& name);
+		__forceinline static Scene* LoadScene(const std::wstring& name);
 		__forceinline static Scene* GetActiveScene() { return mActiveScene; }
+
+		static void Next(const std::wstring& name);
+		static void Previous(const std::wstring& name);
 
 	private:
 		/*

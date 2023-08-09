@@ -1,36 +1,36 @@
-#include "vanHomeScene.h"
+#include "vanEndingScene.h"
 #include "vanCamera.h"
 
 namespace van
 {
-	HomeScene::HomeScene()
+	EndingScene::EndingScene()
 	{
 		// nothing
 	}
 
-	HomeScene::~HomeScene()
+	EndingScene::~EndingScene()
 	{
 		// nothing
 	}
 
-	void HomeScene::Init()
+	void EndingScene::Init()
 	{
 		//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
 	}
 
-	void HomeScene::Update()
+	void EndingScene::Update()
 	{
 		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 
-	void HomeScene::Render(HDC _hdc)
+	void EndingScene::Render(HDC _hdc)
 	{
 		Scene::Render(_hdc);
 
 		// Scene 구분
-		const wchar_t* str = L"[ HomeScene ]";
+		const wchar_t* str = L"[ EndingScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}

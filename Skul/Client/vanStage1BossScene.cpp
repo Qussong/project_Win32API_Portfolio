@@ -1,36 +1,37 @@
-#include "vanHomeScene.h"
+#include "vanStage1BossScene.h"
 #include "vanCamera.h"
 
 namespace van
 {
-	HomeScene::HomeScene()
+	Stage1BossScene::Stage1BossScene()
 	{
 		// nothing
 	}
 
-	HomeScene::~HomeScene()
+	Stage1BossScene::~Stage1BossScene()
 	{
 		// nothing
 	}
 
-	void HomeScene::Init()
+	void Stage1BossScene::Init()
 	{
+
 		//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
 	}
 
-	void HomeScene::Update()
+	void Stage1BossScene::Update()
 	{
 		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 
-	void HomeScene::Render(HDC _hdc)
+	void Stage1BossScene::Render(HDC _hdc)
 	{
 		Scene::Render(_hdc);
 
 		// Scene 구분
-		const wchar_t* str = L"[ HomeScene ]";
+		const wchar_t* str = L"[ Stage1BossScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}

@@ -3,11 +3,11 @@
 
 namespace van
 {
-	class StageScene : public Scene
+	class Stage1BossScene : public Scene
 	{
 	public:
-		StageScene();
-		virtual ~StageScene();
+		Stage1BossScene();
+		virtual ~Stage1BossScene();
 
 		virtual void Init() override;
 		virtual void Update() override;
