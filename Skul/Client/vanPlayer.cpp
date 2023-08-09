@@ -469,7 +469,7 @@ namespace van
 			rb->SetGround(false);
 			// State
 			++mJumpCnt;
-			mDirection = PlayerDirection::Left;
+			mDirection = PlayerDirection::Right;
 			mState = PlayerState::Jump;
 		}
 
@@ -505,6 +505,24 @@ namespace van
 			// State
 			mbAttackMove = true;
 			mState = PlayerState::AttackA;
+		}
+
+		// Fall
+		if (rb->GetGround() == false)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
+
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::Fall;
 		}
 
 		// 동시키 입력(방향키)
@@ -674,7 +692,7 @@ namespace van
 		}
 
 		// DoubleJump
-		if (Input::GetKeyDown(eKeyCode::C) && mJumpCnt < 2)	
+		if (Input::GetKeyDown(eKeyCode::C) && mJumpCnt == 1)	
 		{
 			// Animation
 			if (mDirection == PlayerDirection::Left)
@@ -1423,75 +1441,7 @@ namespace van
 			mState = PlayerState::Dash;
 		}
 
-		// Jump
-		if (Input::GetKeyDown(eKeyCode::C)
-			&& !Input::CheckGetDirectionKey()
-			&& !isGround
-			&& mJumpCnt == 0)
-		{
-			// not yet
-		}
-
-		// Jump + Direction_L
-		if (Input::GetKeyDown(eKeyCode::C)
-			&& Input::GetKey(eKeyCode::Left)
-			&& !isGround
-			&& mJumpCnt == 0)
-		{
-			// not yet
-		}
-
-		// Jump + Direction_R
-		if (Input::GetKeyDown(eKeyCode::C)
-			&& Input::GetKey(eKeyCode::Right)
-			&& !isGround
-			&& mJumpCnt == 0)
-		{
-			// not yet
-		}
-
-		// JumpAttack
-		if (Input::GetKeyDown(eKeyCode::X)
-			&& !Input::CheckGetDirectionKey())
-		{
-			// Animation
-			if (mDirection == PlayerDirection::Left)
-			{
-				animator->PlayAnimation(L"Jump_Attack_L");
-			}
-			if (mDirection == PlayerDirection::Right)
-			{
-				animator->PlayAnimation(L"Jump_Attack_R");
-			}
-			// Logic
-			// State
-			mState = PlayerState::JumpAttack;
-		}
-
-		// JumpAttack + Direction_L
-		if (Input::GetKeyDown(eKeyCode::X)
-			&& Input::GetKey(eKeyCode::Left))
-		{
-			// Animation
-			animator->PlayAnimation(L"Jump_Attack_L");
-			// Logic
-			// State
-			mDirection = PlayerDirection::Left;
-			mState = PlayerState::JumpAttack;
-		}
-
-		// JumpAttack + Direction_R
-		if (Input::GetKeyDown(eKeyCode::X)
-			&& Input::GetKey(eKeyCode::Right))
-		{
-			// Animation
-			animator->PlayAnimation(L"Jump_Attack_R");
-			// Logic
-			// State
-			mDirection = PlayerDirection::Right;
-			mState = PlayerState::JumpAttack;
-		}
-
+		// ★ Double Jump 로직이 Jump로직의 위에 있어야한다. ★
 		// DoubleJump
 		if (Input::GetKeyDown(eKeyCode::C)
 			&& !Input::CheckGetDirectionKey()
@@ -1551,5 +1501,109 @@ namespace van
 			mDirection = PlayerDirection::Right;
 			mState = PlayerState::DoubleJump;
 		}
+
+		// Jump
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& !Input::CheckGetDirectionKey()
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
+			else if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mState = PlayerState::Jump;
+		}
+
+		// Jump + Direction_L
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Left)
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_L");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::Jump;
+		}
+
+		// Jump + Direction_R
+		if (Input::GetKeyDown(eKeyCode::C)
+			&& Input::GetKey(eKeyCode::Right)
+			&& !isGround
+			&& mJumpCnt == 0)
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_R");
+			// Logic
+			velocity.y = -JUMP_FORCE_Y;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+			// State
+			++mJumpCnt;
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::Jump;
+		}
+
+		// JumpAttack
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& !Input::CheckGetDirectionKey())
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_L
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Left))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_L");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Left;
+			mState = PlayerState::JumpAttack;
+		}
+
+		// JumpAttack + Direction_R
+		if (Input::GetKeyDown(eKeyCode::X)
+			&& Input::GetKey(eKeyCode::Right))
+		{
+			// Animation
+			animator->PlayAnimation(L"Jump_Attack_R");
+			// Logic
+			// State
+			mDirection = PlayerDirection::Right;
+			mState = PlayerState::JumpAttack;
+		}
+
+
 	}
 }

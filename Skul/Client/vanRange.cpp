@@ -19,7 +19,7 @@ namespace van
 
 	void Range::Init()
 	{
-
+		// nothing
 	}
 
 	void Range::Update()
@@ -34,21 +34,21 @@ namespace van
 
 	void Range::MakeAnimation()
 	{
-
+		// nothing
 	}
 
 	void Range::OnCollisionEnter(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void Range::OnCollisionStay(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void Range::OnCollisionExit(Collider* _other)
 	{
-
+		// nothing
 	}
 }

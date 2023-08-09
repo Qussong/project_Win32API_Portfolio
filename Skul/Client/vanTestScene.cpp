@@ -33,7 +33,7 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 0.0f));				
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Sample"));						
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
 		bgsr->SetScale(math::Vector2(1.5f, 1.5f));											
 		bgsr->SetAffectCamera(true);														
 

@@ -34,7 +34,7 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
 		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, -80.0f));			// 위치값 설정
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_1"));						// BackGround 객체의 texture 설정
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Enter"));						// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(1.0f, 1.0f));											// Scale 설정
 		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
 		

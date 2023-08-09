@@ -66,20 +66,47 @@ namespace van
 	void LoadingScene::LoadTexture()	// 첨조할 이미지 모두 여기서 로드
 	{
 		Texture* img = new Texture();
+		// ResourceManager::Load<Texture>(L"", L"");
 
-		// BG Image
-		ResourceManager::Load<Texture>(L"BG_Sample", L"..\\MyResources\\skul\\0_BG\\0_Sample\\Background_Grid.bmp");
+		// BG_Test_Scene
+		ResourceManager::Load<Texture>(L"BG_Test", L"..\\MyResources\\skul\\0_BG\\0_Test\\Background_Grid.bmp");
 
-		// Title
+		// BG_Title_Scene
 		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
 		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
 
-		// Loading
+		// BG_Loading_Scene
 		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
-		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_LoadingSkul\\Skul_Loading.bmp");
+		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
 
-		// Home
-		ResourceManager::Load<Texture>(L"BG_Home_1", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_BackGround.bmp");
+		// BG_Home_Scene
+
+		// BG_Stage1_Enter_Scene
+		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
+
+		// BG_Stage1_Monster_Scene
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_24.bmp");
+
+		// BG_Stage1_Boss_Enter_Scene
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Boss_Enter\\Stage1_Boss_EnterScene_24.bmp");
+
+		// BG_Stage1_Boss_Scene
+		
+
+		// BG_Stage2_Enter_Scene
+		
+
+		// BG_Stage2_Monster_Scene
+		
+
+		// BG_Stage2_Boss_Enter_Scene
+		
+
+		// BG_Stage2_Boss_Scene
+
+
+		// BG_EndingScene
+
 
 		// Player
 		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
@@ -114,7 +141,5 @@ namespace van
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_R.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_L.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_R.bmp");
-
-		//ResourceManager::Load<Texture>();
 	}
 }

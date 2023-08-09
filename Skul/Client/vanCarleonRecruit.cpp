@@ -13,10 +13,11 @@
 
 #include "vanMonsterAttack.h"
 
-#define WALK_SPEED		150.0f
-#define HIT_BUMP_X		50.0f
-#define HIT_BUMP_Y		-300.0f
-#define DASH_FORCE_X	700.0f
+#define WALK_SPEED			150.0f
+#define HIT_BUMP_X			50.0f
+#define HIT_BUMP_Y			-300.0f
+#define DASH_FORCE_X		700.0f
+#define ATTACK_READY_DELAY	1.0f
 	
 namespace van
 {
@@ -433,7 +434,7 @@ namespace van
 		// 2) Attack 상태로 넘어간다
 		// 3) Timer 리셋
 		// 4) Attack Dash 시작지점 저장
-		if (GetTimer() >= 2.0f)
+		if (GetTimer() >= ATTACK_READY_DELAY)
 		{
 			attackBox->SetAttackReadyFlag(true);
 			SetTimer(0.0f);

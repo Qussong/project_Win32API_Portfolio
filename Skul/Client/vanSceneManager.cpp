@@ -47,17 +47,13 @@ namespace van
 	void SceneManager::Update()
 	{
 		// 화면 전환
-		if (Input::GetKey(eKeyCode::Q))
+		if (Input::GetKey(eKeyCode::T))
 		{
 			LoadScene(L"TitleScene");
 		}
-		if (Input::GetKey(eKeyCode::W))
+		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"LoadingScene");
-		}
-		if (Input::GetKey(eKeyCode::E))
-		{
-			LoadScene(L"HomeScene");
+			LoadScene(L"Stage1Scene");	// 편집용
 		}
 
 		// 화면전환_Test
