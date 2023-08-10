@@ -8,6 +8,7 @@ namespace van
 {
 	GameObject::GameObject()
 		: offset(math::Vector2::Zero)
+		, mState(eState::Active)
 	{
 		AddComponent<Transform>();	// GameObject 객체에 Transform 속성을 만들어 넣어준다.
 		AddComponent<Animator>();	// GameObject 객체에 Animator 속성을 만들어 넣어준다.
