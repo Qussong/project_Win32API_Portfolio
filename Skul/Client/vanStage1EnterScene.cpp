@@ -83,4 +83,10 @@ namespace van
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}
+	void Stage1EnterScene::SceneIN()
+	{
+	}
+	void Stage1EnterScene::SceneOut()
+	{
+	}
 }

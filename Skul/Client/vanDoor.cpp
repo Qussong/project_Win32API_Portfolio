@@ -4,6 +4,9 @@
 #include "vanTexture.h"
 #include "vanCollider.h"
 #include "vanCollisionManager.h"
+#include "vanPlayer.h"
+#include "vanSceneManager.h"
+//#include "vanScene.h"
 
 namespace van
 {
@@ -48,12 +51,22 @@ namespace van
 
 	void Door::OnCollisionEnter(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void Door::OnCollisionStay(Collider* _other)
 	{
+		GameObject* obj = _other->GetOwner();
+		Player* player = dynamic_cast<Player*>(obj);
 
+		if (player != nullptr)
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				Scene* scene = SceneManager::GetActiveScene();
+				SceneManager::Next(scene->GetName());
+			}
+		}
 	}
 
 	void Door::OnCollisionExit(Collider* _other)

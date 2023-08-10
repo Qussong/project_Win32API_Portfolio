@@ -16,140 +16,59 @@ namespace van::math
 	struct Vector2
 	{
 	public:
+		Vector2();
+		Vector2(float _x, float _y);
+		Vector2(float _value);
+
+		// 사칙연산 연산자 재정의
+		// float값을 받을 경우 Vector2의 x,y 성분에 전달받은 값을 사칙연산하여 반환한다.
+		Vector2 operator/(const float _value);
+		Vector2 operator*(const float _value);
+		Vector2 operator+(const float _value);
+		Vector2 operator-(const float _value);
+
+		void operator/=(const float _value);
+		void operator+=(const float _value);
+		void operator-=(const float _value);
+
+		// Vector2를 받을 경우 전달받은 Vector2의 각각의 성분을
+		// 내 각각의 성분에 사칙연산하여 반환한다.
+		Vector2 operator/(const Vector2& _value);
+		Vector2 operator*(const Vector2& _value);
+		Vector2 operator+(const Vector2& _value);
+		Vector2 operator-(const Vector2& _value);
+
+		void operator/=(const Vector2& _value);
+		void operator*=(const Vector2& _value);
+		void operator-=(const Vector2& _value);
+		Vector2& operator*=(const float& _value);
+		Vector2& operator+=(const Vector2& _other);
+
+		bool operator ==(const Vector2 _other);
+		bool operator<=(const Vector2 _other);
+		bool operator>=(const Vector2 _other);
+
+		Vector2 operator-();
+
+		void Clear();
+		float Length();
+		Vector2 Normalize();
+
+		float x;
+		float y;
+
 		static Vector2 Zero;
 		static Vector2 One;
 		static Vector2 Right;
+		static Vector2 Left;
 		static Vector2 Up;
-
-	public:
-		Vector2()
-			: x(0.0f)
-			, y(0.0f)
-		{
-			// nothing
-		}
-
-		Vector2(float _x, float _y)
-			: x(_x)
-			, y(_y)
-		{
-			// nothing
-		}
-
-		Vector2 operator+(const Vector2 _other)
-		{
-			Vector2 temp;
-			temp.x = x + _other.x;
-			temp.y = y + _other.y;
-			return temp;
-		}
-
-		Vector2 operator -()
-		{
-			return Vector2(-x, -y);
-		}
-
-		Vector2 operator-(const Vector2 _other)
-		{
-			Vector2 temp;
-			temp.x = x - _other.x;
-			temp.y = y - _other.y;
-			return temp;
-		}
-
-		Vector2 operator/(const float _value)
-		{
-			Vector2 temp;
-			temp.x = x / _value;
-			temp.y = y / _value;
-			return temp;
-		}
-
-		Vector2 operator*(const float _value)
-		{
-			Vector2 temp;
-			temp.x = x * _value;
-			temp.y = y * _value;
-			return temp;
-		}
-
-		Vector2& operator +=(const Vector2 _other)
-		{
-			x += _other.x;
-			y += _other.y;
-
-			return *this;
-		}
-
-		Vector2& operator -=(const Vector2 _other)
-		{
-			x -= _other.x;
-			y -= _other.y;
-
-			return *this;
-		}
-
-		bool operator ==(const Vector2 _other)
-		{
-			if (x == _other.x && y == _other.y)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		Vector2& operator *=(const float& _value)
-		{
-			x *= _value;
-			y *= _value;
-
-			return *this;
-		}
-
-		//bool operator!=(const Vector2 _other)
-		//{
-		//	if (x == _other.x && y == _other.y)
-		//	{
-		//		return false;
-		//	}
-		//	else
-		//	{
-		//		return true;
-		//	}
-		//}
-
-		float length()
-		{
-			return sqrtf(x * x + y * y);	// sqrtf = 제곱근
-		}
-
-		Vector2 normalize()
-		{
-			float len = length();	// 0,0을 기준으로 해당 좌표까지의 거리
-			x /= len;	// cosΘ = 0
-			y /= len;	// sinΘ = 1
-
-			return *this;
-		}
-
-		void clear()
-		{
-			x = 0.0f;
-			y = 0.0f;
-		}
-
-	public:
-		float x;
-		float y;
+		static Vector2 Down;
 	};
 
 	inline Vector2 Rotate(Vector2 _vector, float _degree)
 	{
 		float radian = (_degree / 180.0f) * PI;
-		_vector.normalize();
+		_vector.Normalize();
 		float x = cosf(radian) * _vector.x - sinf(radian) * _vector.y;
 		float y = sinf(radian) * _vector.x + cosf(radian) * _vector.y;
 

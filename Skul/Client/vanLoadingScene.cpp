@@ -63,6 +63,14 @@ namespace van
 		Text::PrintwString(_hdc, 10, 30, str);
 	}
 
+	void LoadingScene::SceneIN()
+	{
+	}
+
+	void LoadingScene::SceneOut()
+	{
+	}
+
 	void LoadingScene::LoadTexture()	// 첨조할 이미지 모두 여기서 로드
 	{
 		Texture* img = new Texture();
@@ -80,9 +88,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
 
 		// BG_Home_Scene
-		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_24.bmp");
-		ResourceManager::Load<Texture>(L"Home_Tile", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_Tile_24.bmp");
-		ResourceManager::Load<Texture>(L"Home_Rubble", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home_Rubble_24.bmp");
+		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home.bmp");
 
 		// BG_Stage1_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
@@ -91,7 +97,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"BG_Stage1_Monster", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_24.bmp");
 
 		// BG_Stage1_Boss_Enter_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Boss_Enter\\Stage1_Boss_EnterScene_24.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 
 		// BG_Stage1_Boss_Scene
 		

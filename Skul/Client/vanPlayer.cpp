@@ -45,8 +45,6 @@ namespace van
 		GetComponent<Animator>()->PlayAnimation(L"Idle_Weapon_R", true);
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
-
 		RigidBody* rb = AddComponent<RigidBody>();
 		rb->SetMass(50.0f);
 

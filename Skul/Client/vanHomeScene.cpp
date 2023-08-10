@@ -1,10 +1,8 @@
 #include "vanHomeScene.h"
 #include "vanCamera.h"
-
 #include "vanBackGround.h"
 #include "vanSpriteRenderer.h"
 #include "vanResourceManager.h"
-
 #include "vanFloor.h"
 #include "vanObject.h"
 #include "vanCollider.h"
@@ -28,11 +26,15 @@ namespace van
 	{
 		// BG
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 0.0f));				// 위치값 설정
+		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 2880.0f));			// 위치값 설정
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_Scene"));				// BackGround 객체의 texture 설정
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_Scene"));					// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(1.0f, 1.0f));											// Scale 설정
 		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
+		bg->SetAutoCameraLimit();
+		math::Vector2 widthLimit = math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight());
+		math::Vector2 heightLimit = math::Vector2(bg->GetLimitUp(), bg->GetLimitDown());
+		Camera::SetLimitDistance(widthLimit, heightLimit);
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
@@ -42,10 +44,8 @@ namespace van
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		bgsr = floor->AddComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"Home_Tile"));
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(3685.0f, 65.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 330.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(5000.0f, 2.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 0.0f));
 
 		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
@@ -65,5 +65,11 @@ namespace van
 		const wchar_t* str = L"[ HomeScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
+	}
+	void HomeScene::SceneIN()
+	{
+	}
+	void HomeScene::SceneOut()
+	{
 	}
 }

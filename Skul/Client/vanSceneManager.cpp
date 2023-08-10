@@ -49,14 +49,14 @@ namespace van
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1EnterScene");	// 편집용
+			LoadScene(L"Stage1BossEnterScene");	// 편집용
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))
 		{
 			LoadScene(L"TestScene");
 		}
-		// 화면전환_Next
+		// 화면전환_Next6
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			std::wstring name = mActiveScene->GetName();
@@ -79,15 +79,22 @@ namespace van
 
 	Scene* SceneManager::LoadScene(const std::wstring& name)
 	{
-		std::map<std::wstring, Scene*>::iterator iter
-			= mScenes.find(name);	
+		// 새로운 Scene을 불러오기전에 이전 Scene에 대한 정보를 초기화해준다.
+		mActiveScene->SceneOut();
+
 		// find(key) : 해당 키 값을 가진 pair 타입 값을 반환한다.
 		// 만약 찾지 못하면 map.end() 를 반환한다.
-
+		std::map<std::wstring, Scene*>::iterator iter
+			= mScenes.find(name);
 		if (iter == mScenes.end())
+		{
 			return nullptr;
-
+		}
 		mActiveScene = iter->second;
+
+		// 새로운 Scene에 대한 세팅을 해준다.
+		mActiveScene->SceneIN();
+
 		return iter->second;
 	}
 

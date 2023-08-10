@@ -15,6 +15,7 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 
 		__forceinline void SetTexture(Texture* _texture) { mTexture = _texture; }
+		__forceinline Texture* GetTexture() { return mTexture; }
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
 		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
 		__forceinline float GetAlpha() { return mAlpha; }

@@ -31,21 +31,25 @@ namespace van
 	{	
 		// BackGround 객체
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
-		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 0.0f));				
+		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
-		bgsr->SetScale(math::Vector2(1.5f, 1.5f));											
-		bgsr->SetAffectCamera(true);														
+		bgsr->SetAffectCamera(true);
+		bg->SetAutoCameraLimit();
+		// 해당 Scene에서의 카메라 최대 이동거리 설정
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		Animator* at = player->GetComponent<Animator>();
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
 		// Carleon Recruit
 		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(-400.0f, 0.0f));
+		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2));
 		at = carleon->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
@@ -53,17 +57,14 @@ namespace van
 		// Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X/2, Window_Y/2 + 180.0f));
 
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
-
-		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
-		Camera::SetTarget(GetSceneTarget());
+		// 해당 씬의 (카메라)Target 설정
+		SetSceneTarget(player);
 	}
 
 	void TestScene::Update()
 	{
-		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 
@@ -75,5 +76,28 @@ namespace van
 		const wchar_t* str = L"[ TestScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
+	}
+
+	void TestScene::SceneIN()
+	{
+		//  카메라 최대 이동 가능 거리 설정
+		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+
+		// 카메라로 해당 Scene의 Target 비추기
+		Camera::SetTarget(GetSceneTarget());
+
+		// 해당 Scene에서의 충돌판정 설정
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+	}
+
+	void TestScene::SceneOut()
+	{
+		// 카메라 타겟 설정 초기화
+		Camera::SetTarget(nullptr);
+		// 충돌판정 설정 초기화
+		CollisionManager::Clear();
 	}
 }

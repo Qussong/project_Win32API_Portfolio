@@ -15,8 +15,26 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 		virtual void MakeAnimation() override;
 
-	private:
+		void SetLimitLeft(float _left) { mCameraLimitLeft = _left; }
+		float GetLimitLeft() { return mCameraLimitLeft; }
 
+		void SetLimitRight(float _right) { mCameraLimitRight = _right; }
+		float GetLimitRight() { return mCameraLimitRight; }
+
+		void SetLimitUp(float _up) { mCameraLimitUp = _up; }
+		float GetLimitUp() { return mCameraLimitUp; }
+
+		void SetLimitDown(float _down) { mCameraLimitDown = _down; }
+		float GetLimitDown() { return mCameraLimitDown; }
+
+		void SetAutoCameraLimit();	// 카메라 이동제한
+
+	private:
+		// (회색화면이 보이지않게) 카메라가 움직일 수 있는 
+		float mCameraLimitLeft;
+		float mCameraLimitRight;
+		float mCameraLimitUp;
+		float mCameraLimitDown;
 	};
 }
 
