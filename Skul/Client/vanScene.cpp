@@ -10,11 +10,12 @@ namespace van
 
 	Scene::~Scene()
 	{
-
+		// nothing
 	}
 
 	void Scene::Init()
 	{
+		// nothing
 	}
 
 	void Scene::Update()
@@ -33,10 +34,15 @@ namespace van
 			layer.Render(_hdc);
 
 		Time::Render(_hdc);
-		/*Text::PrintwString(_hdc, 10, 50, L"Title - q");
-		Text::PrintwString(_hdc, 10, 50, L"Lodaing - w");
-		Text::PrintwString(_hdc, 10, 70, L"Home - e");
-		Text::PrintwString(_hdc, 10, 90, L"Stage - r");
-		Text::PrintwString(_hdc, 10, 110, L"Ending - t");*/
+	}
+
+	void Scene::SceneIN()
+	{
+		// nothing
+	}
+
+	void Scene::SceneOut()
+	{
+		// nothing
 	}
 }

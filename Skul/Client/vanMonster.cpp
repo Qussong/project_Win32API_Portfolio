@@ -24,6 +24,7 @@ namespace van
 		, mbPlayAnimation(true)
 		, mTraceBox(nullptr)
 		, mAttackBox(nullptr)
+		, mDeathTime(1.0f)
 	{
 		// nothing
 	}
@@ -31,13 +32,13 @@ namespace van
 	Monster::~Monster()
 	{
 		// nothing
+		Destroy(mTraceBox);
+		Destroy(mAttackBox);
 	}
 
 	void Monster::Init()
 	{
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
-
-		//
+		//CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		mTraceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Monster_Trace);
 		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
 	}
@@ -45,6 +46,18 @@ namespace van
 	void Monster::Update()
 	{
 		GameObject::Update();
+
+		// [ 투사체 구현부 ]
+		// Transform* tr = GetComponent<Transform>();
+		// math::Vector2 pos = tr->GetPosition();
+		// pos.x += 300.0f * Time::DeltaTime();
+		// tr->SetPosition(pos);
+		   
+		// mDeathTime -= Time::DeltaTime();
+		// if (mDeathTime < 0.0f)
+		// {
+		// 	Destroy(this);
+		// }
 	}
 
 	void Monster::Render(HDC _hdc)

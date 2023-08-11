@@ -40,7 +40,11 @@ namespace van
 
     void CollisionManager::Clear()
     {
-        mLayerMasks->reset();   // 비트셋의 비트들을 전부 0으로 세팅 (정적)
+        //mLayerMasks->reset();   // 비트셋의 비트들을 전부 0으로 세팅 (정적)
+        for (int i = 0; i < LAYER_MAX; i++)
+        {
+            mLayerMasks[i].reset();
+        }
         mCollisionMap.clear();  // map의 모든 요소를 지운다. 즉, map을 비운다. (동적)
     }
 

@@ -13,10 +13,11 @@
 
 #include "vanMonsterAttack.h"
 
-#define WALK_SPEED		150.0f
-#define HIT_BUMP_X		50.0f
-#define HIT_BUMP_Y		-300.0f
-#define DASH_FORCE_X	700.0f
+#define WALK_SPEED			150.0f
+#define HIT_BUMP_X			50.0f
+#define HIT_BUMP_Y			-300.0f
+#define DASH_FORCE_X		700.0f
+#define ATTACK_READY_DELAY	1.0f
 	
 namespace van
 {
@@ -24,6 +25,7 @@ namespace van
 		//: mTraceBox(nullptr)
 		//, mAttackBox(nullptr)
 		//, mTimer(0.0f)
+		: mAttackCnt(0)
 	{
 		AddComponent<RigidBody>();
 	}
@@ -62,6 +64,12 @@ namespace van
 	void CarleonRecruit::Update()
 	{
 		GameObject::Update();
+
+		// 피격횟수 2회면 죽음
+		if (mAttackCnt > 2)
+		{
+			Destroy(this);
+		}
 
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
@@ -433,7 +441,7 @@ namespace van
 		// 2) Attack 상태로 넘어간다
 		// 3) Timer 리셋
 		// 4) Attack Dash 시작지점 저장
-		if (GetTimer() >= 2.0f)
+		if (GetTimer() >= ATTACK_READY_DELAY)
 		{
 			attackBox->SetAttackReadyFlag(true);
 			SetTimer(0.0f);
@@ -537,6 +545,8 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
+		
+
 		// AttackReady중에 피격당하면 mTimer를 0.0f로 초기화 
 		SetTimer(0.0f);
 		
@@ -573,6 +583,8 @@ namespace van
 		// 공격받은 후 땅에 닿으면 Trace 상태로 전환
 		if (rb->GetGround() == true)
 		{
+			// 피격횟수 증가
+			++mAttackCnt;
 			SetMonsterState(MonsterState::AttackReady);
 		}
 	}

@@ -3,6 +3,8 @@
 
 namespace van
 {
+	class FloorPass;
+
 	class Floor : public GameObject
 	{
 	public:
@@ -16,6 +18,7 @@ namespace van
 		virtual void OnCollisionEnter(class Collider* _other) override;
 		virtual void OnCollisionStay(class Collider* _other) override;
 		virtual void OnCollisionExit(class Collider* _other) override;
+
 	private:
 
 	};

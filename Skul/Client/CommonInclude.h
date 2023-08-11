@@ -22,7 +22,6 @@
 #include "vanText.h"
 
 // 매크로 변수
-//#define DIAMETER	200
 #define HD_X		1280
 #define HD_Y		720
 #define FHD_X		1920
@@ -30,13 +29,13 @@
 #define Window_X	HD_X
 #define Window_Y	HD_Y
 
-
 namespace van::enums
 {
 	enum class eLayerType
 	{
 		BackGround,
 		Floor,
+		Door,
 		/*Effect,*/
 		Range_Attack,
 		Range_Monster_Trace,
@@ -57,4 +56,5 @@ namespace van::enums
 		RigidBody,
 		End,
 	};
+
 }

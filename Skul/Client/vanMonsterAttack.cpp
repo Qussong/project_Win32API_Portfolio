@@ -24,7 +24,7 @@ namespace van
 		// Collider 의 상자색 변경(MonsterAttack 범위 색 : Blue)
 		GetComponent<Collider>()->SetLineColor(RGB(0, 0, 255));	
 		// MonsterAttack 과 Player가 충돌판정을 받도록 설정
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+		//CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 	}
 
 	void MonsterAttack::Update()

@@ -1,20 +1,14 @@
 #include "vanHomeScene.h"
-#include "vanTiedSkul.h"
-#include "vanPlayer.h"
-#include "vanMonster.h"
-#include "vanObject.h"
-#include "vanTransform.h"
+#include "vanCamera.h"
+#include "vanBackGround.h"
 #include "vanSpriteRenderer.h"
 #include "vanResourceManager.h"
-#include "vanCamera.h"
-#include "vanAnimator.h"
-#include "vanBackGround.h"
-
-#include "vanCollider.h"
-#include "vanCollisionManager.h"
-#include "vanRigidBody.h"
-
 #include "vanFloor.h"
+#include "vanObject.h"
+#include "vanCollider.h"
+#include "vanTransform.h"
+#include "vanPlayer.h"
+#include "vanAnimator.h"
 
 namespace van
 {
@@ -30,33 +24,30 @@ namespace van
 
 	void HomeScene::Init()
 	{
-		// 1) BackGround 객체
+		// BG
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, -80.0f));			// 위치값 설정
+		bg->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 2880.0f));			// 위치값 설정
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_1"));						// BackGround 객체의 texture 설정
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_Scene"));					// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(1.0f, 1.0f));											// Scale 설정
 		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
-		
-		// 2) Tied_Skul_NPC
-		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::Monster);		
-		Animator* at = tiedSkul->GetComponent<Animator>();
-		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(-500.0f, 125.0f));
-		at->SetScale(math::Vector2(2.0f, 2.0f));
-		at->SetAffectedCamera(true);
+		bg->SetAutoCameraLimit();
+		math::Vector2 widthLimit = math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight());
+		math::Vector2 heightLimit = math::Vector2(bg->GetLimitUp(), bg->GetLimitDown());
+		Camera::SetLimitDistance(widthLimit, heightLimit);
 
-		// 3) Player 객체
+		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		at = player->GetComponent<Animator>();
+		Animator* at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
-		// 4) Floor 객체 
-		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 180.0f));
+		// Floor
+		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(5000.0f, 2.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(0.0f, 0.0f));
 
-		SetSceneTarget(player);
+		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
 	}
 
@@ -74,5 +65,11 @@ namespace van
 		const wchar_t* str = L"[ HomeScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
+	}
+	void HomeScene::SceneIN()
+	{
+	}
+	void HomeScene::SceneOut()
+	{
 	}
 }

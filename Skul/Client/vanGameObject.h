@@ -7,6 +7,20 @@ namespace van
 	class GameObject : public Entity
 	{
 	public:
+		enum class eState
+		{
+			// 활성화 상태, Update(OK), Render(OK)
+			Active,
+			// 멈춰있는 상태, Update(X), Render(X)
+			Pause,
+			// 이번 Render가 마무리되고 이 객체가 삭제되어야 하는 경우. 
+			// Render가 끝나고 이 객체를 삭제하도록. ex) Bullet.
+			Dead,
+			End,
+		};
+
+		friend static __forceinline void Destroy(GameObject* _obj);
+
 		GameObject();
 		virtual ~GameObject();
 
@@ -59,9 +73,21 @@ namespace van
 		__forceinline void SetOffset(math::Vector2 _offset) { offset = _offset; }
 		__forceinline math::Vector2 GetOffset() { return offset; }
 
+		__forceinline eState GetState() { return mState; }
+		__forceinline void Pause() { mState = eState::Pause; }
+
+	private:
+		void Death() { mState = eState::Dead; }
+
 	private:
 		std::vector<Component*> mComponents;	// Componenet 객체들의 값을 수정해야하기에 주소를 저장한다.
 		math::Vector2 offset;
+		eState mState;
 	};
+
+	static __forceinline void Destroy(GameObject* _obj)
+	{
+		_obj->Death();
+	}
 }
 

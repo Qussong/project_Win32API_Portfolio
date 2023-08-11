@@ -59,4 +59,10 @@ namespace van
 		const wchar_t* str = L"[ TitleScene ]";
 		Text::PrintwString(_hdc, 10, 30, str);	// 아래 두면 가려지지 않는다.
 	}
+	void TitleScene::SceneIN()
+	{
+	}
+	void TitleScene::SceneOut()
+	{
+	}
 }

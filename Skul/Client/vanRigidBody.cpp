@@ -38,7 +38,7 @@ namespace van
 		if (mbGround || mbSkyDash)				// GameObject 마찰력 적용을 받을 때(x)
 		{
 			math::Vector2 gravity = mGravity;			// 중력 초기값 -> x = 0, y = 980
-			gravity.normalize();						// 중력 -> x = 0, y = 1
+			gravity.Normalize();						// 중력 -> x = 0, y = 1
 			float dot = math::Dot(mVelocity, gravity);	// dot = mVelocity.y
 			math::Vector2 val = gravity * dot;
 			mVelocity -= val;							// mVelocity -= Vector2(0, mVelocity.y)
@@ -55,18 +55,18 @@ namespace van
 
 		// 최대 속도 제한
 		math::Vector2 gravity = mGravity;					
-		gravity.normalize();								
+		gravity.Normalize();								
 		float dot = math::Dot(mVelocity, gravity);			
 		gravity = gravity * dot;							
 		math::Vector2 sideVelocity = mVelocity - gravity;	// 속도에 중력의 영향 반영?
-		if (mLimitedVelocity.y < gravity.length())			// y방향 속도가 y방향 제한속도보다 클때
+		if (mLimitedVelocity.y < gravity.Length())			// y방향 속도가 y방향 제한속도보다 클때
 		{
-			gravity.normalize();
+			gravity.Normalize();
 			gravity *= mLimitedVelocity.y;
 		}
-		if (mLimitedVelocity.x < sideVelocity.length())		// x방향 속도가 x방향 제한속도보다 클때
+		if (mLimitedVelocity.x < sideVelocity.Length())		// x방향 속도가 x방향 제한속도보다 클때
 		{
-			sideVelocity.normalize();
+			sideVelocity.Normalize();
 			sideVelocity *= mLimitedVelocity.x;
 		}
 		mVelocity = gravity + sideVelocity;
@@ -77,10 +77,10 @@ namespace van
 		{
 			math::Vector2 friction = -mVelocity;	// 속도의 반대 방향으로 마찰력 작용
 			friction = 
-				friction.normalize() * mFriction * mMass * Time::GetDeltaTime();	// 마찰력 = 마찰력 계수 * 무게
+				friction.Normalize() * mFriction * mMass * Time::GetDeltaTime();	// 마찰력 = 마찰력 계수 * 무게
 
 			// 마찰력으로 인한 속도 감소량이 현재 속도보다 더 큰 경우
-			if (mVelocity.length() < friction.length())
+			if (mVelocity.Length() < friction.Length())
 			{
 				// 속도를 0 로 만든다.
 				mVelocity = math::Vector2(0.0f, 0.0f);
@@ -97,7 +97,7 @@ namespace van
 		math::Vector2 pos = tr->GetPosition();
 		pos = pos + mVelocity * Time::GetDeltaTime();
 		tr->SetPosition(pos);
-		mForce.clear();
+		mForce.Clear();
 	}
 
 	void RigidBody::Render(HDC _hdc)

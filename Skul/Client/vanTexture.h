@@ -41,6 +41,10 @@ namespace van
 		__forceinline UINT GetHeight() { return mHeight; }
 		__forceinline void SetHeight(UINT _height) { mHeight = _height; }
 
+		// static_cast : 당연히 되는 정적인 형변환만 허용한다.
+		// C++ 스타일, 더 안전하다.
+		math::Vector2 GetSize() { return math::Vector2(static_cast<float>(mWidth), static_cast<float>(mHeight)); }
+
 		__forceinline HDC GetHdc() { return mHdc; }
 		__forceinline void SetHdc(HDC _hdc) { mHdc = _hdc; }
 
