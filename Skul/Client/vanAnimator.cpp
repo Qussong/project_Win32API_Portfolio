@@ -6,7 +6,6 @@ namespace van
 {
 	Animator::Animator()
 		: Component(enums::eComponentType::Animator)
-		//, mAnimations()
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
 		, mbAffectedCamera(true)

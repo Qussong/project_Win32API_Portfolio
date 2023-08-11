@@ -10,7 +10,8 @@ namespace van
 		: offset(math::Vector2::Zero)
 		, mState(eState::Active)
 	{
-		AddComponent<Transform>();	// GameObject 객체에 Transform 속성을 만들어 넣어준다.
+		AddComponent<Transform>()		// GameObject 객체에 Transform 속성을 만들어 넣어준다.
+			->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));	// 기본 위치 화면 중앙
 		AddComponent<Animator>();	// GameObject 객체에 Animator 속성을 만들어 넣어준다.
 		AddComponent<Collider>();	// GameObject 객체에 Collider 속성을 만들어 넣어준다.
 	}

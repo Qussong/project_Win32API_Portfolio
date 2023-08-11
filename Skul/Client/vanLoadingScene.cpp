@@ -33,6 +33,9 @@ namespace van
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Black_BackGround"));
 		bgsr->SetScale(math::Vector2::One);
 		bgsr->SetAffectCamera(false);
+		// 해당 Scene에서의 카메라 최대 이동거리 설정
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
 		// Loading Skul
 		BackGround* loadingSkul = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -44,12 +47,10 @@ namespace van
 		animator->SetAffectedCamera(false);
 
 		SetSceneTarget(nullptr);
-		Camera::SetTarget(GetSceneTarget());
 	}
 
 	void LoadingScene::Update()
 	{
-		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 	}
 
@@ -65,10 +66,17 @@ namespace van
 
 	void LoadingScene::SceneIN()
 	{
+		//  카메라 최대 이동 가능 거리 설정
+		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+
+		// 카메라로 해당 Scene의 Target 비추기
+		Camera::SetTarget(GetSceneTarget());
 	}
 
 	void LoadingScene::SceneOut()
 	{
+		// 카메라 타겟 설정 초기화
+		Camera::SetTarget(nullptr);
 	}
 
 	void LoadingScene::LoadTexture()	// 첨조할 이미지 모두 여기서 로드

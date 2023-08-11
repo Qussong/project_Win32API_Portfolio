@@ -32,6 +32,9 @@ namespace van
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Title_Art"));
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
+		// 해당 Scene에서의 카메라 최대 이동거리 설정
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
 		// 2) Title Logo
 		BackGround* logo = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
@@ -41,13 +44,11 @@ namespace van
 		bgsr->SetScale(math::Vector2(0.67f,0.67f));
 		bgsr->SetAffectCamera(false);
 
-		//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
-		Camera::SetTarget(GetSceneTarget());
+		SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 	}
 
 	void TitleScene::Update()
 	{
-		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();						// 부모의 Update 함수 호출
 	}
 
@@ -59,10 +60,19 @@ namespace van
 		const wchar_t* str = L"[ TitleScene ]";
 		Text::PrintwString(_hdc, 10, 30, str);	// 아래 두면 가려지지 않는다.
 	}
+
 	void TitleScene::SceneIN()
 	{
+		//  카메라 최대 이동 가능 거리 설정
+		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+
+		// 카메라로 해당 Scene의 Target 비추기
+		Camera::SetTarget(GetSceneTarget());
 	}
+
 	void TitleScene::SceneOut()
 	{
+		// 카메라 타겟 설정 초기화
+		Camera::SetTarget(nullptr);
 	}
 }

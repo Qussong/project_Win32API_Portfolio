@@ -22,12 +22,13 @@
 #include "vanText.h"
 
 // 매크로 변수
-#define HD_X		1280
-#define HD_Y		720
-#define FHD_X		1920
-#define FHD_Y		1080
-#define Window_X	HD_X
-#define Window_Y	HD_Y
+#define HD_X			1280
+#define HD_Y			720
+#define FHD_X			1920
+#define FHD_Y			1080
+#define Window_X		HD_X
+#define Window_Y		HD_Y
+#define FLOOR_HEIGHT	2.0f
 
 namespace van::enums
 {
@@ -36,11 +37,11 @@ namespace van::enums
 		BackGround,
 		Floor,
 		Door,
-		/*Effect,*/
-		Range_Attack,
+		NPC,
 		Range_Monster_Trace,
 		Range_Monster_Attack,
 		Monster,
+		Range_Attack,
 		Player,
 		UI,
 		End,

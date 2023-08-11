@@ -3,7 +3,6 @@
 #include "vanTransform.h"
 #include "vanAnimator.h"
 #include "vanCollisionManager.h"
-
 #include "vanObject.h"
 #include "vanMonsterTrace.h"
 #include "vanMonsterAttack.h"

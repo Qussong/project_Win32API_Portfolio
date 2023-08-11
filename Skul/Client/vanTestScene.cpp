@@ -31,19 +31,18 @@ namespace van
 	{	
 		// BackGround 객체
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
-		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
 		bgsr->SetAffectCamera(true);
+		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
 		bg->SetAutoCameraLimit();
-		// 해당 Scene에서의 카메라 최대 이동거리 설정
+		// 해당 Scene에 카메라의 이동제한값 저장
 		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
 		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		Animator* at = player->GetComponent<Animator>();
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
@@ -56,8 +55,7 @@ namespace van
 
 		// Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X/2, Window_Y/2 + 180.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -80,10 +78,10 @@ namespace van
 
 	void TestScene::SceneIN()
 	{
-		//  카메라 최대 이동 가능 거리 설정
+		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 
-		// 카메라로 해당 Scene의 Target 비추기
+		// 카메라에 해당 Scene의 타겟을 세팅
 		Camera::SetTarget(GetSceneTarget());
 
 		// 해당 Scene에서의 충돌판정 설정

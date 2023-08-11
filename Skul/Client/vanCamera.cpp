@@ -12,9 +12,12 @@ namespace van
 	math::Vector2 Camera::mResolution = math::Vector2::Zero;
 	math::Vector2 Camera::mLookPosition = math::Vector2::Zero;
 	math::Vector2 Camera::mDistance = math::Vector2::Zero;
+	math::Vector2 Camera::mCameraOffset = math::Vector2::Zero;
+
+	GameObject* Camera::mTarget = nullptr;
+
 	math::Vector2 Camera::mWidthLimit = math::Vector2::Zero;
 	math::Vector2 Camera::mHeightLimit = math::Vector2::Zero;
-	GameObject* Camera::mTarget = nullptr;
 
 	void Camera::Init()
 	{
@@ -25,17 +28,15 @@ namespace van
 
 	void Camera::Update()
 	{
-
 		// 카메라가 쳐다볼 타겟이 존재하면 해당 타겟을 따라다닌다.
 		if (mTarget)	
 		{
 			Transform* tr = mTarget->GetComponent<Transform>();	// Target의 위치정보 가져온다
-			mLookPosition = tr->GetPosition();					// 카메라가 쳐다보는위치로 설정
+			mLookPosition = (tr->GetPosition()) + mCameraOffset;					// 카메라가 쳐다보는위치로 설정
 		}
 		// 카메라의 타겟이 없다면 카메라를 조종할 수 있다.
 		else
 		{
-			
 			if (Input::GetKey(eKeyCode::Up))
 			{
 				mLookPosition.y -= CAMERA_SPEED * Time::GetDeltaTime();

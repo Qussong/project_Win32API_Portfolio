@@ -59,17 +59,24 @@ namespace van
 		// 배경 이미지의 사이즈 절반값 저장
 		math::Vector2 imageSize = image->GetSize() / 2.0f;
 
-		math::Vector2 tempLimitX = pos.x - imageSize.x;
-		math::Vector2 tempLimitY = pos.y - imageSize.y;
+		//math::Vector2 tempLimitX = pos.x - imageSize.x;
+		//math::Vector2 tempLimitY = pos.y - imageSize.y;
+		float tempLimitX = std::fabsf(pos.x - imageSize.x);
+		float tempLimitY = std::fabsf(pos.y - imageSize.y);
 
-		tempLimitX.x = std::fabsf(tempLimitX.x);
-		tempLimitX.y = std::fabsf(tempLimitX.y);
-		tempLimitY.x = std::fabsf(tempLimitY.x);
-		tempLimitY.y = std::fabsf(tempLimitY.y);
+		//tempLimitX.x = std::fabsf(tempLimitX.x);
+		//tempLimitX.y = std::fabsf(tempLimitX.y);
+		//tempLimitY.x = std::fabsf(tempLimitY.x);
+		//tempLimitY.y = std::fabsf(tempLimitY.y);
 
-		mCameraLimitLeft = -tempLimitX.x;	// 왼쪽 최대 이동가능 거리
-		mCameraLimitRight = tempLimitX.y;	// 오른쪽 최대 이동가능 거리
-		mCameraLimitUp = -tempLimitY.x;		// 위쪽 최대 이동가능 거리
-		mCameraLimitDown = tempLimitY.y;	// 아래쪽 최대 이동가능 거리
+		//mCameraLimitLeft = -tempLimitX.x;		// 왼쪽 최대 이동가능 거리
+		//mCameraLimitRight = tempLimitX.y;		// 오른쪽 최대 이동가능 거리
+		//mCameraLimitUp = -tempLimitY.x;		// 위쪽 최대 이동가능 거리
+		//mCameraLimitDown = tempLimitY.y;		// 아래쪽 최대 이동가능 거리
+
+		mCameraLimitLeft	= -tempLimitX;	// 왼쪽 최대 이동가능 거리
+		mCameraLimitRight	= tempLimitX;	// 오른쪽 최대 이동가능 거리
+		mCameraLimitUp		= -tempLimitY;	// 위쪽 최대 이동가능 거리
+		mCameraLimitDown	= tempLimitY;	// 아래쪽 최대 이동가능 거
 	}
 }
