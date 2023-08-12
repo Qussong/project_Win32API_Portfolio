@@ -15,6 +15,8 @@ namespace van
 		virtual void SceneIN() override;
 		virtual void SceneOut() override;
 
+		void NextScene();
+		
 	private:
 
 	};

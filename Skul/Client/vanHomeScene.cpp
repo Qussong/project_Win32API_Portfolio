@@ -3,13 +3,23 @@
 #include "vanBackGround.h"
 #include "vanSpriteRenderer.h"
 #include "vanResourceManager.h"
-#include "vanFloor.h"
 #include "vanObject.h"
 #include "vanCollider.h"
 #include "vanTransform.h"
-#include "vanPlayer.h"
 #include "vanAnimator.h"
 #include "vanCollisionManager.h"
+#include "vanFloor.h"
+#include "vanSceneManager.h"
+
+#include "vanPlayer.h"
+#include "vanWitch.h"
+#include "vanFoxHunter.h"
+#include "vanOrge.h"
+#include "vanDeathKnight.h"
+#include "vanDruid.h"
+
+#define OFFSET1		400.0f
+#define OFFSET2		900.0f
 
 namespace van
 {
@@ -38,14 +48,32 @@ namespace van
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		Animator* at = player->GetComponent<Animator>();
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X - 700.0f, Window_Y - 3240.0f));
-		at->SetScale(math::Vector2(2.0f, 2.0f));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 60.0f, Window_Y / 2 - 2880.0f));
+
+		// DeathKnight
+		DeathKnight* deathKnight = Object::Instantiate<DeathKnight>(enums::eLayerType::NPC);
+		deathKnight->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 5 + OFFSET2, Window_Y / 2 - 2880.0f));
+
+		// Witch
+		Witch* witch = Object::Instantiate<Witch>(enums::eLayerType::NPC);
+		witch->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 4 + OFFSET2, Window_Y / 2 - 2880.0f));
+
+		// FoxHunter
+		FoxHunter* foxHunter = Object::Instantiate<FoxHunter>(enums::eLayerType::NPC);
+		foxHunter->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 3 + OFFSET2, Window_Y / 2 - 2880.0f));
+
+		// Orge
+		Orge* orge = Object::Instantiate<Orge>(enums::eLayerType::NPC);
+		orge->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 2 + OFFSET2, Window_Y / 2 - 2880.0f));
+
+		// Druid
+		Druid* druid = Object::Instantiate<Druid>(enums::eLayerType::NPC);
+		druid->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2, Window_Y / 2 - 2880.0f));
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X - 1205.0f, Window_Y - 3240.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2  - 565.0f, Window_Y / 2 - 2880.0f));
 
 		// 해당 Scene의 카메라 타겟 설정
 		SetSceneTarget(player);
@@ -54,15 +82,22 @@ namespace van
 	void HomeScene::Update()
 	{
 		Scene::Update();
+		NextScene();
 
-		math::Vector2 targetPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
-		float targetPos_Y = targetPos.y;
+		float checkPoint1 = 1320.0f;
+		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
 		float cameraPosLimit_Y = GetCameraHeightLimit().y;
-		float offset_Y = fabs(cameraPosLimit_Y - targetPos_Y);
-		if (targetPos.x < 1320.0f)
+		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
+
+		if (playerPos.x < checkPoint1)
 		{
+			
 			Camera::SetCameraOffset(math::Vector2(0.0f, -offset_Y));
 		}
+		else
+		{
+			Camera::CameraOffsetClear();
+		}						
 		
 	}
 
@@ -86,6 +121,7 @@ namespace van
 
 		// 해당 Scene에서의 충돌판정 설정
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 	}
 
 	void HomeScene::SceneOut()
@@ -96,5 +132,14 @@ namespace van
 		Camera::CameraOffsetClear();
 		// 충돌판정 설정 초기화
 		CollisionManager::Clear();
+	}
+
+	void HomeScene::NextScene()
+	{
+		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
+		if (playerPos.y > 5000.0f)
+		{
+			SceneManager::Next(GetName());
+		}
 	}
 }

@@ -151,6 +151,21 @@ namespace van
 		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
 		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
 
+		// [ NPC ]
+		// TiedSkul
+		ResourceManager::Load<Texture>(L"TiedSkul_Idle", L"..\\MyResources\\skul\\1_NPC\\TiedSkul\\TiedSkul_Idle.bmp");
+		// DeathKnight
+		ResourceManager::Load<Texture>(L"DeathKnight_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\DeathKnight\\DeathKnight_Idle_Castle.bmp");
+		// Witch
+		ResourceManager::Load<Texture>(L"Witch_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Witch\\Witch_Idle_Castle.bmp");
+		// FoxHunter
+		ResourceManager::Load<Texture>(L"FoxHunter_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\FoxHunter\\FoxHunter_Idle_Castle.bmp");
+		// Orge
+		ResourceManager::Load<Texture>(L"Orge_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Orge\\Orge_Idle_Castle.bmp");
+		// Druid
+		ResourceManager::Load<Texture>(L"Druid_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Druid\\Druid_Idle_Castle.bmp");
+
+		// [ Monster ]
 		// Carleon Recruit
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_L.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_R.bmp");

@@ -47,15 +47,12 @@ namespace van
 		
 		// Tied_Skul_NPC
 		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::NPC);		
-		Animator* at = tiedSkul->GetComponent<Animator>();
 		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + NPC_TIEDSKUL_POS_X, Window_Y / 2 + FLOOR_POS_Y));
-		at->SetScale(math::Vector2(2.0f, 2.0f));
+		
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 , Window_Y / 2 + FLOOR_POS_Y));
-		at = player->GetComponent<Animator>();
-		at->SetScale(math::Vector2(2.0f, 2.0f));
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
@@ -65,9 +62,9 @@ namespace van
 		// Door
 		Door* door = Object::Instantiate<Door>(eLayerType::Door);
 		door->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_POS_X, Window_Y / 2 + DOOR_POS_Y));
-		at = door->GetComponent<Animator>();
+		Animator* at = door->GetComponent<Animator>();
 		at->PlayAnimation(L"Stage1_Door_2", true);
-		at->SetScale(math::Vector2(2.0f, 2.0f));
+		
 
 		SetSceneTarget(player);
 	}

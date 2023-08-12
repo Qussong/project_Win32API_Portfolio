@@ -163,6 +163,21 @@
     <Filter Include="Common\Time">
       <UniqueIdentifier>{2ae244e4-202b-428f-ae29-873a75c7a43c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\NPC\Witch">
+      <UniqueIdentifier>{f8121bdb-33ba-4efc-ab49-4ebe2c71744b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\NPC\DeathKnight">
+      <UniqueIdentifier>{fd90aa1c-e6f8-4f65-b30b-86f1926953b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\NPC\Druid">
+      <UniqueIdentifier>{a4cdf1ea-fb2f-41f7-9d44-43697e5fa59e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\NPC\FoxHunter">
+      <UniqueIdentifier>{9c462649-bd9b-4bd6-8118-4d94de30342e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\NPC\Orge">
+      <UniqueIdentifier>{2078aa5d-8e16-414f-aae2-2aa2dae590f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -324,6 +339,21 @@
     <ClInclude Include="vanDoor.h">
       <Filter>Contents\GameObject\Door</Filter>
     </ClInclude>
+    <ClInclude Include="vanWitch.h">
+      <Filter>Contents\GameObject\NPC\Witch</Filter>
+    </ClInclude>
+    <ClInclude Include="vanDeathKnight.h">
+      <Filter>Contents\GameObject\NPC\DeathKnight</Filter>
+    </ClInclude>
+    <ClInclude Include="vanDruid.h">
+      <Filter>Contents\GameObject\NPC\Druid</Filter>
+    </ClInclude>
+    <ClInclude Include="vanFoxHunter.h">
+      <Filter>Contents\GameObject\NPC\FoxHunter</Filter>
+    </ClInclude>
+    <ClInclude Include="vanOrge.h">
+      <Filter>Contents\GameObject\NPC\Orge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -480,6 +510,21 @@
     </ClCompile>
     <ClCompile Include="vanDoor.cpp">
       <Filter>Contents\GameObject\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="vanWitch.cpp">
+      <Filter>Contents\GameObject\NPC\Witch</Filter>
+    </ClCompile>
+    <ClCompile Include="vanDeathKnight.cpp">
+      <Filter>Contents\GameObject\NPC\DeathKnight</Filter>
+    </ClCompile>
+    <ClCompile Include="vanDruid.cpp">
+      <Filter>Contents\GameObject\NPC\Druid</Filter>
+    </ClCompile>
+    <ClCompile Include="vanFoxHunter.cpp">
+      <Filter>Contents\GameObject\NPC\FoxHunter</Filter>
+    </ClCompile>
+    <ClCompile Include="vanOrge.cpp">
+      <Filter>Contents\GameObject\NPC\Orge</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

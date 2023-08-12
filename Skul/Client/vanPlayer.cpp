@@ -42,7 +42,9 @@ namespace van
 	void Player::Init()
 	{
 		MakeAnimation();
-		GetComponent<Animator>()->PlayAnimation(L"Idle_Weapon_R", true);
+		Animator* at = GetComponent<Animator>();
+		at->PlayAnimation(L"Idle_Weapon_R", true);
+		at->SetScale(math::Vector2(2.0f, 2.0f));
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 
 		RigidBody* rb = AddComponent<RigidBody>();

@@ -24,6 +24,9 @@ namespace van
 	{
 		MakeAnimation();
 		
+		Animator* at = GetComponent<Animator>();
+		at->SetScale(math::Vector2(2.0f, 2.0f));
+
 		Collider* col = GetComponent<Collider>();
 		col->SetSize(math::Vector2(60.0f, 180.0f));
 		col->SetOffset(math::Vector2(10.0f, 30.0f));

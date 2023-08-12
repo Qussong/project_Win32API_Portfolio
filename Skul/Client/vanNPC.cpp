@@ -1,10 +1,11 @@
 #include "vanNPC.h"
+#include "vanRigidBody.h"
 
 namespace van
 {
     NPC::NPC()
     {
-        // nothing
+        AddComponent<RigidBody>();
     }
 
     NPC::~NPC()
