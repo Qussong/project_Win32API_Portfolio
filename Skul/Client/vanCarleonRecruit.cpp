@@ -501,7 +501,7 @@ namespace van
 		}
 
 		// 공격 완료
-		// 조건 : Animation 재생이 완료 && 일정거리 이동 완료
+		// 조건 : Animation 재생이 완료 && 일정거리 이동 완료 || 벽과의 충돌
 		// 1) AttackReadyFlag = false
 		// 2) AttacList 초기화
 		// 3) Attack Flag false 전환

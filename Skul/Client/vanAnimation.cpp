@@ -15,7 +15,7 @@ namespace van
 		, mTime(0.0f)
 		, mbComplete(false)
 		, mScale(math::Vector2::One)
-		, mAffectCamera(true)
+		, mbAffectCamera(true)
 	{
 	}
 
@@ -37,7 +37,7 @@ namespace van
 			return;
 		}
 
-		mTime += Time::GetDeltaTime();					// 프레임의 흐름에 따른 mTime에 시간 누적
+		mTime += Time::GetDeltaTime();				// 프레임의 흐름에 따른 mTime에 시간 누적
 		if (mSpriteSheet[mIndex].duration < mTime)	// mIndex에 해당하는 이미지의 유지시간과 누적시간을 비교
 		{
 			// 유지시간 < 누적시간
@@ -81,7 +81,7 @@ namespace van
 			, sprite.size
 			, sprite.leftTop
 			, sprite.size
-			, mAffectCamera
+			, mbAffectCamera
 			, sprite.offset
 			, mAnimator->GetScale()
 			, mAnimator->GetAlpha());
@@ -107,11 +107,11 @@ namespace van
 			sprite.leftTop.x = _leftTop.x + (_size.x * i);	// loop가 진행될수록 이미지의 x축 길이만큼 계속 길어짐
 			sprite.leftTop.y = _leftTop.y;					// 일정하게 유지
 
-			if (sprite.leftTop.x >= _texture->GetWidth())	// 다음줄에 추출할 이미지가 있을 경우
-			{
-				sprite.leftTop.x = sprite.leftTop.x - _texture->GetWidth();
-				sprite.leftTop.y = _leftTop.y + _size.y;
-			}
+			//if (sprite.leftTop.x >= _texture->GetWidth())	// 다음줄에 추출할 이미지가 있을 경우
+			//{
+			//	sprite.leftTop.x = sprite.leftTop.x - _texture->GetWidth();
+			//	sprite.leftTop.y = _leftTop.y + _size.y;
+			//}
 
 			sprite.size = _size;							// 각 프레임의 크기
 			sprite.offset = _offset;						// 이미지 출력시 별도로 필요한 옵셋값(옵션)

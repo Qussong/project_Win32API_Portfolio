@@ -1,37 +1,38 @@
-#include "vanFloor.h"
+#include "vanWall.h"
 #include "vanCollider.h"
 #include "vanTransform.h"
 #include "vanRigidBody.h"
 #include "vanObject.h"
+#include "vanMonster.h"
 
 namespace van
 {
-	Floor::Floor()
+	Wall::Wall()
 	{
 		// nothing
 	}
 
-	Floor::~Floor()
+	Wall::~Wall()
 	{
 		// nothing
 	}
 
-	void Floor::Init()
+	void Wall::Init()
 	{
 		// nothing
 	}
 
-	void Floor::Update()
+	void Wall::Update()
 	{
 		GameObject::Update();
 	}
 
-	void Floor::Render(HDC _hdc)
+	void Wall::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
 	}
 
-	void Floor::OnCollisionEnter(Collider* _other)
+	void Wall::OnCollisionEnter(Collider* _other)
 	{
 		GameObject* obj = _other->GetOwner();
 		Transform* tr = obj->GetComponent<Transform>();
@@ -43,33 +44,35 @@ namespace van
 		math::Vector2 objSize = col->GetSize();										// 충돌체의 사이즈
 		math::Vector2 floorSize = this->GetComponent<Collider>()->GetSize();		// 바닥 객체의 크기
 
-		float gap = floorPos.y - objPos.y;							// 현재 프레임에서 충돌체와 Floor 객체가 떨어져있는 거리 ( + : Player가 위 , - : Floor가 위)
-		float mazino = fabs(objSize.y / 2.0f + floorSize.y / 2.0f);	// 두 물체가 떨어져있기 위한 최소거리
+		float gap = floorPos.x - objPos.x;							// 현재 프레임에서 충돌체와 Floor 객체가 떨어져있는 거리 (+ : 물체가 왼쪽, - : 물체가 오른쪽)
+		float mazino = fabs(objSize.x / 2.0f + floorSize.x / 2.0f);	// 두 물체가 떨어져있기 위한 최소거리
 
 		// 충돌체가 Floor 객체보다 위에 있을 때(중심좌표 기준)
-		if (gap > 0)
+		// 두 물체가 겹쳐있는 경우
+		if (fabs(gap) < mazino)
 		{
-			// 두 물체가 겹쳐있는 경우
-			if (fabs(gap) < mazino)
+			// 왼쪽일 때(+)
+			if (gap > 0)
 			{
-				objPos.y -= (mazino - fabs(gap)) - 1.0f;
+				objPos.x -= ((mazino - fabs(gap)) - 1.0f);
 				tr->SetPosition(objPos);
 			}
-
-			rb->SetGround(true);	// Floor 객체와 충돌한 객체가 땅에 붙어있는 상태로 만들어준다.
+			// 오른쪽일 때(-)
+			else
+			{
+				objPos.x += ((mazino - fabs(gap)) + 1.0f);
+				tr->SetPosition(objPos);
+			}
 		}
 	}
 
-	void Floor::OnCollisionStay(Collider* _other)
+	void Wall::OnCollisionStay(Collider* _other)
 	{
-		// nothing
+		OnCollisionEnter(_other);
 	}
 
-	void Floor::OnCollisionExit(Collider* _other)
+	void Wall::OnCollisionExit(Collider* _other)
 	{
-		GameObject* obj = _other->GetOwner();
-		RigidBody* rb = obj->GetComponent<RigidBody>();
-
-		rb->SetGround(false);
+		// nothing
 	}
 }

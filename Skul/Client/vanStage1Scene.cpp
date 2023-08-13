@@ -10,6 +10,13 @@
 #include "vanPlayer.h"
 #include "vanAnimator.h"
 #include "vanCollisionManager.h"
+#include "vanDoor.h"
+
+#define FLOOR_B1_Y	1050.0f
+
+#define DOOR1_POS_X	-300.0f
+#define DOOR2_POS_X	300.0f
+#define DOOR_POS_Y	930.0f
 
 namespace van
 {
@@ -39,13 +46,24 @@ namespace van
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		Animator* at = player->GetComponent<Animator>();
-		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
 		// Floor_B1 °´Ã¼ 
 		Floor* floorB1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floorB1->GetComponent<Collider>()->SetSize(math::Vector2(1520.0f, FLOOR_HEIGHT));
-		floorB1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X/2, Window_Y / 2 + 1050.0f));
+		floorB1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X/2, Window_Y / 2 + FLOOR_B1_Y));
+
+		// Door_1
+		Door* door1 = Object::Instantiate<Door>(eLayerType::Door);
+		door1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR1_POS_X, Window_Y / 2 + DOOR_POS_Y));
+		at = door1->GetComponent<Animator>();
+		at->PlayAnimation(L"Stage1_Door_2", true);
+
+		// Door_2
+		Door* door2 = Object::Instantiate<Door>(eLayerType::Door);
+		door2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR2_POS_X, Window_Y / 2 + DOOR_POS_Y));
+		at = door2->GetComponent<Animator>();
+		at->PlayAnimation(L"Stage1_Door_2", true);
 
 		// Floor_1_1 °´Ã¼ 
 		Floor* floor1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);

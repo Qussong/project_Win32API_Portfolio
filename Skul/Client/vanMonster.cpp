@@ -21,6 +21,7 @@ namespace van
 		, mbTrace(false)
 		, mbAttack(false)
 		, mbPlayAnimation(true)
+		//, mbCollideWall(false)
 		, mTraceBox(nullptr)
 		, mAttackBox(nullptr)
 		, mDeathTime(1.0f)

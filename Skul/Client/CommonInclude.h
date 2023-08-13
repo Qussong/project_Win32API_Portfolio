@@ -36,6 +36,7 @@ namespace van::enums
 	{
 		BackGround,
 		Floor,
+		Wall,
 		Door,
 		NPC,
 		Range_Monster_Trace,

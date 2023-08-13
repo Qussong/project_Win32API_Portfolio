@@ -27,6 +27,7 @@ namespace van
 				불필요하게 로드에 시간을 많이 할애하게된다. 
 				이렇게 '불필요한 시간' 혹은 '비용'을 '오버헤드'라고한다.
 			*/
+
 			math::Vector2 leftTop;					// 좌상단
 			math::Vector2 size;						// 좌상단부터 우하단까지의 크기
 			math::Vector2 offset;					// 이미지 출력시 별도로 필요한 옵셋값(옵션)
@@ -74,7 +75,7 @@ namespace van
 		// 해당 Animation을 가지고 있는 Animator를 설정해준다.
 		__forceinline void SetAnimator(Animator* _animator) { mAnimator = _animator; }	
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
-		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
+		__forceinline void SetAffectCamera(bool _flag) { mbAffectCamera = _flag; }
 
 
 	private:
@@ -85,7 +86,7 @@ namespace van
 		float mTime;						// 현재 프레임으로 되고 난 후 재생된 시간
 		bool mbComplete;					// 애니메이션의 재생 완료 여부
 		math::Vector2 mScale;				// ★ 출력되는 애니메이션의 스케일 값
-		bool mAffectCamera;					// ★ 출력되는 애니메이션의 카메라 영향 여부
+		bool mbAffectCamera;				// ★ 출력되는 애니메이션의 카메라 영향 여부
 	};
 }
 

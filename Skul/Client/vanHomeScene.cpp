@@ -22,6 +22,7 @@
 #define OFFSET2				900.0f
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-1.0f
+
 namespace van
 {
 	HomeScene::HomeScene()

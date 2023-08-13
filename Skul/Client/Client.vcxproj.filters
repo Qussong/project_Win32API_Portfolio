@@ -178,6 +178,9 @@
     <Filter Include="Contents\GameObject\NPC\Orge">
       <UniqueIdentifier>{2078aa5d-8e16-414f-aae2-2aa2dae590f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Wall">
+      <UniqueIdentifier>{2da670f6-0731-4eb3-9553-058325b8fcd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -354,6 +357,9 @@
     <ClInclude Include="vanOrge.h">
       <Filter>Contents\GameObject\NPC\Orge</Filter>
     </ClInclude>
+    <ClInclude Include="vanWall.h">
+      <Filter>Contents\GameObject\Wall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -525,6 +531,9 @@
     </ClCompile>
     <ClCompile Include="vanOrge.cpp">
       <Filter>Contents\GameObject\NPC\Orge</Filter>
+    </ClCompile>
+    <ClCompile Include="vanWall.cpp">
+      <Filter>Contents\GameObject\Wall</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

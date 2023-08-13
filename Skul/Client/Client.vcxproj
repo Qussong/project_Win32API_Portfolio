@@ -189,6 +189,7 @@
     <ClInclude Include="vanTime.h" />
     <ClInclude Include="vanTitleScene.h" />
     <ClInclude Include="vanTransform.h" />
+    <ClInclude Include="vanWall.h" />
     <ClInclude Include="vanWitch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +245,7 @@
     <ClCompile Include="vanTime.cpp" />
     <ClCompile Include="vanTitleScene.cpp" />
     <ClCompile Include="vanTransform.cpp" />
+    <ClCompile Include="vanWall.cpp" />
     <ClCompile Include="vanWitch.cpp" />
   </ItemGroup>
   <ItemGroup>

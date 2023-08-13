@@ -13,7 +13,10 @@
 #include "vanCarleonRecruit.h"
 #include "vanCollisionManager.h"
 #include "vanPlayer.h"
+#include "vanWall.h"
 
+#define FLOOR_POS_Y			-2880.0f
+#define FLOOR_UP_CONDITION	-3.0f
 
 namespace van
 {
@@ -42,19 +45,26 @@ namespace van
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		Animator* at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
 		// Carleon Recruit
 		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2));
+		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		at = carleon->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
 
+		// Wall객체
+		Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
+		wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
+
 		// Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
 
 		// 해당 씬의 (카메라)Target 설정
@@ -87,6 +97,8 @@ namespace van
 		// 해당 Scene에서의 충돌판정 설정
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 	}
