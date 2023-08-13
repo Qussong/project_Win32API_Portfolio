@@ -4,6 +4,13 @@
 namespace van
 {
     NPC::NPC()
+        : mState(NPCState::None)
+        , mPastState(NPCState::None)
+        , mDirection(NPCDirection::None)
+        , mPastDirection(NPCDirection::None)
+        , mTimer(0.0f)
+        , mbPatrol(false)
+        , mbPlayAnimation(false)
     {
         AddComponent<RigidBody>();
     }
@@ -29,6 +36,21 @@ namespace van
     }
 
     void NPC::MakeAnimation()
+    {
+        // nothing
+    }
+
+    void NPC::Idle()
+    {
+        // nothing
+    }
+
+    void NPC::Walk()
+    {
+        // nothing
+    }
+
+    void NPC::Patrol()
     {
         // nothing
     }

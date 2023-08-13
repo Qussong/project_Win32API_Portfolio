@@ -16,6 +16,7 @@
 
 #include "vanWall.h"
 #include "vanStage1Trap.h"
+#include "vanCatSeol.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-3.0f
@@ -67,8 +68,12 @@ namespace van
 		
 		// Trap
 		Stage1Trap* trap = Object::Instantiate<Stage1Trap>(enums::eLayerType::Trap);
-		trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 20.0f));
+		trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
+		// Cat_Seol
+		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
+		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		catSeol->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -108,6 +113,8 @@ namespace van
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 	}
 
 	void TestScene::SceneOut()

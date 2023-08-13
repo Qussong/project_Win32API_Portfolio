@@ -90,6 +90,9 @@ namespace van
 		// BG_Title_Scene
 		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
 		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
+		// BG_Title_Scene
+		ResourceManager::Load<Texture>(L"BG_Title", L"..\\MyResources\\skul\\0_BG\\0_Title\\Title.bmp");
+		//ResourceManager::Load<Texture>(L"BG_Title_Message", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
 		// BG_Loading_Scene
 		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
@@ -189,5 +192,9 @@ namespace van
 
 		// Stage1_Trap
 		ResourceManager::Load<Texture>(L"Stage1_Trap", L"..\\MyResources\\skul\\3_Monster_Stage1\\6_Trap\\Stage1_Trap.bmp");
+
+		// Cat_Seol
+		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_L", L"..\\MyResources\\skul\\1_NPC\\Cat_Seol\\Cat_Seol_Walk_L.bmp");
+		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_R", L"..\\MyResources\\skul\\1_NPC\\Cat_Seol\\Cat_Seol_Walk_R.bmp");
 	}
 }
