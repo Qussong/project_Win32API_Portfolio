@@ -19,6 +19,7 @@
 #define FLOOR_POS_Y			260.0f
 #define DOOR_POS_Y			135.0f
 #define DOOR_POS_X			-210.0f
+#define FLOOR_UP_CONDITION	-1.0f
 
 namespace van
 {
@@ -47,12 +48,11 @@ namespace van
 		
 		// Tied_Skul_NPC
 		TiedSkul* tiedSkul = Object::Instantiate<TiedSkul>(enums::eLayerType::NPC);		
-		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + NPC_TIEDSKUL_POS_X, Window_Y / 2 + FLOOR_POS_Y));
+		tiedSkul->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + NPC_TIEDSKUL_POS_X, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 		
-
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 , Window_Y / 2 + FLOOR_POS_Y));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 , Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
@@ -65,7 +65,6 @@ namespace van
 		Animator* at = door->GetComponent<Animator>();
 		at->PlayAnimation(L"Stage1_Door_2", true);
 		
-
 		SetSceneTarget(player);
 	}
 

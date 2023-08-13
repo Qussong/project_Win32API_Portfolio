@@ -18,9 +18,10 @@
 #include "vanDeathKnight.h"
 #include "vanDruid.h"
 
-#define OFFSET1		400.0f
-#define OFFSET2		900.0f
-
+#define OFFSET1				400.0f
+#define OFFSET2				900.0f
+#define FLOOR_POS_Y			-2880.0f
+#define FLOOR_UP_CONDITION	-1.0f
 namespace van
 {
 	HomeScene::HomeScene()
@@ -48,32 +49,32 @@ namespace van
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 60.0f, Window_Y / 2 - 2880.0f));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 60.0f, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// DeathKnight
 		DeathKnight* deathKnight = Object::Instantiate<DeathKnight>(enums::eLayerType::NPC);
-		deathKnight->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 5 + OFFSET2, Window_Y / 2 - 2880.0f));
+		deathKnight->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 5 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// Witch
 		Witch* witch = Object::Instantiate<Witch>(enums::eLayerType::NPC);
-		witch->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 4 + OFFSET2, Window_Y / 2 - 2880.0f));
+		witch->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 4 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// FoxHunter
 		FoxHunter* foxHunter = Object::Instantiate<FoxHunter>(enums::eLayerType::NPC);
-		foxHunter->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 3 + OFFSET2, Window_Y / 2 - 2880.0f));
+		foxHunter->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 3 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// Orge
 		Orge* orge = Object::Instantiate<Orge>(enums::eLayerType::NPC);
-		orge->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 2 + OFFSET2, Window_Y / 2 - 2880.0f));
+		orge->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 2 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// Druid
 		Druid* druid = Object::Instantiate<Druid>(enums::eLayerType::NPC);
-		druid->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2, Window_Y / 2 - 2880.0f));
+		druid->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2  - 565.0f, Window_Y / 2 - 2880.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2  - 565.0f, Window_Y / 2 + FLOOR_POS_Y));
 
 		// 해당 Scene의 카메라 타겟 설정
 		SetSceneTarget(player);
