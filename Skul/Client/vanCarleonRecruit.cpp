@@ -22,9 +22,6 @@
 namespace van
 {
 	CarleonRecruit::CarleonRecruit()
-		//: mTraceBox(nullptr)
-		//, mAttackBox(nullptr)
-		//, mTimer(0.0f)
 		: mAttackCnt(0)
 	{
 		AddComponent<RigidBody>();
@@ -37,18 +34,18 @@ namespace van
 
 	void CarleonRecruit::Init()
 	{
-
 		Monster::Init();
 
 		MakeAnimation();	// 애니메이션 생성
 
 		// Monster 초기설정
-		SetMonsterDirection(MonsterDirection::Left);	// 방향
-		SetMonsterState(MonsterState::Patrol);			// 상태
+		SetMonsterDirection(MonsterDirection::Left);						// 방향
+		SetMonsterState(MonsterState::Patrol);								// 상태
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));	// 충돌체 크기 설정
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
+		GetComponent<Animator>()->SetScale(math::Vector2(2.0f, 2.0f));		// 이미지 스케일 설정
 
-		// traaceBox의 초기값 설정
+		// traceBox의 초기값 설정
 		MonsterTrace* traceBox = GetMonsterTraceBox();
 		traceBox->SetOwner(this);
 		traceBox->GetComponent<Collider>()->SetSize(math::Vector2(400.0f, 110.0f));
@@ -63,7 +60,7 @@ namespace van
 
 	void CarleonRecruit::Update()
 	{
-		GameObject::Update();
+		Monster::Update();
 
 		// 피격횟수 2회면 죽음
 		if (mAttackCnt > 2)
@@ -132,7 +129,8 @@ namespace van
 
 	void CarleonRecruit::Render(HDC _hdc)
 	{
-		GameObject::Render(_hdc);
+		Monster::Render(_hdc);
+		//GameObject::Render(_hdc);
 	}
 
 	void CarleonRecruit::MakeAnimation()

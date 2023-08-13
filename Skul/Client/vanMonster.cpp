@@ -21,7 +21,6 @@ namespace van
 		, mbTrace(false)
 		, mbAttack(false)
 		, mbPlayAnimation(true)
-		//, mbCollideWall(false)
 		, mTraceBox(nullptr)
 		, mAttackBox(nullptr)
 		, mDeathTime(1.0f)
@@ -38,7 +37,6 @@ namespace van
 
 	void Monster::Init()
 	{
-		//CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		mTraceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Monster_Trace);
 		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
 	}

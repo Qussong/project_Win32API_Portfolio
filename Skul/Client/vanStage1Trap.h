@@ -3,14 +3,11 @@
 
 namespace van
 {
-	class MonsterTrace;
-	class MonsterAttack;
-
-	class CarleonRecruit : public Monster
+	class Stage1Trap : public Monster
 	{
 	public:
-		CarleonRecruit();
-		virtual ~CarleonRecruit();
+		Stage1Trap();
+		virtual ~Stage1Trap();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -22,19 +19,9 @@ namespace van
 		virtual void OnCollisionExit(class Collider* _other) override;
 
 		void Idle();
-		void Walk();
-		void Patrol();
-		void Trace();
-		void AttackReady();
-		void Attack();
-		void AttackEnd();
-		void Hit();
 
 	private:
-		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점
-		float mAttackDashX2 = 0.0f;		// AttackDash 도착지점
 
-		int mAttackCnt;
 	};
 }
 

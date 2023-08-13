@@ -50,6 +50,11 @@ namespace van
 		Animator* ani = GetComponent<Animator>();
 		ani->CreateAnimation(L"Stage1_Door_1", ResourceManager::Find<Texture>(L"Stage1_Door_1"), math::Vector2::Zero, math::Vector2(176.0f, 128.0f), 7, math::Vector2::Zero);
 		ani->CreateAnimation(L"Stage1_Door_2", ResourceManager::Find<Texture>(L"Stage1_Door_2"), math::Vector2::Zero, math::Vector2(176.0f, 128.0f), 7, math::Vector2::Zero);
+		ani->CreateAnimation(L"Stage1_Door_3", ResourceManager::Find<Texture>(L"Stage1_Door_3"), math::Vector2::Zero, math::Vector2(199.0f, 129.0f), 8, math::Vector2::Zero);
+		ani->CreateAnimation(L"Stage1_Door_Market", ResourceManager::Find<Texture>(L"Stage1_Door_Market"), math::Vector2::Zero, math::Vector2(184.0f, 137.0f), 8, math::Vector2::Zero);
+		ani->CreateAnimation(L"Stage1_Door_Middle_Boss", ResourceManager::Find<Texture>(L"Stage1_Door_Middle_Boss"), math::Vector2::Zero, math::Vector2(230.0f, 175.0f), 8, math::Vector2::Zero);
+		ani->CreateAnimation(L"Stage1_Door_Boss", ResourceManager::Find<Texture>(L"Stage1_Door_Boss"), math::Vector2::Zero, math::Vector2(314.0f, 185.0f), 8, math::Vector2::Zero);
+		
 	}
 
 	void Door::OnCollisionEnter(Collider* _other)

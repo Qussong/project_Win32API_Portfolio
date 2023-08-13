@@ -84,52 +84,59 @@ namespace van
 		Texture* img = new Texture();
 		// ResourceManager::Load<Texture>(L"", L"");
 
+		// [ BackGround ]
 		// BG_Test_Scene
 		ResourceManager::Load<Texture>(L"BG_Test", L"..\\MyResources\\skul\\0_BG\\0_Test\\Background_Grid.bmp");
-
 		// BG_Title_Scene
 		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
 		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
-
 		// BG_Loading_Scene
 		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
-
 		// BG_Home_Scene
 		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home.bmp");
-
 		// BG_Stage1_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
-
 		// BG_Stage1_Monster_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Monster", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_24.bmp");
-
 		// BG_Stage1_Boss_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 
 		// BG_Stage1_Boss_Scene
-		
 
 		// BG_Stage2_Enter_Scene
-		
 
 		// BG_Stage2_Monster_Scene
-		
 
 		// BG_Stage2_Boss_Enter_Scene
 		
-
 		// BG_Stage2_Boss_Scene
-
 
 		// BG_EndingScene
 
-
+		
+		// [ Door_Stage1 ]
 		// Door1
 		ResourceManager::Load<Texture>(L"Stage1_Door_1", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_1\\Stage1_Door_1.bmp");
-
 		// Door2
 		ResourceManager::Load<Texture>(L"Stage1_Door_2", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_2\\Stage1_Door_2.bmp");
+		// Door3
+		ResourceManager::Load<Texture>(L"Stage1_Door_3", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_3\\Stage1_Door_3.bmp");
+		// Door_Market
+		ResourceManager::Load<Texture>(L"Stage1_Door_Market", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Market\\Stage1_Door_Market.bmp");
+		// Door_Middle_Boss
+		ResourceManager::Load<Texture>(L"Stage1_Door_Middle_Boss", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Middle_Boss\\Stage1_Middle_Boss.bmp");
+		// Door_Boss
+		ResourceManager::Load<Texture>(L"Stage1_Door_Boss", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Boss\\Stage1_Boss.bmp");
+		
+		// [ Door_Stage2 ]
+		// Door1
+		// Door2
+		// Door3
+		// Door_Market
+		// Door_Middle_Boss
+		// Door_Boss
+
 
 		// Player
 		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
@@ -179,5 +186,8 @@ namespace van
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_R.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_L.bmp");
 		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_R.bmp");
+
+		// Stage1_Trap
+		ResourceManager::Load<Texture>(L"Stage1_Trap", L"..\\MyResources\\skul\\3_Monster_Stage1\\6_Trap\\Stage1_Trap.bmp");
 	}
 }

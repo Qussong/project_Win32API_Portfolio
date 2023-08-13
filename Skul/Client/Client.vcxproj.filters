@@ -181,6 +181,9 @@
     <Filter Include="Contents\GameObject\Wall">
       <UniqueIdentifier>{2da670f6-0731-4eb3-9553-058325b8fcd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Monster\Stage1Trap">
+      <UniqueIdentifier>{40dc929c-164b-45be-bf79-5a62fe891d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -360,6 +363,9 @@
     <ClInclude Include="vanWall.h">
       <Filter>Contents\GameObject\Wall</Filter>
     </ClInclude>
+    <ClInclude Include="vanStage1Trap.h">
+      <Filter>Contents\GameObject\Monster\Stage1Trap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -534,6 +540,9 @@
     </ClCompile>
     <ClCompile Include="vanWall.cpp">
       <Filter>Contents\GameObject\Wall</Filter>
+    </ClCompile>
+    <ClCompile Include="vanStage1Trap.cpp">
+      <Filter>Contents\GameObject\Monster\Stage1Trap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

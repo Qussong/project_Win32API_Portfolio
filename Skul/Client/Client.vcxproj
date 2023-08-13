@@ -162,6 +162,7 @@
     <ClInclude Include="vanRange.h" />
     <ClInclude Include="vanRigidBody.h" />
     <ClInclude Include="vanStage1Scene.h" />
+    <ClInclude Include="vanStage1Trap.h" />
     <ClInclude Include="vanStage2BossEnterScene.h" />
     <ClInclude Include="vanStage2BossScene.h" />
     <ClInclude Include="vanStage2EnterScene.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="vanRange.cpp" />
     <ClCompile Include="vanRigidBody.cpp" />
     <ClCompile Include="vanStage1Scene.cpp" />
+    <ClCompile Include="vanStage1Trap.cpp" />
     <ClCompile Include="vanStage2BossEnterScene.cpp" />
     <ClCompile Include="vanStage2BossScene.cpp" />
     <ClCompile Include="vanStage2EnterScene.cpp" />

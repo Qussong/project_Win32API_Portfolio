@@ -41,6 +41,7 @@ namespace van::enums
 		NPC,
 		Range_Monster_Trace,
 		Range_Monster_Attack,
+		Trap,
 		Monster,
 		Range_Attack,
 		Player,

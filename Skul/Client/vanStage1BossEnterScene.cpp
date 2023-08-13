@@ -11,6 +11,27 @@
 #include "vanPlayer.h"
 #include "vanAnimator.h"
 
+#define FLOOR1_X	-604.5f
+#define FLOOR1_Y	770.0f + 115.0f
+
+#define FLOOR2_X	-74.5f
+#define FLOOR2_Y	570.0f + 115.0f
+
+#define FLOOR3_X	392.5f
+#define FLOOR3_Y	430.0f + 115.0f
+
+#define FLOOR4_X	0.0f
+#define FLOOR4_Y	229.0f + 115.0f
+
+#define FLOOR5_X	-110.0f
+#define FLOOR5_Y	62.0f + 115.0f
+
+#define FLOOR6_X	-235.0f
+#define FLOOR6_Y	-130.0f + 115.0f
+
+#define FLOOR7_X	50.0f
+#define FLOOR7_Y	-304.0f + 115.0f
+
 namespace van
 {
 	Stage1BossEnterScene::Stage1BossEnterScene()
@@ -44,43 +65,43 @@ namespace van
 
 		// Floor_1
 		Floor* floor_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 604.5f, Window_Y / 2 + 770.0f));
+		floor_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR1_X, Window_Y / 2 + FLOOR1_Y));
 		Collider* col_1 = floor_1->GetComponent<Collider>();
 		col_1->SetSize(math::Vector2(430.0f, FLOOR_HEIGHT));
 
 		// Floor_2
 		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 74.5f, Window_Y / 2 + 570.0f));
+		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR2_X, Window_Y / 2 + FLOOR2_Y));
 		Collider* col_2 = floor_2->GetComponent<Collider>();
 		col_2->SetSize(math::Vector2(630.0f, FLOOR_HEIGHT));
 
 		// Floor_3
 		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 392.5f, Window_Y / 2 + 430.0f));
+		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR3_X, Window_Y / 2 + FLOOR3_Y));
 		Collider* col_3 = floor_3->GetComponent<Collider>();
 		col_3->SetSize(math::Vector2(304.0f, FLOOR_HEIGHT));
 
 		// Floor_4
 		Floor* floor_4 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 229.0f));
+		floor_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR4_X, Window_Y / 2 + FLOOR4_Y));
 		Collider* col_4 = floor_4->GetComponent<Collider>();
 		col_4->SetSize(math::Vector2(170.0f, FLOOR_HEIGHT));
 
 		// Floor_5
 		Floor* floor_5 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 110.0f, Window_Y / 2 + 62.0f));
+		floor_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR5_X, Window_Y / 2 + FLOOR5_Y));
 		Collider* col_5 = floor_5->GetComponent<Collider>();
 		col_5->SetSize(math::Vector2(45.0f, FLOOR_HEIGHT));
 
 		// Floor_6
 		Floor* floor_6 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_6->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 235.0f, Window_Y / 2 - 130.0f));
+		floor_6->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR6_X, Window_Y / 2 + FLOOR6_Y));
 		Collider* col_6 = floor_6->GetComponent<Collider>();
 		col_6->SetSize(math::Vector2(170.0f, FLOOR_HEIGHT));
 
 		// Floor_7
 		Floor* floor_7 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_7->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 50.0f, Window_Y / 2 - 304.0f));
+		floor_7->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR7_X, Window_Y / 2 + FLOOR7_Y));
 		Collider* col_7 = floor_7->GetComponent<Collider>();
 		col_7->SetSize(math::Vector2(57.0f, FLOOR_HEIGHT));
 
