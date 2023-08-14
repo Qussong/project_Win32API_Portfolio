@@ -7,7 +7,7 @@
 #include "vanTestScene.h"
 #include "vanHomeScene.h"
 #include "vanStage1EnterScene.h"
-#include "vanStage1Scene.h"
+#include "vanStage1Monster1Scene.h"
 #include "vanStage1BossEnterScene.h"
 #include "vanStage1BossScene.h"
 #include "vanStage2EnterScene.h"
@@ -32,7 +32,7 @@ namespace van
 
 		CreateScene<HomeScene>(L"HomeScene");
 		CreateScene<Stage1EnterScene>(L"Stage1EnterScene");
-		CreateScene<Stage1Scene>(L"Stage1Scene");
+		CreateScene<Stage1Monster1Scene>(L"Stage1Monster1Scene");
 		CreateScene<Stage1BossEnterScene>(L"Stage1BossEnterScene");
 		CreateScene<Stage1BossScene>(L"Stage1BossScene");
 
@@ -49,7 +49,7 @@ namespace van
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1BossEnterScene");	// 편집용
+			LoadScene(L"Stage1Monster1Scene");	// 편집용
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))
@@ -117,10 +117,10 @@ namespace van
 
 		if (name == L"Stage1EnterScene")
 		{
-			LoadScene(L"Stage1Scene");
+			LoadScene(L"Stage1Monster1Scene");
 		}
 
-		if (name == L"Stage1Scene")
+		if (name == L"Stage1Monster1Scene")
 		{
 			LoadScene(L"Stage1BossEnterScene");
 		}
@@ -173,14 +173,14 @@ namespace van
 			LoadScene(L"HomeScene");
 		}
 
-		if (name == L"Stage1Scene")
+		if (name == L"Stage1Monster1Scene")
 		{
 			LoadScene(L"Stage1EnterScene");
 		}
 
 		if (name == L"Stage1BossEnterScene")
 		{
-			LoadScene(L"Stage1Scene");
+			LoadScene(L"Stage1Monster1Scene");
 		}
 
 		if (name == L"Stage1BossScene")

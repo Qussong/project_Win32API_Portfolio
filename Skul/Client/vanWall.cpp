@@ -4,6 +4,7 @@
 #include "vanRigidBody.h"
 #include "vanObject.h"
 #include "vanMonster.h"
+#include "vanPlayer.h"
 
 namespace van
 {
@@ -47,7 +48,10 @@ namespace van
 		float gap = floorPos.x - objPos.x;							// 현재 프레임에서 충돌체와 Floor 객체가 떨어져있는 거리 (+ : 물체가 왼쪽, - : 물체가 오른쪽)
 		float mazino = fabs(objSize.x / 2.0f + floorSize.x / 2.0f);	// 두 물체가 떨어져있기 위한 최소거리
 
-		// 충돌체가 Floor 객체보다 위에 있을 때(중심좌표 기준)
+		//Player* player = dynamic_cast<Player*>(obj);
+		//Monster* monster = dynamic_cast<Monster*>(obj);
+
+		//if (player != nullptr)
 		// 두 물체가 겹쳐있는 경우
 		if (fabs(gap) < mazino)
 		{
@@ -57,8 +61,9 @@ namespace van
 				objPos.x -= ((mazino - fabs(gap)) - 1.0f);
 				tr->SetPosition(objPos);
 			}
+
 			// 오른쪽일 때(-)
-			else
+			if(gap < 0)
 			{
 				objPos.x += ((mazino - fabs(gap)) + 1.0f);
 				tr->SetPosition(objPos);

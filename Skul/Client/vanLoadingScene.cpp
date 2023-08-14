@@ -97,8 +97,9 @@ namespace van
 		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home.bmp");
 		// BG_Stage1_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
-		// BG_Stage1_Monster_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Monster", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_24.bmp");
+		// BG_Stage1_Monster_1_Scene
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1_BG", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_1_BG.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1_Tile", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster\\Stage1_Monster_1_Tile.bmp");
 		// BG_Stage1_Boss_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 

@@ -57,9 +57,9 @@ namespace van
 		carleon->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Wall°´Ã¼
-		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
-		//wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
+		Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
+		wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
 
 		// Floor °´Ã¼ 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
