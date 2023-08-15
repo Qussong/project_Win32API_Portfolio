@@ -164,10 +164,8 @@
     <ClInclude Include="vanRigidBody.h" />
     <ClInclude Include="vanStage1Monster1Scene.h" />
     <ClInclude Include="vanStage1Trap.h" />
-    <ClInclude Include="vanStage2BossEnterScene.h" />
-    <ClInclude Include="vanStage2BossScene.h" />
-    <ClInclude Include="vanStage2EnterScene.h" />
-    <ClInclude Include="vanStage2Scene.h" />
+    <ClInclude Include="vanStage1Monster2Scene.h" />
+    <ClInclude Include="vanStage1MiddleBossScene.h" />
     <ClInclude Include="vanTexture.h" />
     <ClInclude Include="vanResource.h" />
     <ClInclude Include="vanResourceManager.h" />
@@ -223,10 +221,8 @@
     <ClCompile Include="vanRigidBody.cpp" />
     <ClCompile Include="vanStage1Monster1Scene.cpp" />
     <ClCompile Include="vanStage1Trap.cpp" />
-    <ClCompile Include="vanStage2BossEnterScene.cpp" />
-    <ClCompile Include="vanStage2BossScene.cpp" />
-    <ClCompile Include="vanStage2EnterScene.cpp" />
-    <ClCompile Include="vanStage2Scene.cpp" />
+    <ClCompile Include="vanStage1Monster2Scene.cpp" />
+    <ClCompile Include="vanStage1MiddleBossScene.cpp" />
     <ClCompile Include="vanTexture.cpp" />
     <ClCompile Include="vanMath.cpp" />
     <ClCompile Include="vanResource.cpp" />

@@ -15,21 +15,21 @@
 
 // player
 #define PLAYER_INIT_POS_X	-1200.0f
-#define PLAYER_INIT_POS_Y	795.0f
+#define PLAYER_INIT_POS_Y	795.0f - 410.0f
 // floor
-#define FLOOR_B1_Y	1050.0f
-#define FLOOR_1_Y	830.0f
+#define FLOOR_B1_Y	640.0f
+#define FLOOR_1_Y	420.0f
 #define FLOOR_1_X	1015.0f
-#define FLOOR_2_Y	610.0f
+#define FLOOR_2_Y	200.0f
 #define FLOOR_2_X	470.0f
-#define FLOOR_3_Y	320.0f
-#define FLOOR_4_Y	35.0f
+#define FLOOR_3_Y	320.0f - 410.0f
+#define FLOOR_4_Y	35.0f - 410.0f
 // wall
-#define WALL_B1_Y	940.0f
+#define WALL_B1_Y	940.0f - 410.0f
 #define WALL_B1_X	760.0f
 // door
 #define DOOR_X		300.0f
-#define DOOR_Y		930.0f
+#define DOOR_Y		930.0f - 410.0f
 
 namespace van
 {
@@ -46,21 +46,15 @@ namespace van
 	void Stage1Monster1Scene::Init()
 	{
 		// BackGround
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
-		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Monster_1_BG"));				
+		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
+		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();					// SpriteRenderer 추가
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Monster_1"));		// BackGround 객체의 texture 설정
 		bgsr->SetAffectCamera(true);
-
-		// BackGround_Tile
-		BackGround* bg_tile = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		SpriteRenderer* bgsr_tile = bg_tile->AddComponent<SpriteRenderer>();					// SpriteRenderer 추가
-		bgsr_tile->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Monster_1_Tile"));		// BackGround 객체의 texture 설정
-		bgsr_tile->SetAffectCamera(true);
 		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
-		bg_tile->SetAutoCameraLimit();
+		bg->SetAutoCameraLimit();
 		// 해당 Scene에 카메라의 이동제한값 저장
-		SetCameraWidthLimit(math::Vector2(bg_tile->GetLimitLeft(), bg_tile->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg_tile->GetLimitUp(), bg_tile->GetLimitDown()));
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
@@ -144,7 +138,7 @@ namespace van
 		Scene::Render(_hdc);
 
 		// Scene 구분
-		const wchar_t* str = L"[ Stage1Scene ]";
+		const wchar_t* str = L"[ Stage1Monster1Scene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}

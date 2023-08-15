@@ -112,42 +112,6 @@
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{fd689c1f-5da2-4915-997c-5e3ac969f98b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\00_Test_Scene">
-      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\00_Title_Scene">
-      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\01_Loading_Scene">
-      <UniqueIdentifier>{ea67622b-c8b5-4e4f-92fd-30a44e2008f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\02_Home_Scene">
-      <UniqueIdentifier>{b731d65a-5447-4f46-bec0-5999dbf09290}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\03_Stage1_Enter_Scene">
-      <UniqueIdentifier>{e4a46058-1260-4017-b0bc-52c13c91775f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\05_Stage1_Boss_Enter_Scene">
-      <UniqueIdentifier>{b4228a39-51b2-4ea6-b90b-fe97d51ce01b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\06_Stage1_Boss_Scene">
-      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\07_Stage2_Enter_Scene">
-      <UniqueIdentifier>{c5ffb54f-e3d2-491a-8607-e4e01ca63f44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\08_Stage2_Monster_Scene">
-      <UniqueIdentifier>{a0722bb1-0235-4c1c-9131-fcf411cca3ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\09_Stage2_Boss_Enter_Scene">
-      <UniqueIdentifier>{7cb3b461-049e-4d04-b1f3-c78817256325}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\10_Stage2_Boss_Scene">
-      <UniqueIdentifier>{74eddf1c-62d1-423d-a488-9577670e8915}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\Scene\11_Ending_Scene">
-      <UniqueIdentifier>{e76b5cf9-1bf6-425d-a475-1ed461e45f86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{e27cd02d-1ae3-4b5f-b8cd-23e4856c5cdf}</UniqueIdentifier>
     </Filter>
@@ -184,8 +148,38 @@
     <Filter Include="Contents\GameObject\NPC\Cat_Seol">
       <UniqueIdentifier>{43ab314a-b4e9-4590-b4d5-680d93e7c3cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\04_Stage1_Monster_1_Scene">
+    <Filter Include="Contents\Scene\00_Test">
+      <UniqueIdentifier>{4fd0cc2b-bd6e-4560-9c98-e6ef0a2b4823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\00_Title">
+      <UniqueIdentifier>{82cc8e68-b8bc-436b-808b-0b19e1d2d56a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\01_Loading">
+      <UniqueIdentifier>{ea67622b-c8b5-4e4f-92fd-30a44e2008f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\02_Home">
+      <UniqueIdentifier>{b731d65a-5447-4f46-bec0-5999dbf09290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\03_Stage1_Enter">
+      <UniqueIdentifier>{e4a46058-1260-4017-b0bc-52c13c91775f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\04_Stage1_Monster_1">
       <UniqueIdentifier>{8b231028-7b49-4121-a078-939854538acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\11_Ending">
+      <UniqueIdentifier>{e76b5cf9-1bf6-425d-a475-1ed461e45f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\07_Stage1_Boss_Enter">
+      <UniqueIdentifier>{b4228a39-51b2-4ea6-b90b-fe97d51ce01b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\08_Stage1_Boss">
+      <UniqueIdentifier>{4592f89e-6bf1-4b28-a8b8-2448158f9f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\05_Stage1_Monster_2">
+      <UniqueIdentifier>{c5ffb54f-e3d2-491a-8607-e4e01ca63f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\06_Stage1_Middle_Boss">
+      <UniqueIdentifier>{a0722bb1-0235-4c1c-9131-fcf411cca3ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +232,7 @@
       <Filter>Contents\GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="vanTitleScene.h">
-      <Filter>Contents\Scene\00_Title_Scene</Filter>
+      <Filter>Contents\Scene\00_Title</Filter>
     </ClInclude>
     <ClInclude Include="vanObject.h">
       <Filter>Common</Filter>
@@ -247,10 +241,10 @@
       <Filter>Engine\Manageres\SceneManager</Filter>
     </ClInclude>
     <ClInclude Include="vanTestScene.h">
-      <Filter>Contents\Scene\00_Test_Scene</Filter>
+      <Filter>Contents\Scene\00_Test</Filter>
     </ClInclude>
     <ClInclude Include="vanStage1BossScene.h">
-      <Filter>Contents\Scene\06_Stage1_Boss_Scene</Filter>
+      <Filter>Contents\Scene\08_Stage1_Boss</Filter>
     </ClInclude>
     <ClInclude Include="vanMonster.h">
       <Filter>Contents\GameObject\Monster</Filter>
@@ -304,7 +298,7 @@
       <Filter>Contents\GameObject\Floor</Filter>
     </ClInclude>
     <ClInclude Include="vanLoadingScene.h">
-      <Filter>Contents\Scene\01_Loading_Scene</Filter>
+      <Filter>Contents\Scene\01_Loading</Filter>
     </ClInclude>
     <ClInclude Include="vanRange.h">
       <Filter>Contents\GameObject\Range</Filter>
@@ -319,31 +313,25 @@
       <Filter>Contents\GameObject\Range\MonsterAttack</Filter>
     </ClInclude>
     <ClInclude Include="vanStage1EnterScene.h">
-      <Filter>Contents\Scene\03_Stage1_Enter_Scene</Filter>
+      <Filter>Contents\Scene\03_Stage1_Enter</Filter>
     </ClInclude>
     <ClInclude Include="vanHomeScene.h">
-      <Filter>Contents\Scene\02_Home_Scene</Filter>
+      <Filter>Contents\Scene\02_Home</Filter>
     </ClInclude>
     <ClInclude Include="vanStage1Monster1Scene.h">
-      <Filter>Contents\Scene\04_Stage1_Monster_1_Scene</Filter>
+      <Filter>Contents\Scene\04_Stage1_Monster_1</Filter>
     </ClInclude>
     <ClInclude Include="vanStage1BossEnterScene.h">
-      <Filter>Contents\Scene\05_Stage1_Boss_Enter_Scene</Filter>
+      <Filter>Contents\Scene\07_Stage1_Boss_Enter</Filter>
     </ClInclude>
-    <ClInclude Include="vanStage2EnterScene.h">
-      <Filter>Contents\Scene\07_Stage2_Enter_Scene</Filter>
+    <ClInclude Include="vanStage1Monster2Scene.h">
+      <Filter>Contents\Scene\05_Stage1_Monster_2</Filter>
     </ClInclude>
     <ClInclude Include="vanEndingScene.h">
-      <Filter>Contents\Scene\11_Ending_Scene</Filter>
+      <Filter>Contents\Scene\11_Ending</Filter>
     </ClInclude>
-    <ClInclude Include="vanStage2Scene.h">
-      <Filter>Contents\Scene\08_Stage2_Monster_Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="vanStage2BossEnterScene.h">
-      <Filter>Contents\Scene\09_Stage2_Boss_Enter_Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="vanStage2BossScene.h">
-      <Filter>Contents\Scene\10_Stage2_Boss_Scene</Filter>
+    <ClInclude Include="vanStage1MiddleBossScene.h">
+      <Filter>Contents\Scene\06_Stage1_Middle_Boss</Filter>
     </ClInclude>
     <ClInclude Include="vanDoor.h">
       <Filter>Contents\GameObject\Door</Filter>
@@ -422,16 +410,16 @@
       <Filter>Contents\GameObject\Player</Filter>
     </ClCompile>
     <ClCompile Include="vanTitleScene.cpp">
-      <Filter>Contents\Scene\00_Title_Scene</Filter>
+      <Filter>Contents\Scene\00_Title</Filter>
     </ClCompile>
     <ClCompile Include="vanSceneManager.cpp">
       <Filter>Engine\Manageres\SceneManager</Filter>
     </ClCompile>
     <ClCompile Include="vanTestScene.cpp">
-      <Filter>Contents\Scene\00_Test_Scene</Filter>
+      <Filter>Contents\Scene\00_Test</Filter>
     </ClCompile>
     <ClCompile Include="vanStage1BossScene.cpp">
-      <Filter>Contents\Scene\06_Stage1_Boss_Scene</Filter>
+      <Filter>Contents\Scene\08_Stage1_Boss</Filter>
     </ClCompile>
     <ClCompile Include="vanMonster.cpp">
       <Filter>Contents\GameObject\Monster</Filter>
@@ -485,7 +473,7 @@
       <Filter>Contents\GameObject\Floor</Filter>
     </ClCompile>
     <ClCompile Include="vanLoadingScene.cpp">
-      <Filter>Contents\Scene\01_Loading_Scene</Filter>
+      <Filter>Contents\Scene\01_Loading</Filter>
     </ClCompile>
     <ClCompile Include="vanRange.cpp">
       <Filter>Contents\GameObject\Range</Filter>
@@ -500,31 +488,25 @@
       <Filter>Contents\GameObject\Range\MonsterAttack</Filter>
     </ClCompile>
     <ClCompile Include="vanStage1EnterScene.cpp">
-      <Filter>Contents\Scene\03_Stage1_Enter_Scene</Filter>
+      <Filter>Contents\Scene\03_Stage1_Enter</Filter>
     </ClCompile>
     <ClCompile Include="vanHomeScene.cpp">
-      <Filter>Contents\Scene\02_Home_Scene</Filter>
+      <Filter>Contents\Scene\02_Home</Filter>
     </ClCompile>
     <ClCompile Include="vanStage1Monster1Scene.cpp">
-      <Filter>Contents\Scene\04_Stage1_Monster_1_Scene</Filter>
+      <Filter>Contents\Scene\04_Stage1_Monster_1</Filter>
     </ClCompile>
     <ClCompile Include="vanStage1BossEnterScene.cpp">
-      <Filter>Contents\Scene\05_Stage1_Boss_Enter_Scene</Filter>
+      <Filter>Contents\Scene\07_Stage1_Boss_Enter</Filter>
     </ClCompile>
-    <ClCompile Include="vanStage2EnterScene.cpp">
-      <Filter>Contents\Scene\07_Stage2_Enter_Scene</Filter>
+    <ClCompile Include="vanStage1Monster2Scene.cpp">
+      <Filter>Contents\Scene\05_Stage1_Monster_2</Filter>
     </ClCompile>
     <ClCompile Include="vanEndingScene.cpp">
-      <Filter>Contents\Scene\11_Ending_Scene</Filter>
+      <Filter>Contents\Scene\11_Ending</Filter>
     </ClCompile>
-    <ClCompile Include="vanStage2Scene.cpp">
-      <Filter>Contents\Scene\08_Stage2_Monster_Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="vanStage2BossEnterScene.cpp">
-      <Filter>Contents\Scene\09_Stage2_Boss_Enter_Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="vanStage2BossScene.cpp">
-      <Filter>Contents\Scene\10_Stage2_Boss_Scene</Filter>
+    <ClCompile Include="vanStage1MiddleBossScene.cpp">
+      <Filter>Contents\Scene\06_Stage1_Middle_Boss</Filter>
     </ClCompile>
     <ClCompile Include="vanDoor.cpp">
       <Filter>Contents\GameObject\Door</Filter>
