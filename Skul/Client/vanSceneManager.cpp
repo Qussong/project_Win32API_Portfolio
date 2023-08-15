@@ -45,7 +45,7 @@ namespace van
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1MiddleBossScene");	// 편집용
+			LoadScene(L"Stage1BossEnterScene");	// 편집용
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))
