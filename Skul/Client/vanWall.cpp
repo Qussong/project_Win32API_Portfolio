@@ -5,12 +5,13 @@
 #include "vanObject.h"
 #include "vanMonster.h"
 #include "vanPlayer.h"
+#include "vanCollider.h"
 
 namespace van
 {
 	Wall::Wall()
 	{
-		// nothing
+		GetComponent<Collider>()->SetLineColor(RGB(255, 128, 0));
 	}
 
 	Wall::~Wall()

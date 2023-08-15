@@ -15,7 +15,11 @@
 #include "vanFloor.h"
 #include "vanDoor.h"
 
+// player
+#define PLAYER_INIT_POS_Y	-1500.0f
+// NPC
 #define NPC_TIEDSKUL_POS_X	-500.0f
+// floor
 #define FLOOR_POS_Y			260.0f
 #define DOOR_POS_Y			135.0f
 #define DOOR_POS_X			-210.0f
@@ -52,7 +56,7 @@ namespace van
 		
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 , Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 , Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION + PLAYER_INIT_POS_Y));
 
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);

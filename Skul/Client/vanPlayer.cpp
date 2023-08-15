@@ -738,6 +738,25 @@ namespace van
 			// State
 			mState = PlayerState::Fall;
 		}
+
+		// Idle
+		if (velocity.y == 0.0f
+			&& isGround)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Idle_L");
+			}
+
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Idle_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::Idle;
+		}
 	}
 
 	void Player::Dash()
@@ -1212,6 +1231,25 @@ namespace van
 
 			// State
 			mState = PlayerState::Fall;
+		}
+
+		// Idle
+		if (velocity.y == 0.0f
+			&& isGround)
+		{
+			// Animation
+			if (mDirection == PlayerDirection::Left)
+			{
+				animator->PlayAnimation(L"Idle_L");
+			}
+
+			if (mDirection == PlayerDirection::Right)
+			{
+				animator->PlayAnimation(L"Idle_R");
+			}
+			// Logic
+			// State
+			mState = PlayerState::Idle;
 		}
 	}
 
