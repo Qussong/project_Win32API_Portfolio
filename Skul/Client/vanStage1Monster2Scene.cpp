@@ -13,6 +13,8 @@
 #include "vanPlayer.h"
 
 // player
+#define PLAYER_INIT_POS_Y	400
+#define PLAYER_INIT_POS_X	-1180
 // floor
 // wall
 
@@ -43,16 +45,16 @@ namespace van
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 
 		// floor
 		Floor* floor_B1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_B1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 511.0f, Window_Y / 2 + 565.0f));
-		floor_B1_1->GetComponent<Collider>()->SetSize(math::Vector2(90.0f, 2.0f));
+		floor_B1_1->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
 
 		Floor* floor_B1_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_B1_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 80.0f, Window_Y / 2 + 565.0f));
-		floor_B1_2->GetComponent<Collider>()->SetSize(math::Vector2(90.0f, 2.0f));
+		floor_B1_2->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
 
 		Floor* floor_B2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_B2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 250.0f, Window_Y / 2 + 615.0f));
@@ -67,7 +69,7 @@ namespace van
 		floor_1_2->GetComponent<Collider>()->SetSize(math::Vector2(640.0f, 2.0f));
 
 		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 +  290.0f, Window_Y / 2 + 265.0f));
+		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 +  290.0f, Window_Y / 2 + 260.0f));
 		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(150.0f, 2.0f));
 
 		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
@@ -111,6 +113,33 @@ namespace van
 		wall_4_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 264.0f, Window_Y / 2 + 510.0f));
 		wall_4_1->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 204.0f));
 
+		Wall* wall_4_2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_4_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 237.0f, Window_Y / 2 + 408.0f));
+		wall_4_2->GetComponent<Collider>()->SetSize(math::Vector2(53.0f, 2.0f));
+
+		Wall* wall_4_3 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_4_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 210.0f, Window_Y / 2 + 334.0f));
+		wall_4_3->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 147.0f));
+
+		Wall* wall_5_1 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_5_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 368.0f, Window_Y / 2 + 160.0f));
+		wall_5_1->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 185.0f));
+
+		Wall* wall_5_2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_5_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 342.0f, Window_Y / 2 + 65.0f));
+		wall_5_2->GetComponent<Collider>()->SetSize(math::Vector2(45.0f, 2.0f));
+
+		Wall* wall_5_3 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_5_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 320.0f, Window_Y / 2 + 38.0f));
+		wall_5_3->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 50.0f));
+
+		Wall* wall_5_4 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_5_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 248.0f, Window_Y / 2 + 13.0f));
+		wall_5_4->GetComponent<Collider>()->SetSize(math::Vector2(150.0f, 2.0f));
+
+		Wall* wall_5_5 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_5_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 174.0f, Window_Y / 2 - 42.0f));
+		wall_5_5->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 113.0f));
 
 
 		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
