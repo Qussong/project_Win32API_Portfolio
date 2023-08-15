@@ -45,7 +45,7 @@ namespace van
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1Monster2Scene");	// 편집용
+			LoadScene(L"Stage1MiddleBossScene");	// 편집용
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))
@@ -169,14 +169,14 @@ namespace van
 			LoadScene(L"Stage1Monster1Scene");
 		}
 
-		if (name == L"Stage1MiddelBossScene")
+		if (name == L"Stage1MiddleBossScene")
 		{
 			LoadScene(L"Stage1Monster2Scene");
 		}
 
 		if (name == L"Stage1BossEnterScene")
 		{
-			LoadScene(L"Stage1MiddelBossScene");
+			LoadScene(L"Stage1MiddleBossScene");
 		}
 
 		if (name == L"Stage1BossScene")

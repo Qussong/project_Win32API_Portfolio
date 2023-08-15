@@ -159,7 +159,6 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Floor, true);
-
 	}
 
 	void Stage1Monster1Scene::SceneOut()
