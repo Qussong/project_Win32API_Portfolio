@@ -13,6 +13,7 @@ namespace van
 	public:
 		enum class MonsterState
 		{
+			Gen,
 			Idle,
 			Walk,
 			Patrol,
@@ -21,6 +22,7 @@ namespace van
 			Attack,
 			AttackEnd,
 			Hit,
+			Dead,
 			None,
 		};
 
@@ -77,6 +79,9 @@ namespace van
 		__forceinline bool GetPlayAnimation() { return mbPlayAnimation; }
 		__forceinline void SetPlayAnimation(bool _flag) { mbPlayAnimation = _flag; }
 
+		__forceinline bool GetWallFlag() { return mbWallFlag; }
+		__forceinline void SetWallFlag(bool _flag) { mbWallFlag = _flag; }
+
 		__forceinline MonsterTrace* GetMonsterTraceBox() { return mTraceBox; }
 
 		__forceinline MonsterAttack* GetMonsterAttackBox() { return mAttackBox; }
@@ -95,6 +100,7 @@ namespace van
 		bool mbTrace;			// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
 		bool mbAttack;			// Monster가 각 상태에서 Attack 행동을 보이도록 해줌
 		bool mbPlayAnimation;	// Animation 재생 여부
+		bool mbWallFlag;		// 벽에 부딪혔을 때
 
 		MonsterTrace* mTraceBox;	// Monster의 Trace판정 범위
 		MonsterAttack* mAttackBox;	// Monster의 Attack판정 범위

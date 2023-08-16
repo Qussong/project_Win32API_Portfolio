@@ -21,6 +21,7 @@ namespace van
 		, mbTrace(false)
 		, mbAttack(false)
 		, mbPlayAnimation(true)
+		, mbWallFlag(false)
 		, mTraceBox(nullptr)
 		, mAttackBox(nullptr)
 		, mDeathTime(1.0f)
@@ -30,7 +31,6 @@ namespace van
 
 	Monster::~Monster()
 	{
-		// nothing
 		Destroy(mTraceBox);
 		Destroy(mAttackBox);
 	}

@@ -364,6 +364,8 @@ namespace van
 			mState = PlayerState::Dash;
 		}
 
+		
+
 		// 동시키 입력 해제
 		if (mbDoubleKey)
 		{

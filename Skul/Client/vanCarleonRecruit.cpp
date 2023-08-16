@@ -10,8 +10,8 @@
 #include "vanPlayer.h"
 #include "vanMonsterTrace.h"
 #include "vanObject.h"
-
 #include "vanMonsterAttack.h"
+#include "vanGold.h"
 
 #define WALK_SPEED			150.0f
 #define HIT_BUMP_X			50.0f
@@ -39,8 +39,7 @@ namespace van
 		MakeAnimation();	// 애니메이션 생성
 
 		// Monster 초기설정
-		SetMonsterDirection(MonsterDirection::Left);						// 방향
-		SetMonsterState(MonsterState::Patrol);								// 상태
+		SetMonsterState(MonsterState::Gen);									// 상태
 		GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 110.0f));	// 충돌체 크기 설정
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 		GetComponent<Animator>()->SetScale(math::Vector2(2.0f, 2.0f));		// 이미지 스케일 설정
@@ -62,26 +61,24 @@ namespace van
 	{
 		Monster::Update();
 
-		// 피격횟수 2회면 죽음
-		if (mAttackCnt > 2)
-		{
-			Destroy(this);
-		}
-
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
-
 		// traceBox 값세팅
 		MonsterTrace* traceBox = GetMonsterTraceBox();
 		traceBox->SetOwnerPos(pos);
 		traceBox->SetOwnerState((UINT)GetMonsterState());
 		traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
-
 		// attackBox 값세팅
 		MonsterAttack* attackBox = GetMonsterAttackBox();
 		attackBox->SetOwnerPos(pos);
 		attackBox->SetOwnerState((UINT)GetMonsterState());
 		attackBox->SetOwnerDirection((UINT)GetMonsterDirection());
+
+		// 피격횟수 2회면 죽음
+		if (mAttackCnt > 2)
+		{
+			SetMonsterState(MonsterState::Dead);
+		}
 
 		// Animation 재생여부 판정_1
 		SetMonsterPastState(GetMonsterState());			// 현재 몬스터의 상태를 저장
@@ -89,6 +86,9 @@ namespace van
 
 		switch (GetMonsterState())
 		{
+		case CarleonRecruit::MonsterState::Gen:
+			Gen();
+			break;
 		case CarleonRecruit::MonsterState::Idle:
 			Idle();
 			break;
@@ -113,8 +113,25 @@ namespace van
 		case CarleonRecruit::MonsterState::Hit:
 			Hit();
 			break;
+		case CarleonRecruit::MonsterState::Dead:
+			Dead();
+			break;
 		default:
 			__noop;
+		}
+
+		if (GetWallFlag() == true)
+		{
+			if (GetMonsterDirection() == MonsterDirection::Left)
+			{
+				SetMonsterDirection(MonsterDirection::Right);
+			}
+			if (GetMonsterDirection() == MonsterDirection::Right)
+			{
+				SetMonsterDirection(MonsterDirection::Left);
+			}
+
+			SetWallFlag(false);
 		}
 
 		// Animation 재생여부 판정_2
@@ -124,7 +141,7 @@ namespace van
 		{
 			SetPlayAnimation(true);
 		}
-		
+
 	}
 
 	void CarleonRecruit::Render(HDC _hdc)
@@ -145,12 +162,12 @@ namespace van
 		animator->CreateAnimation(L"Attack_Ready_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(38.0f, 67.0f), 1, math::Vector2(0.0f, -2.0f));
 		animator->CreateAnimation(L"Attack_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_L"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 67.0f), 5, math::Vector2(0.0f, -2.0f));
 		animator->CreateAnimation(L"Attack_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Attack_R"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 67.0f), 5, math::Vector2(0.0f, -2.0f));
-
 		animator->CreateAnimation(L"CarleonRecruit_Hit_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Hit_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 51.0f), 1);
 		animator->CreateAnimation(L"CarleonRecruit_Hit_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Hit_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 51.0f), 1);
 		animator->CreateAnimation(L"CarleonRecruit_Dead_L", ResourceManager::Find<Texture>(L"CarleonRecruit_Dead_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 47.0f), 1);
 		animator->CreateAnimation(L"CarleonRecruit_Dead_R", ResourceManager::Find<Texture>(L"CarleonRecruit_Dead_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 47.0f), 1);
-
+		animator->CreateAnimation(L"Monster_Generate", ResourceManager::Find<Texture>(L"Monster_Generate"), math::Vector2(0.0f, 0.0f), math::Vector2(104.0f, 105.0f), 5);
+		animator->CreateAnimation(L"Monster_Destroy", ResourceManager::Find<Texture>(L"Monster_Destroy"), math::Vector2(0.0f, 0.0f), math::Vector2(104.0f, 105.0f), 5);
 	}
 
 	void CarleonRecruit::OnCollisionEnter(Collider* _other)
@@ -168,9 +185,9 @@ namespace van
 		{
 			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
 			std::set<GameObject*>* list = attack->GetAttackList();
-			
+
 			// 해당 클래스의 정보가 충돌체 저장 list에 존재하지 않고 Attack상태가 아니면 Hit 판정
-			if (list->find(this) == list->end() 
+			if (list->find(this) == list->end()
 				&& GetMonsterState() != Monster::MonsterState::Attack)
 			{
 				//SetHitFlag(true);
@@ -209,7 +226,23 @@ namespace van
 
 	void CarleonRecruit::OnCollisionExit(Collider* _other)
 	{
-		 // nothing
+		// nothing
+	}
+
+	void CarleonRecruit::Gen()
+	{
+		Animator* at = GetComponent<Animator>();
+		if (GetPlayAnimation() == true)
+		{
+			at->PlayAnimation(L"Monster_Generate");
+			SetPlayAnimation(false);
+		}
+
+		if (at->IsActiveAnimationComplete())
+		{
+			SetMonsterDirection(MonsterDirection::Left);	// 방향
+			SetMonsterState(MonsterState::Patrol);			// 상태
+		}
 	}
 
 	void CarleonRecruit::Idle()
@@ -223,6 +256,7 @@ namespace van
 			if (GetTraceFlag() == true)
 			{
 				SetMonsterState(MonsterState::Trace);
+				return;
 			}
 
 			// 시간 누적
@@ -324,7 +358,7 @@ namespace van
 			}
 		}
 		// Trace 상태일 때
-		else if(GetTraceFlag() == true)
+		else if (GetTraceFlag() == true)
 		{
 			// Trace 범위에 Player가 들어왔을 경우
 			if (GetAttackFlag() == true)
@@ -433,7 +467,7 @@ namespace van
 		// 1) 카운트중에 피격되면 Timer 리셋
 		// 2) AttackReadyFlag = false ( Hit()에서 수행 )
 		AddTimer(Time::GetDeltaTime());
-		
+
 		// 카운트 완료시 
 		// 1) Attack Ready를 완료했음
 		// 2) Attack 상태로 넘어간다
@@ -534,7 +568,7 @@ namespace van
 		{
 			SetMonsterState(MonsterState::Patrol);
 		}
-		
+
 	}
 
 	void CarleonRecruit::Hit()
@@ -543,11 +577,9 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
-		
-
 		// AttackReady중에 피격당하면 mTimer를 0.0f로 초기화 
 		SetTimer(0.0f);
-		
+
 		// 피격 애니메이션
 		// Monster가 왼쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Left)
@@ -584,6 +616,27 @@ namespace van
 			// 피격횟수 증가
 			++mAttackCnt;
 			SetMonsterState(MonsterState::AttackReady);
+		}
+	} 
+
+	void CarleonRecruit::Dead()
+	{
+		Animator* at = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
+		if (GetPlayAnimation() == true)
+		{
+			at->PlayAnimation(L"Monster_Destroy");
+			SetPlayAnimation(false);
+
+			// 코인 떨구기 구현
+			Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
+			gold->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+		}
+
+
+		if (at->IsActiveAnimationComplete())
+		{
+			Destroy(this);
 		}
 	}
 }

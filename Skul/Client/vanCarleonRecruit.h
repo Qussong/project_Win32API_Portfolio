@@ -21,6 +21,7 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;
 		virtual void OnCollisionExit(class Collider* _other) override;
 
+		void Gen();
 		void Idle();
 		void Walk();
 		void Patrol();
@@ -29,6 +30,7 @@ namespace van
 		void Attack();
 		void AttackEnd();
 		void Hit();
+		void Dead();
 
 	private:
 		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점

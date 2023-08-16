@@ -11,6 +11,7 @@
 #include "vanPlayer.h"
 #include "vanAnimator.h"
 #include "vanWall.h"
+#include "vanDoor.h"
 
 #define PLAYER_INIT_POS_Y	850.0f
 #define PLAYER_INIT_POS_X	-650.0f
@@ -61,6 +62,13 @@ namespace van
 		Animator* at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(true);
+
+		// Door
+		Door* door = Object::Instantiate<Door>(enums::eLayerType::Door);
+		door->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 570.0f));
+		door->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_Boss", true);;
+		//door->GetComponent<Collider>()->SetSize(math::Vector2(60.0f, 180.0f));
+		door->GetComponent<Collider>()->SetSize(math::Vector2(100.0f, 250.0f));
 
 		// Floor
 		Floor* floor_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);

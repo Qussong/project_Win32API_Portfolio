@@ -23,9 +23,8 @@ namespace van
 		MakeAnimation();	// 局聪皋捞记 积己
 
 		SetMonsterState(Monster::MonsterState::Idle);
-		GetComponent<Animator>()->PlayAnimation(L"Stage1_Trap", true);
+		GetComponent<Animator>()->PlayAnimation(L"Stage1Trap_Idle", true);
 		GetComponent<Collider>()->SetSize(math::Vector2(100, 40));
-
 	}
 
 	void Stage1Trap::Update()
@@ -49,9 +48,8 @@ namespace van
 
 	void Stage1Trap::MakeAnimation()
 	{
-		Animator* animator = GetComponent<Animator>();
-
-		animator->CreateAnimation(L"Stage1_Trap", ResourceManager::Find<Texture>(L"Stage1_Trap"), math::Vector2(0.0f, 0.0f), math::Vector2(128.0f, 40.0f), 3);
+		Animator* at = GetComponent<Animator>();
+		at->CreateAnimation(L"Stage1Trap_Idle", ResourceManager::Find<Texture>(L"Stage1Trap"), math::Vector2(0.0f, 0.0f), math::Vector2(128.0f, 40.0f), 11);
 	}
 
 	void Stage1Trap::OnCollisionEnter(Collider* _other)

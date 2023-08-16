@@ -86,118 +86,104 @@ namespace van
 
 		// [ BackGround ]
 		// BG_Test_Scene
-		ResourceManager::Load<Texture>(L"BG_Test", L"..\\MyResources\\skul\\0_BG\\0_Test\\Background_Grid.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Test", L"..\\MyResources\\skul\\BG\\0_Test\\Background_Grid.bmp");
 		// BG_Title_Scene
-		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Art.bmp");
-		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\0_BG\\0_Title\\DarkMirror_Title_Logo.png");
-
+		ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\BG\\0_Title\\DarkMirror_Title_Art.bmp");
+		ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\BG\\0_Title\\DarkMirror_Title_Logo.png");
 		// BG_Loading_Scene
-		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Black.bmp");
-		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\0_BG\\1_Loading\\Skul_Loading.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\BG\\1_Loading\\Black.bmp");
+		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\BG\\1_Loading\\Skul_Loading.bmp");
 		// BG_Home_Scene
-		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\0_BG\\2_Home\\Home.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\BG\\2_Home\\Home.bmp");
 		// BG_Stage1_Enter_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\0_BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
 		// BG_Stage1_Monster_1_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1", L"..\\MyResources\\skul\\0_BG\\4_Stage1_Monster_1\\Stage1_Monster_1.bmp");
-		
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1", L"..\\MyResources\\skul\\BG\\4_Stage1_Monster_1\\Stage1_Monster_1.bmp");
 		// BG_Stage1_Monster_2_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_2", L"..\\MyResources\\skul\\0_BG\\5_Stage1_Monster_2\\Stage1_Monster_2.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_2", L"..\\MyResources\\skul\\BG\\5_Stage1_Monster_2\\Stage1_Monster_2.bmp");
 		// BG_Stage1_Middle_Boss_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Middle_Boss", L"..\\MyResources\\skul\\0_BG\\6_Stage1_Middle_Boss\\Stage1_Middle_Boss.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Stage1_Middle_Boss", L"..\\MyResources\\skul\\BG\\6_Stage1_Middle_Boss\\Stage1_Middle_Boss.bmp");
 		// BG_Stage1_Boss_Enter_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\0_BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
-
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 		// BG_Stage1_Boss_Scene
 
 		// BG_Market_Scene
 		
 		// BG_EndingScene
 
-		
 		// [ Door_Stage1 ]
 		// Door1
-		ResourceManager::Load<Texture>(L"Stage1_Door_1", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_1\\Stage1_Door_1.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_1", L"..\\MyResources\\skul\\Door_Stage1\\Door_1\\Stage1_Door_1.bmp");
 		// Door2
-		ResourceManager::Load<Texture>(L"Stage1_Door_2", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_2\\Stage1_Door_2.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_2", L"..\\MyResources\\skul\\Door_Stage1\\Door_2\\Stage1_Door_2.bmp");
 		// Door3
-		ResourceManager::Load<Texture>(L"Stage1_Door_3", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_3\\Stage1_Door_3.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_3", L"..\\MyResources\\skul\\Door_Stage1\\Door_3\\Stage1_Door_3.bmp");
 		// Door_Market
-		ResourceManager::Load<Texture>(L"Stage1_Door_Market", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Market\\Stage1_Door_Market.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_Market", L"..\\MyResources\\skul\\Door_Stage1\\Door_Market\\Stage1_Door_Market.bmp");
 		// Door_Middle_Boss
-		ResourceManager::Load<Texture>(L"Stage1_Door_Middle_Boss", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Middle_Boss\\Stage1_Middle_Boss.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_Middle_Boss", L"..\\MyResources\\skul\\Door_Stage1\\Door_Middle_Boss\\Stage1_Middle_Boss.bmp");
 		// Door_Boss
-		ResourceManager::Load<Texture>(L"Stage1_Door_Boss", L"..\\MyResources\\skul\\5_Door_Stage1\\Door_Boss\\Stage1_Boss.bmp");
+		ResourceManager::Load<Texture>(L"Stage1_Door_Boss", L"..\\MyResources\\skul\\Door_Stage1\\Door_Boss\\Stage1_Boss.bmp");
 		
-		// [ Door_Stage2 ]
-		// Door1
-		// Door2
-		// Door3
-		// Door_Market
-		// Door_Middle_Boss
-		// Door_Boss
-
-
 		// Player
-		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
-		ResourceManager::Load<Texture>(L"Idle_Weapon_R", L"..\\MyResources\\skul\\11_Skul\\Idle_Weapon_R\\Idle_Weapon_R.bmp");
-		ResourceManager::Load<Texture>(L"Walk_Weapon_L", L"..\\MyResources\\skul\\11_Skul\\Walk_Weapon_L\\Walk_Weapon_L.bmp");
-		ResourceManager::Load<Texture>(L"Walk_Weapon_R", L"..\\MyResources\\skul\\11_Skul\\Walk_Weapon_R\\Walk_Weapon_R.bmp");
-		ResourceManager::Load<Texture>(L"Attack_A_L", L"..\\MyResources\\skul\\11_Skul\\Attack_A_L\\Attack_A_L.bmp");
-		ResourceManager::Load<Texture>(L"Attack_A_R", L"..\\MyResources\\skul\\11_Skul\\Attack_A_R\\Attack_A_R.bmp");
-		ResourceManager::Load<Texture>(L"Attack_B_L", L"..\\MyResources\\skul\\11_Skul\\Attack_B_L\\Attack_B_L.bmp");
-		ResourceManager::Load<Texture>(L"Attack_B_R", L"..\\MyResources\\skul\\11_Skul\\Attack_B_R\\Attack_B_R.bmp");
-		ResourceManager::Load<Texture>(L"Jump_L", L"..\\MyResources\\skul\\11_Skul\\Jump_L\\Jump_L.bmp");
-		ResourceManager::Load<Texture>(L"Jump_R", L"..\\MyResources\\skul\\11_Skul\\Jump_R\\Jump_R.bmp");
-		ResourceManager::Load<Texture>(L"Jump_Attack_L", L"..\\MyResources\\skul\\11_Skul\\Jump_Attack_L\\Jump_Attack_L.bmp");
-		ResourceManager::Load<Texture>(L"Jump_Attack_R", L"..\\MyResources\\skul\\11_Skul\\Jump_Attack_R\\Jump_Attack_R.bmp");
-		ResourceManager::Load<Texture>(L"Dash_L", L"..\\MyResources\\skul\\11_Skul\\Dash_L\\Dash_L.bmp");
-		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\11_Skul\\Dash_R\\Dash_R.bmp");
-		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\11_Skul\\Fall_L\\Fall_L.bmp");
-		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\11_Skul\\Fall_R\\Fall_R.bmp");
-		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
-		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\11_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
+		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
+		ResourceManager::Load<Texture>(L"Idle_Weapon_R", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_R\\Idle_Weapon_R.bmp");
+		ResourceManager::Load<Texture>(L"Walk_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Walk_Weapon_L\\Walk_Weapon_L.bmp");
+		ResourceManager::Load<Texture>(L"Walk_Weapon_R", L"..\\MyResources\\skul\\Basic_Skul\\Walk_Weapon_R\\Walk_Weapon_R.bmp");
+		ResourceManager::Load<Texture>(L"Attack_A_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A_L\\Attack_A_L.bmp");
+		ResourceManager::Load<Texture>(L"Attack_A_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A_R\\Attack_A_R.bmp");
+		ResourceManager::Load<Texture>(L"Attack_B_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B_L\\Attack_B_L.bmp");
+		ResourceManager::Load<Texture>(L"Attack_B_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B_R\\Attack_B_R.bmp");
+		ResourceManager::Load<Texture>(L"Jump_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_L\\Jump_L.bmp");
+		ResourceManager::Load<Texture>(L"Jump_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_R\\Jump_R.bmp");
+		ResourceManager::Load<Texture>(L"Jump_Attack_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack_L\\Jump_Attack_L.bmp");
+		ResourceManager::Load<Texture>(L"Jump_Attack_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack_R\\Jump_Attack_R.bmp");
+		ResourceManager::Load<Texture>(L"Dash_L", L"..\\MyResources\\skul\\Basic_Skul\\Dash_L\\Dash_L.bmp");
+		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash_R\\Dash_R.bmp");
+		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_L\\Fall_L.bmp");
+		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_R\\Fall_R.bmp");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
 
 		// [ NPC ]
 		// TiedSkul
-		ResourceManager::Load<Texture>(L"TiedSkul_Idle", L"..\\MyResources\\skul\\1_NPC\\TiedSkul\\TiedSkul_Idle.bmp");
+		ResourceManager::Load<Texture>(L"TiedSkul_Idle", L"..\\MyResources\\skul\\NPC\\TiedSkul\\TiedSkul_Idle.bmp");
 		// DeathKnight
-		ResourceManager::Load<Texture>(L"DeathKnight_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\DeathKnight\\DeathKnight_Idle_Castle.bmp");
+		ResourceManager::Load<Texture>(L"DeathKnight_Idle_Castle", L"..\\MyResources\\skul\\NPC\\DeathKnight\\DeathKnight_Idle_Castle.bmp");
 		// Witch
-		ResourceManager::Load<Texture>(L"Witch_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Witch\\Witch_Idle_Castle.bmp");
+		ResourceManager::Load<Texture>(L"Witch_Idle_Castle", L"..\\MyResources\\skul\\NPC\\Witch\\Witch_Idle_Castle.bmp");
 		// FoxHunter
-		ResourceManager::Load<Texture>(L"FoxHunter_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\FoxHunter\\FoxHunter_Idle_Castle.bmp");
+		ResourceManager::Load<Texture>(L"FoxHunter_Idle_Castle", L"..\\MyResources\\skul\\NPC\\FoxHunter\\FoxHunter_Idle_Castle.bmp");
 		// Orge
-		ResourceManager::Load<Texture>(L"Orge_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Orge\\Orge_Idle_Castle.bmp");
+		ResourceManager::Load<Texture>(L"Orge_Idle_Castle", L"..\\MyResources\\skul\\NPC\\Orge\\Orge_Idle_Castle.bmp");
 		// Druid
-		ResourceManager::Load<Texture>(L"Druid_Idle_Castle", L"..\\MyResources\\skul\\1_NPC\\Druid\\Druid_Idle_Castle.bmp");
+		ResourceManager::Load<Texture>(L"Druid_Idle_Castle", L"..\\MyResources\\skul\\NPC\\Druid\\Druid_Idle_Castle.bmp");
+		// Cat_Seol
+		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_L", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Walk_L.bmp");
+		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Walk_R.bmp");
 
 		// [ Monster ]
+		// Common
+		ResourceManager::Load<Texture>(L"Monster_Generate", L"..\\MyResources\\skul\\Monster\\Common\\Enemy_Appearance.bmp");
+		ResourceManager::Load<Texture>(L"Monster_Destroy", L"..\\MyResources\\skul\\Monster\\Common\\Enemy_Dead.bmp");
+		ResourceManager::Load<Texture>(L"Gold", L"..\\MyResources\\skul\\Monster\\Common\\Gold.bmp");
+		ResourceManager::Load<Texture>(L"Gold_Disappear", L"..\\MyResources\\skul\\Monster\\Common\\Gold_Disappear.bmp");
+		ResourceManager::Load<Texture>(L"Gold_Idle", L"..\\MyResources\\skul\\Monster\\Common\\Gold_Idle.bmp");
+		ResourceManager::Load<Texture>(L"Gold_Dead", L"..\\MyResources\\skul\\Monster\\Common\\Gold_Dead.png");
 		// Carleon Recruit
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\1_Idle_R.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\2_Walk_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\2_Walk_R.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\3_AttackReady_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\3_AttackReady_R.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\4_Attack_R.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\5_Hit_R.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_L", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_L.bmp");
-		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_R", L"..\\MyResources\\skul\\4_Monster_Stage2\\1_CarleonRecruit\\6_Dead_R.bmp");
-
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\1_Idle_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Idle_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\1_Idle_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\2_Walk_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Walk_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\2_Walk_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\3_AttackReady_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_Ready_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\3_AttackReady_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\4_Attack_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Attack_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\4_Attack_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\5_Hit_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Hit_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\5_Hit_R.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_L", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\6_Dead_L.bmp");
+		ResourceManager::Load<Texture>(L"CarleonRecruit_Dead_R", L"..\\MyResources\\skul\\Monster\\GoldCarleonRecruit\\6_Dead_R.bmp");
 		// Stage1_Trap
-		ResourceManager::Load<Texture>(L"Stage1_Trap", L"..\\MyResources\\skul\\3_Monster_Stage1\\6_Trap\\Stage1_Trap.bmp");
-
-		// Cat_Seol
-		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_L", L"..\\MyResources\\skul\\1_NPC\\Cat_Seol\\Cat_Seol_Walk_L.bmp");
-		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_R", L"..\\MyResources\\skul\\1_NPC\\Cat_Seol\\Cat_Seol_Walk_R.bmp");
+		ResourceManager::Load<Texture>(L"Stage1Trap", L"..\\MyResources\\skul\\Monster\\Stage1Trap\\Stage1Trap.bmp");
 	}
 }

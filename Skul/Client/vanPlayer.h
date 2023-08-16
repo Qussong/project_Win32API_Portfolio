@@ -23,6 +23,7 @@ namespace van
 			DoubleJump,
 			DoubleDash,
 			Fall,
+			DownFall,
 			None,
 		};
 		

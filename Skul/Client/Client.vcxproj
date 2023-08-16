@@ -145,6 +145,7 @@
     <ClInclude Include="vanDruid.h" />
     <ClInclude Include="vanEndingScene.h" />
     <ClInclude Include="vanFoxHunter.h" />
+    <ClInclude Include="vanGold.h" />
     <ClInclude Include="vanHomeScene.h" />
     <ClInclude Include="vanMonsterAttack.h" />
     <ClInclude Include="vanMonsterTrace.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="vanDruid.cpp" />
     <ClCompile Include="vanEndingScene.cpp" />
     <ClCompile Include="vanFoxHunter.cpp" />
+    <ClCompile Include="vanGold.cpp" />
     <ClCompile Include="vanHomeScene.cpp" />
     <ClCompile Include="vanMonsterAttack.cpp" />
     <ClCompile Include="vanMonsterTrace.cpp" />

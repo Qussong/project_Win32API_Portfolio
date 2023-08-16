@@ -17,6 +17,7 @@
 #include "vanWall.h"
 #include "vanStage1Trap.h"
 #include "vanCatSeol.h"
+#include "vanGold.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-3.0f
@@ -56,24 +57,33 @@ namespace van
 		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		carleon->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		// Wall객체
-		Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
-		wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
+		//// Wall객체
+		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
+		//wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
 
 		// Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
 		
-		// Trap
-		Stage1Trap* trap = Object::Instantiate<Stage1Trap>(enums::eLayerType::Trap);
-		trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
+		//// Trap
+		//Stage1Trap* trap = Object::Instantiate<Stage1Trap>(enums::eLayerType::Trap);
+		//trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
 		// Cat_Seol
 		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
 		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 		catSeol->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		// Gold
+		for (int i = 0; i < 10; ++i)
+		{
+			Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
+			gold->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (i*20), Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
+			gold->GetComponent<Animator>()->SetAffectedCamera(true);
+		}
+
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -104,17 +114,19 @@ namespace van
 
 		// 해당 Scene에서의 충돌판정 설정
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
+		
 
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
-
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
 
 	void TestScene::SceneOut()
