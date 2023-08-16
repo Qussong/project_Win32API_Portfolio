@@ -18,10 +18,15 @@
 #include "vanDeathKnight.h"
 #include "vanDruid.h"
 
-#define OFFSET1				400.0f
-#define OFFSET2				900.0f
-#define FLOOR_POS_Y			-2880.0f
-#define FLOOR_UP_CONDITION	-1.0f
+#define OFFSET1						400.0f
+#define OFFSET2						900.0f
+#define FLOOR_POS_Y					-2880.0f
+#define FLOOR_UP_CONDITION			-1.0f
+
+#define CAMERA_CONTROL_POS_X		1320.0f
+#define CAMERA_OFFSET_Y				-150.0f
+#define CAMERA_OFFSET_X				0.0f
+#define CAMERA_OFFSET_DOUBLESPEED	5
 
 namespace van
 {
@@ -77,6 +82,9 @@ namespace van
 		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2  - 565.0f, Window_Y / 2 + FLOOR_POS_Y));
 
+		// 카메라 시작 offset 값
+		Camera::SetCameraOffset(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y));
+
 		// 해당 Scene의 카메라 타겟 설정
 		SetSceneTarget(player);
 	}
@@ -86,21 +94,21 @@ namespace van
 		Scene::Update();
 		NextScene();
 
-		float checkPoint1 = 1320.0f;
 		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
 		float cameraPosLimit_Y = GetCameraHeightLimit().y;
 		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
 
-		if (playerPos.x < checkPoint1)
+		if (playerPos.x < CAMERA_CONTROL_POS_X)
 		{
 			
-			Camera::SetCameraOffset(math::Vector2(0.0f, -offset_Y));
+			Camera::SetCameraOffsetSmooth(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y), CAMERA_OFFSET_DOUBLESPEED);
 		}
 		else
 		{
-			Camera::CameraOffsetClear();
+			Camera::ClearCameraOffsetSmooth(CAMERA_OFFSET_DOUBLESPEED);
 		}						
 		
+
 	}
 
 	void HomeScene::Render(HDC _hdc)

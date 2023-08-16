@@ -20,6 +20,8 @@ namespace van
 		__forceinline static void SetCameraOffset(math::Vector2 _offset) { mCameraOffset = _offset; }
 		__forceinline static math::Vector2 GetCameraOffset() { return mCameraOffset; }
 		__forceinline static void CameraOffsetClear() { mCameraOffset = math::Vector2::Zero; }
+		static void SetCameraOffsetSmooth(math::Vector2 _offset, int _doubleSpeed);
+		static void ClearCameraOffsetSmooth(int _doubleSpeed = 1);
 
 	private:
 		static math::Vector2 mResolution;	// 화면 해상도

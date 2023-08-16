@@ -2,7 +2,8 @@
 #include "vanApplication.h"
 #include "vanTransform.h"
 
-#define CAMERA_SPEED	500.0f
+#define CAMERA_SPEED			500.0f
+#define CAMERA_OFFSET_SPEED		10.0f	// Camera의 offset 값을 10의 단위로 조정한다.
 
 extern van::Application application;	// Client.cpp에 선언되어 있는 전역변수가져옴
 
@@ -77,6 +78,104 @@ namespace van
 		if (mDistance.y >= mHeightLimit.y)
 		{
 			mDistance.y = mHeightLimit.y;
+		}
+	}
+	void Camera::SetCameraOffsetSmooth(math::Vector2 _offset, int _doubleSpeed)
+	{
+		bool flagX = true;
+		bool flagY = true;
+
+		// 현재 offset 값과 목표치 offset 값의 차이가 10보다 작은지 확인
+		if (fabs(_offset.x - mCameraOffset.x) < 10.0f)
+		{
+			flagX = false;
+		}
+		if (fabs(_offset.y - mCameraOffset.y) < 10.0f)
+		{
+			flagY = false;
+		}
+
+		// offset x값 조정
+		if (mCameraOffset.x != _offset.x)
+		{
+			if (_offset.x > 0 && flagX)
+			{
+				mCameraOffset.x += CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+			}
+			else if (_offset.x < 0 && flagX)
+			{
+				mCameraOffset.x -= CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+			}
+			else if (!flagX)
+			{
+				mCameraOffset.x = _offset.x;
+			}
+		}
+
+		// offset y값 조정
+		if (mCameraOffset.y != _offset.y)
+		{
+			if (_offset.y > 0 && flagY)
+			{
+				mCameraOffset.y += CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+			}
+			else if (_offset.y < 0 && flagY)
+			{
+				mCameraOffset.y -= CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+			}
+			else if (!flagY)
+			{
+				mCameraOffset.y = _offset.y;
+			}
+		}
+
+	}
+
+	void Camera::ClearCameraOffsetSmooth(int _doubleSpeed)
+	{
+		bool flagX = true;
+		bool flagY = true;
+
+		// offset 값이 10보다 작은지 확인
+		if (fabs(mCameraOffset.x) < 10.0f)
+		{
+			flagX = false;
+		}
+		if (fabs(mCameraOffset.y) < 10.0f)
+		{
+			flagY = false;
+		}
+
+		// offset x값 조정
+		if (mCameraOffset.x > 0
+			&& flagX)
+		{
+			mCameraOffset.x -= CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+		}
+		else if (mCameraOffset.x < 0
+			&& flagX)
+		{
+			mCameraOffset.x += CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+		}
+		else if (!flagX)
+		{
+			mCameraOffset.x = 0.0f;
+		}
+
+		// offset y값 조정
+		if (mCameraOffset.y > 0
+			&& flagY)
+		{
+			mCameraOffset.y -= CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+		}
+		else if (mCameraOffset.y < 0
+			&& flagY)
+		{
+			mCameraOffset.y += CAMERA_OFFSET_SPEED * (Time::GetDeltaTime() * _doubleSpeed);
+		}
+		else if (!flagY)
+		{
+			mCameraOffset.y = 0.0f;
 		}
 	}
 }
