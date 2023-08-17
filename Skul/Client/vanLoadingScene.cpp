@@ -144,6 +144,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_R\\Fall_R.bmp");
 		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
 		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
+		ResourceManager::Load<Texture>(L"Head", L"..\\MyResources\\skul\\Basic_Skul\\Head\\Skul.bmp");
 
 		// [ NPC ]
 		// TiedSkul
@@ -192,22 +193,17 @@ namespace van
 		ResourceManager::Load<Texture>(L"Ent_Attack_Ready_R", L"..\\MyResources\\skul\\Monster\\Ent\\AttackReady_R.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Dead_L", L"..\\MyResources\\skul\\Monster\\Ent\\Dead_L.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Dead_R", L"..\\MyResources\\skul\\Monster\\Ent\\Dead_R.bmp");
-		ResourceManager::Load<Texture>(L"Ent_Hit_L", L"..\\MyResources\\skul\\Monster\\Ent\\Hit_L.bmp");	//
-		ResourceManager::Load<Texture>(L"Ent_Hit_R", L"..\\MyResources\\skul\\Monster\\Ent\\Hit_R.bmp");	//
+		ResourceManager::Load<Texture>(L"Ent_Hit_L", L"..\\MyResources\\skul\\Monster\\Ent\\Hit_L.bmp");
+		ResourceManager::Load<Texture>(L"Ent_Hit_R", L"..\\MyResources\\skul\\Monster\\Ent\\Hit_R.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Idle_L", L"..\\MyResources\\skul\\Monster\\Ent\\Idle_L.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Idle_R", L"..\\MyResources\\skul\\Monster\\Ent\\Idle_R.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Walk_L", L"..\\MyResources\\skul\\Monster\\Ent\\Walk_L.bmp");
 		ResourceManager::Load<Texture>(L"Ent_Walk_R", L"..\\MyResources\\skul\\Monster\\Ent\\Walk_R.bmp");
 		// ManAtArms
-		// \MyResources\skul\Monster\ManAtArms
 		ResourceManager::Load<Texture>(L"ManAtArms_Attack_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Attack_L.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Attack_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Attack_R.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Attack_Ready_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\AttackReady_L.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Attack_Ready_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\AttackReady_R.bmp");
-		//ResourceManager::Load<Texture>(L"ManAtArms_Dead_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Dead_L.bmp");
-		//ResourceManager::Load<Texture>(L"ManAtArms_Dead_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Dead_R.bmp");
-		//ResourceManager::Load<Texture>(L"ManAtArms_Hit_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Hit_L.bmp");
-		//ResourceManager::Load<Texture>(L"ManAtArms_Hit_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Hit_R.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Idle_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Idle_L.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Idle_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Idle_R.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Walk_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Walk_L.bmp");

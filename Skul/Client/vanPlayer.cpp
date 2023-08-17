@@ -1,6 +1,6 @@
 #include "vanPlayer.h"
 #include "vanInput.h"
-#include "vanTransform.h"	// Update()에서 Player 객체의 위치 옮겨준다. 때문에 Transform 객체의 값을 수정할 수 있어야 한다.
+#include "vanTransform.h"
 #include "vanAnimator.h"
 #include "vanObject.h"
 #include "vanResourceManager.h"
@@ -9,15 +9,19 @@
 #include "vanCollider.h"
 #include "vanFloor.h"
 #include "vanTime.h"
-
 #include "vanPlayerAttack.h"
 #include "vanCollisionManager.h"
+#include "vanSkull.h"
 
-#define DASH_FORCE_X	700.0f
-#define DASH_LIMIT		180.0f
-#define JUMP_FORCE_Y	950.0f
-#define WALK_SPEED		300.0f
+#define DASH_FORCE_X		700.0f
+#define DASH_LIMIT			180.0f
+#define JUMP_FORCE_Y		950.0f
+#define WALK_SPEED			300.0f
+#define HEAD_SPEED			900.0f
+#define SKILL_COOL_TIME		5.0f
+#define SKILL_HEAD_TIME		4.0f
 
+// Z : Dash / X : Attack / C : Jump
 namespace van
 {
 	Player::Player()
@@ -34,8 +38,13 @@ namespace van
 		, mCoin(0.0f)
 		, mBone(0.0f)
 		, mJewelry(0.0f)
+		, mbSkullLess(false)
+		, mbSkillFlag(false)
+		, mHeadTime(0.0f)
+		, mCoolTime(SKILL_COOL_TIME)
+		, head(nullptr)
 	{
-		// nothing
+		AddComponent<RigidBody>()->SetMass(50.0f);
 	}
 
 	Player::~Player()
@@ -51,9 +60,6 @@ namespace van
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 
-		RigidBody* rb = AddComponent<RigidBody>();
-		rb->SetMass(50.0f);
-
 		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Range_Attack);	// PlayerAttack 클래스 객체 생성
 		attackBox->SetOwner(this);														// PlayerAttack 클래스의 소유자 설정
 		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));		// PlayerAttack 클래스의 충돌체 크기 설정
@@ -62,10 +68,9 @@ namespace van
 	void Player::Update()
 	{
 		GameObject::Update();
-		
-		//StillSameState();
 
-		// z : Dash, x : Attack , c : Jump
+		Skill();
+
 		switch (mState)
 		{
 		case Player::PlayerState::Idle:
@@ -151,80 +156,6 @@ namespace van
 		animator->CreateAnimation(L"Fall_Repeat_R", ResourceManager::Find<Texture>(L"Fall_Repeat_R"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
 	}
 
-	/*
-	void Player::ChangeState(PlayerState _state)
-	{
-		if (_state == mState)
-		{
-			return;
-		}
-
-		// 상태에서 빠져나갈 때 무언가 벌어져야 한다면... 여기서 특정함수 호출
-		switch (mState)
-		{
-		case van::Player::PlayerState::Walk:
-		{
-			break;
-		}
-		case van::Player::PlayerState::Idle:
-		{
-			break;
-		}
-		default:
-			break;
-		}
-
-		mState = _state;
-
-		// 특정 상태에 들어갈 때 벌어져야 한다면 여기서 특정함수 호출
-		switch (_state)
-		{
-		case van::Player::PlayerState::Walk:
-		{
-			break;
-		}
-		case van::Player::PlayerState::Idle:
-		{
-			break;
-		}
-		default:
-			break;
-		}
-	}
-	*/
-
-	/*
-	void Player::StillSameState()
-	{
-		// 해당 상태일 때 또 뭘 해줘야 하면 여기서 특정함수 호출
-		switch (mState)
-		{
-		case van::Player::PlayerState::Walk:
-		{
-
-			break;
-		}
-		case van::Player::PlayerState::Idle:
-		{
-
-			break;
-		}
-		case van::Player::PlayerState::Jump:
-		{
-
-			break;
-		}
-		case van::Player::PlayerState::Attack:
-		{
-
-			break;
-		}
-		default:
-			break;
-		}
-	}
-	*/
-
 	void Player::ShowStatus(HDC _hdc)
 	{
 		const int SIZE = 100;
@@ -273,8 +204,6 @@ namespace van
 		TextOut(_hdc, 10, 210, szFloat, strLen);
 
 	}
-
-	// Z : Dash / X : Attack / C : Jump
 
 	void Player::Idle()
 	{
@@ -1660,5 +1589,98 @@ namespace van
 		}
 
 
+	}
+
+	void Player::Skill()
+	{
+		Transform* tr = GetComponent<Transform>();
+		 math::Vector2 pos = tr->GetPosition();
+
+		// [머리발사 스킬]
+		if (Input::GetKeyDown(eKeyCode::A)
+			&& mbSkillFlag == false)
+		{
+			// 스킬 발동
+			mbSkillFlag = true;
+			// 투사체 생성
+			head = Object::Instantiate<Skull>(enums::eLayerType::Skill);
+			// 생성위치 설정
+			head->GetComponent<Transform>()->SetPosition(pos);
+			// 날아갈 방향 설정
+			if (mDirection == PlayerDirection::Left)
+			{
+				head->SetDirection(Skull::HeadDirection::Left);
+			}
+			if(mDirection == PlayerDirection::Right)
+			{
+				head->SetDirection(Skull::HeadDirection::Right);
+			}
+			// 머리 없음 설정
+			mbSkullLess = true;
+			// 머리 유지시간 4초
+			mHeadTime = SKILL_HEAD_TIME;
+		}
+
+		// 스킬 쿨타임 카운트
+		if (mbSkillFlag == true)
+		{
+			mCoolTime -= Time::GetDeltaTime();
+			if (mCoolTime <= 0.0f)
+			{
+				mbSkillFlag = false;
+				mCoolTime = SKILL_COOL_TIME;
+			}
+		}
+
+		// 머리 유지시간 카운트
+		if (mbSkullLess == true)
+		{
+			mHeadTime -= Time::GetDeltaTime();
+			if (mHeadTime <= 0.0f)
+			{
+				mbSkullLess = false;
+				Destroy(head);
+			}
+		}
+
+		// 투사체 발사
+		if (head != nullptr
+			&& head->GetCollision() == false)
+		{
+			// 투사체가 생성되었고 어디에도 부딪히지 않은 상태일 때
+
+			Transform* tr_head = head->GetComponent<Transform>();
+			math::Vector2 pos_head = tr_head->GetPosition();
+			if (head->GetDirection() == Skull::HeadDirection::Left)
+			{
+				pos_head.x -= HEAD_SPEED * Time::GetDeltaTime();
+				tr_head->SetPosition(pos_head);
+			}
+			if (head->GetDirection() == Skull::HeadDirection::Right)
+			{
+				pos_head.x += HEAD_SPEED * Time::GetDeltaTime();
+				tr_head->SetPosition(pos_head);
+			}
+		}
+
+		// [위치 이동 스킬] (전제조건 : 머리발사 스킬을 먼저 사용해야함)
+		if (Input::GetKeyDown(eKeyCode::S)
+			&& mbSkullLess == true)
+		{
+			// 머리객체 소멸
+			Destroy(head);
+			// 머리상태 복구
+			mbSkullLess == false;
+			// 스킬 쿨타임 없애기
+			mCoolTime = 0.0f;
+
+			// 플레이어 위치 이동
+			math::Vector2 pos_head = head->GetComponent<Transform>()->GetPosition();
+			math::Vector2 col_size = GetComponent<Collider>()->GetSize();
+			math::Vector2 newPos = pos_head - math::Vector2(0.0f, col_size.y / 2);
+
+			tr->SetPosition(newPos);
+			
+		}
 	}
 }

@@ -93,7 +93,7 @@ namespace van
 
 	void Ent::OnCollisionEnter(Collider* _other)
 	{
-		// nothing
+		Monster::OnCollisionEnter(_other);
 	}
 
 	void Ent::OnCollisionStay(Collider* _other)

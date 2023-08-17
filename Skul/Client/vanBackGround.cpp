@@ -6,7 +6,7 @@ namespace van
 {
 	BackGround::BackGround()
 	{
-		// nothing
+		AddComponent<SpriteRenderer>();
 	}
 
 	BackGround::BackGround(math::Vector2 _offset)

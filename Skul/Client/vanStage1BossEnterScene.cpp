@@ -53,7 +53,7 @@ namespace van
 	{
 		// 1) BackGround
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss_Enter"));				// BackGround 객체의 texture 설정
 		bgsr->SetAffectCamera(true);
 		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산

@@ -190,6 +190,9 @@
     <Filter Include="Contents\GameObject\Monster\ManAtArms">
       <UniqueIdentifier>{80371e7b-a073-4d76-aeec-3cf00aa41c8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skull">
+      <UniqueIdentifier>{79ce7510-6269-4ab0-b75c-e3d57c8d80c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -378,6 +381,9 @@
     <ClInclude Include="vanManAtArms.h">
       <Filter>Contents\GameObject\Monster\ManAtArms</Filter>
     </ClInclude>
+    <ClInclude Include="vanSkull.h">
+      <Filter>Contents\GameObject\Skull</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -561,6 +567,9 @@
     </ClCompile>
     <ClCompile Include="vanManAtArms.cpp">
       <Filter>Contents\GameObject\Monster\ManAtArms</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSkull.cpp">
+      <Filter>Contents\GameObject\Skull</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

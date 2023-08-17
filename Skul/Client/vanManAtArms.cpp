@@ -96,7 +96,7 @@ namespace van
 
 	void ManAtArms::OnCollisionEnter(Collider* _other)
 	{
-		// nothing
+		Monster::OnCollisionEnter(_other);
 	}
 
 	void ManAtArms::OnCollisionStay(Collider* _other)

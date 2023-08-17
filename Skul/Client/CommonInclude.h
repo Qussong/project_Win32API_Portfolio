@@ -44,6 +44,7 @@ namespace van::enums
 		Trap,
 		Monster,
 		Range_Attack,
+		Skill,
 		Drop,
 		Player,
 		UI,

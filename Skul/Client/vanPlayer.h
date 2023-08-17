@@ -7,6 +7,7 @@ namespace van
 {
 	class Animator;
 	class PlayerAttack;
+	class Skull;
 
 	class Player : public GameObject
 	{
@@ -61,9 +62,10 @@ namespace van
 		void DoubleDash();
 		void Fall();
 
+		void Skill();
+
 		__forceinline PlayerDirection GetPlayerDirection() { return mDirection; }
 		__forceinline PlayerState GetPlayerState() { return mState; }
-		//__forceinline void SetPlayerState(PlayerState _state) { mState = _state; }
 		__forceinline bool GetCombo() { return mbCombo; }
 
 		__forceinline float GetHp() { return mHp; }
@@ -98,10 +100,15 @@ namespace van
 		bool mbFallAniFlag = true;
 		bool mbFallRepeatAniFlag = true;
 
-
 		float mHp;
 		float mCoin;
 		float mBone;
 		float mJewelry;
+
+		bool mbSkullLess;
+		bool mbSkillFlag;	//	스킬 발동여부
+		float mHeadTime;
+		float mCoolTime;
+		Skull* head;
 	};
 }

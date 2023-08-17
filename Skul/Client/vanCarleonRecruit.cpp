@@ -99,7 +99,7 @@ namespace van
 
 	void CarleonRecruit::OnCollisionEnter(Collider* _other)
 	{
-		// nothing
+		Monster::OnCollisionEnter(_other);
 	}
 
 	void CarleonRecruit::OnCollisionStay(Collider* _other)
@@ -263,7 +263,6 @@ namespace van
 	void CarleonRecruit::Hit()
 	{
 		Monster::Hit();
-
 	} 
 
 	void CarleonRecruit::Dead()

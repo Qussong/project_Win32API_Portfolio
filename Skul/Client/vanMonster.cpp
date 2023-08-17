@@ -12,6 +12,7 @@
 #include "vanTexture.h"
 #include "vanRigidBody.h"
 #include "vanGold.h"
+#include "vanSkull.h"
 
 #define WALK_SPEED			150.0f
 #define HIT_BUMP_X			50.0f
@@ -55,18 +56,6 @@ namespace van
 	void Monster::Update()
 	{
 		GameObject::Update();
-
-		// [ 투사체 구현부 ]
-		// Transform* tr = GetComponent<Transform>();
-		// math::Vector2 pos = tr->GetPosition();
-		// pos.x += 300.0f * Time::DeltaTime();
-		// tr->SetPosition(pos);
-		   
-		// mDeathTime -= Time::DeltaTime();
-		// if (mDeathTime < 0.0f)
-		// {
-		// 	Destroy(this);
-		// }
 
 		// Animation 재생여부 판정_1
 		SetMonsterPastState(GetMonsterState());			// 현재 몬스터의 상태를 저장
@@ -153,7 +142,29 @@ namespace van
 
 	void Monster::OnCollisionEnter(Collider* _other)
 	{
-		// nothing
+		GameObject* obj = _other->GetOwner();
+		Skull* head = dynamic_cast<Skull*>(obj);
+		
+		if (head != nullptr)
+		{
+			Skull::HeadDirection headDirection = head->GetDirection();
+			// 공격받은 방향 저장
+			if (headDirection == Skull::HeadDirection::Left)
+			{
+				// Player의 공격시 방향이 Left 라면
+				// Monster 입장에서 Right에서 공격받은거임
+				SetMonsterHitDirection(MonsterDirection::Right);
+				SetMonsterDirection(MonsterDirection::Right);
+			}
+			else
+			{
+				SetMonsterHitDirection(MonsterDirection::Left);
+				SetMonsterDirection(MonsterDirection::Left);
+			}
+
+			AddAttackCnt();
+			SetMonsterState(MonsterState::Hit);
+		}
 	}
 
 	void Monster::OnCollisionStay(Collider* _other)

@@ -20,6 +20,7 @@
 #include "vanGold.h"
 #include "vanEnt.h"
 #include "vanManAtArms.h"
+#include "vanSkull.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-3.0f
@@ -40,7 +41,7 @@ namespace van
 	{	
 		// BackGround 객체
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
-		SpriteRenderer* bgsr = bg->AddComponent<SpriteRenderer>();							
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
 		bgsr->SetAffectCamera(true);
 		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
@@ -96,6 +97,10 @@ namespace van
 		man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		man->GetComponent<Animator>()->SetAffectedCamera(true);
 
+		//// Skull
+		//Skull* head = Object::Instantiate<Skull>(enums::eLayerType::Player);
+		//head->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
+
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
 	}
@@ -128,8 +133,6 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
 		
-
-
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
