@@ -40,6 +40,13 @@ namespace van
 			layer.Render(_hdc);
 
 		Time::Render(_hdc);
+
+		// Monster 카운트 출력
+		const int SIZE = 100;
+		wchar_t szFloat[SIZE] = {};
+		swprintf_s(szFloat, SIZE, L"MonsterCnt : %d", mMonsterCnt);
+		int strLen = (int)wcsnlen_s(szFloat, SIZE);
+		TextOut(_hdc, 150, 10, szFloat, strLen);
 	}
 
 	void Scene::SceneIN()
@@ -59,14 +66,21 @@ namespace van
 
 	void Scene::MakeWorld()
 	{
+		// nothing
 	}
+
 	void Scene::MakeFloor()
 	{
+		// nothing
 	}
+
 	void Scene::MakeWall()
 	{
+		// nothing
 	}
+
 	void Scene::MakeDoor()
 	{
+		// nothing
 	}
 }

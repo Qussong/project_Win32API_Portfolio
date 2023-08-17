@@ -53,30 +53,30 @@ namespace van
 		// Cat_Seol
 		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
 		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
-		catSeol->GetComponent<Animator>()->SetAffectedCamera(true);
+		//catSeol->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Gold
 		for (int i = 0; i < 10; ++i)
 		{
 			Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
 			gold->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (i*20), Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
-			gold->GetComponent<Animator>()->SetAffectedCamera(true);
+			//gold->GetComponent<Animator>()->SetAffectedCamera(true);
 		}
 
 		// Carleon Recruit
 		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
 		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		carleon->GetComponent<Animator>()->SetAffectedCamera(true);
+		//carleon->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Ent
 		Ent* ent = Object::Instantiate<Ent>(enums::eLayerType::Monster);
 		ent->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 200.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		ent->GetComponent<Animator>()->SetAffectedCamera(true);
+		//ent->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		//ManAtArms
 		ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
 		man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		man->GetComponent<Animator>()->SetAffectedCamera(true);
+		//man->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);

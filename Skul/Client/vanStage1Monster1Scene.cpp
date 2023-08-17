@@ -58,23 +58,16 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		// Monster
-		CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		math::Vector2 carleonSize = carleon1->GetComponent<Collider>()->GetSize();
-		carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X, Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-		carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
-
-		// Monster
-		CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X, Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-		carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
-
 		SetSceneTarget(player);
 	}
 
 	void Stage1Monster1Scene::Update()
 	{
 		Scene::Update();
+
+		Wave1();
+		Wave2();
+		WaveExit();
 	}
 
 	void Stage1Monster1Scene::Render(HDC _hdc)
@@ -234,11 +227,91 @@ namespace van
 	{
 		// Door_L
 		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_L->SetActive(false);
 		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+		door_L->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_1_DeActive"));
+		door_L->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(1.63f, 1.61f));
+		
 		// Door_R
 		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+		door_R->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_R->SetActive(false);
 		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
-		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
+		door_R->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_2_DeActive"));
+		door_R->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(2.0f, 2.0f));
+	}
+
+	void Stage1Monster1Scene::OpenDoor()
+	{
+		if (mbOpenDoor == false)
+		{
+			mbOpenDoor = true;
+
+			// Door_L
+			Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+			door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X, Window_Y / 2 + DOOR_Y));
+			door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+			// Door_R
+			Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+			door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
+			door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
+		}
+	}
+
+	void Stage1Monster1Scene::Wave1()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == false)
+		{
+			mbWave1 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1Monster1Scene::Wave2()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == true
+			&& mbWave2 == false)
+		{
+			mbWave2 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1Monster1Scene::WaveExit()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave2 == true)
+		{
+			OpenDoor();
+		}
 	}
 }

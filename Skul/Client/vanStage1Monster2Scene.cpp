@@ -6,22 +6,27 @@
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanCollisionManager.h"
-
 #include "vanFloor.h"
 #include "vanTransform.h"
 #include "vanWall.h"
 #include "vanPlayer.h"
 #include "vanDoor.h"
 #include "vanAnimator.h"
+#include "vanCarleonRecruit.h"
 
 // player
 #define PLAYER_INIT_POS_Y	400.0f
 #define PLAYER_INIT_POS_X	-1180.0f
 // floor
+
 // wall
+
 // door
-#define DOOR_Y		-220.0f
+#define DOOR_Y_L	-265.0f
+#define DOOR_Y_R	-188.0f
 #define DOOR_X		520.0f
+// Monster
+#define FLOOR_UP_CONDITION	-3.0f
 
 namespace van
 {
@@ -51,6 +56,10 @@ namespace van
 	{
 		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
+
+		Wave1();
+		Wave2();
+		WaveExit();
 	}
 
 	void Stage1Monster2Scene::Render(HDC _hdc)
@@ -75,6 +84,12 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
 
 	void Stage1Monster2Scene::SceneOut()
@@ -118,38 +133,38 @@ namespace van
 
 	void Stage1Monster2Scene::MakeFloor()
 	{
-		// floor
-		Floor* floor_B1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_B1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 511.0f, Window_Y / 2 + 565.0f));
-		floor_B1_1->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
+		// Floor
+		Floor* floorB1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floorB1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 511.0f, Window_Y / 2 + 565.0f));
+		floorB1_1->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
 
-		Floor* floor_B1_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_B1_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 80.0f, Window_Y / 2 + 565.0f));
-		floor_B1_2->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
+		Floor* floorB1_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floorB1_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 80.0f, Window_Y / 2 + 565.0f));
+		floorB1_2->GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 2.0f));
 
-		Floor* floor_B2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_B2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 250.0f, Window_Y / 2 + 615.0f));
-		floor_B2->GetComponent<Collider>()->SetSize(math::Vector2(1040.0f, 2.0f));
+		Floor* floorB2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floorB2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 250.0f, Window_Y / 2 + 615.0f));
+		floorB2->GetComponent<Collider>()->SetSize(math::Vector2(1040.0f, 2.0f));
 
-		Floor* floor_1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 990.0f, Window_Y / 2 + 420.0f));
-		floor_1_1->GetComponent<Collider>()->SetSize(math::Vector2(440.0f, 2.0f));
+		Floor* floor1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 990.0f, Window_Y / 2 + 420.0f));
+		floor1_1->GetComponent<Collider>()->SetSize(math::Vector2(440.0f, 2.0f));
 
-		Floor* floor_1_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_1_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f, Window_Y / 2 + 420.0f));
-		floor_1_2->GetComponent<Collider>()->SetSize(math::Vector2(640.0f, 2.0f));
+		Floor* floor1_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor1_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f, Window_Y / 2 + 420.0f));
+		floor1_2->GetComponent<Collider>()->SetSize(math::Vector2(640.0f, 2.0f));
 
-		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 290.0f, Window_Y / 2 + 260.0f));
-		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(150.0f, 2.0f));
+		Floor* floor2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 290.0f, Window_Y / 2 + 260.0f));
+		floor2->GetComponent<Collider>()->SetSize(math::Vector2(150.0f, 2.0f));
 
-		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 262.0f, Window_Y / 2 + 60.0f));
-		floor_3->GetComponent<Collider>()->SetSize(math::Vector2(500.0f, 2.0f));
+		Floor* floor3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 262.0f, Window_Y / 2 + 60.0f));
+		floor3->GetComponent<Collider>()->SetSize(math::Vector2(500.0f, 2.0f));
 
-		Floor* floor_4 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 695.0f, Window_Y / 2 - 100.0f));
-		floor_4->GetComponent<Collider>()->SetSize(math::Vector2(1040.0f, 2.0f));
+		Floor* floor4 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 695.0f, Window_Y / 2 - 100.0f));
+		floor4->GetComponent<Collider>()->SetSize(math::Vector2(1040.0f, 2.0f));
 	}
 
 	void Stage1Monster2Scene::MakeWall()
@@ -215,18 +230,126 @@ namespace van
 		wall_5_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 174.0f, Window_Y / 2 - 42.0f));
 		wall_5_5->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 113.0f));
 
+		// MonsterWall
+		Wall* wall1_2L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall1_2L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f - 640.0f / 2, Window_Y / 2 + 420.0f - WALL_HEIGHT / 2));
+		wall1_2L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall1_2L->SetFloorLimit(true);
+
+		Wall* wall1_2R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall1_2R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f + 640.0f / 2, Window_Y / 2 + 420.0f - WALL_HEIGHT / 2));
+		wall1_2R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall1_2R->SetFloorLimit(true);
+
+		Wall* wall2L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall2L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 290.0f - 150.0f / 2, Window_Y / 2 + 260.0f - WALL_HEIGHT / 2));
+		wall2L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall2L->SetFloorLimit(true);
+
+		Wall* wall3L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall3L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 262.0f - 500.0f / 2, Window_Y / 2 + 60.0f - WALL_HEIGHT / 2));
+		wall3L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall3L->SetFloorLimit(true);
+
+		Wall* wall3R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall3R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 262.0f + 500.0f / 2, Window_Y / 2 + 60.0f - WALL_HEIGHT / 2));
+		wall3R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall3R->SetFloorLimit(true);
+
+		Wall* wall4L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall4L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 695.0f - 1040.0f / 2, Window_Y / 2 - 100.0f - WALL_HEIGHT / 2));
+		wall4L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, WALL_HEIGHT));
+		wall4L->SetFloorLimit(true);
 	}
 
 	void Stage1Monster2Scene::MakeDoor()
 	{
 		// Door_L
 		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
-		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+		door_L->SetActive(false);
+		door_L->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y_L));
+		door_L->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_Middle_Boss_DeActive"));
+		door_L->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(2.0f, 2.0f));
 
 		// Door_R
 		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
-		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (DOOR_X * 2), Window_Y / 2 + DOOR_Y));
-		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
+		door_R->SetActive(false);
+		door_R->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (DOOR_X * 2), Window_Y / 2 + DOOR_Y_R));
+		door_R->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_DeActive"));
+		door_R->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(2.0f, 2.0f));
+		
+	}
+
+	void Stage1Monster2Scene::OpenDoor()
+	{
+		if (mbOpenDoor == false)
+		{
+			mbOpenDoor = true;
+
+			// Door_L
+			Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+			door_L->GetComponent<Collider>()->SetSize(math::Vector2(100.0f, 180.0f));
+			door_L->GetComponent<Collider>()->SetOffset(math::Vector2(20.0f, 60.0f));
+			door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y_L));
+			door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_Middle_Boss", true);
+		}
+	}
+
+	void Stage1Monster2Scene::Wave1()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == false)
+		{
+			mbWave1 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f + (i * 10), Window_Y / 2 + 420.0f + FLOOR_UP_CONDITION));
+				carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				//CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 10), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1Monster2Scene::Wave2()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == true
+			&& mbWave2 == false)
+		{
+			mbWave2 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				//CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 10), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				//CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 10), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1Monster2Scene::WaveExit()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave2 == true)
+		{
+			OpenDoor();
+		}
 	}
 }

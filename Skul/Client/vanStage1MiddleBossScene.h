@@ -20,7 +20,15 @@ namespace van
 		virtual void MakeWall() override;
 		virtual void MakeDoor() override;
 
+		void OpenDoor();
+		void Wave1();
+		void Wave2();
+		void WaveExit();
+
 	private:
+		bool mbWave1 = false;
+		bool mbWave2 = false;
+		bool mbOpenDoor = false;
 	};
 }
 

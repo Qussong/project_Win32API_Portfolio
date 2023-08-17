@@ -2,7 +2,9 @@
 #include "vanTransform.h"
 #include "vanAnimator.h"
 #include "vanSpriteRenderer.h"
+#include "vanSceneManager.h"
 #include "vanCollider.h"
+#include "vanMonster.h"
 
 namespace van
 {
@@ -11,7 +13,7 @@ namespace van
 		, mState(eState::Active)
 	{
 		AddComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));	// 기본 위치 화면 중앙
-		AddComponent<Animator>();	
+		AddComponent<Animator>();
 		AddComponent<Collider>();	
 	}
 

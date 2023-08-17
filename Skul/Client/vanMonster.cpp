@@ -49,6 +49,8 @@ namespace van
 
 	void Monster::Init()
 	{
+		SceneManager::GetActiveScene()->AddMonsterCnt();
+
 		mTraceBox = Object::Instantiate<MonsterTrace>(enums::eLayerType::Range_Monster_Trace);
 		mAttackBox = Object::Instantiate<MonsterAttack>(enums::eLayerType::Range_Monster_Attack);
 	}
@@ -595,12 +597,13 @@ namespace van
 			SetPlayAnimation(false);
 		}
 
-
 		if (at->IsActiveAnimationComplete())
 		{
 			// 코인 떨구기 구현
 			Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
 			gold->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+			// 해당 Scene의 몬스터 숫자 감소시켜주기
+			SceneManager::GetActiveScene()->LoseMonsterCnt();
 			// 객체 소멸
 			Destroy(this);
 		}

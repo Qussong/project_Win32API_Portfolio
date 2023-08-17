@@ -30,11 +30,17 @@ namespace van
 		__forceinline math::Vector2 GetCameraHeightLimit() { return mCameraHeightLimit; }
 		__forceinline void SetCameraHeightLimit(math::Vector2 _limit) { mCameraHeightLimit = _limit; }
 
+		__forceinline int GetMonsterCnt() { return mMonsterCnt; }
+		__forceinline void AddMonsterCnt(int _cnt = 1) { mMonsterCnt += _cnt; }
+		__forceinline void LoseMonsterCnt(int _cnt = 1) { mMonsterCnt -= _cnt; }
+
 	private:
 		std::vector<Layer> mLayers;			// 해당 Scene이 관리하는 Layer 객체들을 저장
 		GameObject* target;					// 해당 Scene에서 Camera의 Target
 		math::Vector2 mCameraWidthLimit;	// 해당 Scene에서 Camera의 좌우 최대 이동 가능거리
 		math::Vector2 mCameraHeightLimit;	// 해당 Scene에서 Camera의 상하 최대 이동 가능거리
+
+		int mMonsterCnt;					// 해당 Scene에서의 몬스터 개수
 	};
 }
 

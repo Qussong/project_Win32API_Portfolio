@@ -1,5 +1,6 @@
 #pragma once
 #include "vanEntity.h"
+#include "vanGameObject.h"
 #include "vanComponent.h"	// mComponents 변수에서 Component 객체들을 가지고 있다.
 
 namespace van
@@ -72,12 +73,14 @@ namespace van
 
 		__forceinline void SetOffset(math::Vector2 _offset) { offset = _offset; }
 		__forceinline math::Vector2 GetOffset() { return offset; }
-
 		__forceinline eState GetState() { return mState; }
 		__forceinline void Pause() { mState = eState::Pause; }
 
 	private:
-		void Death() { mState = eState::Dead; }
+		void Death() 
+		{ 
+			mState = eState::Dead; 
+		}
 
 	private:
 		std::vector<Component*> mComponents;	// Componenet 객체들의 값을 수정해야하기에 주소를 저장한다.

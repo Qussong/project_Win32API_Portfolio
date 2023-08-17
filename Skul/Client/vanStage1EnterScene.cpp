@@ -24,7 +24,7 @@
 #define FLOOR_POS_Y			260.0f
 #define DOOR_POS_Y			135.0f
 #define DOOR_POS_X			-210.0f
-#define FLOOR_UP_CONDITION	-1.0f
+#define FLOOR_UP_CONDITION	-3.0f
 
 namespace van
 {

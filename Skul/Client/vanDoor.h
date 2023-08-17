@@ -18,8 +18,11 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other);	
 		virtual void OnCollisionExit(class Collider* _other);	
 
-	private:
+		__forceinline bool GetActive() { return mbActive; }
+		__forceinline void SetActive(bool _flag) { mbActive = _flag; }
 
+	private:
+		bool mbActive = true;
 	};
 }
 

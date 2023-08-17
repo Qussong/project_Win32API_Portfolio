@@ -33,7 +33,8 @@ namespace van
 	{
 		Monster::Init();
 
-		MakeAnimation();	// 애니메이션 생성
+		// 애니메이션 생성
+		MakeAnimation();
 
 		// Monster 초기설정
 		SetMonsterState(MonsterState::Gen);									// 상태

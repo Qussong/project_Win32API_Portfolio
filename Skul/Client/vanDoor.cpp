@@ -53,8 +53,8 @@ namespace van
 		ani->CreateAnimation(L"Stage1_Door_3", ResourceManager::Find<Texture>(L"Stage1_Door_3"), math::Vector2::Zero, math::Vector2(199.0f, 129.0f), 8, math::Vector2::Zero);
 		ani->CreateAnimation(L"Stage1_Door_Market", ResourceManager::Find<Texture>(L"Stage1_Door_Market"), math::Vector2::Zero, math::Vector2(184.0f, 137.0f), 8, math::Vector2::Zero);
 		ani->CreateAnimation(L"Stage1_Door_Middle_Boss", ResourceManager::Find<Texture>(L"Stage1_Door_Middle_Boss"), math::Vector2::Zero, math::Vector2(230.0f, 175.0f), 8, math::Vector2::Zero);
+		ani->CreateAnimation(L"Stage1_Door_Enter_Boss", ResourceManager::Find<Texture>(L"Stage1_Door_Enter_Boss"), math::Vector2::Zero, math::Vector2(215.0f, 159.0f), 8, math::Vector2::Zero);
 		ani->CreateAnimation(L"Stage1_Door_Boss", ResourceManager::Find<Texture>(L"Stage1_Door_Boss"), math::Vector2::Zero, math::Vector2(314.0f, 185.0f), 8, math::Vector2::Zero);
-		
 	}
 
 	void Door::OnCollisionEnter(Collider* _other)
@@ -67,7 +67,8 @@ namespace van
 		GameObject* obj = _other->GetOwner();
 		Player* player = dynamic_cast<Player*>(obj);
 
-		if (player != nullptr)
+		if (player != nullptr
+			&& mbActive == true)
 		{
 			if (Input::GetKeyDown(eKeyCode::F))
 			{

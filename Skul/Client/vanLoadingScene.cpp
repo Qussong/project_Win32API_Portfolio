@@ -106,12 +106,10 @@ namespace van
 		// BG_Stage1_Boss_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 		// BG_Stage1_Boss_Scene
-
 		// BG_Market_Scene
-		
 		// BG_EndingScene
 
-		// [ Door_Stage1 ]
+		// [ Door]
 		// Door1
 		ResourceManager::Load<Texture>(L"Stage1_Door_1", L"..\\MyResources\\skul\\Door_Stage1\\Door_1\\Stage1_Door_1.bmp");
 		// Door2
@@ -122,10 +120,26 @@ namespace van
 		ResourceManager::Load<Texture>(L"Stage1_Door_Market", L"..\\MyResources\\skul\\Door_Stage1\\Door_Market\\Stage1_Door_Market.bmp");
 		// Door_Middle_Boss
 		ResourceManager::Load<Texture>(L"Stage1_Door_Middle_Boss", L"..\\MyResources\\skul\\Door_Stage1\\Door_Middle_Boss\\Stage1_Middle_Boss.bmp");
+		// Door_Enter_Boss
+		ResourceManager::Load<Texture>(L"Stage1_Door_Enter_Boss", L"..\\MyResources\\skul\\Door_Stage1\\Door_Enter_Boss\\Stage1_Enter_Boss.bmp");
 		// Door_Boss
 		ResourceManager::Load<Texture>(L"Stage1_Door_Boss", L"..\\MyResources\\skul\\Door_Stage1\\Door_Boss\\Stage1_Boss.bmp");
+		// Door_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_0_DeActive.bmp");
+		// Door1_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_1_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_1_DeActive.bmp");
+		// Door2_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_2_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_2_DeActive.bmp");
+		// Door3_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_3_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_3_DeActive.bmp");
+		// Door_Market_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_Market_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_Market_DeActive.bmp");
+		// Door_Middle_Boss_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_Middle_Boss_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_Middle_Boss_DeActive.bmp");
+		// Door_Boss_DeActive
+		ResourceManager::Load<Texture>(L"Stage1_Door_Boss_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_Boss_DeActive.bmp");
 		
-		// Player
+		// [ Player ]
 		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
 		ResourceManager::Load<Texture>(L"Idle_Weapon_R", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_R\\Idle_Weapon_R.bmp");
 		ResourceManager::Load<Texture>(L"Walk_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Walk_Weapon_L\\Walk_Weapon_L.bmp");

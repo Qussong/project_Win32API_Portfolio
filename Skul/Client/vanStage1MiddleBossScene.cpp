@@ -14,6 +14,7 @@
 #include "vanPlayer.h"
 #include "vanCollisionManager.h"
 #include "vanDoor.h"
+#include "vanCarleonRecruit.h"
 
 #define PLAYER_INIT_POS_Y	55
 #define PLAYER_INIT_POS_X	-1480
@@ -29,6 +30,8 @@
 #define CAMERA_ANCHOR_X				-290.0f
 #define CAMERA_ANCHOR_Y				50.0f
 //#define CAMERA_OFFSET_DOUBLESPEED	5
+// Monster
+#define FLOOR_UP_CONDITION	-3.0f
 
 namespace van
 {
@@ -58,6 +61,10 @@ namespace van
 	{
 		Scene::Update();
 		CameraMove();
+
+		Wave1();
+		Wave2();
+		WaveExit();
 	}
 
 	void Stage1MiddleBossScene::Render(HDC _hdc)
@@ -82,9 +89,12 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
-
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
 
 	void Stage1MiddleBossScene::SceneOut()
@@ -100,7 +110,7 @@ namespace van
 		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
 		float cameraPosLimit_Y = GetCameraHeightLimit().y;
 		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
-		
+
 		if (playerPos.x > CAMERA_CONTROL_POS_X_1
 			&& playerPos.x < CAMERA_CONTROL_POS_X_2)
 		{
@@ -108,7 +118,8 @@ namespace van
 			math::Vector2 anchorPosY = math::Vector2(CAMERA_ANCHOR_Y, CAMERA_ANCHOR_Y);
 			Camera::SetLimitDistance(anchorPosX, anchorPosY);
 		}
-		else if ( playerPos.x > CAMERA_CONTROL_POS_X_2)
+		else if (playerPos.x > CAMERA_CONTROL_POS_X_2
+			|| playerPos.x < CAMERA_CONTROL_POS_X_1)
 		{
 			Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 		}
@@ -172,12 +183,83 @@ namespace van
 	{
 		// Door_L
 		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_L->SetActive(false);
 		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+		door_L->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_1_DeActive"));
+		door_L->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(1.63f, 1.61f));
 
 		// Door_R
 		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
-		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
-		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
+		door_R->SetActive(false);
+		door_R->GetComponent<Collider>()->SetSize(math::Vector2::Zero);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y - 10.0f));
+		door_R->AddComponent<SpriteRenderer>()->SetTexture(ResourceManager::Find<Texture>(L"Stage1_Door_Market_DeActive"));
+		door_R->GetComponent<SpriteRenderer>()->SetScale(math::Vector2(2.0f, 2.0f));
+		
+	}
+
+	void Stage1MiddleBossScene::OpenDoor()
+	{
+		if (mbOpenDoor == false)
+		{
+			mbOpenDoor = true;
+
+			// Door_L
+			Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+			door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+			door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_Enter_Boss", true);
+			door_L->GetComponent<Animator>()->SetScale(math::Vector2(1.63f, 1.61f));
+			
+		}
+	}
+
+	void Stage1MiddleBossScene::Wave1()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == false)
+		{
+			mbWave1 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f + (i * 20), Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+				carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1MiddleBossScene::Wave2()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave1 == true
+			&& mbWave2 == false)
+		{
+			mbWave2 = true;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				//CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 10), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				//CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 10), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+				//carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
+		}
+	}
+
+	void Stage1MiddleBossScene::WaveExit()
+	{
+		if (GetMonsterCnt() == 0
+			&& mbWave2 == true)
+		{
+			OpenDoor();
+		}
 	}
 }
