@@ -17,6 +17,7 @@ namespace van
 		virtual void Render(HDC _hdc);
 		virtual void SceneIN();
 		virtual void SceneOut();
+		virtual void CameraMove();
 
 		__forceinline void AddGameObject(enums::eLayerType type, GameObject* gameObj) { mLayers[(int)type].AddGameObject(gameObj); }
 		__forceinline Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }	// 해당 Scene이 관리하는 Layer들중 파라미터에 해당하는 정보를 가져온다.

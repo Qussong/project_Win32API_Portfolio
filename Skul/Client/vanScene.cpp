@@ -45,4 +45,9 @@ namespace van
 	{
 		// nothing
 	}
+
+	void Scene::CameraMove()
+	{
+		// nothing
+	}
 }

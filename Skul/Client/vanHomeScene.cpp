@@ -93,22 +93,7 @@ namespace van
 	{
 		Scene::Update();
 		NextScene();
-
-		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
-		float cameraPosLimit_Y = GetCameraHeightLimit().y;
-		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
-
-		if (playerPos.x < CAMERA_CONTROL_POS_X)
-		{
-			
-			Camera::SetCameraOffsetSmooth(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y), CAMERA_OFFSET_DOUBLESPEED);
-		}
-		else
-		{
-			Camera::ClearCameraOffsetSmooth(CAMERA_OFFSET_DOUBLESPEED);
-		}						
-		
-
+		CameraMove();
 	}
 
 	void HomeScene::Render(HDC _hdc)
@@ -142,6 +127,23 @@ namespace van
 		Camera::CameraOffsetClear();
 		// 충돌판정 설정 초기화
 		CollisionManager::Clear();
+	}
+
+	void HomeScene::CameraMove()
+	{
+		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
+		float cameraPosLimit_Y = GetCameraHeightLimit().y;
+		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
+
+		if (playerPos.x < CAMERA_CONTROL_POS_X)
+		{
+
+			Camera::SetCameraOffsetSmooth(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y), CAMERA_OFFSET_DOUBLESPEED);
+		}
+		else
+		{
+			Camera::ClearCameraOffsetSmooth(CAMERA_OFFSET_DOUBLESPEED);
+		}
 	}
 
 	void HomeScene::NextScene()

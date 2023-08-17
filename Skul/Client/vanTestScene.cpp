@@ -18,6 +18,8 @@
 #include "vanStage1Trap.h"
 #include "vanCatSeol.h"
 #include "vanGold.h"
+#include "vanEnt.h"
+#include "vanManAtArms.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-3.0f
@@ -52,11 +54,6 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		// Carleon Recruit
-		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		carleon->GetComponent<Animator>()->SetAffectedCamera(true);
-
 		//// Wall객체
 		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
@@ -84,6 +81,20 @@ namespace van
 			gold->GetComponent<Animator>()->SetAffectedCamera(true);
 		}
 
+		// Carleon Recruit
+		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
+		carleon->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		// Ent
+		Ent* ent = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+		ent->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 200.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
+		ent->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		//ManAtArms
+		ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
+		man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
+		man->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);

@@ -45,6 +45,17 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
+		virtual void Gen();
+		virtual void Idle();
+		virtual void Walk();
+		virtual void Patrol();
+		virtual void Trace();
+		virtual void AttackReady();
+		virtual void Attack();
+		virtual void AttackEnd();
+		virtual void Hit();
+		virtual void Dead();
+
 		__forceinline GameObject* GetMonsterTarget() { return mTarget; }
 		__forceinline void SetMonsterTarget(GameObject* _target) { mTarget = _target; }
 
@@ -86,6 +97,10 @@ namespace van
 
 		__forceinline MonsterAttack* GetMonsterAttackBox() { return mAttackBox; }
 
+		__forceinline int GetAttackCnt() { return mAttackCnt; }
+		__forceinline void SetAttackCnt(int _cnt) { mAttackCnt = _cnt; }
+		__forceinline void AddAttackCnt() { mAttackCnt += 1; }
+
 	private:
 		GameObject* mTarget;			// Monster의 목표대상(Trace)
 
@@ -106,6 +121,7 @@ namespace van
 		MonsterAttack* mAttackBox;	// Monster의 Attack판정 범위
 
 		float mDeathTime;
+		int mAttackCnt;
 	};
 }
 

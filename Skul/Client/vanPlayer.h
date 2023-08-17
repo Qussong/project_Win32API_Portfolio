@@ -66,6 +66,21 @@ namespace van
 		//__forceinline void SetPlayerState(PlayerState _state) { mState = _state; }
 		__forceinline bool GetCombo() { return mbCombo; }
 
+		__forceinline float GetHp() { return mHp; }
+		__forceinline void SetHp(float _hp) { mHp = _hp; }
+		__forceinline void AddHp(float _hp) { mHp += _hp; }
+		__forceinline void LoseHp(float _hp) { mHp -= _hp; }
+
+		__forceinline float GetCoin() { return mCoin; }
+		__forceinline void SetCoin(float _coin) { mCoin = _coin; }
+		__forceinline void AddCoin(float _coin) { mCoin += _coin; }
+		__forceinline void LoseCoin(float _coin) { mCoin -= _coin; }
+
+		__forceinline float GetBone() { return mBone; }
+		__forceinline void SetBone(float _bone) { mBone = _bone; }
+		__forceinline float GetJewelry() { return mJewelry; }
+		__forceinline void SetJewelry(float _jewelry) { mJewelry = _jewelry; }
+
 	private:
 		PlayerState mState;				// 현재 Player의 상태
 		PlayerDirection mDirection;		// 현재 Player가 바라보고 있는 방향 (Left, Right)
@@ -80,8 +95,13 @@ namespace van
 		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점
 		float mAttackDashX2 = 0.0f;		// AttackDash 도착지점
 		PlayerAttack* attackBox;		// Player의 기본공격 충돌 판정 범위
-
 		bool mbFallAniFlag = true;
 		bool mbFallRepeatAniFlag = true;
+
+
+		float mHp;
+		float mCoin;
+		float mBone;
+		float mJewelry;
 	};
 }

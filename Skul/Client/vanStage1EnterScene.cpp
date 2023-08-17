@@ -75,6 +75,7 @@ namespace van
 	void Stage1EnterScene::Update()
 	{
 		Scene::Update();
+		CameraMove();
 	}
 
 	void Stage1EnterScene::Render(HDC _hdc)
@@ -107,5 +108,10 @@ namespace van
 		Camera::SetTarget(nullptr);
 		// 충돌판정 설정 초기화
 		CollisionManager::Clear();
+	}
+
+	void Stage1EnterScene::CameraMove()
+	{
+		// nothing
 	}
 }

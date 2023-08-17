@@ -89,6 +89,9 @@ namespace van
 
 		if (player != nullptr)
 		{
+			// Player ∞ÒµÂ »πµÊ
+			player->AddCoin(100.0f);
+			// ∞ÒµÂ ∞¥√º ªË¡¶
 			SetGoldState(GoldState::Dead);
 			SetPlayAnimation(true);
 		}

@@ -37,8 +37,16 @@ namespace van
 	}
 	void Stage1BossScene::SceneIN()
 	{
+		// nothing
 	}
+
 	void Stage1BossScene::SceneOut()
 	{
+		// nothing
+	}
+
+	void Stage1BossScene::CameraMove()
+	{
+		// nothing
 	}
 }

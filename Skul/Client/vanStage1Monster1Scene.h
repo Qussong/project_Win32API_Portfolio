@@ -14,6 +14,7 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 		virtual void SceneIN() override;
 		virtual void SceneOut() override;
+		virtual void CameraMove() override;
 
 	private:
 

@@ -150,4 +150,9 @@ namespace van
 		// 충돌판정 설정 초기화
 		CollisionManager::Clear();
 	}
+
+	void Stage1Monster1Scene::CameraMove()
+	{
+		// nothing
+	}
 }

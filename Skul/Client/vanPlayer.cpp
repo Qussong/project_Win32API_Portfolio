@@ -30,6 +30,10 @@ namespace van
 		, mbAttackMove(false)
 		, mbAttackMove2(false)
 		, attackBox(nullptr)
+		, mHp(100.0f)
+		, mCoin(0.0f)
+		, mBone(0.0f)
+		, mJewelry(0.0f)
 	{
 		// nothing
 	}
@@ -257,6 +261,17 @@ namespace van
 		swprintf_s(szFloat, SIZE, L"Input : %d (0 = No , 1 = Yes)", input);
 		strLen = (int)wcsnlen_s(szFloat, SIZE);
 		TextOut(_hdc, 10, 170, szFloat, strLen);
+		// HP
+		float hp = mHp;
+		swprintf_s(szFloat, SIZE, L"HP : %f", hp);
+		strLen = (int)wcsnlen_s(szFloat, SIZE);
+		TextOut(_hdc, 10, 190, szFloat, strLen);
+		// COIN
+		float coin = mCoin;
+		swprintf_s(szFloat, SIZE, L"Coin : %f", coin);
+		strLen = (int)wcsnlen_s(szFloat, SIZE);
+		TextOut(_hdc, 10, 210, szFloat, strLen);
+
 	}
 
 	// Z : Dash / X : Attack / C : Jump
