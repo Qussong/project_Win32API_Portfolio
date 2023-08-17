@@ -13,9 +13,21 @@
 #include "vanWall.h"
 #include "vanPlayer.h"
 #include "vanCollisionManager.h"
+#include "vanDoor.h"
 
 #define PLAYER_INIT_POS_Y	55
 #define PLAYER_INIT_POS_X	-1480
+// Door
+#define DOOR_Y		-40.0f
+#define DOOR_X		700.0f
+#define DOOR_GAP	520.0f
+// Camera
+#define CAMERA_OFFSET_Y				-200.0f
+#define CAMERA_OFFSET_X				660.0f
+#define CAMERA_CONTROL_POS_X_1		-340.0f
+#define CAMERA_CONTROL_POS_X_2		1020.0f
+#define CAMERA_ANCHOR_X				330.0f
+#define CAMERA_OFFSET_DOUBLESPEED	5
 
 namespace van
 {
@@ -47,6 +59,16 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
+		// Door_L
+		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+
+		// Door_R
+		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
+		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
+
 		// Floor
 		Floor* floor_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 1244.0f, Window_Y / 2 + 85.0f));
@@ -69,15 +91,14 @@ namespace van
 		wall_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f, Window_Y / 2 + 180.0f));
 		wall_2->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
 
-
 		SetSceneTarget(player);
-		Camera::SetTarget(GetSceneTarget());
 	}
 
 	void Stage1MiddleBossScene::Update()
 	{
 		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
+		CameraMove();
 	}
 
 	void Stage1MiddleBossScene::Render(HDC _hdc)
@@ -117,6 +138,20 @@ namespace van
 
 	void Stage1MiddleBossScene::CameraMove()
 	{
-		// nothing
+		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
+		float cameraPosLimit_Y = GetCameraHeightLimit().y;
+		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
+		
+		if (playerPos.x > CAMERA_CONTROL_POS_X_1
+			&& playerPos.x < CAMERA_CONTROL_POS_X_2)
+		{
+			math::Vector2 anchorPosX = math::Vector2(-(Window_X / 2 - 350.0f), -(Window_X / 2 - 350.0f));
+			math::Vector2 anchorPosY = math::Vector2(50.0f, 50.0f);
+			Camera::SetLimitDistance(anchorPosX, anchorPosY);
+		}
+		else if ( playerPos.x > CAMERA_CONTROL_POS_X_2)
+		{
+			Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+		}
 	}
 }

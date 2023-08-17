@@ -28,8 +28,9 @@
 #define WALL_B1_Y	940.0f - 410.0f
 #define WALL_B1_X	760.0f
 // door
-#define DOOR_X		300.0f
-#define DOOR_Y		930.0f - 410.0f
+#define DOOR_X		260.0f
+#define DOOR_Y		520.0f
+#define DOOR_GAP	520.0f
 
 namespace van
 {
@@ -64,10 +65,10 @@ namespace van
 		// Door_L
 		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
 		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);;
+		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
 		// Door_R
 		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
-		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
 		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
 
 		// Floor_B1

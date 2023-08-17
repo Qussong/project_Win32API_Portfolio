@@ -137,7 +137,6 @@ namespace van
 
 		if (playerPos.x < CAMERA_CONTROL_POS_X)
 		{
-
 			Camera::SetCameraOffsetSmooth(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y), CAMERA_OFFSET_DOUBLESPEED);
 		}
 		else

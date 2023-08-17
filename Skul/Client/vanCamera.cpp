@@ -178,4 +178,5 @@ namespace van
 			mCameraOffset.y = 0.0f;
 		}
 	}
+
 }

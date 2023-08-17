@@ -17,6 +17,7 @@ namespace van
 		virtual void CameraMove() override;
 
 	private:
+		bool mbCameraflag = false;
 	};
 }
 

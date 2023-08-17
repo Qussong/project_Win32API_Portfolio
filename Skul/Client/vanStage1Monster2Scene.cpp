@@ -11,12 +11,17 @@
 #include "vanTransform.h"
 #include "vanWall.h"
 #include "vanPlayer.h"
+#include "vanDoor.h"
+#include "vanAnimator.h"
 
 // player
-#define PLAYER_INIT_POS_Y	400
-#define PLAYER_INIT_POS_X	-1180
+#define PLAYER_INIT_POS_Y	400.0f
+#define PLAYER_INIT_POS_X	-1180.0f
 // floor
 // wall
+// door
+#define DOOR_Y		-220.0f
+#define DOOR_X		520.0f
 
 namespace van
 {
@@ -46,6 +51,16 @@ namespace van
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
+
+		// Door_L
+		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+
+		// Door_R
+		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (DOOR_X * 2), Window_Y / 2 + DOOR_Y));
+		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
 
 		// floor
 		Floor* floor_B1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);

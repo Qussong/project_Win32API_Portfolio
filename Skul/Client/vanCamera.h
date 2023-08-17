@@ -23,6 +23,9 @@ namespace van
 		static void SetCameraOffsetSmooth(math::Vector2 _offset, int _doubleSpeed);
 		static void ClearCameraOffsetSmooth(int _doubleSpeed = 1);
 
+		static math::Vector2 GetLookPosition() { return mLookPosition; }
+		static void SetLookPosition(math::Vector2 _pos) { mLookPosition = _pos; }
+
 	private:
 		static math::Vector2 mResolution;	// 화면 해상도
 		static math::Vector2 mLookPosition;	// 카메라가 바라보고 있는 위치
