@@ -26,8 +26,9 @@
 #define CAMERA_OFFSET_X				660.0f
 #define CAMERA_CONTROL_POS_X_1		-340.0f
 #define CAMERA_CONTROL_POS_X_2		1020.0f
-#define CAMERA_ANCHOR_X				330.0f
-#define CAMERA_OFFSET_DOUBLESPEED	5
+#define CAMERA_ANCHOR_X				-290.0f
+#define CAMERA_ANCHOR_Y				50.0f
+//#define CAMERA_OFFSET_DOUBLESPEED	5
 
 namespace van
 {
@@ -96,7 +97,6 @@ namespace van
 
 	void Stage1MiddleBossScene::Update()
 	{
-		Camera::SetTarget(GetSceneTarget());
 		Scene::Update();
 		CameraMove();
 	}
@@ -145,8 +145,8 @@ namespace van
 		if (playerPos.x > CAMERA_CONTROL_POS_X_1
 			&& playerPos.x < CAMERA_CONTROL_POS_X_2)
 		{
-			math::Vector2 anchorPosX = math::Vector2(-(Window_X / 2 - 350.0f), -(Window_X / 2 - 350.0f));
-			math::Vector2 anchorPosY = math::Vector2(50.0f, 50.0f);
+			math::Vector2 anchorPosX = math::Vector2(CAMERA_ANCHOR_X, CAMERA_ANCHOR_X);
+			math::Vector2 anchorPosY = math::Vector2(CAMERA_ANCHOR_Y, CAMERA_ANCHOR_Y);
 			Camera::SetLimitDistance(anchorPosX, anchorPosY);
 		}
 		else if ( playerPos.x > CAMERA_CONTROL_POS_X_2)

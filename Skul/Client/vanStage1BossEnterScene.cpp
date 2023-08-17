@@ -6,16 +6,16 @@
 #include "vanSpriteRenderer.h"
 #include "vanResourceManager.h"
 #include "vanCollisionManager.h"
-
 #include "vanFloor.h"
 #include "vanPlayer.h"
 #include "vanAnimator.h"
 #include "vanWall.h"
 #include "vanDoor.h"
 
+// Player
 #define PLAYER_INIT_POS_Y	850.0f
 #define PLAYER_INIT_POS_X	-650.0f
-
+// Floor
 #define FLOOR1_X	-604.5f
 #define FLOOR1_Y	770.0f + 115.0f
 #define FLOOR2_X	-74.5f
@@ -30,6 +30,12 @@
 #define FLOOR6_Y	-130.0f + 115.0f
 #define FLOOR7_X	50.0f
 #define FLOOR7_Y	-304.0f + 115.0f
+// Camera
+#define CAMERA_OFFSET_Y				-200.0f
+#define CAMERA_OFFSET_X				660.0f
+#define CAMERA_CONTROL_POS_Y		500.0f
+#define CAMERA_ANCHOR_X				-290.0f
+#define CAMERA_ANCHOR_Y				50.0f
 
 namespace van
 {
@@ -187,6 +193,7 @@ namespace van
 	void Stage1BossEnterScene::Update()
 	{
 		Scene::Update();
+		CameraMove();
 	}
 
 	void Stage1BossEnterScene::Render(HDC _hdc)
@@ -223,6 +230,18 @@ namespace van
 
 	void Stage1BossEnterScene::CameraMove()
 	{
-		// nothing
+		math::Vector2 playerPos = GetSceneTarget()->GetComponent<Transform>()->GetPosition();
+		float cameraPosLimit_Y = GetCameraHeightLimit().y;
+		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
+
+		if (playerPos.y < CAMERA_CONTROL_POS_Y)
+		{
+			math::Vector2 anchorPosX = math::Vector2(0.0f, 0.0f);
+			Camera::SetLimitDistance(anchorPosX, GetCameraHeightLimit());
+		}
+		else
+		{
+			Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+		}
 	}
 }

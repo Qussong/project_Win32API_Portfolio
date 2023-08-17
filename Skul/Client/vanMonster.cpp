@@ -162,7 +162,8 @@ namespace van
 		van::PlayerAttack* attack = dynamic_cast<van::PlayerAttack*>(obj);	// 충돌한 객체가 Attack 클래스인지 확인
 
 		// 충돌한 객체가 PlayerAttack 클래스인 경우 == 피격(Hit)판정
-		if (attack != nullptr)
+		if (attack != nullptr
+			&& GetMonsterState() != MonsterState::Dead)
 		{
 			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
 			std::set<GameObject*>* list = attack->GetAttackList();
