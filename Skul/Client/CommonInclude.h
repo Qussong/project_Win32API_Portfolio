@@ -29,6 +29,8 @@
 #define Window_X		HD_X
 #define Window_Y		HD_Y
 #define FLOOR_HEIGHT	2.0f
+#define WALL_WIDTH		2.0f
+#define WALL_HEIGHT		10.0f
 
 namespace van::enums
 {

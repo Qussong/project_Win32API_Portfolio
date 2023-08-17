@@ -3,11 +3,11 @@
 
 namespace van
 {
-	class Stage1Trap : public Monster
+	class Trap : public Monster
 	{
 	public:
-		Stage1Trap();
-		virtual ~Stage1Trap();
+		Trap();
+		virtual ~Trap();
 
 		virtual void Init() override;
 		virtual void Update() override;

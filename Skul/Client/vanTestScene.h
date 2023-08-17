@@ -14,7 +14,10 @@ namespace van
 		virtual void Render(HDC _hdc) override;
 		virtual void SceneIN() override;
 		virtual void SceneOut() override;
-
+		virtual void MakeWorld() override;
+		virtual void MakeFloor() override;
+		virtual void MakeWall() override;
+		virtual void MakeDoor() override;
 	private:
 
 	};

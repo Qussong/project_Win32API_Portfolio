@@ -4,8 +4,6 @@
 
 namespace van
 {
-	//using namespace van::enums;
-
 	class Scene : public Entity
 	{
 	public:
@@ -18,13 +16,15 @@ namespace van
 		virtual void SceneIN();
 		virtual void SceneOut();
 		virtual void CameraMove();
+		virtual void MakeWorld();
+		virtual void MakeFloor();
+		virtual void MakeWall();
+		virtual void MakeDoor();
 
 		__forceinline void AddGameObject(enums::eLayerType type, GameObject* gameObj) { mLayers[(int)type].AddGameObject(gameObj); }
 		__forceinline Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }	// 해당 Scene이 관리하는 Layer들중 파라미터에 해당하는 정보를 가져온다.
-																								// CommonInclude.h 에 정의되어 있는 enums::eLayerType에 의해 
 		__forceinline void SetSceneTarget(GameObject* _target = nullptr) { target = _target; }	// 해당 Scene 에서의 타겟 설정
 		__forceinline GameObject* GetSceneTarget() { return target; }							// 해당 Scene 에서의 타겟 정보 받아오기
-
 		__forceinline math::Vector2 GetCameraWidthLimit() { return mCameraWidthLimit; }
 		__forceinline void SetCameraWidthLimit(math::Vector2 _limit) { mCameraWidthLimit = _limit; }
 		__forceinline math::Vector2 GetCameraHeightLimit() { return mCameraHeightLimit; }

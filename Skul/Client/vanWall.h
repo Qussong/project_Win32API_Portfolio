@@ -17,7 +17,10 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;
 		virtual void OnCollisionExit(class Collider* _other) override;
 
-	private:
+		__forceinline bool GetFloorLimit() { return mbFloorLimit; }
+		__forceinline void SetFloorLimit(bool _flag) { mbFloorLimit = _flag; }
 
+	private:
+		bool mbFloorLimit;	// 몬스터에게만 작용하게 해준다.
 	};
 }

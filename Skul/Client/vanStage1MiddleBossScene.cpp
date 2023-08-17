@@ -44,53 +44,12 @@ namespace van
 
 	void Stage1MiddleBossScene::Init()
 	{
-		// BackGround
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Middle_Boss"));			// BackGround 객체의 texture 설정
-		bgsr->SetAffectCamera(true);
-		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
-		bg->SetAutoCameraLimit();
-		// 해당 Scene에 카메라의 이동제한값 저장
-		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+		Scene::Init();
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
-
-		// Door_L
-		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
-		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
-
-		// Door_R
-		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
-		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
-		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
-
-		// Floor
-		Floor* floor_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 1244.0f, Window_Y / 2 + 85.0f));
-		floor_1->GetComponent<Collider>()->SetSize(math::Vector2(575.0f, 2.0f));
-
-		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f, Window_Y / 2 + 280.0f));
-		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(1350.0f, 2.0f));
-
-		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 964.0f, Window_Y / 2 + 85.0f));
-		floor_3->GetComponent<Collider>()->SetSize(math::Vector2(1130.0f, 2.0f));
-
-		// Wall
-		Wall* wall_1 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 954.0f, Window_Y / 2 + 180.0f));
-		wall_1->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
-
-		Wall* wall_2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f, Window_Y / 2 + 180.0f));
-		wall_2->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
 
 		SetSceneTarget(player);
 	}
@@ -153,5 +112,72 @@ namespace van
 		{
 			Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 		}
+	}
+
+	void Stage1MiddleBossScene::MakeWorld()
+	{
+		// BackGround
+		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Middle_Boss"));			// BackGround 객체의 texture 설정
+		bgsr->SetAffectCamera(true);
+		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
+		bg->SetAutoCameraLimit();
+		// 해당 Scene에 카메라의 이동제한값 저장
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+
+		// [ World_Wall ]
+		Texture* image = bgsr->GetTexture();
+		math::Vector2 size = image->GetSize();
+		// Left
+		Wall* worldWall_L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - size.x / 2 - 1.0f, Window_Y / 2));
+		// Right
+		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+	}
+
+	void Stage1MiddleBossScene::MakeFloor()
+	{
+		// Floor
+		Floor* floor_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 1244.0f, Window_Y / 2 + 85.0f));
+		floor_1->GetComponent<Collider>()->SetSize(math::Vector2(575.0f, 2.0f));
+
+		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f, Window_Y / 2 + 280.0f));
+		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(1350.0f, 2.0f));
+
+		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 964.0f, Window_Y / 2 + 85.0f));
+		floor_3->GetComponent<Collider>()->SetSize(math::Vector2(1130.0f, 2.0f));
+	}
+
+	void Stage1MiddleBossScene::MakeWall()
+	{
+		// Wall
+		Wall* wall_1 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 954.0f, Window_Y / 2 + 180.0f));
+		wall_1->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
+
+		Wall* wall_2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f, Window_Y / 2 + 180.0f));
+		wall_2->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
+	}
+
+	void Stage1MiddleBossScene::MakeDoor()
+	{
+		// Door_L
+		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
+
+		// Door_R
+		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X + DOOR_GAP, Window_Y / 2 + DOOR_Y));
+		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
 	}
 }

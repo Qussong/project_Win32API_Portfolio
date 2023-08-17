@@ -17,6 +17,7 @@
 #include "vanOrge.h"
 #include "vanDeathKnight.h"
 #include "vanDruid.h"
+#include "vanWall.h"
 
 #define OFFSET1						400.0f
 #define OFFSET2						900.0f
@@ -42,16 +43,7 @@ namespace van
 
 	void HomeScene::Init()
 	{
-		// BG
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_Scene"));					// BackGround 객체의 texture 설정
-		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
-		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
-		bg->SetAutoCameraLimit();
-		// 해당 Scene에 카메라의 이동제한값 저장
-		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+		Scene::Init();
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
@@ -76,11 +68,6 @@ namespace van
 		// Druid
 		Druid* druid = Object::Instantiate<Druid>(enums::eLayerType::NPC);
 		druid->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
-
-		// Floor
-		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2  - 565.0f, Window_Y / 2 + FLOOR_POS_Y));
 
 		// 카메라 시작 offset 값
 		Camera::SetCameraOffset(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y));
@@ -116,6 +103,7 @@ namespace van
 
 		// 해당 Scene에서의 충돌판정 설정
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 	}
 
@@ -143,6 +131,50 @@ namespace van
 		{
 			Camera::ClearCameraOffsetSmooth(CAMERA_OFFSET_DOUBLESPEED);
 		}
+	}
+
+	void HomeScene::MakeWorld()
+	{
+		// BG
+		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Home_Scene"));					// BackGround 객체의 texture 설정
+		bgsr->SetAffectCamera(true);														// 카메라 영향 여부설정
+		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
+		bg->SetAutoCameraLimit();
+		// 해당 Scene에 카메라의 이동제한값 저장
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+
+		// [ World_Wall ]
+		Texture* image = bgsr->GetTexture();
+		math::Vector2 size = image->GetSize();
+		// Left
+		Wall* worldWall_L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - size.x / 2 - 1.0f, Window_Y / 2));
+		// Right
+		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+	}
+
+	void HomeScene::MakeFloor()
+	{
+		// Floor
+		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 565.0f, Window_Y / 2 + FLOOR_POS_Y));
+	}
+
+	void HomeScene::MakeWall()
+	{
+		// nothing
+	}
+
+	void HomeScene::MakeDoor()
+	{
+		// nothing
 	}
 
 	void HomeScene::NextScene()

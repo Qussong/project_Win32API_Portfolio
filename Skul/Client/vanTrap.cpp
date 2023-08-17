@@ -1,39 +1,41 @@
-#include "vanStage1Trap.h"
+#include "vanTrap.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"	
 #include "vanTexture.h"
 #include "vanCollider.h"
+#include "vanRigidBody.h"
 
 namespace van
 {
-	Stage1Trap::Stage1Trap()
+	Trap::Trap()
 	{
 		// nothing
 	}
 
-	Stage1Trap::~Stage1Trap()
+	Trap::~Trap()
 	{
 		// nothing
 	}
 
-	void Stage1Trap::Init()
+	void Trap::Init()
 	{
-		Monster::Init();
+		GameObject::Init();
 
 		MakeAnimation();	// 애니메이션 생성
 
 		SetMonsterState(Monster::MonsterState::Idle);
 		GetComponent<Animator>()->PlayAnimation(L"Stage1Trap_Idle", true);
 		GetComponent<Collider>()->SetSize(math::Vector2(100, 40));
+		GetComponent<RigidBody>()->SetGround(true);	//	벽에 부착되어있어야하기에 무조건 true
 	}
 
-	void Stage1Trap::Update()
+	void Trap::Update()
 	{
-		Monster::Update();
+		GameObject::Update();
 
 		switch (GetMonsterState())
 		{
-		case Stage1Trap::MonsterState::Idle:
+		case MonsterState::Idle:
 			Idle();
 			break;
 		default:
@@ -41,33 +43,33 @@ namespace van
 		}
 	}
 
-	void Stage1Trap::Render(HDC _hdc)
+	void Trap::Render(HDC _hdc)
 	{
-		Monster::Render(_hdc);
+		GameObject::Render(_hdc);
 	}
 
-	void Stage1Trap::MakeAnimation()
+	void Trap::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
 		at->CreateAnimation(L"Stage1Trap_Idle", ResourceManager::Find<Texture>(L"Stage1Trap"), math::Vector2(0.0f, 0.0f), math::Vector2(128.0f, 40.0f), 11);
 	}
 
-	void Stage1Trap::OnCollisionEnter(Collider* _other)
+	void Trap::OnCollisionEnter(Collider* _other)
 	{
 		// nothing
 	}
 
-	void Stage1Trap::OnCollisionStay(Collider* _other)
+	void Trap::OnCollisionStay(Collider* _other)
 	{
 		// nothing
 	}
 
-	void Stage1Trap::OnCollisionExit(Collider* _other)
+	void Trap::OnCollisionExit(Collider* _other)
 	{
 		// nothing
 	}
 
-	void Stage1Trap::Idle()
+	void Trap::Idle()
 	{
 		// nothing
 	}

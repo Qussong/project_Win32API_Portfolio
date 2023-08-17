@@ -15,7 +15,10 @@ namespace van
 
 	void Scene::Init()
 	{
-		// nothing
+		MakeWorld();
+		MakeFloor();
+		MakeWall();
+		MakeDoor();
 	}
 
 	void Scene::Update()
@@ -24,8 +27,11 @@ namespace van
 			mLayers 에서 Layer 객체들의 정보를 복사해서 가져오기 때문에 
 			참조자로 처리한다. (메모리 사용량 ↓)
 		*/
+
 		for (Layer& layer : mLayers)
+		{
 			layer.Update();
+		}
 	}
 
 	void Scene::Render(HDC _hdc)
@@ -49,5 +55,18 @@ namespace van
 	void Scene::CameraMove()
 	{
 		// nothing
+	}
+
+	void Scene::MakeWorld()
+	{
+	}
+	void Scene::MakeFloor()
+	{
+	}
+	void Scene::MakeWall()
+	{
+	}
+	void Scene::MakeDoor()
+	{
 	}
 }

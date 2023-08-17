@@ -15,6 +15,8 @@ namespace van
 
 	void EndingScene::Init()
 	{
+		Scene::Init();
+
 		//SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 		Camera::SetTarget(GetSceneTarget());
 	}
@@ -46,6 +48,26 @@ namespace van
 	}
 
 	void EndingScene::CameraMove()
+	{
+		// nothing
+	}
+
+	void EndingScene::MakeWorld()
+	{
+		// nothing
+	}
+
+	void EndingScene::MakeFloor()
+	{
+		// nothing
+	}
+
+	void EndingScene::MakeWall()
+	{
+		// nothing
+	}
+
+	void EndingScene::MakeDoor()
 	{
 		// nothing
 	}

@@ -178,9 +178,6 @@
     <Filter Include="Contents\Scene\06_Stage1_Middle_Boss">
       <UniqueIdentifier>{a0722bb1-0235-4c1c-9131-fcf411cca3ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Monster\Stage1Trap">
-      <UniqueIdentifier>{40dc929c-164b-45be-bf79-5a62fe891d44}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Gold">
       <UniqueIdentifier>{fd78fcc6-4ef3-4368-879e-e3b05c3fe3e3}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,9 @@
     </Filter>
     <Filter Include="Contents\GameObject\Skull">
       <UniqueIdentifier>{79ce7510-6269-4ab0-b75c-e3d57c8d80c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Monster\Trap">
+      <UniqueIdentifier>{40dc929c-164b-45be-bf79-5a62fe891d44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -366,8 +366,8 @@
     <ClInclude Include="vanWall.h">
       <Filter>Contents\GameObject\Wall</Filter>
     </ClInclude>
-    <ClInclude Include="vanStage1Trap.h">
-      <Filter>Contents\GameObject\Monster\Stage1Trap</Filter>
+    <ClInclude Include="vanTrap.h">
+      <Filter>Contents\GameObject\Monster\Trap</Filter>
     </ClInclude>
     <ClInclude Include="vanCatSeol.h">
       <Filter>Contents\GameObject\NPC\Cat_Seol</Filter>
@@ -553,8 +553,8 @@
     <ClCompile Include="vanWall.cpp">
       <Filter>Contents\GameObject\Wall</Filter>
     </ClCompile>
-    <ClCompile Include="vanStage1Trap.cpp">
-      <Filter>Contents\GameObject\Monster\Stage1Trap</Filter>
+    <ClCompile Include="vanTrap.cpp">
+      <Filter>Contents\GameObject\Monster\Trap</Filter>
     </ClCompile>
     <ClCompile Include="vanCatSeol.cpp">
       <Filter>Contents\GameObject\NPC\Cat_Seol</Filter>

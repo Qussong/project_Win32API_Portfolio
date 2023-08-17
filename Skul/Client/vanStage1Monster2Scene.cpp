@@ -37,6 +37,61 @@ namespace van
 
 	void Stage1Monster2Scene::Init()
 	{
+		Scene::Init();
+
+		// Player
+		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
+
+		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
+		Camera::SetTarget(GetSceneTarget());
+	}
+
+	void Stage1Monster2Scene::Update()
+	{
+		Camera::SetTarget(GetSceneTarget());
+		Scene::Update();
+	}
+
+	void Stage1Monster2Scene::Render(HDC _hdc)
+	{
+		Scene::Render(_hdc);
+
+		// Scene 구분
+		const wchar_t* str = L"[ Stage1Monster2Scene ]";
+		int len = (int)wcslen(str);
+		Text::PrintwString(_hdc, 10, 30, str);
+	}
+
+	void Stage1Monster2Scene::SceneIN()
+	{
+		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
+		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+
+		// 카메라에 해당 Scene의 타겟을 세팅
+		Camera::SetTarget(GetSceneTarget());
+
+		// 해당 Scene에서의 충돌판정 설정
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
+	}
+
+	void Stage1Monster2Scene::SceneOut()
+	{
+		// 카메라 타겟 설정 초기화
+		Camera::SetTarget(nullptr);
+		// 충돌판정 설정 초기화
+		CollisionManager::Clear();
+	}
+
+	void Stage1Monster2Scene::CameraMove()
+	{
+		// nothing
+	}
+
+	void Stage1Monster2Scene::MakeWorld()
+	{
 		// BackGround
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
 		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();					// SpriteRenderer 추가
@@ -48,20 +103,21 @@ namespace van
 		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
 		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
 
-		// Player
-		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
+		// [ World_Wall ]
+		Texture* image = bgsr->GetTexture();
+		math::Vector2 size = image->GetSize();
+		// Left
+		Wall* worldWall_L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - size.x / 2 - 1.0f, Window_Y / 2));
+		// Right
+		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+	}
 
-		// Door_L
-		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
-		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
-		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
-
-		// Door_R
-		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
-		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (DOOR_X * 2), Window_Y / 2 + DOOR_Y));
-		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
-
+	void Stage1Monster2Scene::MakeFloor()
+	{
 		// floor
 		Floor* floor_B1_1 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_B1_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 511.0f, Window_Y / 2 + 565.0f));
@@ -84,7 +140,7 @@ namespace van
 		floor_1_2->GetComponent<Collider>()->SetSize(math::Vector2(640.0f, 2.0f));
 
 		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 +  290.0f, Window_Y / 2 + 260.0f));
+		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 290.0f, Window_Y / 2 + 260.0f));
 		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(150.0f, 2.0f));
 
 		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
@@ -94,7 +150,10 @@ namespace van
 		Floor* floor_4 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 695.0f, Window_Y / 2 - 100.0f));
 		floor_4->GetComponent<Collider>()->SetSize(math::Vector2(1040.0f, 2.0f));
-		
+	}
+
+	void Stage1Monster2Scene::MakeWall()
+	{
 		// Wall
 		Wall* wall_1 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		wall_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 772.0f, Window_Y / 2 + 520.0f));
@@ -156,51 +215,18 @@ namespace van
 		wall_5_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 174.0f, Window_Y / 2 - 42.0f));
 		wall_5_5->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 113.0f));
 
-
-		SetSceneTarget(player);	// 기본값 nullptr이라 생략 가능
-		Camera::SetTarget(GetSceneTarget());
 	}
 
-	void Stage1Monster2Scene::Update()
+	void Stage1Monster2Scene::MakeDoor()
 	{
-		Camera::SetTarget(GetSceneTarget());
-		Scene::Update();
-	}
+		// Door_L
+		Door* door_L = Object::Instantiate<Door>(eLayerType::Door);
+		door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
+		door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_1", true);
 
-	void Stage1Monster2Scene::Render(HDC _hdc)
-	{
-		Scene::Render(_hdc);
-
-		// Scene 구분
-		const wchar_t* str = L"[ Stage1Monster2Scene ]";
-		int len = (int)wcslen(str);
-		Text::PrintwString(_hdc, 10, 30, str);
-	}
-
-	void Stage1Monster2Scene::SceneIN()
-	{
-		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
-		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
-
-		// 카메라에 해당 Scene의 타겟을 세팅
-		Camera::SetTarget(GetSceneTarget());
-
-		// 해당 Scene에서의 충돌판정 설정
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
-	}
-
-	void Stage1Monster2Scene::SceneOut()
-	{
-		// 카메라 타겟 설정 초기화
-		Camera::SetTarget(nullptr);
-		// 충돌판정 설정 초기화
-		CollisionManager::Clear();
-	}
-
-	void Stage1Monster2Scene::CameraMove()
-	{
-		// nothing
+		// Door_R
+		Door* door_R = Object::Instantiate<Door>(eLayerType::Door);
+		door_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (DOOR_X * 2), Window_Y / 2 + DOOR_Y));
+		door_R->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_2", true);
 	}
 }

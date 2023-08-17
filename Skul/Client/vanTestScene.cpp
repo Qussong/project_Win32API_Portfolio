@@ -13,14 +13,14 @@
 #include "vanCarleonRecruit.h"
 #include "vanCollisionManager.h"
 #include "vanPlayer.h"
-
 #include "vanWall.h"
-#include "vanStage1Trap.h"
+#include "vanTrap.h"
 #include "vanCatSeol.h"
 #include "vanGold.h"
 #include "vanEnt.h"
 #include "vanManAtArms.h"
 #include "vanSkull.h"
+#include "vanRigidBody.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-3.0f
@@ -39,35 +39,16 @@ namespace van
 
 	void TestScene::Init()
 	{	
-		// BackGround 객체
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
-		bgsr->SetAffectCamera(true);
-		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
-		bg->SetAutoCameraLimit();
-		// 해당 Scene에 카메라의 이동제한값 저장
-		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+		Scene::Init();
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		//// Wall객체
-		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
-		//wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
-
-		// Floor 객체 
-		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
-		
-		//// Trap
-		//Stage1Trap* trap = Object::Instantiate<Stage1Trap>(enums::eLayerType::Trap);
-		//trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
+		// Trap
+		Trap* trap = Object::Instantiate<Trap>(enums::eLayerType::Trap);
+		trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
 		// Cat_Seol
 		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
@@ -96,10 +77,6 @@ namespace van
 		ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
 		man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 		man->GetComponent<Animator>()->SetAffectedCamera(true);
-
-		//// Skull
-		//Skull* head = Object::Instantiate<Skull>(enums::eLayerType::Player);
-		//head->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -132,13 +109,11 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
-		
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
-
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
@@ -149,5 +124,53 @@ namespace van
 		Camera::SetTarget(nullptr);
 		// 충돌판정 설정 초기화
 		CollisionManager::Clear();
+	}
+
+	void TestScene::MakeWorld()
+	{
+		// BackGround 객체
+		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
+		bgsr->SetAffectCamera(true);
+		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
+		bg->SetAutoCameraLimit();
+		// 해당 Scene에 카메라의 이동제한값 저장
+		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+
+		// [ World_Wall ]
+		Texture* image = bgsr->GetTexture();
+		math::Vector2 size = image->GetSize();
+		// Left
+		Wall* worldWall_L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - size.x / 2 - 1.0f, Window_Y / 2));
+		// Right
+		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+	}
+
+	void TestScene::MakeFloor()
+	{
+		// Floor 객체 
+		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
+	}
+
+	void TestScene::MakeWall()
+	{
+		// Wall객체
+		Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
+		wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
+		wall->SetFloorLimit(true);
+	}
+
+	void TestScene::MakeDoor()
+	{
+		// nothing
 	}
 }

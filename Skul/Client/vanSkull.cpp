@@ -5,6 +5,7 @@
 #include "vanTexture.h"
 #include "vanCollider.h"
 #include "vanCollisionManager.h"
+#include "vanWall.h"
 
 namespace van
 {
@@ -61,6 +62,14 @@ namespace van
     void Skull::OnCollisionEnter(Collider* _other)
     {
         GameObject* obj = _other->GetOwner();
+        Wall* wall = dynamic_cast<Wall*>(obj);
+        if (wall != nullptr)
+        {
+            if (wall->GetFloorLimit() == true)
+            {
+                return;
+            }
+        }
 
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Monster, false);
 

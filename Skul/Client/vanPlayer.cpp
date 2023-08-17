@@ -1671,8 +1671,9 @@ namespace van
 			Destroy(head);
 			// 머리상태 복구
 			mbSkullLess == false;
-			// 스킬 쿨타임 없애기
-			mCoolTime = 0.0f;
+			mHeadTime = 0.0f;
+			// 스킬 쿨타임 줄이기
+			mCoolTime -= 3.0f;	
 
 			// 플레이어 위치 이동
 			math::Vector2 pos_head = head->GetComponent<Transform>()->GetPosition();
