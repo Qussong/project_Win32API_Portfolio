@@ -1645,7 +1645,8 @@ namespace van
 
 		// 투사체 발사
 		if (head != nullptr
-			&& head->GetCollision() == false)
+			&& head->GetCollision() == false &&
+			mbSkullLess)
 		{
 			// 투사체가 생성되었고 어디에도 부딪히지 않은 상태일 때
 

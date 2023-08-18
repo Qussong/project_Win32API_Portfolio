@@ -109,6 +109,7 @@ namespace van
 		bool mbSkillFlag;	//	스킬 발동여부
 		float mHeadTime;
 		float mCoolTime;
+
 		Skull* head;
 	};
 }
