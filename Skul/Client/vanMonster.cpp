@@ -35,7 +35,6 @@ namespace van
 		, mbWallFlag(false)
 		, mTraceBox(nullptr)
 		, mAttackBox(nullptr)
-		, mDeathTime(1.0f)
 		, mAttackCnt(0)
 	{
 		AddComponent<RigidBody>();
@@ -105,20 +104,20 @@ namespace van
 			SetMonsterState(MonsterState::Dead);
 		}
 
-		// 벽을 만났을 때
-		if (GetWallFlag() == true)
-		{
-			if (GetMonsterDirection() == MonsterDirection::Left)
-			{
-				SetMonsterDirection(MonsterDirection::Right);
-			}
-			if (GetMonsterDirection() == MonsterDirection::Right)
-			{
-				SetMonsterDirection(MonsterDirection::Left);
-			}
+		//// 벽을 만났을 때
+		//if (GetWallFlag() == true)
+		//{
+		//	if (GetMonsterDirection() == MonsterDirection::Left)
+		//	{
+		//		SetMonsterDirection(MonsterDirection::Right);
+		//	}
+		//	if (GetMonsterDirection() == MonsterDirection::Right)
+		//	{
+		//		SetMonsterDirection(MonsterDirection::Left);
+		//	}
 
-			SetWallFlag(false);
-		}
+		//	SetWallFlag(false);
+		//}
 
 		// Animation 재생여부 판정_2
 		// 만약 몬스터의 상태,방향이 바꼈다면
@@ -144,6 +143,7 @@ namespace van
 
 	void Monster::OnCollisionEnter(Collider* _other)
 	{
+		// 기본 스컬 머리 스킬에 공격받았을 경우
 		GameObject* obj = _other->GetOwner();
 		Skull* head = dynamic_cast<Skull*>(obj);
 		
@@ -251,19 +251,19 @@ namespace van
 			// Trace 범위에 Player가 들어왔을 경우 Trace 상태로 전환
 			if (GetTraceFlag() == true)
 			{
+				// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
+				SetTimer(0.0f);
 				SetMonsterState(MonsterState::Trace);
 				return;
 			}
-
 			// 시간 누적
 			AddTimer(Time::GetDeltaTime());
-
-			// 누적된 시간이 3초 이상이되면
-			if (GetTimer() >= 3.0f)
+			// Patrol상태시 Idle는 2초간 진행
+			// Idle 상태가 2초 이상 유지되었을 때
+			if (GetTimer() >= 2.0f)
 			{
 				SetTimer(0.0f);							// 누적시간 0초로 초기화
-				SetMonsterState(MonsterState::Walk);	// Monster의 상태를 Walk 로 변경
-
+				SetMonsterState(MonsterState::Walk);	// Walk 로 상태 변경
 				// 방향전환
 				if (GetMonsterDirection() == MonsterDirection::Left)
 				{
@@ -273,10 +273,12 @@ namespace van
 				{
 					SetMonsterDirection(MonsterDirection::Left);
 				}
+				return;
 			}
 			// 누적된 시간이 3초 이상이 아니라면
 			else
 			{
+				// Idle_L
 				if (GetMonsterDirection() == MonsterDirection::Left)
 				{
 					if (GetPlayAnimation() == true)
@@ -285,6 +287,41 @@ namespace van
 						SetPlayAnimation(false);
 					}
 				}
+				// Idle_R
+				else
+				{
+					if (GetPlayAnimation() == true)
+					{
+						at->PlayAnimation(L"Idle_R", true);
+						SetPlayAnimation(false);
+					}
+				}
+			}
+		}
+		// Attack 상태일 때
+		else if (GetAttackFlag() == true)
+		{
+			// 시간 누적
+			AddTimer(Time::GetDeltaTime());
+			// Attack상태시 Idle는 0.5초간 진행
+			if (GetTimer() >= 0.5f)
+			{
+				SetTimer(0.0f);								// 누적시간 0초로 초기화
+				SetMonsterState(MonsterState::AttackReady);	//	AttackReady로 상태 변경
+			}
+			// 누적된 시간이 0.5초 이상이 아니라면
+			else
+			{
+				// Idle_L
+				if (GetMonsterDirection() == MonsterDirection::Left)
+				{
+					if (GetPlayAnimation() == true)
+					{
+						at->PlayAnimation(L"Idle_L", true);
+						SetPlayAnimation(false);
+					}
+				}
+				// Idle_R
 				else
 				{
 					if (GetPlayAnimation() == true)
@@ -314,13 +351,15 @@ namespace van
 			// Trace 범위에 Player가 들어왔을 경우
 			if (GetTraceFlag() == true)
 			{
+				// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
+				SetTimer(0.0f);
+				// Trace 상태로 바로 전환
 				SetMonsterState(MonsterState::Trace);
+				return;
 			}
-
 			// 시간 누적
 			AddTimer(Time::GetDeltaTime());
-
-			// 누적된 시간이 2초 이상이되면
+			// Patrol상태시 Walk는 2초간 진행
 			if (GetTimer() >= 2.0f)
 			{
 				SetTimer(0.0f);
@@ -359,13 +398,14 @@ namespace van
 			// Trace 범위에 Player가 들어왔을 경우
 			if (GetAttackFlag() == true)
 			{
+				// AttackReady 상태로 바로 전환
 				SetMonsterState(MonsterState::AttackReady);
+				return;
 			}
 
 			// Monster 기준으로 Target의 위치탐색
 			math::Vector2 targetPos = GetMonsterTarget()->GetComponent<Transform>()->GetPosition();	// Target의 위치
 			math::Vector2 monsterPos = GetComponent<Transform>()->GetPosition();					// Monster의 위치
-
 			// Target이 Monster의 Left에 있을 때
 			if (targetPos.x < monsterPos.x)
 			{
@@ -413,9 +453,6 @@ namespace van
 	{
 		// 몬스터가 모든 상태에서 Patrol 행동을 보이도록 설정
 		SetPatrolFlag(true);
-		// Patrol 상태로 전환됐기에 Trace, Attack Flag는 꺼준다.
-		SetAttackFlag(false);
-		SetTraceFlag(false);
 		// Patrol시 Idle 부터 시작하도록 한다.
 		SetMonsterState(MonsterState::Idle);
 	}
@@ -424,10 +461,6 @@ namespace van
 	{
 		// Trace 상태로 전환됐기에 Patrol, Attack Flag는 꺼준다.
 		SetPatrolFlag(false);
-		SetAttackFlag(false);
-		// Patrol 행동 패턴에 사용했던 Timer는 초기화해준다.
-		SetTimer(0.0f);
-
 		// Trace시 Target을 쫓아가기에 Walk 부터 시작
 		SetMonsterState(MonsterState::Walk);
 	}
@@ -437,7 +470,6 @@ namespace van
 		// Attack 상태로 전환됐기에 Patrol, Trace Flag는 꺼준다.
 		SetPatrolFlag(false);
 		SetTraceFlag(false);
-
 		Animator* ani = GetComponent<Animator>();
 		Monster::MonsterDirection direction = GetMonsterDirection();
 		math::Vector2 pos = GetComponent<Transform>()->GetPosition();
@@ -460,19 +492,17 @@ namespace van
 		}
 
 		// 카운트 시작
-		// 1) 카운트중에 피격되면 Timer 리셋
-		// 2) AttackReadyFlag = false ( Hit()에서 수행 )
+		// 카운트중에 피격되면 Timer 리셋 (AttackReadyFlag == false)
 		AddTimer(Time::GetDeltaTime());
 
-		// 카운트 완료시 
-		// 1) Attack Ready를 완료했음
-		// 2) Attack 상태로 넘어간다
-		// 3) Timer 리셋
-		// 4) Attack Dash 시작지점 저장
+		// 카운트 완료 (Attack Ready를 완료)
 		if (GetTimer() >= ATTACK_READY_DELAY)
 		{
+			// 1) AttackReadyFlag = true
 			attackBox->SetAttackReadyFlag(true);
+			// 2) Timer 리셋
 			SetTimer(0.0f);
+			// 3) Attack 상태로 넘어간다
 			SetMonsterState(Monster::MonsterState::Attack);
 		}
 	}
@@ -490,34 +520,29 @@ namespace van
 		// Attack Animation재생
 		if (GetPlayAnimation() == true)
 		{
-			// Monster의 방향이 Left인 경우
+			// Monster Direction == Left 인 경우
 			if (direction == Monster::MonsterDirection::Left)
 			{
 				ani->PlayAnimation(L"Attack_L", false);
 			}
-			// Monster의 방향이 Right인 경우
+			// Monster Direction == Right 인 경우
 			else
 			{
 				ani->PlayAnimation(L"Attack_R", false);
 			}
+
 			SetPlayAnimation(false);
 		}
 
 		// 공격 완료
-		// 조건 : Animation 재생이 완료 && 일정거리 이동 완료 || 벽과의 충돌
-		// 1) AttackReadyFlag = false
-		// 2) AttacList 초기화
-		// 3) Attack Flag false 전환
-		// 4) Trace Flag true 전환, Trace 상태로 전환
+		// 조건 : Attack Animation 재생 완료
 		if (ani->IsActiveAnimationComplete() == true)
 		{
-			// 공격을 수행했기에 다시 Attack Ready를 해줘야한다.
+			// 공격을 수행했기에 Attack Ready Flag = false 로 전환
 			attackBox->SetAttackReadyFlag(false);
-			// 동일 대상에대한 공격이 가능하도록해준다.
+			// 동일 대상에대한 공격이 가능하도록 AttacList 초기화
 			list->clear();
-			// Attack 을 수행했기에 mbAttack 을 false로 변경
-			SetAttackFlag(false);
-			// Trace 상태가 될 수 있도록 대상 풀어준다.
+			// 대상을 재설정 할 수 있도록 공격대상을 풀어준다.
 			SetMonsterTarget(nullptr);
 			// Attack End 상태 만들기
 			SetMonsterState(MonsterState::AttackEnd);
@@ -528,7 +553,8 @@ namespace van
 	{
 		if (GetAttackFlag() == true)
 		{
-			SetMonsterState(MonsterState::AttackReady);
+			// Idel 상태 갔다가 0.5초 후에 공격 재준비
+			SetMonsterState(MonsterState::Idle);
 		}
 		else if (GetTraceFlag() == true)
 		{

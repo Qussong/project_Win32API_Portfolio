@@ -67,6 +67,7 @@ namespace van
 		Player* player = dynamic_cast<Player*>(obj);
 		Monster* monster = dynamic_cast<Monster*>(obj);
 
+		// 플레이어와 충돌했을 경우
 		if (player != nullptr
 			&& mbFloorLimit == false)
 		{
@@ -112,6 +113,7 @@ namespace van
 			}
 		}
 
+		// 몬스터와 충돌했을 경우
 		if (monster != nullptr)
 		{
 			monster->SetWallFlag(true);

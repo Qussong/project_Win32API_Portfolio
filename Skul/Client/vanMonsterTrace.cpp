@@ -78,12 +78,15 @@ namespace van
 		// 충돌에서 벗어난 객체가 Player 인 경우
 		if (player != nullptr
 			&& monster->GetMonsterState() != Monster::MonsterState::AttackReady
-			&& monster->GetMonsterState() != Monster::MonsterState::Attack)
+			&& monster->GetMonsterState() != Monster::MonsterState::Attack
+			&& monster->GetMonsterState() != Monster::MonsterState::AttackEnd)
 		{
+			monster->SetTraceFlag(false);
 			// 몬스터의 타겟을 없앤다.
 			monster->SetMonsterTarget(nullptr);
 			// 몬스터의 상태를 Patrol 로 변경
 			monster->SetMonsterState(Monster::MonsterState::Patrol);
 		}
 	}
+
 }

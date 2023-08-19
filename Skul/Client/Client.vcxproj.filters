@@ -193,6 +193,9 @@
     <Filter Include="Contents\GameObject\Monster\Trap">
       <UniqueIdentifier>{40dc929c-164b-45be-bf79-5a62fe891d44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Monster\Boss">
+      <UniqueIdentifier>{0cf2685d-0918-4692-8a83-d90cec74ce60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -384,6 +387,9 @@
     <ClInclude Include="vanSkull.h">
       <Filter>Contents\GameObject\Skull</Filter>
     </ClInclude>
+    <ClInclude Include="vanBoss.h">
+      <Filter>Contents\GameObject\Monster\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -570,6 +576,9 @@
     </ClCompile>
     <ClCompile Include="vanSkull.cpp">
       <Filter>Contents\GameObject\Skull</Filter>
+    </ClCompile>
+    <ClCompile Include="vanBoss.cpp">
+      <Filter>Contents\GameObject\Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

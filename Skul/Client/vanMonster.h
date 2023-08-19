@@ -103,24 +103,19 @@ namespace van
 
 	private:
 		GameObject* mTarget;			// Monster의 목표대상(Trace)
-
 		MonsterState mState;
 		MonsterState mPastState;
 		MonsterDirection mDirection;
 		MonsterDirection mPastDirection;
 		MonsterDirection mHitDirection;
-
 		float mTimer;
-		bool mbPatrol;			// Monster가 각 상태에서 Patrol 행동을 보이도록 해줌
-		bool mbTrace;			// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
-		bool mbAttack;			// Monster가 각 상태에서 Attack 행동을 보이도록 해줌
-		bool mbPlayAnimation;	// Animation 재생 여부
-		bool mbWallFlag;		// 벽에 부딪혔을 때
-
-		MonsterTrace* mTraceBox;	// Monster의 Trace판정 범위
-		MonsterAttack* mAttackBox;	// Monster의 Attack판정 범위
-
-		float mDeathTime;
+		bool mbPatrol;					// Monster가 각 상태에서 Patrol 행동을 보이도록 해줌
+		bool mbTrace;					// Monster가 각 상태에서 Trace 행동을 보이도록 해줌
+		bool mbAttack;					// Monster가 각 상태에서 Attack 행동을 보이도록 해줌
+		bool mbPlayAnimation;			// Animation 재생 여부
+		bool mbWallFlag;				// 벽에 부딪혔을 때
+		MonsterTrace* mTraceBox;		// Monster의 Trace판정 범위
+		MonsterAttack* mAttackBox;		// Monster의 Attack판정 범위
 		int mAttackCnt;
 	};
 }

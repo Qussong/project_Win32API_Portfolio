@@ -10,7 +10,6 @@
 #include "vanCollisionManager.h"
 #include "vanFloor.h"
 #include "vanSceneManager.h"
-
 #include "vanPlayer.h"
 #include "vanWitch.h"
 #include "vanFoxHunter.h"
@@ -23,7 +22,6 @@
 #define OFFSET2						900.0f
 #define FLOOR_POS_Y					-2880.0f
 #define FLOOR_UP_CONDITION			-10.0f
-
 #define CAMERA_CONTROL_POS_X		1320.0f
 #define CAMERA_OFFSET_Y				-150.0f
 #define CAMERA_OFFSET_X				0.0f

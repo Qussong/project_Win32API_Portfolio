@@ -114,6 +114,21 @@ namespace van
 
 	void MonsterAttack::OnCollisionExit(Collider* _other)
 	{
-		// Attack 범위에서 벗어날때... 뭐 없지 않나..
+		Monster* monster = (Monster*)GetOwner();		// MonsterAttack 클래스를 소유한 객체의 주소 저장
+		GameObject* obj = _other->GetOwner();			// 충돌 대상의 주소저장
+		Player* playr = dynamic_cast<Player*>(obj);		// 충돌 대상이 Player 인지 확인
+
+		// Player가 Monster Attack 범위에서 벗어나면 Attack Flag 를 꺼준다.
+		if (playr != nullptr)
+		{
+			monster->SetAttackFlag(false);
+
+			if (monster->GetMonsterState() != Monster::MonsterState::AttackReady
+				&& monster->GetMonsterState() != Monster::MonsterState::Attack
+				&& monster->GetMonsterState() != Monster::MonsterState::AttackEnd)
+			{
+				monster->SetMonsterState(Monster::MonsterState::Patrol);
+			}
+		}
 	}
 }
