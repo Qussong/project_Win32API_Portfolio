@@ -402,6 +402,12 @@
     <ClInclude Include="vanGianticEnt.h">
       <Filter>Contents\GameObject\Monster\GianticEnt</Filter>
     </ClInclude>
+    <ClInclude Include="vanYggdrasill.h">
+      <Filter>Contents\GameObject\Boss\Yggdrasill</Filter>
+    </ClInclude>
+    <ClInclude Include="vanWarrior.h">
+      <Filter>Contents\GameObject\Boss\Warrior</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -594,6 +600,12 @@
     </ClCompile>
     <ClCompile Include="vanGianticEnt.cpp">
       <Filter>Contents\GameObject\Monster\GianticEnt</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasill.cpp">
+      <Filter>Contents\GameObject\Boss\Yggdrasill</Filter>
+    </ClCompile>
+    <ClCompile Include="vanWarrior.cpp">
+      <Filter>Contents\GameObject\Boss\Warrior</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -196,7 +196,9 @@
     <ClInclude Include="vanTitleScene.h" />
     <ClInclude Include="vanTransform.h" />
     <ClInclude Include="vanWall.h" />
+    <ClInclude Include="vanWarrior.h" />
     <ClInclude Include="vanWitch.h" />
+    <ClInclude Include="vanYggdrasill.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
@@ -258,7 +260,9 @@
     <ClCompile Include="vanTitleScene.cpp" />
     <ClCompile Include="vanTransform.cpp" />
     <ClCompile Include="vanWall.cpp" />
+    <ClCompile Include="vanWarrior.cpp" />
     <ClCompile Include="vanWitch.cpp" />
+    <ClCompile Include="vanYggdrasill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
