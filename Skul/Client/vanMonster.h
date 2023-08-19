@@ -31,6 +31,7 @@ namespace van
 		{
 			Left,
 			Right,
+			Center,
 			None,
 		};
 

@@ -17,14 +17,14 @@
 #include "vanWall.h"
 
 // player
-#define PLAYER_INIT_POS_Y	-1500.0f
+#define PLAYER_INIT_POS_Y	-1200.0f
 // NPC
 #define NPC_TIEDSKUL_POS_X	-500.0f
 // floor
 #define FLOOR_POS_Y			260.0f
 #define DOOR_POS_Y			135.0f
 #define DOOR_POS_X			-210.0f
-#define FLOOR_UP_CONDITION	-3.0f
+#define FLOOR_UP_CONDITION	-10.0f
 
 namespace van
 {
@@ -127,7 +127,7 @@ namespace van
 	{
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(eLayerType::Floor);
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, 1.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(2200.0f, FLOOR_HEIGHT * 4));	// 너무 얇으면 떨어지는 속도 때문에 Floor에 안걸림
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_POS_Y));
 	}
 

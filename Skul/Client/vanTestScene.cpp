@@ -46,6 +46,7 @@ namespace van
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
+		//	GianticEnt
 		GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
 		giantEnt->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 

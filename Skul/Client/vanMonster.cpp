@@ -645,9 +645,20 @@ namespace van
 		math::Vector2 velocity = rb->GetVelocity();
 		SetWallFlag(false);
 		rb->SetHit(true);
-		velocity.x = -WALL_BUMP_X;
-		velocity.y = WALL_BUMP_Y;
-		rb->SetVelocity(velocity);
+
+		if (mDirection == MonsterDirection::Right)
+		{
+			velocity.x = -WALL_BUMP_X;
+			velocity.y = WALL_BUMP_Y;
+			rb->SetVelocity(velocity);
+		}
+		if (mDirection == MonsterDirection::Left)
+		{
+			velocity.x = WALL_BUMP_X;
+			velocity.y = WALL_BUMP_Y;
+			rb->SetVelocity(velocity);
+		}
+		
 
 		if (rb->GetGround() == true)
 		{

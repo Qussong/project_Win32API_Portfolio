@@ -10,6 +10,7 @@ namespace van
 {
 	MonsterAttack::MonsterAttack()
 		: mbAttackReadyFlag(false)
+		, mbForNotify(false)
 	{
 		// nothing
 	}
@@ -30,8 +31,13 @@ namespace van
 	void MonsterAttack::Update()
 	{
 		GameObject::Update();
-		Transform* tr = GetComponent<Transform>();
 
+		if (mbForNotify == true)
+		{
+			GetComponent<Collider>()->SetLineColor(RGB(127, 0, 255));
+		}
+
+		Transform* tr = GetComponent<Transform>();
 		// 위치 설정
 		// MonsterTrace 클래스를 소유하고 있는 객체의 위치를 기반으로 따라다닌다.
 		Monster::MonsterDirection direction = (Monster::MonsterDirection)GetOwnerDirection();
@@ -41,7 +47,12 @@ namespace van
 			tr->SetPosition(GetOwnerPos() - GetOffset());
 		}
 		// 몬스터가 바라보는 방향이 Right 일때
-		else
+		if (direction == Monster::MonsterDirection::Left)
+		{
+			tr->SetPosition(GetOwnerPos() + GetOffset());
+		}
+		// 몬스터가 바라보는 방향이 Center 일때
+		if (direction == Monster::MonsterDirection::Center)
 		{
 			tr->SetPosition(GetOwnerPos() + GetOffset());
 		}
@@ -77,37 +88,41 @@ namespace van
 			monster->SetAttackFlag(true);
 		}
 		
-		// Attack 상태 진입
-		// Attack 상태일때 타격판정이 생긴다.
-		// 몬스터가 Attack 상태이고 Attack Ready를 이미 수행했을 경우
-		if ((Monster::MonsterState)GetOwnerState() == Monster::MonsterState::Attack
-			&& mbAttackReadyFlag == true)
+		// 공격범위에 들어왔음을 알리는 용도로 사용되지 않을 경우에만 타격판정 범위로서 사용된다.
+		if (mbForNotify == false)
 		{
-			// 만약 타격된 대상이 Set에 들어있지 않다면 타격판정 o
-			if (mAttackList.find(obj) == mAttackList.end())
+			// Attack 상태 진입
+			// Attack 상태일때 타격판정이 생긴다.
+			// 몬스터가 Attack 상태이고 Attack Ready를 이미 수행했을 경우
+			if ((Monster::MonsterState)GetOwnerState() == Monster::MonsterState::Attack
+				&& mbAttackReadyFlag == true)
 			{
-				// 타격된 대상을 Set에 넣어준다.
-				// 빼주는건 Monster에서 해준다.
-				mAttackList.insert(obj);
-
-				// 피격대상이 플레이어 일때
-				Player* player = dynamic_cast<Player*>(obj);
-				if (player != nullptr)
+				// 만약 타격된 대상이 Set에 들어있지 않다면 타격판정 o
+				if (mAttackList.find(obj) == mAttackList.end())
 				{
-					// hp 감소
-					// 피격판정시 날아간다..
+					// 타격된 대상을 Set에 넣어준다.
+					// 빼주는건 Monster에서 해준다.
+					mAttackList.insert(obj);
+
+					// 피격대상이 플레이어 일때
+					Player* player = dynamic_cast<Player*>(obj);
+					if (player != nullptr)
+					{
+						// hp 감소
+						// 피격판정시 날아간다..
+					}
+					// 피격대상이 플레이어가 아닐때
+					else
+					{
+						// 필요한 로직 구현
+						// ex) Monster라면 hp 감소는 없지만 날아가긴 한다거나...
+					}
 				}
-				// 피격대상이 플레이어가 아닐때
 				else
 				{
-					// 필요한 로직 구현
-					// ex) Monster라면 hp 감소는 없지만 날아가긴 한다거나...
+					// 이미 Set에 들어있다면 타격판정 x
+					__noop;
 				}
-			}
-			else
-			{
-				// 이미 Set에 들어있다면 타격판정 x
-				__noop;
 			}
 		}
 	}

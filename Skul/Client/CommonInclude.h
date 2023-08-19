@@ -9,8 +9,9 @@
 #pragma comment(lib, "Msimg32.lib")
 #include <filesystem>
 #include <bitset>
-
 #include <typeinfo>		// 타입비교
+#include <cstdlib>		//rand(), srand()
+#include <ctime>		//time()
 
 // 제공되는 헤더
 #include "framework.h"
@@ -28,7 +29,7 @@
 #define FHD_Y			1080
 #define Window_X		HD_X
 #define Window_Y		HD_Y
-#define FLOOR_HEIGHT	2.0f
+#define FLOOR_HEIGHT	5.0f
 #define WALL_WIDTH		2.0f
 #define WALL_HEIGHT		10.0f
 

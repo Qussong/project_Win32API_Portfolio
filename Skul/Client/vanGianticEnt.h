@@ -6,6 +6,14 @@ namespace van
 	class GianticEnt : public Monster
 	{
 	public:
+		enum class MonsterSkill
+		{
+			Melee,
+			Range,
+			None
+		};
+
+	public:
 		GianticEnt();
 		virtual ~GianticEnt();
 
@@ -30,8 +38,15 @@ namespace van
 		virtual void Dead();
 		virtual void Wall();
 
-	private:
+		void AttackMeleeReady();
+		void AttackMelee();
+		void AttackRangeReady();
+		void AttackRange();
 
+	private:
+		MonsterSkill mAttackCase = MonsterSkill::None;
+		bool mbChooseSkill = false;
+		bool mbAttackEnd = false;
 	};
 }
 

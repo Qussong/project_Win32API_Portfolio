@@ -222,5 +222,11 @@ namespace van
 		ResourceManager::Load<Texture>(L"ManAtArms_Idle_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Idle_R.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Walk_L", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Walk_L.bmp");
 		ResourceManager::Load<Texture>(L"ManAtArms_Walk_R", L"..\\MyResources\\skul\\Monster\\ManAtArms\\Walk_R.bmp");
+		// GianticEnt
+		ResourceManager::Load<Texture>(L"GianticEnt_Idle", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Idle.bmp");
+		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Range_Ready", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Range_Ready.bmp");
+		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Range", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Range.bmp");
+		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee_Ready", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee_Ready.bmp");
+		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee.bmp");
 	}
 }
