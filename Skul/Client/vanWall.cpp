@@ -114,7 +114,8 @@ namespace van
 		}
 
 		// 몬스터와 충돌했을 경우
-		if (monster != nullptr)
+		if (monster != nullptr
+			&& monster->GetWallFlag() == false)
 		{
 			monster->SetWallFlag(true);
 		}

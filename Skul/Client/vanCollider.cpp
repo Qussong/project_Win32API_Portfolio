@@ -19,6 +19,7 @@ namespace van
 		, collisionLineColor(RGB(255, 50, 50))	// 붉은색
 		, inActiveLineColor(RGB(128, 128, 128))	// 회색
 		, mbActive(true)
+		, mbAffectedCamera(true)
 	{
 		// 충돌체 Numbering : 0 ~ ...
 		mCollisionNum = mCollisionCount;	// 충돌체가 생성되면 몇번째 충돌체인지 이름을 받고
@@ -40,29 +41,34 @@ namespace van
 	// 값 변경
 	void Collider::Update()
 	{
-		// nothing
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();	
+		mPos = pos + mOffset;
 	}
 
 	// 출력
 	void Collider::Render(HDC hdc)
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();	// pos에 GameObject 객체의 위치를 저장
-		mPos = pos + mOffset;		// 충돌체의 최종위치 = 기존 위치 + 옵셋 값 
-									// 충돌체의 위치가 화면상에서 객체의 중점으로부터 위치 변경이 필요할수도 있다.
+		math::Vector2 pos = tr->GetPosition();	
 		
 		pos.x -= mSize.x / 2.0f;	// 그려질 도형(사각형)의 너비값 중심이 pos.x
 		pos.y -= mSize.y / 2.0f;	// 그려질 도형(사각형)의 높이값 중심이 pos.y
 		pos.x += mOffset.x;			// 그려질 도형(사각형)의 너비 위치 조정 값
 		pos.y += mOffset.y;			// 그려질 도형(사각형)의 높이 위치 조정 값
 
-		pos = Camera::CalculatePosition(pos);	// 카메라 영향 받음
+		// 카메라 영향여부에 따른 위치값 변화
+		if (mbAffectedCamera == true)
+		{
+			// 카메라 영향 받음
+			pos = Camera::CalculatePosition(pos);
+		}
 
 		HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);	// 투명브러쉬 핸들 값을 얻어온다.
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);	// Brush 교체
-
 		HPEN newPen = NULL;
 
+		// 충돌여부에 따른 색 변화
 		if (mbActive == true)
 		{
 			if (mbIsCollision == true)	// 충돌

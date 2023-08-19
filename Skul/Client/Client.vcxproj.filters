@@ -193,8 +193,17 @@
     <Filter Include="Contents\GameObject\Monster\Trap">
       <UniqueIdentifier>{40dc929c-164b-45be-bf79-5a62fe891d44}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Monster\Boss">
+    <Filter Include="Contents\GameObject\Boss">
       <UniqueIdentifier>{0cf2685d-0918-4692-8a83-d90cec74ce60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill">
+      <UniqueIdentifier>{f30fbc6a-50aa-4774-a45e-ade5193af8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Warrior">
+      <UniqueIdentifier>{e85168db-8144-4aad-9848-9c3c45a57b2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Monster\GianticEnt">
+      <UniqueIdentifier>{c92be955-3162-4f75-9c67-91020dd6a1b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -388,7 +397,10 @@
       <Filter>Contents\GameObject\Skull</Filter>
     </ClInclude>
     <ClInclude Include="vanBoss.h">
-      <Filter>Contents\GameObject\Monster\Boss</Filter>
+      <Filter>Contents\GameObject\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="vanGianticEnt.h">
+      <Filter>Contents\GameObject\Monster\GianticEnt</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,7 +590,10 @@
       <Filter>Contents\GameObject\Skull</Filter>
     </ClCompile>
     <ClCompile Include="vanBoss.cpp">
-      <Filter>Contents\GameObject\Monster\Boss</Filter>
+      <Filter>Contents\GameObject\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="vanGianticEnt.cpp">
+      <Filter>Contents\GameObject\Monster\GianticEnt</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

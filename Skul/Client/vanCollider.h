@@ -29,8 +29,8 @@ namespace van
 		__forceinline void SetLineColor(COLORREF _color) { lineColor = _color; }
 		__forceinline void SetCollisionLineColor(COLORREF _color) { collisionLineColor = _color; }
 
-		__forceinline BOOL GetActive() { return mbActive; }
-		__forceinline void SetActive(BOOL _active) { mbActive = _active; }
+		__forceinline bool GetActive() { return mbActive; }
+		__forceinline void SetActive(bool _active) { mbActive = _active; }
 
 	private:
 		static UINT mCollisionCount;
@@ -40,13 +40,14 @@ namespace van
 		math::Vector2 mPos;			// 그려질 도형의 중심좌표
 
 		UINT mCollisionNum;
-		BOOL mbIsCollision;			// 충돌 여부 (충돌시 true)
+		bool mbIsCollision;			// 충돌 여부 (충돌시 true)
 
 		COLORREF lineColor;
 		COLORREF collisionLineColor;
 		COLORREF inActiveLineColor;
 
-		BOOL mbActive;				// 충돌처리 활성화 여부(기본값 : true/활성화)
+		bool mbActive;				// 충돌처리 활성화 여부(기본값 : true/활성화)
+		bool mbAffectedCamera;
 	};
 }
 

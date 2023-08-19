@@ -21,9 +21,10 @@
 #include "vanManAtArms.h"
 #include "vanSkull.h"
 #include "vanRigidBody.h"
+#include "vanGianticEnt.h"
 
 #define FLOOR_POS_Y			-2880.0f
-#define FLOOR_UP_CONDITION	-3.0f
+#define FLOOR_UP_CONDITION	-10.0f
 
 namespace van
 {
@@ -44,39 +45,36 @@ namespace van
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		player->GetComponent<Animator>()->SetAffectedCamera(true);
+
+		GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
+		giantEnt->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Trap
-		Trap* trap = Object::Instantiate<Trap>(enums::eLayerType::Trap);
-		trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
+		//Trap* trap = Object::Instantiate<Trap>(enums::eLayerType::Trap);
+		//trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
 		// Cat_Seol
-		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
-		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
-		//catSeol->GetComponent<Animator>()->SetAffectedCamera(true);
+		//CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
+		//catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Gold
-		for (int i = 0; i < 10; ++i)
-		{
-			Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
-			gold->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (i*20), Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
-			//gold->GetComponent<Animator>()->SetAffectedCamera(true);
-		}
+		//for (int i = 0; i < 10; ++i)
+		//{
+		//	Gold* gold = Object::Instantiate<Gold>(enums::eLayerType::Drop);
+		//	gold->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + (i*20), Window_Y / 2 + FLOOR_UP_CONDITION - 100.0f));
+		//}
 
 		// Carleon Recruit
-		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		//carleon->GetComponent<Animator>()->SetAffectedCamera(true);
+		//CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+		//carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Ent
-		Ent* ent = Object::Instantiate<Ent>(enums::eLayerType::Monster);
-		ent->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 200.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		//ent->GetComponent<Animator>()->SetAffectedCamera(true);
+		//Ent* ent = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+		//ent->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 200.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
-		//ManAtArms
-		ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
-		man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-		//man->GetComponent<Animator>()->SetAffectedCamera(true);
+		// ManAtArms
+		//ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
+		//man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -163,10 +161,10 @@ namespace van
 	void TestScene::MakeWall()
 	{
 		// Wall객체
-		Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
-		wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
-		wall->SetFloorLimit(true);
+		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
+		//wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
+		//wall->SetFloorLimit(true);
 	}
 
 	void TestScene::MakeDoor()

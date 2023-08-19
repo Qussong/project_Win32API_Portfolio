@@ -31,6 +31,7 @@ namespace van
 		virtual void AttackEnd() override;
 		virtual void Hit() override;
 		virtual void Dead() override;
+		virtual void Wall() override;
 
 	private:
 	};

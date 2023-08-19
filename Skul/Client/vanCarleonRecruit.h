@@ -31,6 +31,7 @@ namespace van
 		virtual void AttackEnd() override;
 		virtual void Hit() override;
 		virtual void Dead() override;
+		virtual void Wall() override;
 
 	private:
 		float mAttackDashX1 = 0.0f;		// AttackDash 시작지점

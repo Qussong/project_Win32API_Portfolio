@@ -12,8 +12,8 @@
 #include "vanGold.h"
 #include "vanObject.h"
 
-#define HIT_BUMP_X			20.0f
-#define HIT_BUMP_Y			-100.0f
+#define HIT_BUMP_X			50.0f
+#define HIT_BUMP_Y			-300.0f
 
 namespace van
 {
@@ -151,7 +151,7 @@ namespace van
 
 	void ManAtArms::Hit()
 	{
-		Monster::Hit();
+		//Monster::Hit();
 
 		Animator* at = GetComponent<Animator>();
 		RigidBody* rb = GetComponent<RigidBody>();
@@ -164,7 +164,6 @@ namespace van
 		// Monster가 왼쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Left)
 		{
-			//at->PlayAnimation(L"Hit_L", false);
 			rb->SetHit(true);
 			rb->SetGround(false);
 			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
@@ -177,7 +176,6 @@ namespace van
 		// 몬스터가 오른쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Right)
 		{
-			//at->PlayAnimation(L"Hit_R", false);
 			rb->SetHit(true);
 			rb->SetGround(false);
 			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
@@ -193,7 +191,7 @@ namespace van
 		// 공격받은 후 땅에 닿으면 Trace 상태로 전환
 		if (rb->GetGround() == true)
 		{
-			////피격횟수 증가
+			//피격횟수 증가
 			SetMonsterState(MonsterState::AttackReady);
 		}
 	}
@@ -201,5 +199,10 @@ namespace van
 	void ManAtArms::Dead()
 	{
 		Monster::Dead();
+	}
+
+	void ManAtArms::Wall()
+	{
+		Monster::Wall();
 	}
 }

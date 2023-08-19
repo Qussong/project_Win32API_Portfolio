@@ -155,4 +155,9 @@ namespace van
 	{
 		Monster::Dead();
 	}
+
+	void Ent::Wall()
+	{
+		Monster::Wall();
+	}
 }

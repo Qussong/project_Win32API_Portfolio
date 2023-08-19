@@ -21,7 +21,6 @@ namespace van
 	void MonsterTrace::Init()
 	{
 		GetComponent<Collider>()->SetLineColor(RGB(255, 255, 0));	// Collider 의 상자색 변경(Trace 범위 색 : Yellow)
-		//CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 	}
 
 	void MonsterTrace::Update()

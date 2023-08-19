@@ -23,6 +23,7 @@ namespace van
 			AttackEnd,
 			Hit,
 			Dead,
+			Wall,
 			None,
 		};
 
@@ -55,6 +56,7 @@ namespace van
 		virtual void AttackEnd();
 		virtual void Hit();
 		virtual void Dead();
+		virtual void Wall();
 
 		__forceinline GameObject* GetMonsterTarget() { return mTarget; }
 		__forceinline void SetMonsterTarget(GameObject* _target) { mTarget = _target; }
