@@ -55,6 +55,7 @@ namespace van
 	void Player::Init()
 	{
 		MakeAnimation();
+
 		Animator* at = GetComponent<Animator>();
 		at->PlayAnimation(L"Idle_Weapon_R", true);
 		at->SetScale(math::Vector2(2.0f, 2.0f));

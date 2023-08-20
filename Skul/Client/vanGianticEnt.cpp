@@ -25,7 +25,6 @@ namespace van
 	{
 		Monster::Init();
 
-		// 애니메이션 생성
 		MakeAnimation();
 
 		// Monster 초기설정
@@ -133,6 +132,7 @@ namespace van
 		{
 			SetMonsterDirection(MonsterDirection::Center);	// 방향
 			SetMonsterState(MonsterState::Idle);			// 상태
+			SetPlayAnimation(true);
 		}
 	}
 

@@ -23,6 +23,7 @@ namespace van
     void Skull::Init()
     {
         GameObject::Init();
+
         SpriteRenderer* sr = GetComponent<SpriteRenderer>();
         sr->SetTexture(ResourceManager::Find<Texture>(L"Head"));
         sr->SetScale(math::Vector2(2.0f, 2.0f));

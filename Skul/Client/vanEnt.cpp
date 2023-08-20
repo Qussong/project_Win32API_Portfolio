@@ -28,8 +28,8 @@ namespace van
 	{
 		Monster::Init();
 
-		MakeAnimation();	// 애니메이션 생성
-
+		MakeAnimation();
+		
 		// Monster 초기설정
 		SetMonsterState(MonsterState::Gen);									// 상태
 		GetComponent<Collider>()->SetSize(math::Vector2(80.0f, 120.0f));	

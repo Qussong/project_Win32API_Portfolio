@@ -24,8 +24,6 @@ namespace van
 	{
 		// Collider 의 상자색 변경(MonsterAttack 범위 색 : Blue)
 		GetComponent<Collider>()->SetLineColor(RGB(0, 0, 255));	
-		// MonsterAttack 과 Player가 충돌판정을 받도록 설정
-		//CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 	}
 
 	void MonsterAttack::Update()
@@ -41,13 +39,14 @@ namespace van
 		// 위치 설정
 		// MonsterTrace 클래스를 소유하고 있는 객체의 위치를 기반으로 따라다닌다.
 		Monster::MonsterDirection direction = (Monster::MonsterDirection)GetOwnerDirection();
+
 		// 몬스터가 바라보는 방향이 Left 일때
 		if (direction == Monster::MonsterDirection::Left)
 		{
 			tr->SetPosition(GetOwnerPos() - GetOffset());
 		}
 		// 몬스터가 바라보는 방향이 Right 일때
-		if (direction == Monster::MonsterDirection::Left)
+		if (direction == Monster::MonsterDirection::Right)
 		{
 			tr->SetPosition(GetOwnerPos() + GetOffset());
 		}

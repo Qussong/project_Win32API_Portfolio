@@ -205,6 +205,18 @@
     <Filter Include="Contents\GameObject\Monster\GianticEnt">
       <UniqueIdentifier>{c92be955-3162-4f75-9c67-91020dd6a1b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Body">
+      <UniqueIdentifier>{85632925-f0fd-468e-9130-9e38aa93ce24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Hand">
+      <UniqueIdentifier>{f5ce9939-b751-4478-8a14-4c7966c9e6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Head">
+      <UniqueIdentifier>{a0072298-9485-41e1-8da6-80e091940307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Chin">
+      <UniqueIdentifier>{c15c953e-cf3f-43e5-9e19-00c4f0e50e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -408,6 +420,18 @@
     <ClInclude Include="vanWarrior.h">
       <Filter>Contents\GameObject\Boss\Warrior</Filter>
     </ClInclude>
+    <ClInclude Include="vanYggdrasillBody.h">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Body</Filter>
+    </ClInclude>
+    <ClInclude Include="vanYggdrasillHand.h">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Hand</Filter>
+    </ClInclude>
+    <ClInclude Include="vanYggdrasillHead.h">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Head</Filter>
+    </ClInclude>
+    <ClInclude Include="vanYggdrasillChin.h">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Chin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -606,6 +630,18 @@
     </ClCompile>
     <ClCompile Include="vanWarrior.cpp">
       <Filter>Contents\GameObject\Boss\Warrior</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillBody.cpp">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Body</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillHand.cpp">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillHead.cpp">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Head</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillChin.cpp">
+      <Filter>Contents\GameObject\Boss\Yggdrasill\Chin</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

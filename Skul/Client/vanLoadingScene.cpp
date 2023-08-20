@@ -106,8 +106,11 @@ namespace van
 		// BG_Stage1_Boss_Enter_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
 		// BG_Stage1_Boss_Scene
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.bmp");
 		// BG_Market_Scene
+		
 		// BG_EndingScene
+
 
 		// [ Door]
 		// Door1
@@ -228,5 +231,12 @@ namespace van
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Range", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Range.bmp");
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee_Ready", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee_Ready.bmp");
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee.bmp");
+		// Yggdrasill
+		ResourceManager::Load<Texture>(L"Yggdrasill_Head", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Head.bmp");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Chin", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\chin.bmp");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Body", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body.bmp");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_L.bmp");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_R.bmp");
+
 	}
 }

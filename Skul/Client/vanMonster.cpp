@@ -52,6 +52,8 @@ namespace van
 
 	void Monster::Init()
 	{
+		GameObject::Init();
+
 		SceneManager::GetActiveScene()->AddMonsterCnt();
 	}
 
@@ -60,8 +62,8 @@ namespace van
 		GameObject::Update();
 
 		// Animation 재생여부 판정_1
-		SetMonsterPastState(GetMonsterState());			// 현재 몬스터의 상태를 저장
-		SetMonsterPastDirection(GetMonsterDirection());	// 현재 몬스터의 방향을 저장
+		SetMonsterPastState(GetMonsterState());				// 현재 몬스터의 상태를 저장
+		SetMonsterPastDirection(GetMonsterDirection());		// 현재 몬스터의 방향을 저장
 
 		switch (GetMonsterState())
 		{
@@ -279,8 +281,9 @@ namespace van
 							SetPlayAnimation(false);
 						}
 					}
+
 					// Idle_R
-					else
+					if (GetMonsterDirection() == MonsterDirection::Right)
 					{
 						if (GetPlayAnimation() == true)
 						{
@@ -391,6 +394,7 @@ namespace van
 					}
 				}
 			}
+
 			// Trace 상태일 때
 			else if (GetTraceFlag() == true)
 			{

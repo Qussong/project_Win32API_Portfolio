@@ -20,7 +20,7 @@
 
 #define OFFSET1						400.0f
 #define OFFSET2						900.0f
-#define FLOOR_POS_Y					-2880.0f
+#define FLOOR_POS_Y					-2860.0f
 #define FLOOR_UP_CONDITION			-10.0f
 #define CAMERA_CONTROL_POS_X		1320.0f
 #define CAMERA_OFFSET_Y				-150.0f
@@ -161,7 +161,7 @@ namespace van
 	{
 		// Floor
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 2.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(3860.0f, 50.0f));
 		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 565.0f, Window_Y / 2 + FLOOR_POS_Y));
 	}
 

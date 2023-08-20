@@ -33,7 +33,6 @@ namespace van
 	{
 		Monster::Init();
 
-		// 애니메이션 생성
 		MakeAnimation();
 
 		// Monster 초기설정
@@ -57,20 +56,23 @@ namespace van
 
 	void CarleonRecruit::Update()
 	{
+		Monster::Update();
+
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
+
 		// traceBox 값세팅
 		MonsterTrace* traceBox = GetMonsterTraceBox();
 		traceBox->SetOwnerPos(pos);
 		traceBox->SetOwnerState((UINT)GetMonsterState());
 		traceBox->SetOwnerDirection((UINT)GetMonsterDirection());
+
 		// attackBox 값세팅
 		MonsterAttack* attackBox = GetMonsterAttackBox();
 		attackBox->SetOwnerPos(pos);
 		attackBox->SetOwnerState((UINT)GetMonsterState());
 		attackBox->SetOwnerDirection((UINT)GetMonsterDirection());
 
-		Monster::Update();
 	}
 
 	void CarleonRecruit::Render(HDC _hdc)

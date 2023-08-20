@@ -17,6 +17,7 @@ namespace van
 		__forceinline void SetTexture(Texture* _texture) { mTexture = _texture; }
 		__forceinline Texture* GetTexture() { return mTexture; }
 		__forceinline void SetScale(math::Vector2 _scale) { mScale = _scale; }
+		__forceinline math::Vector2 GetScale() { return mScale; }
 		__forceinline void SetAffectCamera(bool _flag) { mAffectCamera = _flag; }
 		__forceinline float GetAlpha() { return mAlpha; }
 		__forceinline void SetAlpha(float _value) { mAlpha = _value; }

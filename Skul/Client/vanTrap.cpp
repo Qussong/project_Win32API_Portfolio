@@ -21,7 +21,7 @@ namespace van
 	{
 		GameObject::Init();
 
-		MakeAnimation();	// 局聪皋捞记 积己
+		MakeAnimation();
 
 		SetMonsterState(Monster::MonsterState::Idle);
 		GetComponent<Animator>()->PlayAnimation(L"Stage1Trap_Idle", true);

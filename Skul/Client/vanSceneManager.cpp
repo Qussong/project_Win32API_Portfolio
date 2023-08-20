@@ -12,8 +12,6 @@
 #include "vanStage1MiddleBossScene.h"
 #include "vanStage1BossEnterScene.h"
 #include "vanStage1BossScene.h"
-#include "vanStage2BossEnterScene.h"
-#include "vanStage2BossScene.h"
 #include "vanEndingScene.h"
 
 namespace van
@@ -45,7 +43,7 @@ namespace van
 		// 화면 전환
 		if (Input::GetKey(eKeyCode::M))
 		{
-			LoadScene(L"Stage1BossEnterScene");	// 편집용
+			LoadScene(L"Stage1BossScene");	// 편집용
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))

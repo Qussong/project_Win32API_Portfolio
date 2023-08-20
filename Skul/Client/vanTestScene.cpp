@@ -131,7 +131,6 @@ namespace van
 		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
 		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Test"));
-		bgsr->SetAffectCamera(true);
 		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
 		bg->SetAutoCameraLimit();
 		// 해당 Scene에 카메라의 이동제한값 저장
