@@ -48,9 +48,9 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Mage
-		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
-		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
-		mage->SetTartget(player);
+		//Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
+		//mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		//mage->SetTartget(player);
 
 		//	GianticEnt
 		//GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
@@ -82,8 +82,6 @@ namespace van
 		// ManAtArms
 		//ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
 		//man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
-
-
 		
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
@@ -116,14 +114,18 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
+
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Floor, true);
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Wall, true);
 
 	}
 
@@ -157,7 +159,7 @@ namespace van
 		// Right
 		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
-		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 2.0f, Window_Y / 2));
 	}
 
 	void TestScene::MakeFloor()

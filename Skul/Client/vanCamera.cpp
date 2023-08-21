@@ -32,8 +32,8 @@ namespace van
 		// 카메라가 쳐다볼 타겟이 존재하면 해당 타겟을 따라다닌다.
 		if (mTarget)	
 		{
-			Transform* tr = mTarget->GetComponent<Transform>();	// Target의 위치정보 가져온다
-			mLookPosition = (tr->GetPosition()) + mCameraOffset;					// 카메라가 쳐다보는위치로 설정
+			Transform* tr = mTarget->GetComponent<Transform>();		// Target의 위치정보 가져온다
+			mLookPosition = (tr->GetPosition()) + mCameraOffset;	// 카메라가 쳐다보는위치로 설정
 		}
 		// 카메라의 타겟이 없다면 카메라를 조종할 수 있다.
 		else
@@ -80,6 +80,7 @@ namespace van
 			mDistance.y = mHeightLimit.y;
 		}
 	}
+
 	void Camera::SetCameraOffsetSmooth(math::Vector2 _offset, int _doubleSpeed)
 	{
 		bool flagX = true;

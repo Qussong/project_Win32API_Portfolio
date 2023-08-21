@@ -10,6 +10,7 @@ namespace van
 		{
 			Gen,
 			Idle,
+			Walk,
 			AttackReady,
 			Attack,
 			AttackEnd,
@@ -38,6 +39,14 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
+		float GetHp() { return mHp; }
+		void SetHp(float _hp) { mHp = _hp; }
+		void AddHp(float _heal) { mHp += _heal; }
+		void LoseHp(float _damage) { mHp -= _damage; }
+
+		float GetHpPercent() { return mHpPercent; }
+		void SetHpPercent(float _percent) { mHpPercent = _percent; }
+
 		BossState GetBossState() { return mBossState; }
 		void SetBossState(BossState _state) { mBossState = _state; }
 
@@ -53,6 +62,7 @@ namespace van
 
 		virtual void Gen();
 		virtual void Idle();
+		virtual void Walk();
 		virtual void AttackReady();
 		virtual void Attack();
 		virtual void AttackEnd();
@@ -60,6 +70,9 @@ namespace van
 		virtual void Dead();
 
 	private:
+		float mHp;
+		float mHpPercent;
+
 		BossState mBossState = BossState::None;
 		BossDirection mBossDirection = BossDirection::None;
 		float mTimer;

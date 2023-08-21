@@ -1595,7 +1595,8 @@ namespace van
 	void Player::Skill()
 	{
 		Transform* tr = GetComponent<Transform>();
-		 math::Vector2 pos = tr->GetPosition();
+		math::Vector2 pos = tr->GetPosition();
+		RigidBody* rb = GetComponent<RigidBody>();
 
 		// [머리발사 스킬]
 		if (Input::GetKeyDown(eKeyCode::A)
@@ -1681,9 +1682,11 @@ namespace van
 			math::Vector2 pos_head = head->GetComponent<Transform>()->GetPosition();
 			math::Vector2 col_size = GetComponent<Collider>()->GetSize();
 			math::Vector2 newPos = pos_head - math::Vector2(0.0f, col_size.y / 2);
-
 			tr->SetPosition(newPos);
-			
+			// 속도 제거
+			rb->SetGround(false);
+			rb->SetVelocity(math::Vector2(0.0f, -500.0f));
+			mState = PlayerState::Jump;
 		}
 	}
 }

@@ -54,7 +54,12 @@ namespace van
 
 	void Boss::Idle()
 	{
+		// nothing
+	}
 
+	void Boss::Walk()
+	{
+		// nothing
 	}
 
 	void Boss::AttackReady()

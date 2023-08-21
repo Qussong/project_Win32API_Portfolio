@@ -7,6 +7,7 @@
 #include "vanCollisionManager.h"
 #include "vanWall.h"
 
+#define VELOCITY_X  150.0f
 namespace van
 {
     Skull::Skull()
@@ -34,6 +35,8 @@ namespace van
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Floor, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Wall, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Monster, true);
+
+        CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Boos_Mage, true);
     }
 
     void Skull::Update()
@@ -80,11 +83,11 @@ namespace van
         rb->SetGround(false);
         if (mDirection == HeadDirection::Left)
         {
-            rb->SetVelocity(math::Vector2(100.0f, 0.0f));
+            rb->SetVelocity(math::Vector2(VELOCITY_X, 0.0f));
         }
         if (mDirection == HeadDirection::Right)
         {
-            rb->SetVelocity(math::Vector2(-100.0f, 0.0f));
+            rb->SetVelocity(math::Vector2(-VELOCITY_X, 0.0f));
         }
     }
 

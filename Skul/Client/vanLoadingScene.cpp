@@ -232,16 +232,29 @@ namespace van
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee_Ready", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee_Ready.bmp");
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee.bmp");
 		// Yggdrasill
-		ResourceManager::Load<Texture>(L"Yggdrasill_Head", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Head.bmp");
-		ResourceManager::Load<Texture>(L"Yggdrasill_Chin", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\chin.bmp");
-		ResourceManager::Load<Texture>(L"Yggdrasill_Body", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body.bmp");
-		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_L.bmp");
-		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_R.bmp");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Head", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Head.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Chin", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\chin.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Body", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_R.png");
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Intor_2", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_2.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Idle_L", L"..\\MyResources\\skul\\Monster\\Mage\\Idle_L.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Idle_R", L"..\\MyResources\\skul\\Monster\\Mage\\Idle_R.bmp");
-
+		ResourceManager::Load<Texture>(L"Mage_Walk_Front_L", L"..\\MyResources\\skul\\Monster\\Mage\\Walk_Front_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_Walk_Front_R", L"..\\MyResources\\skul\\Monster\\Mage\\Walk_Front_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_Walk_Back_L", L"..\\MyResources\\skul\\Monster\\Mage\\Walk_Back_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_Walk_Back_R", L"..\\MyResources\\skul\\Monster\\Mage\\Walk_Back_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FireBall_Ready_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FireBall_Ready_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Fireball_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Fireball_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready1_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready1_RangeFire_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready1_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready1_RangeFire_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready2_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready2_RangeFire_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready2_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready2_RangeFire_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_R.bmp");
 	}
 }

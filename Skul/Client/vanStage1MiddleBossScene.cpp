@@ -15,6 +15,7 @@
 #include "vanCollisionManager.h"
 #include "vanDoor.h"
 #include "vanCarleonRecruit.h"
+#include "vanMage.h"
 
 #define PLAYER_INIT_POS_Y	55
 #define PLAYER_INIT_POS_X	-1480
@@ -54,6 +55,10 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
+		// Mage
+		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
+		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+		mage->SetTartget(player);
 
 		SetSceneTarget(player);
 	}
@@ -96,6 +101,7 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Floor, true);
 	}
 
 	void Stage1MiddleBossScene::SceneOut()
