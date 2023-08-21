@@ -41,13 +41,29 @@ namespace van
 		BossState GetBossState() { return mBossState; }
 		void SetBossState(BossState _state) { mBossState = _state; }
 
+		BossDirection GetBossDirection() { return mBossDirection; }
+		void SetBossDirection(BossDirection _direction) { mBossDirection = _direction; }
+
+		GameObject* GetTarget() { return mTarget; }
+		void SetTartget(GameObject* _obj) { mTarget = _obj; }
+
 		__forceinline float GetTimer() { return mTimer; }
 		__forceinline void SetTimer(float _timer) { mTimer = _timer; }
 		__forceinline void AddTimer(float _time) { mTimer += _time; }
 
+		virtual void Gen();
+		virtual void Idle();
+		virtual void AttackReady();
+		virtual void Attack();
+		virtual void AttackEnd();
+		virtual void Hit();
+		virtual void Dead();
+
 	private:
 		BossState mBossState = BossState::None;
+		BossDirection mBossDirection = BossDirection::None;
 		float mTimer;
+		GameObject* mTarget;
 	};
 }
 

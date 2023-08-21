@@ -59,14 +59,15 @@ namespace van
 		eTextureType mType;
 		Gdiplus::Image* mImage;
 		/*
-			Gdiplus::Image 안되aus "framework.h" 에서
+			Gdiplus::Image 안되면 "framework.h" 에서
 			"#define WIN32_LEAN_AND_MEAN" 주석처리하기
 		*/
 		HBITMAP mBitmap;
 		HDC mHdc;
 		UINT mWidth;
 		UINT mHeight;
-		//bool mbAffectCamera;
+
+		Gdiplus::Bitmap* mGdiBitMap = nullptr;	// png용
 	};
 }
 

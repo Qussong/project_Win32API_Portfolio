@@ -14,7 +14,6 @@ namespace van
 		, mWidth(0)
 		, mHeight(0)
 		, mType(eTextureType::None)
-		//, mbAffectCamera(true)
 	{
 		// nothing
 	}
@@ -63,8 +62,37 @@ namespace van
 		}
 		else if (ext == L"png")
 		{
+			//mType = eTextureType::Png;
+			//mImage = Gdiplus::Image::FromFile(path.c_str());	// *.png 파일을 이용하여 Texture 객체를 생성
+
+			//mWidth = mImage->GetWidth();
+			//mHeight = mImage->GetHeight();
+
 			mType = eTextureType::Png;
-			mImage = Gdiplus::Image::FromFile(path.c_str());	// *.png 파일을 이용하여 Texture 객체를 생성
+
+			ULONG_PTR ptrGdi;                        //Gdi+사용을 위한 포인터객체
+			Gdiplus::GdiplusStartupInput inputGdi;         //gdi+입력값객체
+			Gdiplus::GdiplusStartup(&ptrGdi, &inputGdi, 0);   //시작
+
+
+			// image.png 파일을 이용하여 Texture 객체를 생성합니다.
+			mImage = Gdiplus::Image::FromFile(path.c_str());
+
+			//파일로부터 비트맵받기
+			mGdiBitMap = Gdiplus::Bitmap::FromFile(path.c_str());
+
+			//비트맵정보를 HBITMAP m_hBit에 복사
+			mGdiBitMap->GetHBITMAP(Gdiplus::Color(0, 0, 0, 0), &mBitmap);
+
+			HDC mainDC = application.GetHdc();
+
+			mHdc = ::CreateCompatibleDC(mainDC);
+
+			// 비트맵과 DC 연결
+			HBITMAP hPrevBit = (HBITMAP)SelectObject(mHdc, mBitmap);
+			DeleteObject(hPrevBit);
+
+			//assert(mImage);
 
 			mWidth = mImage->GetWidth();
 			mHeight = mImage->GetHeight();
@@ -168,27 +196,41 @@ namespace van
 		}
 		else if (mType == eTextureType::Png)
 		{
-			// 내가 원하는 픽셀을 투명화 시킬떄
-			//Gdiplus::ImageAttributes imageAtt = {};
-			// 투명화 시킬 픽셀 색 범위
-			/*imageAtt.SetColorKey(
-				Gdiplus::Color(100, 100, 100)
-				, Gdiplus::Color(255, 255, 255));*/
+			//Gdiplus::Graphics graphics(_hdc);
+			//graphics.DrawImage(
+			//	mImage
+			//	, Gdiplus::Rect(
+			//		(int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
+			//		, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
+			//		, (int)(_size.x * _scale.x)
+			//		, (int)(_size.y * _scale.y))
+			//	, (int)_leftTop.x
+			//	, (int)_leftTop.y
+			//	, (int)_rightBottom.x
+			//	, (int)_rightBottom.y
+			//	, Gdiplus::UnitPixel
+			//	, nullptr);
 
-			Gdiplus::Graphics graphics(_hdc);
-			graphics.DrawImage(
-				mImage
-				, Gdiplus::Rect(
-					(int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
+			BLENDFUNCTION func = {};
+			func.BlendOp = AC_SRC_OVER;
+			func.BlendFlags = 0;
+			func.AlphaFormat = AC_SRC_ALPHA;
+			func.SourceConstantAlpha = 255;
+
+			GdiAlphaBlend(
+					_hdc
+					, (int)(_pos.x - (_size.x * _scale.x / 2.0f) + _offset.x)
 					, (int)(_pos.y - (_size.y * _scale.y / 2.0f) + _offset.y)
 					, (int)(_size.x * _scale.x)
-					, (int)(_size.y * _scale.y))
-				, (int)_leftTop.x
-				, (int)_leftTop.y
-				, (int)_rightBottom.x
-				, (int)_rightBottom.y
-				, Gdiplus::UnitPixel
-				, nullptr);
+					, (int)(_size.y * _scale.y)
+					// source
+					, mHdc
+					, (int)_leftTop.x
+					, (int)_leftTop.y
+					, (int)_rightBottom.x
+					, (int)_rightBottom.y
+					// option
+					, func);
 		}
 		else
 			__noop;

@@ -46,4 +46,40 @@ namespace van
 	{
 		// nothing
 	}
+
+	void Boss::Gen()
+	{
+		// nothing
+	}
+
+	void Boss::Idle()
+	{
+
+	}
+
+	void Boss::AttackReady()
+	{
+		// nothing
+	}
+
+	void Boss::Attack()
+	{
+		// nothing
+	}
+
+	void Boss::AttackEnd()
+	{
+		// nothing
+	}
+
+	void Boss::Hit()
+	{
+		// nothing
+	}
+
+	void Boss::Dead()
+	{
+		// nothing
+	}
+
 }

@@ -217,6 +217,9 @@
     <Filter Include="Contents\GameObject\Boss\Yggdrasill\Chin">
       <UniqueIdentifier>{c15c953e-cf3f-43e5-9e19-00c4f0e50e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Boss\Mage">
+      <UniqueIdentifier>{be4e3424-0649-4038-9068-dbc85fdfae22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -432,6 +435,9 @@
     <ClInclude Include="vanYggdrasillChin.h">
       <Filter>Contents\GameObject\Boss\Yggdrasill\Chin</Filter>
     </ClInclude>
+    <ClInclude Include="vanMage.h">
+      <Filter>Contents\GameObject\Boss\Mage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -642,6 +648,9 @@
     </ClCompile>
     <ClCompile Include="vanYggdrasillChin.cpp">
       <Filter>Contents\GameObject\Boss\Yggdrasill\Chin</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMage.cpp">
+      <Filter>Contents\GameObject\Boss\Mage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

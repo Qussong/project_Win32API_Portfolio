@@ -78,7 +78,7 @@ namespace van
 		Animator* at = GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->CreateAnimation(L"Gold_Idle", ResourceManager::Find<Texture>(L"Gold_Idle"), math::Vector2(0.0f, 0.0f), math::Vector2(50.0f, 30.0f), 9);
-		at->CreateAnimation(L"Gold_Dead", ResourceManager::Find<Texture>(L"Gold_Dead"), math::Vector2(0.0f, 0.0f), math::Vector2(59.0f, 54.0f), 29, math::Vector2::Zero, 0.01F);
+		at->CreateAnimation(L"Gold_Dead", ResourceManager::Find<Texture>(L"Gold_Dead"), math::Vector2(0.0f, 0.0f), math::Vector2(59.0f, 54.0f), 29, math::Vector2::Zero, 0.02F);
 	}
 
 	void Gold::OnCollisionEnter(Collider* _other)
@@ -141,7 +141,7 @@ namespace van
 		Animator* at = GetComponent<Animator>();
 		if (GetPlayAnimation() == true)
 		{
-			at->SetScale(math::Vector2(1.0f, 1.0f));
+			at->SetScale(math::Vector2(2.0f, 2.0f));
 			at->PlayAnimation(L"Gold_Dead", false);
 			SetPlayAnimation(false);
 		}

@@ -18,7 +18,12 @@ namespace van
 
 	void Yggdrasill::Init()
 	{
-		Boss::Init();	// 아무것도 안함
+		Boss::Init();		// 아무것도 안함
+
+		MakeAnimation();	// 아무것도 안함
+
+		SetBossState(BossState::Gen);
+		SetBossDirection(BossDirection::Center);
 
 		mBody = Object::Instantiate<YggdrasillBody>(enums::eLayerType::Yggdrasill_Body);
 		mHead = Object::Instantiate<YggdrasillHead>(enums::eLayerType::Yggdrasill_Head);
@@ -66,16 +71,53 @@ namespace van
 		// nothing
 	}
 
+	void Yggdrasill::Gen()
+	{
+
+	}
+
+	void Yggdrasill::Idle()
+	{
+
+	}
+
+	void Yggdrasill::AttackReady()
+	{
+
+	}
+
+	void Yggdrasill::Attack()
+	{
+
+	}
+
+	void Yggdrasill::AttackEnd()
+	{
+	}
+
+	void Yggdrasill::Hit()
+	{
+
+	}
+
+	void Yggdrasill::Dead()
+	{
+
+	}
+
 	void Yggdrasill::AttackMelee()
 	{
+
 	}
 
 	void Yggdrasill::AttackSmash()
 	{
+
 	}
 
 	void Yggdrasill::AttackRange()
 	{
+
 	}
 
 }

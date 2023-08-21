@@ -22,6 +22,7 @@
 #include "vanSkull.h"
 #include "vanRigidBody.h"
 #include "vanGianticEnt.h"
+#include "vanMage.h"
 
 #define FLOOR_POS_Y			-2880.0f
 #define FLOOR_UP_CONDITION	-10.0f
@@ -46,9 +47,14 @@ namespace van
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
+		// Mage
+		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
+		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		mage->SetTartget(player);
+
 		//	GianticEnt
-		GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
-		giantEnt->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		//GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
+		//giantEnt->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Trap
 		//Trap* trap = Object::Instantiate<Trap>(enums::eLayerType::Trap);
@@ -77,6 +83,8 @@ namespace van
 		//ManAtArms* man = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
 		//man->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 100.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
+
+		
 		// 해당 씬의 (카메라)Target 설정
 		SetSceneTarget(player);
 	}
@@ -115,6 +123,8 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Floor, true);
+
 	}
 
 	void TestScene::SceneOut()

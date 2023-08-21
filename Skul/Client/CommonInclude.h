@@ -40,6 +40,7 @@ namespace van::enums
 		BackGround,
 		Floor,
 		Wall,
+		Boos_Mage,
 		Yggdrasill,
 		Yggdrasill_Body,
 		Yggdrasill_Head,
