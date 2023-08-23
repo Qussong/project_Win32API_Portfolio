@@ -256,5 +256,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready2_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready2_RangeFire_R.bmp");
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_L.bmp");
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_R.bmp");
+		ResourceManager::Load<Texture>(L"Mage_FireBall", L"..\\MyResources\\skul\\Monster\\Mage\\FireBall.png");
+
 	}
 }

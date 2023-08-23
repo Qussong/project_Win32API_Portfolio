@@ -22,14 +22,17 @@ namespace van
 		__forceinline void SetSkyDash(bool _skyDash) { mbSkyDash = _skyDash; }
 		__forceinline bool GetSkyDash() { return mbSkyDash; }
 
-		__forceinline void SetHit(bool _hit) { mbHit = _hit; }
-		__forceinline bool GetHit() { return mbHit; }
-
 		__forceinline math::Vector2 GetVelocity() { return mVelocity; }
 		__forceinline void SetVelocity(math::Vector2 _velocity) { mVelocity = _velocity; }
 
 		__forceinline void SetGravity(math::Vector2 _gravity) { mGravity = _gravity; }
 		__forceinline math::Vector2 GetGravity() { return mGravity; }
+
+		__forceinline void SetProjectiveBody(bool _flag) { mbProjectiveBody = _flag; }
+		__forceinline bool GetProjectiveBody() { return mbProjectiveBody; }
+
+		__forceinline void SetProjectiveDirection(math::Vector2 _velocity) { mProjectiveDirection = _velocity; }
+		__forceinline math::Vector2 GetProjectiveDirection() { return mProjectiveDirection; }
 
 	private:
 		float mMass;
@@ -43,10 +46,11 @@ namespace van
 		math::Vector2 mVelocity;
 		math::Vector2 mGravity;
 		math::Vector2 mLimitedVelocity;
+		math::Vector2 mProjectiveDirection = math::Vector2::Zero;
 
 		bool mbGround;
 		bool mbSkyDash;
-		bool mbHit;
+		bool mbProjectiveBody = false;
 	};
 }
 

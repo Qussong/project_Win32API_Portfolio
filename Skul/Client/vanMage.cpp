@@ -6,6 +6,8 @@
 #include "vanCollider.h"
 #include "vanTransform.h"
 #include "vanWall.h"
+#include "vanFireBall.h"
+#include "vanObject.h"
 
 #define WALK_SPEED	200.0f
 #define MAX_HP		100.0f
@@ -242,7 +244,8 @@ namespace van
 				Attack_Ready,	// 1
 			*/
 			srand((UINT)time(NULL));
-			int nextCase = (rand() % 2);
+			//int nextCase = (rand() % 2);
+			int nextCase = 1;
 			switch (nextCase)
 			{
 			case 0:
@@ -325,7 +328,8 @@ namespace van
 				FinishMove		// 4
 			*/
 			srand((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 3);
+			//mAttackCase = (BossSkill)(rand() % 3);
+			mAttackCase = (BossSkill)(0);
 			mbChooseSkill = true;
 		}
 
@@ -512,6 +516,7 @@ namespace van
 	void Mage::AttackFireBall()
 	{
 		Animator* at = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
 
 		if (mbPlayAnimation == true)
 		{
@@ -528,10 +533,37 @@ namespace van
 			mbPlayAnimation = false;
 		}
 
-		AddTimer(Time::GetDeltaTime());
-		if (GetTimer() >= 2.5f)
+		// FireBall 딜레이
+		if (mbShoot == false)
 		{
-			SetTimer(0.0f);
+			AddTimer(Time::GetDeltaTime());
+
+			if (GetTimer() >= 0.2f)
+			{
+				SetTimer(0.0f);
+				mbShoot = true;
+			}
+		}
+
+		// FireBall 생성
+		if (mFireBallCnt < 6
+			&& mbShoot == true)
+		{
+			FireBall* fireBall = Object::Instantiate<FireBall>(enums::eLayerType::Boss_Mage_Skill);
+			fireBall->SetOwner(this);
+			fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+
+			mListFireBall.push_back(fireBall);
+
+			++mFireBallCnt;
+			mbShoot = false;
+		}
+
+		// FireBall 종료조건
+		if (mFireBallCnt == 6)
+		{
+			mFireBallCnt = 0;
+			mListFireBall.clear();
 			SetBossState(BossState::AttackEnd);
 		}
 	}

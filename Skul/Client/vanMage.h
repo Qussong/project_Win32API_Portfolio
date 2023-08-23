@@ -3,6 +3,8 @@
 
 namespace van
 {
+	class FireBall;
+
 	class Mage : public Boss
 	{
 	public:
@@ -64,6 +66,11 @@ namespace van
 		BossDirection mBossPastAttackDirection = BossDirection::None;
 
 		bool mbAnimationFlag = false;	// 애니메이션 구현시 사용 (RangeFire_Ready)
+
+		// FireBall
+		int mFireBallCnt = 0;
+		bool mbShoot = true;
+		std::vector<FireBall*> mListFireBall;
 	};
 }
 

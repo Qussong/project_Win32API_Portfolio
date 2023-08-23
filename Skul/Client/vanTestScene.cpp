@@ -48,9 +48,9 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Mage
-		//Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
-		//mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
-		//mage->SetTartget(player);
+		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		mage->SetTartget(player);
 
 		//	GianticEnt
 		//GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
@@ -106,6 +106,7 @@ namespace van
 	{
 		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
+		Camera::SetCameraOffset(math::Vector2(0.0f, -100.0f));
 
 		// 카메라에 해당 Scene의 타겟을 세팅
 		Camera::SetTarget(GetSceneTarget());
@@ -123,9 +124,12 @@ namespace van
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Floor, true);
 
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Wall, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Wall, true);
 
 	}
 
@@ -166,8 +170,8 @@ namespace van
 	{
 		// Floor 객체 
 		Floor* floor = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, FLOOR_HEIGHT));
+		floor->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 25.0f));
+		floor->GetComponent<Collider>()->SetSize(math::Vector2(Window_X, 50.0f));
 	}
 
 	void TestScene::MakeWall()

@@ -62,9 +62,9 @@ namespace van
 		}
 		else if (ext == L"png")
 		{
+			// [ 잘못된 것 ]
 			//mType = eTextureType::Png;
 			//mImage = Gdiplus::Image::FromFile(path.c_str());	// *.png 파일을 이용하여 Texture 객체를 생성
-
 			//mWidth = mImage->GetWidth();
 			//mHeight = mImage->GetHeight();
 
@@ -196,6 +196,7 @@ namespace van
 		}
 		else if (mType == eTextureType::Png)
 		{
+			// [ 잘못된 것 ]
 			//Gdiplus::Graphics graphics(_hdc);
 			//graphics.DrawImage(
 			//	mImage

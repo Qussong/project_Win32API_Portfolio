@@ -1,4 +1,5 @@
 #include "vanBoss.h"
+#include "vanSceneManager.h"
 
 namespace van
 {
@@ -15,6 +16,9 @@ namespace van
 	void Boss::Init()
 	{
 		GameObject::Init();
+
+		Scene* scene = SceneManager::GetActiveScene();
+		mTarget = scene->GetSceneTarget();
 	}
 
 	void Boss::Update()

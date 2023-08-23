@@ -588,7 +588,7 @@ namespace van
 		if (GetMonsterHitDirection() == MonsterDirection::Left)
 		{
 			at->PlayAnimation(L"Hit_L", false);
-			rb->SetHit(true);
+			//rb->SetHit(true);
 			rb->SetGround(false);
 			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
 			velocity.x = HIT_BUMP_X;
@@ -601,7 +601,7 @@ namespace van
 		if (GetMonsterHitDirection() == MonsterDirection::Right)
 		{
 			at->PlayAnimation(L"Hit_R", false);
-			rb->SetHit(true);
+			//rb->SetHit(true);
 			rb->SetGround(false);
 			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
 			velocity.x = -HIT_BUMP_X;
@@ -615,7 +615,7 @@ namespace van
 
 		if (rb->GetGround() == true)
 		{
-			rb->SetHit(false);
+			//rb->SetHit(false);
 			SetMonsterState(MonsterState::AttackReady);
 		}
 	}
@@ -648,7 +648,7 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 		SetWallFlag(false);
-		rb->SetHit(true);
+		rb->SetGround(false);
 
 		if (mDirection == MonsterDirection::Right)
 		{
@@ -666,7 +666,6 @@ namespace van
 
 		if (rb->GetGround() == true)
 		{
-			rb->SetHit(false);
 			SetMonsterState(MonsterState::Patrol);
 		}
 	}

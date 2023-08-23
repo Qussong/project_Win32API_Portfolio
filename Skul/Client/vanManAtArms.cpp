@@ -164,7 +164,6 @@ namespace van
 		// Monster가 왼쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Left)
 		{
-			rb->SetHit(true);
 			rb->SetGround(false);
 			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
 			velocity.x = HIT_BUMP_X;
@@ -176,7 +175,6 @@ namespace van
 		// 몬스터가 오른쪽에서 공격받았을 경우
 		if (GetMonsterHitDirection() == MonsterDirection::Right)
 		{
-			rb->SetHit(true);
 			rb->SetGround(false);
 			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
 			velocity.x = -HIT_BUMP_X;

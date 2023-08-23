@@ -56,7 +56,7 @@ namespace van
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
 		// Mage
-		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boos_Mage);
+		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
 		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
 		mage->SetTartget(player);
 
@@ -101,7 +101,7 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boos_Mage, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
 	}
 
 	void Stage1MiddleBossScene::SceneOut()

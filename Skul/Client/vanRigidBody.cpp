@@ -15,7 +15,6 @@ namespace van
 		, mLimitedVelocity(math::Vector2(1000.0f, 3000.0f))
 		, mbGround(false)
 		, mbSkyDash(false)
-		, mbHit(false)
 	{
 	}
 
@@ -34,21 +33,30 @@ namespace van
 		mAccelation = mForce / mMass;	// F = m * a -> a = F / m
 		mVelocity += mAccelation * Time::GetDeltaTime();	// v1 = v0 + at
 
+		if (mbProjectiveBody == true)					// y축 값 작용 o, 중력 작용 x
+		{
+			math::Vector2 dir = mProjectiveDirection;	// 투사체의 벡터값
 
-		if (mbGround || mbSkyDash)				// GameObject 마찰력 적용을 받을 때(x)
+			if (dir != math::Vector2::Zero)
+			{
+				dir.Normalize();							// 방향값만 남긴다.
+				float dot = math::Dot(mVelocity, dir);		// 투사체의 방향벡터에 속도를 곱한다.
+															// 내적의 의미 : 좌변의 벡터를 우변의 벡터에 투영시켜 곱하는 값
+				math::Vector2 velocity = dir * dot;			// 최종속도
+				mVelocity = velocity;
+			}
+		}
+		else if (mbGround || mbSkyDash)					// y축 값 작용 x
 		{
 			math::Vector2 gravity = mGravity;			// 중력 초기값 -> x = 0, y = 980
 			gravity.Normalize();						// 중력 -> x = 0, y = 1
 			float dot = math::Dot(mVelocity, gravity);	// dot = mVelocity.y
-			math::Vector2 val = gravity * dot;
-			mVelocity -= val;							// mVelocity -= Vector2(0, mVelocity.y)
+														// 내적의 의미 : 좌변의 벡터를 우변의 벡터에 투영시켜 곱하는 값
+			math::Vector2 vel = gravity * dot;
+			mVelocity -= vel;							// mVelocity -= Vector2(0, mVelocity.y)
 														// mVelocity 에 x성분만 남는다.
 		}
-		else if (mbHit)
-		{
-			mVelocity += mGravity * Time::GetDeltaTime();
-		}
-		else  // GameObject 마찰력 적용을 받지 않을 때
+		else                                            // y축 값 작용 o, 중력 작용 o
 		{
 			mVelocity += mGravity * Time::GetDeltaTime();
 		}
@@ -58,7 +66,8 @@ namespace van
 		gravity.Normalize();								
 		float dot = math::Dot(mVelocity, gravity);			
 		gravity = gravity * dot;							
-		math::Vector2 sideVelocity = mVelocity - gravity;	// 속도에 중력의 영향 반영?
+		math::Vector2 sideVelocity = mVelocity - gravity;	
+
 		if (mLimitedVelocity.y < gravity.Length())			// y방향 속도가 y방향 제한속도보다 클때
 		{
 			gravity.Normalize();
@@ -73,7 +82,8 @@ namespace van
 
 		// 마찰력
 		bool noSpeed = (mVelocity == math::Vector2::Zero);
-		if (!noSpeed)	// 속도 0이 아닐 경우
+		if (!noSpeed
+			&& mbProjectiveBody == false)	// 속도 0이 아닐 경우
 		{
 			math::Vector2 friction = -mVelocity;	// 속도의 반대 방향으로 마찰력 작용
 			friction = 

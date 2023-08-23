@@ -220,6 +220,15 @@
     <Filter Include="Contents\GameObject\Boss\Mage">
       <UniqueIdentifier>{be4e3424-0649-4038-9068-dbc85fdfae22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill">
+      <UniqueIdentifier>{40f80917-3a0c-41f1-b8a7-1784659b1ea6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_RangeFire">
+      <UniqueIdentifier>{dfdfb40e-2530-49a4-8580-469deda61aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_FireBall">
+      <UniqueIdentifier>{03b4857e-1844-4784-838a-9276f368206b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -438,6 +447,15 @@
     <ClInclude Include="vanMage.h">
       <Filter>Contents\GameObject\Boss\Mage</Filter>
     </ClInclude>
+    <ClInclude Include="vanSkill.h">
+      <Filter>Contents\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="vanRangeFire.h">
+      <Filter>Contents\GameObject\Skill\Mage_RangeFire</Filter>
+    </ClInclude>
+    <ClInclude Include="vanFireBall.h">
+      <Filter>Contents\GameObject\Skill\Mage_FireBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -651,6 +669,15 @@
     </ClCompile>
     <ClCompile Include="vanMage.cpp">
       <Filter>Contents\GameObject\Boss\Mage</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSkill.cpp">
+      <Filter>Contents\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="vanRangeFire.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_RangeFire</Filter>
+    </ClCompile>
+    <ClCompile Include="vanFireBall.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_FireBall</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

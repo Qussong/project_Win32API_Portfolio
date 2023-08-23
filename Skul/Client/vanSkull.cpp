@@ -36,7 +36,7 @@ namespace van
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Wall, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Monster, true);
 
-        CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Boos_Mage, true);
+        CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Boss_Mage, true);
     }
 
     void Skull::Update()

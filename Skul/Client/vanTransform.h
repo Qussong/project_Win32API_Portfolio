@@ -17,7 +17,7 @@ namespace van
 		math::Vector2 GetPosition();				// Getter
 
 	private:
-		math::Vector2 mPosition;
+		math::Vector2 mPosition = math::Vector2::Zero;
 	};
 
 }
