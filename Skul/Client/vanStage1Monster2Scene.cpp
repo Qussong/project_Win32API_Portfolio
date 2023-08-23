@@ -230,7 +230,7 @@ namespace van
 		wall_5_5->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 174.0f, Window_Y / 2 - 42.0f));
 		wall_5_5->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 113.0f));
 
-		// MonsterWall
+		// Monster Wall
 		Wall* wall1_2L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		wall1_2L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f - 640.0f / 2, Window_Y / 2 + 420.0f - 100.0f / 2));
 		wall1_2L->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 100.0f));

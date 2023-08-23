@@ -4,6 +4,8 @@
 namespace van
 {
 	class FireBall;
+	class RangeFire;	
+	//class PhoenixLanding;
 
 	class Mage : public Boss
 	{
@@ -13,8 +15,8 @@ namespace van
 			FireBall,
 			RangeFire1,
 			RangeFire2,
-			PhoenixLanding,
-			FinishMove,
+			//PhoenixLanding,
+			//FinishMove,
 			None,
 		};
 
@@ -42,16 +44,17 @@ namespace van
 		// AttackReady
 		void AttackFireBallReady();
 		void AttackRangeFireReady();
-		void AttackPhoenixLandingReady();
-		void AttackFinishMoveReady();
+		//void AttackPhoenixLandingReady();
+		//void AttackFinishMoveReady();
 
 		// Attack
 		void AttackFireBall();
 		void AttackRangeFire();
-		void AttackPhoenixLanding();
-		void AttackFinishMove();
+		//void AttackPhoenixLanding();
+		//void AttackFinishMove();
 
 		void ComparePosWithBossAndTarget();
+		BossDirection GetBossAttackDirection() { return mBossAttackDirection; }
 
 	private:
 		bool mbPlayAnimation = true;
@@ -65,12 +68,19 @@ namespace van
 		BossDirection mBossAttackDirection = BossDirection::None;
 		BossDirection mBossPastAttackDirection = BossDirection::None;
 
-		bool mbAnimationFlag = false;	// 애니메이션 구현시 사용 (RangeFire_Ready)
+		bool mbAnimationReDirectionFlag = false;	
 
 		// FireBall
 		int mFireBallCnt = 0;
 		bool mbShoot = true;
 		std::vector<FireBall*> mListFireBall;
+
+		// RangeFire
+		int mRangeFire = 0;
+		std::vector<RangeFire*> mListRangeFire;
+
+		// PhoenixLanding
+
 	};
 }
 

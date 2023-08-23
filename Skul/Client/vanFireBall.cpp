@@ -8,8 +8,9 @@
 #include "vanFloor.h"
 #include "vanTransform.h"
 #include "vanRigidBody.h"
-#include "vanSceneManager.h"
 #include "vanBoss.h"
+#include "vanCollisionManager.h"
+#include "vanMage.h"
 
 #define OBJECT_SPEED	200.0f
 
@@ -36,6 +37,10 @@ namespace van
 		col->SetSize(math::Vector2(25.0f, 25.0f));
 
 		mState = FireBallState::Gen;
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill_FireBall, eLayerType::Player, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill_FireBall, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill_FireBall, eLayerType::Wall, true);
 	}
 
 	void FireBall::Update()
@@ -70,7 +75,8 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Mage_FireBall", ResourceManager::Find<Texture>(L"Mage_FireBall"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 28.0f), 12);
+		at->CreateAnimation(L"Mage_FireBall_Object_L", ResourceManager::Find<Texture>(L"Mage_FireBall_Object_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 28.0f), 12);
+		at->CreateAnimation(L"Mage_FireBall_Object_R", ResourceManager::Find<Texture>(L"Mage_FireBall_Object_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 28.0f), 12);
 	}
 
 	void FireBall::OnCollisionEnter(Collider* _other)
@@ -110,7 +116,17 @@ namespace van
 		SetFireBallMove();
 
 		Animator* at = GetComponent<Animator>();
-		at->PlayAnimation(L"Mage_FireBall", true);
+		GameObject* owner = GetOwner();
+		Mage* mage = dynamic_cast<Mage*>(owner);
+
+		if (mage->GetBossAttackDirection() == Mage::BossDirection::Left)
+		{
+			at->PlayAnimation(L"Mage_FireBall_Object_L", true);
+		}
+		else
+		{
+			at->PlayAnimation(L"Mage_FireBall_Object_R", true);
+		}
 
 		mState = FireBallState::Active;
 	}
@@ -131,10 +147,10 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		Boss* owner = dynamic_cast<Boss*>(GetOwner());
 
-		Transform* tr = owner->GetComponent<Transform>();
+		Transform* tr_owner = owner->GetComponent<Transform>();
 		Transform* tr_target = owner->GetTarget()->GetComponent<Transform>();
 
-		math::Vector2 pos = tr->GetPosition();					// 발사지점
+		math::Vector2 pos = tr_owner->GetPosition();			// 발사지점
 		math::Vector2 pos_target = tr_target->GetPosition();	// 도착지점
 		math::Vector2 dir = pos_target - pos;					// 방향
 		math::Vector2 speed = math::Vector2::Zero;				// 투사체 속도
@@ -162,7 +178,7 @@ namespace van
 			}
 		}
 
-		rb->SetProjectiveDirection(dir);						// RigidBody 속성에 방향벡터값 설정
-		rb->SetVelocity(speed);									// 속도값 설정
+		rb->SetProjectiveDirection(dir);			// RigidBody 속성에 방향벡터값 설정
+		rb->SetVelocity(speed);						// 속도값 설정
 	}
 }

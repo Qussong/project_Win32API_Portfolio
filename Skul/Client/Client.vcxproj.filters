@@ -229,6 +229,9 @@
     <Filter Include="Contents\GameObject\Skill\Mage_FireBall">
       <UniqueIdentifier>{03b4857e-1844-4784-838a-9276f368206b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_PhoenixLanding">
+      <UniqueIdentifier>{1e3e2c92-9090-4a23-9678-2724271b356c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -456,6 +459,9 @@
     <ClInclude Include="vanFireBall.h">
       <Filter>Contents\GameObject\Skill\Mage_FireBall</Filter>
     </ClInclude>
+    <ClInclude Include="vanPhoenixLanding.h">
+      <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -678,6 +684,9 @@
     </ClCompile>
     <ClCompile Include="vanFireBall.cpp">
       <Filter>Contents\GameObject\Skill\Mage_FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="vanPhoenixLanding.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

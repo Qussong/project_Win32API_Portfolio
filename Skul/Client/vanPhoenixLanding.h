@@ -3,19 +3,22 @@
 
 namespace van
 {
-	class RangeFire : public Skill
+	class PhoenixLanding : public Skill
 	{
 	public:
-		enum class RangeFireState
+		enum class PhoenixLandingState
 		{
-			Gen,
-			Active,
-			Dead,
+			Wait,
+			LandingReady,
+			LandingReadyEnd,
+			Landing,
+			LandingEnd,
 			None,
 		};
+
 	public:
-		RangeFire();
-		virtual ~RangeFire();
+		PhoenixLanding();
+		virtual ~PhoenixLanding();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -26,17 +29,18 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
-		void SetState(RangeFireState _state) { mState = _state; }
-		RangeFireState GetState() { return mState; }
+		void SetState(PhoenixLandingState _state) { mState = _state; }
+		PhoenixLandingState GetState() { return mState; }
 
-		void Gen();
-		void Active();
-		void Dead();
-		void SetRangeFirePos();
+		void Wait();
+		void LandingReady();
+		void LandingReadyEnd();
+		void Landing();
+		void LandingEnd();
 
 	private:
-		RangeFireState mState = RangeFireState::None;
+		PhoenixLandingState mState = PhoenixLandingState::None;
 		bool mbPlayAnimation = true;
-		float mDelay = 0.0f;
 	};
 }
+

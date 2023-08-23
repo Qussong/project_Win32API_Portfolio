@@ -7,10 +7,18 @@
 #include "vanTransform.h"
 #include "vanWall.h"
 #include "vanFireBall.h"
+#include "vanRangeFire.h"
 #include "vanObject.h"
+#include "vanPhoenixLanding.h"
 
-#define WALK_SPEED	200.0f
-#define MAX_HP		100.0f
+#define MAX_HP					100.0f
+#define FLY_POS					150.0f
+#define WALK_SPEED				200.0f
+#define FLY_SPEED				200.0f
+#define LANDING_SPEED			200.0f
+#define PHOENIX_READY_GAP_POS	100.0f
+#define FLY_READY_GAP_POS		150.0f
+
 namespace van
 {
 	Mage::Mage()
@@ -113,12 +121,15 @@ namespace van
 		at->CreateAnimation(L"Attack_Ready_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(55.0f, 96.0f), 13);
 		at->CreateAnimation(L"Attack_FireBall_L", ResourceManager::Find<Texture>(L"Mage_FireBall_L"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f), 0.09F);
 		at->CreateAnimation(L"Attack_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_R"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f), 0.09F);
-		at->CreateAnimation(L"Attack_Ready1_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready1_L"), math::Vector2(0.0f, 0.0f), math::Vector2(44.0f, 80.0f), 9, math::Vector2(0.0f, 0.0f), 0.15F);
-		at->CreateAnimation(L"Attack_Ready1_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready1_R"), math::Vector2(0.0f, 0.0f), math::Vector2(44.0f, 80.0f), 9, math::Vector2(0.0f, 0.0f), 0.15F);
-		at->CreateAnimation(L"Attack_Ready2_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready2_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 81.0f), 3, math::Vector2(0.0f, 0.0f));
-		at->CreateAnimation(L"Attack_Ready2_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready2_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 81.0f), 3, math::Vector2(0.0f, 0.0f));
-		at->CreateAnimation(L"Attack_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 89.0f), 3, math::Vector2(0.0f, -5.0f));
-		at->CreateAnimation(L"Attack_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 89.0f), 3, math::Vector2(0.0f, -5.0f));
+		at->CreateAnimation(L"Attack_Ready_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f));
+		at->CreateAnimation(L"Attack_Ready_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f));
+		at->CreateAnimation(L"Attack_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f));
+		at->CreateAnimation(L"Attack_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f));
+
+		//at->CreateAnimation(L"Attack_Ready_PhoenixLanding_L", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 58.0f), 3, math::Vector2(0.0f, 0.0f));
+		//at->CreateAnimation(L"Attack_Ready_PhoenixLanding_R", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(92.0f, 97.0f), 3, math::Vector2(0.0f, 0.0f));
+		//at->CreateAnimation(L"Attack_PhoenixLanding_L", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_L"), math::Vector2(0.0f, 0.0f), math::Vector2(47.0f, 74.0f), 9, math::Vector2(0.0f, 0.0f));
+		//at->CreateAnimation(L"Attack_PhoenixLanding_R", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_R"), math::Vector2(0.0f, 0.0f), math::Vector2(47.0f, 74.0f), 9, math::Vector2(0.0f, 0.0f));
 		
 	}
 
@@ -161,7 +172,8 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 
 		// 공중으로 올라간 뒤에 중력의 영향을 안 받도록 해준다.
-		if (mbIntroFlag == true)
+		if (mbIntroFlag == true
+			&& rb->GetGround() == false)
 		{
 			rb->SetGround(true);
 		}
@@ -183,7 +195,7 @@ namespace van
 			&& mbIntroEndFlag == false)
 		{
 			// 공중으로 올려준다.
-			tr->SetPosition(tr->GetPosition() - math::Vector2(0.0f, 250.0f));
+			tr->SetPosition(tr->GetPosition() - math::Vector2(0.0f, FLY_POS));
 
 			at->PlayAnimation(L"Intor_2", false);
 			mbPlayAnimation = false;
@@ -194,6 +206,7 @@ namespace van
 		if (at->IsActiveAnimationComplete() == true
 			&& mbIntroEndFlag == true)
 		{
+			//mInitPos_Y = tr->GetPosition().y;	// 높이 위치 저장
 			SetBossState(BossState::Idle);
 		}
 
@@ -208,10 +221,10 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
-		if (mbAnimationFlag == false)
+		if (mbAnimationReDirectionFlag == true)
 		{
 			SetBossDirection(mBossAttackDirection);
-			mbAnimationFlag = true;
+			mbAnimationReDirectionFlag = false;
 		}
 
 		if (mbPlayAnimation == true)
@@ -236,7 +249,7 @@ namespace van
 		{
 			// 설정 초기화
 			SetTimer(0.0f);
-			mbAnimationFlag = false;
+			mbAnimationReDirectionFlag = true;
 
 			// 다음 행동 설정
 			/*
@@ -244,8 +257,8 @@ namespace van
 				Attack_Ready,	// 1
 			*/
 			srand((UINT)time(NULL));
-			//int nextCase = (rand() % 2);
-			int nextCase = 1;
+			int nextCase = (rand() % 2);
+
 			switch (nextCase)
 			{
 			case 0:
@@ -257,7 +270,6 @@ namespace van
 			default:
 				__noop;
 			}
-
 		}
 	}
 
@@ -328,28 +340,51 @@ namespace van
 				FinishMove		// 4
 			*/
 			srand((UINT)time(NULL));
-			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(0);
+			mAttackCase = (BossSkill)(rand() % 3);
 			mbChooseSkill = true;
 		}
 
 		if (mbChooseSkill == true)
 		{
 			// 필살기가 선택되었을 때
-			if ((BossSkill)mbChooseSkill == BossSkill::FinishMove)
+			/*
+			if ((BossSkill)mAttackCase == BossSkill::FinishMove)
 			{
 				//  사용조건 (체력이 50% 아래여야한다.)
 				if(GetHpPercent() <= 50.0f)
 				{
 					AttackFinishMoveReady();
+					return;
 				}
 				// 조건을 충족하지 못하면 Walk 상태가 된다.
 				else
 				{
 					SetBossState(BossState::Walk);
+					mbChooseSkill = false;
 					return;
 				}
 			}
+			*/
+
+			// Phoenix Landing이 선택되었을 때
+			/*
+			if ((BossSkill)mAttackCase == BossSkill::PhoenixLanding)
+			{
+				// 사용조건 (하늘에 떠 있다.)
+				if (mbLandingFlag == false)
+				{
+					AttackPhoenixLandingReady();
+					return;
+				}
+				// 해당 조건을 충족하지 못하면 Walk 상태가 된다.
+				else
+				{
+					SetBossState(BossState::Walk);
+					mbChooseSkill = false;
+					return;
+				}
+			}
+			*/
 
 			// 필살기 외의 다른 스킬이 선택되었을 때
 			switch (mAttackCase)
@@ -360,9 +395,6 @@ namespace van
 			case BossSkill::RangeFire1:
 			case BossSkill::RangeFire2:
 				AttackRangeFireReady();
-				break;
-			case BossSkill::PhoenixLanding:
-				AttackPhoenixLandingReady();
 				break;
 			default:
 				__noop;
@@ -381,12 +413,12 @@ namespace van
 		case BossSkill::RangeFire2:
 			AttackRangeFire();
 			break;
-		case BossSkill::PhoenixLanding:
-			AttackPhoenixLanding();
-			break;
-		case BossSkill::FinishMove:
-			AttackFinishMove();
-			break;
+		//case BossSkill::PhoenixLanding:
+		//	AttackPhoenixLanding();
+		//	break;
+		//case BossSkill::FinishMove:
+		//	AttackFinishMove();
+		//	break;
 		default:
 			__noop;
 		}
@@ -395,6 +427,8 @@ namespace van
 	void Mage::AttackEnd()
 	{
 		mbChooseSkill = false;
+		mbAnimationReDirectionFlag = true;
+		mbShoot = true;
 		SetBossState(BossState::Idle);
 	}
 
@@ -441,12 +475,12 @@ namespace van
 		{
 			if (GetBossDirection() == BossDirection::Left)
 			{
-				at->PlayAnimation(L"Attack_Ready1_RangeFire_L");
+				at->PlayAnimation(L"Attack_Ready_RangeFire_L");
 			}
 
 			if (GetBossDirection() == BossDirection::Right)
 			{
-				at->PlayAnimation(L"Attack_Ready1_RangeFire_R");
+				at->PlayAnimation(L"Attack_Ready_RangeFire_R");
 			}
 
 			mbPlayAnimation = false;
@@ -454,64 +488,34 @@ namespace van
 
 		if (at->IsActiveAnimationComplete() == true)
 		{
-			if (mbAnimationFlag == false)
+			if (mbPlayAnimation == true)
 			{
-				if (GetBossDirection() == BossDirection::Left)
+				if (mBossAttackDirection == BossDirection::Left)
 				{
-					at->PlayAnimation(L"Attack_Ready2_RangeFire_L");
+					at->PlayAnimation(L"Attack_FireBall_L", true);
 				}
 
-				if (GetBossDirection() == BossDirection::Right)
+				if (mBossAttackDirection == BossDirection::Right)
 				{
-					at->PlayAnimation(L"Attack_Ready2_RangeFire_R");
+					at->PlayAnimation(L"Attack_FireBall_R", true);
 				}
 
-				mbAnimationFlag = true;
+				mbPlayAnimation = false;
 			}
-			else
+			if (at->IsActiveAnimationComplete() == true)
 			{
-				if (mbPlayAnimation == true)
-				{
-					if (mBossAttackDirection == BossDirection::Left)
-					{
-						at->PlayAnimation(L"Attack_FireBall_L", true);
-					}
-
-					if (mBossAttackDirection == BossDirection::Right)
-					{
-						at->PlayAnimation(L"Attack_FireBall_R", true);
-					}
-
-					mbPlayAnimation = false;
-				}
-				if (at->IsActiveAnimationComplete() == true)
-				{
-					SetBossState(BossState::Attack);
-				}
+				SetBossState(BossState::Attack);
 			}
 		}
-		
 	}
 
-	void Mage::AttackPhoenixLandingReady()
-	{
-		Animator* at = GetComponent<Animator>();
+	//void Mage::AttackPhoenixLandingReady()
+	//{
+	//}
 
-		if (mbPlayAnimation == true)
-		{
-
-		}
-	}
-
-	void Mage::AttackFinishMoveReady()
-	{
-		Animator* at = GetComponent<Animator>();
-
-		if (mbPlayAnimation == true)
-		{
-
-		}
-	}
+	//void Mage::AttackFinishMoveReady()
+	//{
+	//}
 
 	void Mage::AttackFireBall()
 	{
@@ -538,7 +542,7 @@ namespace van
 		{
 			AddTimer(Time::GetDeltaTime());
 
-			if (GetTimer() >= 0.2f)
+			if (GetTimer() >= 0.3f)
 			{
 				SetTimer(0.0f);
 				mbShoot = true;
@@ -549,7 +553,7 @@ namespace van
 		if (mFireBallCnt < 6
 			&& mbShoot == true)
 		{
-			FireBall* fireBall = Object::Instantiate<FireBall>(enums::eLayerType::Boss_Mage_Skill);
+			FireBall* fireBall = Object::Instantiate<FireBall>(enums::eLayerType::Boss_Mage_Skill_FireBall);
 			fireBall->SetOwner(this);
 			fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());
 
@@ -571,6 +575,7 @@ namespace van
 	void Mage::AttackRangeFire()
 	{
 		Animator* at = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
 
 		if (mbPlayAnimation == true)
 		{
@@ -587,23 +592,51 @@ namespace van
 			mbPlayAnimation = false;
 		}
 
-		AddTimer(Time::GetDeltaTime());
-		if (GetTimer() >= 4.0f)
+		// RangeFire 딜레이
+		if (mbShoot == false)
 		{
-			SetTimer(0.0f);
+			AddTimer(Time::GetDeltaTime());
+
+			if (mbShoot == false
+				&& GetTimer() >= 0.8f)
+			{
+				SetTimer(0.0f);
+				mbShoot = true;
+			}
+		}
+
+		// RangeFire 생성
+		if (mRangeFire < 3
+			&& mbShoot == true)
+		{
+			RangeFire* rangeFire = Object::Instantiate<RangeFire>(enums::eLayerType::Boss_Mage_Skill_RangeFire);
+			rangeFire->SetOwner(this);
+			rangeFire->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+
+			mListRangeFire.push_back(rangeFire);
+
+			++mRangeFire;
+			mbShoot = false;
+		}
+
+		// RangeFire 종료조건
+		if (mRangeFire == 3)
+		{
+			mRangeFire = 0;
+			mListRangeFire.clear();
 			SetBossState(BossState::AttackEnd);
 		}
 	}
 
-	void Mage::AttackPhoenixLanding()
-	{
 
-	}
+	//void Mage::AttackPhoenixLanding()
+	//{
+	//}
 
-	void Mage::AttackFinishMove()
-	{
+	//void Mage::AttackFinishMove()
+	//{
+	//}
 
-	}
 
 	void Mage::ComparePosWithBossAndTarget()
 	{

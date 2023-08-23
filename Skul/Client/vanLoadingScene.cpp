@@ -250,13 +250,21 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_FireBall_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FireBall_Ready_R.bmp");
 		ResourceManager::Load<Texture>(L"Mage_FireBall_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Fireball_L.bmp");
 		ResourceManager::Load<Texture>(L"Mage_FireBall_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Fireball_R.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready1_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready1_RangeFire_L.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready1_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready1_RangeFire_R.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready2_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready2_RangeFire_L.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready2_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready2_RangeFire_R.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_L.bmp");
-		ResourceManager::Load<Texture>(L"Mage_RangeFire_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_R.bmp");
-		ResourceManager::Load<Texture>(L"Mage_FireBall", L"..\\MyResources\\skul\\Monster\\Mage\\FireBall.png");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_Object_L", L"..\\MyResources\\skul\\Monster\\Mage\\FireBall_Object_L.png");
+		ResourceManager::Load<Texture>(L"Mage_FireBall_Object_R", L"..\\MyResources\\skul\\Monster\\Mage\\FireBall_Object_R.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_RangeFire_L.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_RangeFire_R.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_L.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_R.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire_Sign", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire_Sign.png");
+		ResourceManager::Load<Texture>(L"Mage_RangeFire", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire.bmp");
 
+
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_L.png");
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_R.png");
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_L.png");
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
+		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding_Land_.png");
 	}
 }

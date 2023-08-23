@@ -55,10 +55,7 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		// Mage
-		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
-		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
-		mage->SetTartget(player);
+		
 
 		SetSceneTarget(player);
 	}
@@ -95,12 +92,16 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
+
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
+
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
 	}
 
@@ -166,8 +167,8 @@ namespace van
 		floor_1->GetComponent<Collider>()->SetSize(math::Vector2(575.0f, 2.0f));
 
 		Floor* floor_2 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
-		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f, Window_Y / 2 + 280.0f));
-		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(1350.0f, 2.0f));
+		floor_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f, Window_Y / 2 + 300.0f));
+		floor_2->GetComponent<Collider>()->SetSize(math::Vector2(1350.0f, 50.0f));
 
 		Floor* floor_3 = Object::Instantiate<Floor>(enums::eLayerType::Floor);
 		floor_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 964.0f, Window_Y / 2 + 85.0f));
@@ -184,6 +185,17 @@ namespace van
 		Wall* wall_2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		wall_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f, Window_Y / 2 + 180.0f));
 		wall_2->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
+
+		// Monster Wall
+		Wall* wall_3 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_3->SetFloorLimit(true);
+		wall_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 954.0f + 20.0f, Window_Y / 2 - 150.0f));
+		wall_3->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
+
+		Wall* wall_4 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		wall_4->SetFloorLimit(true);
+		wall_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f - 20.0f, Window_Y / 2 - 150.0f));
+		wall_4->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
 	}
 
 	void Stage1MiddleBossScene::MakeDoor()
@@ -217,7 +229,6 @@ namespace van
 			door_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + DOOR_X, Window_Y / 2 + DOOR_Y));
 			door_L->GetComponent<Animator>()->PlayAnimation(L"Stage1_Door_Enter_Boss", true);
 			door_L->GetComponent<Animator>()->SetScale(math::Vector2(1.63f, 1.61f));
-			
 		}
 	}
 
@@ -228,11 +239,16 @@ namespace van
 		{
 			mbWave1 = true;
 
+			// Mage
+			Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+			mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+			mage->SetTartget(GetSceneTarget());
+
 			for (int i = 0; i < 2; ++i)
 			{
-				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f + (i * 20), Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
-				carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+				//CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				//carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 280.0f + (i * 20), Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+				//carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
 			}
 		}
 	}

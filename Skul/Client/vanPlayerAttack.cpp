@@ -53,6 +53,9 @@ namespace van
 			{
 				GetComponent<Collider>()->SetActive(true);
 				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Boss_Mage, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Head, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Hand, true);
 				SetOwnerDirection((UINT)(player->GetPlayerDirection()));
 
 				mbCombo = player->GetCombo();
@@ -65,6 +68,9 @@ namespace van
 					mbCombo = false;
 				}
 				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Boss_Mage, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Head, true);
+				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Hand, true);
 				SetOwnerDirection((UINT)(player->GetPlayerDirection()));
 			}
 			else

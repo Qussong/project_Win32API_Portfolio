@@ -16,7 +16,8 @@ namespace van
 			AttackEnd,
 			Hit,
 			Dead,
-			None
+			Special,
+			None,
 		};
 
 		enum class BossDirection
@@ -68,6 +69,7 @@ namespace van
 		virtual void AttackEnd();
 		virtual void Hit();
 		virtual void Dead();
+		virtual void Special();
 
 	private:
 		float mHp;

@@ -127,10 +127,6 @@ namespace van
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Wall, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Player, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill, eLayerType::Wall, true);
-
 	}
 
 	void TestScene::SceneOut()

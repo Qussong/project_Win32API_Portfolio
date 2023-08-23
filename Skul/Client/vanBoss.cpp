@@ -91,4 +91,9 @@ namespace van
 		// nothing
 	}
 
+	void Boss::Special()
+	{
+		// nothing
+	}
+
 }

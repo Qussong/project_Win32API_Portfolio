@@ -56,7 +56,10 @@ namespace van
 				tr->SetPosition(objPos);
 			}
 
-			rb->SetGround(true);	// Floor 객체와 충돌한 객체가 땅에 붙어있는 상태로 만들어준다.
+			if (rb != nullptr)
+			{
+				rb->SetGround(true);	// Floor 객체와 충돌한 객체가 땅에 붙어있는 상태로 만들어준다.
+			}
 		}
 	}
 
@@ -70,6 +73,10 @@ namespace van
 		GameObject* obj = _other->GetOwner();
 		RigidBody* rb = obj->GetComponent<RigidBody>();
 
-		rb->SetGround(false);
+		if (rb != nullptr)
+		{
+			rb->SetGround(false);
+		}
 	}
+
 }
