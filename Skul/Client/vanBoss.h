@@ -78,7 +78,7 @@ namespace van
 		BossState mBossState = BossState::None;
 		BossDirection mBossDirection = BossDirection::None;
 		float mTimer;
-		GameObject* mTarget;
+		GameObject* mTarget;	// Init()에서 자동으로 해당 Scene의 타겟으로 설정한다.
 	};
 }
 

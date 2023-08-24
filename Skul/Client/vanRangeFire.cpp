@@ -64,7 +64,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Mage_RangeFire", ResourceManager::Find<Texture>(L"Mage_RangeFire"), math::Vector2(0.0f, 0.0f), math::Vector2(200.0f, 200.0f), 24, math::Vector2::Zero, 0.03);
+		at->CreateAnimation(L"Mage_RangeFire", ResourceManager::Find<Texture>(L"Mage_RangeFire"), math::Vector2(0.0f, 0.0f), math::Vector2(200.0f, 200.0f), 24, math::Vector2::Zero, 0.02);
 	}
 
 	void RangeFire::OnCollisionEnter(Collider* _other)

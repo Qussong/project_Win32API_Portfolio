@@ -598,7 +598,7 @@ namespace van
 			AddTimer(Time::GetDeltaTime());
 
 			if (mbShoot == false
-				&& GetTimer() >= 0.8f)
+				&& GetTimer() >= 0.7f)
 			{
 				SetTimer(0.0f);
 				mbShoot = true;

@@ -196,26 +196,11 @@
     <Filter Include="Contents\GameObject\Boss">
       <UniqueIdentifier>{0cf2685d-0918-4692-8a83-d90cec74ce60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\Boss\Yggdrasill">
-      <UniqueIdentifier>{f30fbc6a-50aa-4774-a45e-ade5193af8cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObject\Boss\Warrior">
       <UniqueIdentifier>{e85168db-8144-4aad-9848-9c3c45a57b2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Monster\GianticEnt">
       <UniqueIdentifier>{c92be955-3162-4f75-9c67-91020dd6a1b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Body">
-      <UniqueIdentifier>{85632925-f0fd-468e-9130-9e38aa93ce24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Hand">
-      <UniqueIdentifier>{f5ce9939-b751-4478-8a14-4c7966c9e6b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Head">
-      <UniqueIdentifier>{a0072298-9485-41e1-8da6-80e091940307}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Chin">
-      <UniqueIdentifier>{c15c953e-cf3f-43e5-9e19-00c4f0e50e28}</UniqueIdentifier>
     </Filter>
     <Filter Include="Contents\GameObject\Boss\Mage">
       <UniqueIdentifier>{be4e3424-0649-4038-9068-dbc85fdfae22}</UniqueIdentifier>
@@ -231,6 +216,21 @@
     </Filter>
     <Filter Include="Contents\GameObject\Skill\Mage_PhoenixLanding">
       <UniqueIdentifier>{1e3e2c92-9090-4a23-9678-2724271b356c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill">
+      <UniqueIdentifier>{f30fbc6a-50aa-4774-a45e-ade5193af8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Body">
+      <UniqueIdentifier>{85632925-f0fd-468e-9130-9e38aa93ce24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Hand">
+      <UniqueIdentifier>{f5ce9939-b751-4478-8a14-4c7966c9e6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Head">
+      <UniqueIdentifier>{a0072298-9485-41e1-8da6-80e091940307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Boss\Yggdrasill\Chin">
+      <UniqueIdentifier>{c15c953e-cf3f-43e5-9e19-00c4f0e50e28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

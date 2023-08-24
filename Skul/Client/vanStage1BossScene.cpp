@@ -35,10 +35,10 @@ namespace van
 		Animator* at = player->GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 
+		SetSceneTarget(player);
+
 		Yggdrasill* boss = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
 		boss->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-
-		SetSceneTarget(player);
 	}
 
 	void Stage1BossScene::Update()
@@ -69,9 +69,6 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::FrontFloor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
-
-
-
 	}
 
 	void Stage1BossScene::SceneOut()
@@ -118,8 +115,8 @@ namespace van
 	{
 		// nothing
 		Floor* floor1 = Object::Instantiate<Floor>(enums::eLayerType::FrontFloor);
-		floor1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 270.0f));
-		floor1->GetComponent<Collider>()->SetSize(math::Vector2(1440.0f, 50.0f));
+		floor1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 300.0f));
+		floor1->GetComponent<Collider>()->SetSize(math::Vector2(1440.0f, 100.0f));
 	}
 
 	void Stage1BossScene::MakeWall()
