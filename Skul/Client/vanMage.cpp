@@ -357,8 +357,11 @@ namespace van
 				FinishMove		// 4
 			*/
 			srand((UINT)time(NULL));
-			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(3);
+			mAttackCase = (BossSkill)(rand() % 4);
+			if (mAttackCase == (BossSkill)(0))
+			{
+				int a = 0;
+			}
 			mbChooseSkill = true;
 		}
 

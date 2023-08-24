@@ -42,7 +42,7 @@ namespace van
 	{
 		GameObject::Update();
 
-		InitAddPos();
+		InitAddPos();		// 최기위치값 저장 -> Left, Right 구분을 Init에서 할 수 없기에 Update에 넣어준다.
 		FollowBodyPos();
 
 		mPastState = mState;
