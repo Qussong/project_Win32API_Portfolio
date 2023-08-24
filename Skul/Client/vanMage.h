@@ -15,7 +15,7 @@ namespace van
 			FireBall,
 			RangeFire1,
 			RangeFire2,
-			//PhoenixLanding,
+			PhoenixLanding,
 			//FinishMove,
 			None,
 		};
@@ -44,16 +44,18 @@ namespace van
 		// AttackReady
 		void AttackFireBallReady();
 		void AttackRangeFireReady();
-		//void AttackPhoenixLandingReady();
+		void AttackPhoenixLandingReady();
 		//void AttackFinishMoveReady();
 
 		// Attack
 		void AttackFireBall();
 		void AttackRangeFire();
-		//void AttackPhoenixLanding();
+		void AttackPhoenixLanding();
 		//void AttackFinishMove();
 
 		void ComparePosWithBossAndTarget();
+		void LandingTimerCnt();
+		void TakeOff();
 		BossDirection GetBossAttackDirection() { return mBossAttackDirection; }
 
 	private:
@@ -80,7 +82,16 @@ namespace van
 		std::vector<RangeFire*> mListRangeFire;
 
 		// PhoenixLanding
-
+		bool mbTakeOff = false;			// 위치 초기화 여부
+		// mbTakeOff (false -> true) 가 될 때 초기화 ↓
+		float mLandingTimer = 0.0f;						// Delay 10초 예상
+		bool mbLandingTimer = false;					// Landing 후 다시 올라가기까지의 Delay 시간 카운트 여부
+		math::Vector2 mInitPos = math::Vector2::Zero;	// 날아오르기전 초기위치값 저장
+		bool mbSky = true;								// 초기값 true = 하늘에 있다 -> 스킬 사용후 다시 날아오르기전까지 false
+		// ↓공격수행후 초기화 ↓
+		bool mbRecordPosY = false;	// 초기 pos.y 값 기록
+		bool mbFly = true;			// 특정위치에 도달했는지 확인 도달했으면 false 더 올라가야하면 true
+		bool mbLand = false;		// 낙하수행 여부 확인, 낙하준비가 완료되면 true 그 전까진 false
 	};
 }
 

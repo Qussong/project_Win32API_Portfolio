@@ -16,7 +16,7 @@ namespace van
 			AttackEnd,
 			Hit,
 			Dead,
-			Special,
+			TakeOff,	// Mage Àü¿ë
 			None,
 		};
 

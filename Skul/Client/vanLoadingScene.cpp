@@ -240,7 +240,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_L.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_R.png");
 
-
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Intor_2", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_2.bmp");
@@ -263,12 +262,12 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_Sign", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire_Sign.png");
 		ResourceManager::Load<Texture>(L"Mage_RangeFire", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire.bmp");
 
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_L.png");
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_R.png");
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_L.png");
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
 
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_L.png");
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_R.png");
 		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_L.png");
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
 		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding_Land_.png");
 	}
 }
