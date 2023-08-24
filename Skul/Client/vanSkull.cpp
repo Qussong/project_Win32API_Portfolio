@@ -6,6 +6,8 @@
 #include "vanCollider.h"
 #include "vanCollisionManager.h"
 #include "vanWall.h"
+#include "vanTransform.h"
+#include "vanSceneManager.h"
 
 #define VELOCITY_X  150.0f
 namespace van
@@ -30,7 +32,18 @@ namespace van
         sr->SetScale(math::Vector2(2.0f, 2.0f));
         sr->SetAffectCamera(true);
 
-        GetComponent<Collider>()->SetSize(math::Vector2(35, 35));
+        // 객체의 위치 설정
+        Scene* scene = SceneManager::GetActiveScene();
+        GameObject* obj = scene->GetSceneTarget();
+        math::Vector2 pos = obj->GetComponent<Transform>()->GetPosition();
+        Transform* tr = GetComponent<Transform>();
+        tr->SetPosition(pos);
+
+        // 객체의 충돌체 위치 설정
+        // Render 를 탄 이후에 주인객체의 Transform을 따라가기에 충돌문제를 방지하기위해서 따로 설정해준다.
+        Collider* col = GetComponent<Collider>();
+        col->SetSize(math::Vector2(35, 35));
+        col->SetPos(pos);
 
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Floor, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::FrontFloor, true);
@@ -69,6 +82,8 @@ namespace van
     {
         GameObject* obj = _other->GetOwner();
         Wall* wall = dynamic_cast<Wall*>(obj);
+
+        // 몬스터 전용벽일땐 통과 (아래의 로직을 타지않고 바로 탈출한다.)
         if (wall != nullptr)
         {
             if (wall->GetFloorLimit() == true)
@@ -90,6 +105,7 @@ namespace van
         {
             rb->SetVelocity(math::Vector2(VELOCITY_X, 0.0f));
         }
+
         if (mDirection == HeadDirection::Right)
         {
             rb->SetVelocity(math::Vector2(-VELOCITY_X, 0.0f));

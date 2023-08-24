@@ -22,5 +22,6 @@ namespace van
 
 	private:
 		bool mbFloorLimit;	// 몬스터에게만 작용하게 해준다.
+		//std::vector<GameObject*> list;
 	};
 }

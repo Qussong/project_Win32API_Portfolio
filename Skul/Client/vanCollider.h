@@ -24,6 +24,8 @@ namespace van
 		__forceinline void SetOffset(math::Vector2 _offset) { mOffset = _offset; }
 
 		__forceinline math::Vector2 GetPos() { return mPos; }
+		__forceinline void SetPos(math::Vector2 _pos) { mPos = _pos; }
+
 		__forceinline UINT GetCollisionNum() { return mCollisionNum; }
 
 		__forceinline void SetLineColor(COLORREF _color) { lineColor = _color; }

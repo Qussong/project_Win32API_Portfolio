@@ -1606,8 +1606,6 @@ namespace van
 			mbSkillFlag = true;
 			// 투사체 생성
 			head = Object::Instantiate<Skull>(enums::eLayerType::Skill);
-			// 생성위치 설정
-			head->GetComponent<Transform>()->SetPosition(pos);
 			// 날아갈 방향 설정
 			if (mDirection == PlayerDirection::Left)
 			{

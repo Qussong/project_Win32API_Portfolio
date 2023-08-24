@@ -48,9 +48,9 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Mage
-		Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
-		mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
-		mage->SetTartget(player);
+		//Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+		//mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		//mage->SetTartget(player);
 
 		//	GianticEnt
 		//GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);

@@ -91,6 +91,7 @@ namespace van
 					}
 				}
 			}
+
 			// Wall 객체의 x축 길이가 더 긴 경우
 			else if(thisSize.x > thisSize.y)
 			{

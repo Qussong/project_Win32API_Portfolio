@@ -120,6 +120,8 @@ namespace van
 		MonsterTrace* mTraceBox;		// Monster의 Trace판정 범위
 		MonsterAttack* mAttackBox;		// Monster의 Attack판정 범위
 		int mAttackCnt;
+
+		bool mbWallEffected = true;
 	};
 }
 

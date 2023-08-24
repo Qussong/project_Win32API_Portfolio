@@ -647,25 +647,32 @@ namespace van
 	{
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
-		SetWallFlag(false);
-		rb->SetGround(false);
 
-		if (mDirection == MonsterDirection::Right)
+		if (mbWallEffected == true)
 		{
-			velocity.x = -WALL_BUMP_X;
-			velocity.y = WALL_BUMP_Y;
-			rb->SetVelocity(velocity);
+			rb->SetGround(false);
+
+			if (mDirection == MonsterDirection::Right)
+			{
+				velocity.x = -WALL_BUMP_X;
+				velocity.y = WALL_BUMP_Y;
+				rb->SetVelocity(velocity);
+			}
+			if (mDirection == MonsterDirection::Left)
+			{
+				velocity.x = WALL_BUMP_X;
+				velocity.y = WALL_BUMP_Y;
+				rb->SetVelocity(velocity);
+			}
+
+			mbWallEffected = false;
 		}
-		if (mDirection == MonsterDirection::Left)
-		{
-			velocity.x = WALL_BUMP_X;
-			velocity.y = WALL_BUMP_Y;
-			rb->SetVelocity(velocity);
-		}
+
 		
-
 		if (rb->GetGround() == true)
 		{
+			SetWallFlag(false);
+			mbWallEffected = true;
 			SetMonsterState(MonsterState::Patrol);
 		}
 	}
