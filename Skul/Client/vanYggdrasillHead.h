@@ -11,12 +11,9 @@ namespace van
 		{
 			Gen,
 			Idle,
-			FistSlamReady,
-			SwipeReady,
-			MagicOrbsReady,
-			FistSlam,
-			Swipe,
-			MagicOrbs,
+			AttackReady,
+			Attack,
+			AttackEnd,
 			Dead,
 			None,
 		};
@@ -36,32 +33,69 @@ namespace van
 
 		void Gen();
 		void Idle();
+		void AttackReady();
+		void Attack();
+		void AttackEnd();
 		void Dead();
+
+		// AttackReady
 		void FistSlamReady();
 		void SwipeReady();
 		void MagicOrbsReady();
-		void FistSlam();
-		void Swipe();
-		void MagicOrbs();
+		// Attack
+		void FistSlamAttack();
+		void SwipeAttack();
+		void MagicOrbsAttack();
+		// AttackEnd
+		void FistSlamEnd();
+		void SwipeEnd();
+		void MagicOrbsEnd();
+
+		void FollowBodyPos();
+		// MagicOrb
+		void ShakeHead();
+		void ShootEnerge();
+		void InitHeadPos();
 
 		__forceinline void SetPos(math::Vector2 _pos) { GetComponent<Transform>()->SetPosition(_pos); }
 		__forceinline math::Vector2 GetPos() { return GetComponent<Transform>()->GetPosition(); }
 
-		void FollowBodyPos();
+		__forceinline GameObject* GetOwner() { return mOwner; }
+		__forceinline void SetOwner(GameObject* _owner) { mOwner = _owner; }
 
-		GameObject* GetOwner() { return mOwner; }
-		void SetOwner(GameObject* _owner) { mOwner = _owner; }
+		__forceinline HeadState GetState() { return mState; }
+		__forceinline void SetState(HeadState _state) { mState = _state; }
 
-		HeadState GetState() { return mState; }
-		void SetState(HeadState _state) { mState = _state; }
+		__forceinline bool GetFinishFlag() { return mbFinish; }
+		__forceinline void SetFinishFlag(bool _flag) { mbFinish = _flag; }
+
+		__forceinline void ResetMagicOrbShootMotionValue() { mMagicOrbShootMotion = 0; }
+		__forceinline bool GetMagicOrbShootFlag() { return mbMagicOrbShoot; }
+		__forceinline void SetMagicOrbShootFlag(bool _flag) { mbMagicOrbShoot = _flag; }
 
 	private:
 		GameObject* mOwner;
 		HeadState mState = HeadState::None;
+		HeadState mPastState = HeadState::None;
+
+		bool mbFinish = false;						// 본체에 수행이 끝났음을 알려준다.
+		bool mbEnd = false;
+		bool mbPlayAnimation = true;
+
+		// Idle
 		float mTime = 0.0f;
 		bool mUpDownFlag = false;
 		math::Vector2 mInitAddPos = math::Vector2::Zero;	// Body 기준 초기값(= 초기화용)
 		math::Vector2 mAddPos = math::Vector2::Zero;
+
+		// MagicOrb Ready
+
+		// MagicOrb Attack
+		int mMagicOrbShootMotion = 0;
+		bool mbMagicOrbShoot = false;
+
+		// MagicOrb End
+
 	};
 }
 

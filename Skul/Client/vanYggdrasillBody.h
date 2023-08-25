@@ -11,12 +11,9 @@ namespace van
 		{
 			Gen,
 			Idle,
-			FistSlamReady,
-			SwipeReady,
-			MagicOrbsReady,
-			FistSlam,
-			Swipe,
-			MagicOrbs,
+			AttackReady,
+			Attack,
+			AttackEnd,
 			Dead,
 			None,
 		};
@@ -36,30 +33,57 @@ namespace van
 
 		void Gen();
 		void Idle();
+		void AttackReady();
+		void Attack();
+		void AttackEnd();
+		void Dead();
+
+		// AttackReady
 		void FistSlamReady();
 		void SwipeReady();
 		void MagicOrbsReady();
-		void FistSlam();
-		void Swipe();
-		void MagicOrbs();
-		void Dead();
+		// Attack
+		void FistSlamAttack();
+		void SwipeAttack();
+		void MagicOrbsAttack();
+		// AttackEnd
+		void FistSlamEnd();
+		void SwipeEnd();
+		void MagicOrbsEnd();
+
+		void SetOwnerPos();
 
 		__forceinline void SetPos(math::Vector2 _pos) { GetComponent<Transform>()->SetPosition(_pos); }
 		__forceinline math::Vector2 GetPos() { return GetComponent<Transform>()->GetPosition(); }
 
-		void SetOwnerPos();
+		__forceinline GameObject* GetOwner() { return mOwner; }
+		__forceinline void SetOwner(GameObject* _owner) { mOwner = _owner; }
 
-		GameObject* GetOwner() { return mOwner; }
-		void SetOwner(GameObject* _owner) { mOwner = _owner; }
+		__forceinline BodyState GetState() { return mState; }
+		__forceinline void SetState(BodyState _state) { mState = _state; }
 
-		BodyState GetState() { return mState; }
-		void SetState(BodyState _state) { mState = _state; }
+		__forceinline bool GetFinishFlag() { return mbFinish; }
+		__forceinline void SetFinishFlag(bool _flag) { mbFinish = _flag; }
 
 	private:
 		GameObject* mOwner;
 		BodyState mState = BodyState::None;
+		BodyState mPastState = BodyState::None;
+
+		bool mbFinish = false;			// 본체에 수행이 끝났음을 알려준다.
+		bool mbEnd = false;
+		bool mbPlayAnimation = true;
+
+		// Idle
 		float mTime = 0.0f;
 		bool mUpDownFlag = false;
+
+		// MagicOrb Ready
+
+		// MagicOrb Attack
+
+		// MagicOrb End
+
 	};
 }
 

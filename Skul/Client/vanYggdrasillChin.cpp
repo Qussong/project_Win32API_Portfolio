@@ -10,6 +10,7 @@
 #define INIT_POS_X	30.0f
 #define INIT_POS_Y	140.0f
 #define IDLE_SPEED	-30.0f
+#define SHOOT_MAGICORB_SHAKE_SPEED 80.0f
 
 namespace van
 {
@@ -45,6 +46,16 @@ namespace van
 
 		FollowHeadPos();
 
+		if (mPastState != mState)
+		{
+			mbPlayAnimation = true;
+			// 행동패턴의 수행이 끝났음을 알리는 mbEnd를 초기화
+			if (mbEnd == true)
+			{
+				mbEnd = false;
+			}
+		}
+
 		switch (mState)
 		{
 		case ChinState::Gen:
@@ -53,12 +64,23 @@ namespace van
 		case ChinState::Idle:
 			Idle();
 			break;
+		case ChinState::AttackReady:
+			AttackReady();
+			break;
+		case ChinState::Attack:
+			Attack();
+			break;
+		case ChinState::AttackEnd:
+			AttackEnd();
+			break;
 		case ChinState::Dead:
 			Dead();
 			break;
 		default:
 			__noop;
 		}
+
+		mPastState = mState;	// 현재의 상태와 미래의 상태를 비교하여 애니메이션 재생여부를 결정한다.(다르면 mPlayAnimation = true)
 	}
 
 	void YggdrasillChin::Render(HDC _hdc)
@@ -119,6 +141,81 @@ namespace van
 		}
 	}
 
+	void YggdrasillChin::AttackReady()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlamReady();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			SwipeReady();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbsReady();
+			break;
+		default:
+			__noop;
+		}
+	}
+
+	void YggdrasillChin::Attack()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlamAttack();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			SwipeAttack();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbsAttack();
+			break;
+		default:
+			__noop;
+		}
+	}
+
+	void YggdrasillChin::AttackEnd()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlamEnd();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			SwipeEnd();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbsEnd();
+			break;
+		default:
+			__noop;
+		}
+	}
+
 	void YggdrasillChin::FistSlamReady()
 	{
 	}
@@ -129,18 +226,65 @@ namespace van
 
 	void YggdrasillChin::MagicOrbsReady()
 	{
+		Transform* tr = GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();
+
+		if (mbEnd == false)
+		{
+			mAddPos.y -= 100.0f * Time::GetDeltaTime();
+
+			float gap = fabs(mInitAddPos.y - mAddPos.y);
+			if (gap >= 10.0f)
+			{
+				mbFinish = true;
+				mbEnd = true;
+			}
+		}
 	}
 
-	void YggdrasillChin::FistSlam()
+	void YggdrasillChin::FistSlamAttack()
 	{
 	}
 
-	void YggdrasillChin::Swipe()
+	void YggdrasillChin::SwipeAttack()
 	{
 	}
 
-	void YggdrasillChin::MagicOrbs()
+	void YggdrasillChin::MagicOrbsAttack()
 	{
+		Transform* tr = GetComponent<Transform>();
+
+		if (mbEnd == false)
+		{
+			mAddPos.y += 100.0f * Time::GetDeltaTime();
+
+			float gap = mInitAddPos.y - mAddPos.y;
+			if (gap <= -20.0f)
+			{
+				mbFinish = true;
+				mbEnd = true;
+			}
+		}
+	}
+
+	void YggdrasillChin::FistSlamEnd()
+	{
+	}
+
+	void YggdrasillChin::SwipeEnd()
+	{
+	}
+
+	void YggdrasillChin::MagicOrbsEnd()
+	{
+		Transform* tr = GetComponent<Transform>();
+
+		if (mbEnd == false)
+		{
+			mAddPos = mInitAddPos;
+			mbFinish = true;
+			mbEnd = true;
+		}
 	}
 
 	void YggdrasillChin::Dead()
@@ -158,4 +302,5 @@ namespace van
 
 		tr->SetPosition(newPos);
 	}
+
 }

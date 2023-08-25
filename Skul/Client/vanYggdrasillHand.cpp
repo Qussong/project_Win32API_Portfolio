@@ -100,6 +100,8 @@ namespace van
 		at->CreateAnimation(L"Hand_Swipe_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
 		at->CreateAnimation(L"Hand_Swipe_End_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_L"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
 		at->CreateAnimation(L"Hand_Swipe_End_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_MagicOrb_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_L"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
+		at->CreateAnimation(L"Hand_MagicOrb_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_R"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
 	}
 
 	void YggdrasillHand::OnCollisionEnter(Collider* _other)
@@ -359,6 +361,39 @@ namespace van
 
 	void YggdrasillHand::MagicOrbsReady()
 	{
+		Yggdrasill* owner = dynamic_cast<Yggdrasill*>(GetOwner());
+		Transform* tr = GetComponent<Transform>();
+		Animator* at = GetComponent<Animator>();
+
+		if (mbEnd == false)
+		{
+			math::Vector2 nowPos = tr->GetPosition();
+			if (mbRecordMagicOrbReadyPosY == false)
+			{
+				mMagicOrbReadyDepartPosY = nowPos.y;
+				mbRecordMagicOrbReadyPosY = true;
+			}
+			nowPos.y += 200.0f * Time::GetDeltaTime();
+			tr->SetPosition(nowPos);
+
+			if (fabs(mMagicOrbReadyDepartPosY - nowPos.y) > 100.0f)
+			{
+				if (mbPlayAnimation == true)
+				{
+					if (mHandPos == HandPos::Left)
+					{
+						at->PlayAnimation(L"Hand_MagicOrb_L", false);
+					}
+					if (mHandPos == HandPos::Right)
+					{
+						at->PlayAnimation(L"Hand_MagicOrb_R", false);
+					}
+					mbPlayAnimation = false;
+					mbEnd = true;
+				}
+			}
+		}
+
 	}
 
 	void YggdrasillHand::FistSlamAttack()

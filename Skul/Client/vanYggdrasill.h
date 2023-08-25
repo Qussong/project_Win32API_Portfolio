@@ -81,9 +81,9 @@ namespace van
 		BossState mState = BossState::None;
 
 		float mTime = 0.0f;
-		bool mbChooseSkill = false;				// 공격스킬 선택 여부
+		bool mbChooseSkill = false;						// 공격스킬 선택 여부
 		BossSkill mAttackCase = BossSkill::None;
-		math::Vector2 mInitPos = math::Vector2::Zero;
+		math::Vector2 mInitPos = math::Vector2::Zero;	// 최초 위치값 저장(초기화용)
 		AttackHandDir mAttackDir = AttackHandDir::None;	// 공격을 수행할 Hand의 방향 저장
 
 		// FistSlam
@@ -91,6 +91,12 @@ namespace van
 
 		// Swipe
 		int mSwipCnt = 0;
+
+		// MagicOrb
+		bool mbShakeFlag = false;
+		bool mbMagicOrbShootFlag = false;
+		int mMagicOrbCnt = 0;
+		bool mbShootDelay = false;
 
 	};
 }

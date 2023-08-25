@@ -99,6 +99,8 @@ namespace van
 		math::Vector2 mInitAddPos = math::Vector2::Zero;	// 기준값(Body Pos 기준)에 더해주는 값(= 초기위치 구하는 용도)
 
 		bool mbFinish = false;						// 본체에 수행이 끝났음을 알려준다.
+		bool mbEnd = false;							// 각 행동들의 수행 완료를 체크함
+													// -> 로직상 mbFinish 가 false 가 됐다가 해당 프레임 넘어가기전에 true가 되어버리는데 이를 방지해줌
 		GameObject* mOwner = nullptr;				// 소유하고 있는 객체 저장
 		HandPos mHandPos = HandPos::None;			// 좌, 우 구분
 		bool mbPlayAnimation = true;				// 애니메이션 재생 여부
@@ -123,7 +125,6 @@ namespace van
 		bool mbDirectionSet = false;					// 내려칠 위치에 대한 방향벡터 구함 여부
 
 		// FistSlam End
-		bool mbEnd = false;
 
 		// Swipe Ready
 		float mDepartPosX = 0.0f;		// 준비자세 시작 위치의 x좌표 값
@@ -133,6 +134,10 @@ namespace van
 		bool mbSwipe = false;			// Swipe 완료여부
 
 		// Swipte End
+
+		// MagicOrbReady
+		float mMagicOrbReadyDepartPosY = 0.0f;		// MagirOrb준비자세 시작 위치의 x좌표 값
+		bool mbRecordMagicOrbReadyPosY = false;
 
 	};
 }

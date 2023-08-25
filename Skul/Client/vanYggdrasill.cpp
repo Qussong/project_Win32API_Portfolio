@@ -8,6 +8,8 @@
 #define INIT_POS_Y		Window_Y / 2
 #define FIST_SLAM_CNT	2
 #define SWIPE_CNT		2
+#define MAGIC_ORB_CNT	2
+#define MAGIC_ORB_DELAY	1.5f
 
 namespace van
 {
@@ -142,7 +144,7 @@ namespace van
 			*/
 			srand((UINT)time(NULL));
 			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(0);
+			mAttackCase = (BossSkill)(2);
 			mbChooseSkill = true;
 		}
 
@@ -245,7 +247,35 @@ namespace van
 
 	void Yggdrasill::MagicOrbsReady()
 	{
+		mBody->SetState(YggdrasillBody::BodyState::AttackReady);
+		mHead->SetState(YggdrasillHead::HeadState::AttackReady);
+		mChin->SetState(YggdrasillChin::ChinState::AttackReady);
+		mHandLeft->SetState(YggdrasillHand::HandState::AttackReady);
+		mHandRight->SetState(YggdrasillHand::HandState::AttackReady);
 
+		if (mBody->GetFinishFlag() == true
+			&& mHead->GetFinishFlag() == true
+			&& mChin->GetFinishFlag() == true
+			&& mbShakeFlag == false)
+		{
+			mBody->SetFinishFlag(false);
+			mHead->SetFinishFlag(false);
+			mChin->SetFinishFlag(false);
+
+			mbShakeFlag = true;
+		}
+
+		if (mbShakeFlag == true)
+		{
+			mHead->ShakeHead();
+
+			mTime += Time::GetDeltaTime();
+			if (mTime >= 2.0f)
+			{
+				mTime = 0.0f;
+				mState = BossState::Attack;
+			}
+		}
 	}
 
 	void Yggdrasill::FistSlamAttack()
@@ -383,7 +413,54 @@ namespace van
 
 	void Yggdrasill::MagicOrbsAttack()
 	{
+		mBody->SetState(YggdrasillBody::BodyState::Attack);
+		mHead->SetState(YggdrasillHead::HeadState::Attack);
+		mChin->SetState(YggdrasillChin::ChinState::Attack);
 
+		if (mBody->GetFinishFlag() == true
+			&& mHead->GetFinishFlag() == true
+			&& mChin->GetFinishFlag() == true
+			&& mbMagicOrbShootFlag == false)
+		{
+			mBody->SetFinishFlag(false);
+			mHead->SetFinishFlag(false);
+			mChin->SetFinishFlag(false);
+
+			mbMagicOrbShootFlag = true;
+		}
+
+		if (mbMagicOrbShootFlag == true
+			&& mMagicOrbCnt <= MAGIC_ORB_CNT)
+		{
+			if (mHead->GetMagicOrbShootFlag() == false)
+			{
+				mTime += Time::GetDeltaTime();
+				if (mTime >= MAGIC_ORB_DELAY)
+				{
+					mTime = 0.0f;
+					mbShootDelay = true;
+				}
+
+				if (mbShootDelay == true)
+				{
+					mHead->ShootEnerge();
+				}
+			}
+			else
+			{
+				mbShootDelay = false;
+				++mMagicOrbCnt;
+				mHead->SetMagicOrbShootFlag(false);
+				mHead->ResetMagicOrbShootMotionValue();
+			}
+		}
+
+		if (mMagicOrbCnt > MAGIC_ORB_CNT)
+		{
+			mMagicOrbCnt = 0;
+			mBody->SetFinishFlag(false);
+			mState = BossState::AttackEnd;
+		}
 	}
 
 	void Yggdrasill::FistSlamEnd()
@@ -423,5 +500,27 @@ namespace van
 
 	void Yggdrasill::MagicOrbsEnd()
 	{
+		mBody->SetState(YggdrasillBody::BodyState::AttackEnd);
+		mHead->SetState(YggdrasillHead::HeadState::AttackEnd);
+		mChin->SetState(YggdrasillChin::ChinState::AttackEnd);
+
+		if (mHead->GetFinishFlag() == true)
+		{
+			int a = 0;
+		}
+
+		if (mBody->GetFinishFlag() == true
+			&& mHead->GetFinishFlag() == true
+			&& mChin->GetFinishFlag() == true)
+		{
+			// 초기화
+			mBody->SetFinishFlag(false);
+			mHead->SetFinishFlag(false);
+			mChin->SetFinishFlag(false);
+			mbChooseSkill = false;
+
+			// 상태변경 (Attack End --> Idle)
+			mState = BossState::Idle;
+		}
 	}
 }
