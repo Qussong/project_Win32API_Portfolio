@@ -239,6 +239,10 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_R.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_L.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_End_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_End_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_End_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_End_R.png");
 
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");

@@ -60,8 +60,11 @@ namespace van
 
 		void InitAddPos();		// 초기위치값 저장 -> Left, Right 구분을 Init에서 할 수 없기에 Update에 넣어준다.
 		void FollowBodyPos();	// Idle 상태일 때 Body객체의 위치를 기준으로 Hand의 위치값을 설정한다.
+		// FistSlam
 		void FistSlam();		// FistSlam 공격을 수행하는 로직
 		void FistSlamAfter();	// FistSlam 공격수행후 Hand 위치 재정렬
+		// Swipe
+		void Swip();
 
 		__forceinline HandPos GetHandPos() { return mHandPos; }
 		__forceinline void SetHandPos(HandPos _pos) { mHandPos = _pos; }
@@ -84,6 +87,9 @@ namespace van
 
 		__forceinline bool GetFistSlamFlag() { return mbFistSlam; }
 		__forceinline void SetFistSlamFlag(bool _flag) { mbFistSlam = _flag; }
+
+		__forceinline bool GetSwipeFlag() { return mbSwipe; }
+		__forceinline void SetSwipeFlag(bool _flag) { mbSwipe = _flag; }
 		
 		__forceinline bool GetEndFlag() { return mbEnd; }
 		__forceinline void SetEndFlag(bool _flag) { mbEnd = _flag; }
@@ -105,19 +111,29 @@ namespace van
 		bool mUpDownFlag = false;			// Idle 상태에서 위, 아래 움직임 방향 바꿔주는 플래그 값
 
 		// FistSlam Ready
-		float mDepartHeight = 0.0f;			// 준비자세 시작 높이
+		float mDepartPosY = 0.0f;			// 준비자세 시작 높이
 		bool mbCollisionFloor = false;		// 벽 충돌여부
 
 		// FistSlam Attack
 		math::Vector2 mResetPos = math::Vector2::Zero;	// 복귀해야하는 위치(준비자세 최종위치)
-		math::Vector2 dir = math::Vector2::Zero;		//
+		math::Vector2 dir = math::Vector2::Zero;		// 방향벡터(FistSlam시 주먹을 내려칠 방향을 저장)
 		bool mbFistSlam = false;						// 내려치기 완료여부
 
 		// FistSlamAttack() 함수 인자값들
-		bool mbDirectionSet = false;				// 내려칠 위치에 대한 방향벡터 구함 여부
+		bool mbDirectionSet = false;					// 내려칠 위치에 대한 방향벡터 구함 여부
 
 		// FistSlam End
 		bool mbEnd = false;
+
+		// Swipe Ready
+		float mDepartPosX = 0.0f;		// 준비자세 시작 위치의 x좌표 값
+										
+		// Swipe Attack					
+		float mSwipeDepartPosX = 0.0f;	// Swipe 출발 위치
+		bool mbSwipe = false;			// Swipe 완료여부
+
+		// Swipte End
+
 	};
 }
 

@@ -6,7 +6,8 @@
 
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
-#define FIST_SLAM_CNT	10
+#define FIST_SLAM_CNT	2
+#define SWIPE_CNT		2
 
 namespace van
 {
@@ -128,7 +129,6 @@ namespace van
 			mTime = 0.0f;
 			mState = BossState::AttackReady;
 		}
-
 	}
 
 	void Yggdrasill::AttackReady()
@@ -230,10 +230,22 @@ namespace van
 	
 	void Yggdrasill::SwipeReady()
 	{
+		mHandLeft->SetState(YggdrasillHand::HandState::AttackReady);
+		mHandRight->SetState(YggdrasillHand::HandState::AttackReady);
+
+		if (mHandLeft->GetFinishFlag() == true
+			&& mHandRight->GetFinishFlag() == true)
+		{
+			mHandLeft->SetFinishFlag(false);
+			mHandRight->SetFinishFlag(false);
+
+			mState = BossState::Attack;
+		}
 	}
 
 	void Yggdrasill::MagicOrbsReady()
 	{
+
 	}
 
 	void Yggdrasill::FistSlamAttack()
@@ -242,7 +254,6 @@ namespace van
 		mHandLeft->SetState(YggdrasillHand::HandState::Attack);
 		mHandRight->SetState(YggdrasillHand::HandState::Attack);
 
-		// Logic
 		GameObject* target = GetTarget();
 		math::Vector2 targetPos = target->GetComponent<Transform>()->GetPosition();
 		math::Vector2 ownPos = GetComponent<Transform>()->GetPosition();
@@ -310,11 +321,69 @@ namespace van
 
 	void Yggdrasill::SwipeAttack()
 	{
+		GameObject* target = GetTarget();
+		math::Vector2 targetPos = target->GetComponent<Transform>()->GetPosition();
+		math::Vector2 ownPos = GetComponent<Transform>()->GetPosition();
+
+		// 각 부위별 상태값 변경
+		mHandLeft->SetState(YggdrasillHand::HandState::Attack);
+		mHandRight->SetState(YggdrasillHand::HandState::Attack);
+
+		// 공격할 Hand 방향 선택
+		if (mAttackDir == AttackHandDir::None)
+		{
+			// target 이 own 보다 왼쪽에 있을 때 (target.x < own.x)
+			if (targetPos.x <= ownPos.x)
+			{
+				mAttackDir = AttackHandDir::Right;
+			}
+			// target 이 own 보다 오른쪽에 있을 때 (target.x > own.x)
+			if (targetPos.x > ownPos.x)
+			{
+				mAttackDir = AttackHandDir::Left;
+			}
+		}
+
+		// 정해진 횟수만큼 공격수행
+		if (mSwipCnt < FIST_SLAM_CNT
+			&& mAttackDir != AttackHandDir::None)
+		{
+			if (mAttackDir == AttackHandDir::Left)
+			{
+				mHandLeft->Swip();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandLeft->GetSwipeFlag() == true)
+				{
+					mHandLeft->SetSwipeFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mSwipCnt;
+				}
+			}
+			if (mAttackDir == AttackHandDir::Right)
+			{
+				mHandRight->Swip();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandRight->GetSwipeFlag() == true)
+				{
+					mHandRight->SetSwipeFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mSwipCnt;
+				}
+			}
+		}
+		// 공격을 완료했을 때
+		else
+		{
+			mSwipCnt = 0;
+			// 상태변경 (Attack --> Attack End)
+			mState = BossState::AttackEnd;
+		}
 
 	}
 
 	void Yggdrasill::MagicOrbsAttack()
 	{
+
 	}
 
 	void Yggdrasill::FistSlamEnd()
@@ -336,6 +405,20 @@ namespace van
 
 	void Yggdrasill::SwipeEnd()
 	{
+		mHandLeft->SetState(YggdrasillHand::HandState::AttackEnd);
+		mHandRight->SetState(YggdrasillHand::HandState::AttackEnd);
+
+		if (mHandLeft->GetFinishFlag() == true
+			&& mHandRight->GetFinishFlag() == true)
+		{
+			// 초기화
+			mHandLeft->SetFinishFlag(false);
+			mHandRight->SetFinishFlag(false);
+			mbChooseSkill = false;
+
+			// 상태변경 (Attack End --> Idle)
+			mState = BossState::Idle;
+		}
 	}
 
 	void Yggdrasill::MagicOrbsEnd()

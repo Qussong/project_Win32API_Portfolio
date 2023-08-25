@@ -63,8 +63,8 @@ namespace van
 
 		math::Vector2 GetInitPos() { return mInitPos; }
 
-		void AddFistSlamCnt() { mFistSlamCnt += 1; }
-		int GetFistSlamCnt() { return mFistSlamCnt; }
+		//void AddFistSlamCnt() { mFistSlamCnt += 1; }
+		//int GetFistSlamCnt() { return mFistSlamCnt; }
 
 		BossSkill GetAttackCase() { return mAttackCase; }
 		void SetAttackCase(BossSkill _case) { mAttackCase = _case; }
@@ -84,10 +84,13 @@ namespace van
 		bool mbChooseSkill = false;				// 공격스킬 선택 여부
 		BossSkill mAttackCase = BossSkill::None;
 		math::Vector2 mInitPos = math::Vector2::Zero;
+		AttackHandDir mAttackDir = AttackHandDir::None;	// 공격을 수행할 Hand의 방향 저장
 
 		// FistSlam
 		int mFistSlamCnt = 0;
-		AttackHandDir mAttackDir = AttackHandDir::None;
+
+		// Swipe
+		int mSwipCnt = 0;
 
 	};
 }

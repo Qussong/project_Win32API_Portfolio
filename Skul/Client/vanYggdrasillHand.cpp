@@ -15,6 +15,7 @@
 #define INIT_POS_RIGHT_Y	100.0f
 #define IDLE_UP_DOWN_SPEED	15.0f
 #define FIST_SLAM_SPEED		800.0f
+#define SWIP_SPEED			600.0f
 
 namespace van
 {
@@ -47,6 +48,12 @@ namespace van
 		if (mPastState != mState)
 		{
 			mbPlayAnimation = true;
+
+			// 행동패턴의 수행이 끝났음을 알리는 mbEnd를 초기화
+			if (mbEnd == true)
+			{
+				mbEnd = false;
+			}
 		}
 
 		switch (mState)
@@ -89,7 +96,10 @@ namespace van
 		at->CreateAnimation(L"Hand_Idle_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Idle_R"), math::Vector2(0.0f, 0.0f), math::Vector2(166.0f, 147.0f), 7, math::Vector2::Zero, 0.2f);
 		at->CreateAnimation(L"Hand_FistSlam_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_FistSlam_L"), math::Vector2(0.0f, 0.0f), math::Vector2(151.0f, 167.0f), 1);
 		at->CreateAnimation(L"Hand_FistSlam_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_FistSlam_R"), math::Vector2(0.0f, 0.0f), math::Vector2(165.0f, 144.0f), 1);
-
+		at->CreateAnimation(L"Hand_Swipe_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_L"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_End_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_L"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_End_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
 	}
 
 	void YggdrasillHand::OnCollisionEnter(Collider* _other)
@@ -123,12 +133,6 @@ namespace van
 
 	void YggdrasillHand::Idle()
 	{
-		// 모든 행동패턴의 마지막엔 Idle로 오기에 이전 행동패턴의 수행이 끝났음을 알리는 mbEnd를 초기화해준다.
-		if (mbEnd == true)
-		{
-			mbEnd = false;
-		}
-
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
 		math::Vector2 pos = tr->GetPosition();
@@ -265,13 +269,13 @@ namespace van
 
 		if (mbFinish == false)
 		{
-			// FistSlam Attack Ready 애니메이션 재생
+			// FistSlam Ready 애니메이션 재생
 			if (mbPlayAnimation == true)
 			{
 				mAddPos = mInitAddPos;				// AddPos 를 초기화해준다.
 				math::Vector2 initPos = dynamic_cast<Yggdrasill*>(GetOwner())->GetInitPos();
 				tr->SetPosition(initPos + mAddPos);	// 초기위치로 이동(Body 초기위치 + 초기 AddPos 값)
-				mDepartHeight = tr->GetPosition().y;
+				mDepartPosY = tr->GetPosition().y;
 
 				if (mHandPos == HandPos::Left)
 				{
@@ -288,7 +292,7 @@ namespace van
 			math::Vector2 nowPos = tr->GetPosition();
 			nowPos.y -= 130.0f * Time::GetDeltaTime();
 			tr->SetPosition(nowPos);
-			float gap = mDepartHeight - nowPos.y;
+			float gap = mDepartPosY - nowPos.y;
 
 			// 특정 위치까지 이동하면 ReadyFinish의 플래그값으로 본체에게 준비가 끝났음을 알려준다.
 			if (fabs(gap) >= 350.0f)
@@ -301,6 +305,56 @@ namespace van
 
 	void YggdrasillHand::SwipeReady()
 	{
+		// [ Do List ]
+		// - 애니메이션 변경
+		// - Hand를 양쪽으로 움직여서 화면상에서 사라지게 한다.
+
+		Transform* tr = GetComponent<Transform>();
+		Animator* at = GetComponent<Animator>();
+
+		if (mbFinish == false
+			&& mbEnd == false)
+		{
+			// Swipe Ready 애니메이션 재생
+			if (mbPlayAnimation == true)
+			{
+				mAddPos = mInitAddPos;				// AddPos 를 초기화해준다.
+				math::Vector2 initPos = dynamic_cast<Yggdrasill*>(GetOwner())->GetInitPos();
+				tr->SetPosition(initPos + mAddPos);	// 초기위치로 이동(Body 초기위치 + 초기 AddPos 값)
+				mDepartPosX = tr->GetPosition().x;
+
+				if (mHandPos == HandPos::Left)
+				{
+					at->PlayAnimation(L"Hand_Swipe_L", false);
+				}
+				if (mHandPos == HandPos::Right)
+				{
+					at->PlayAnimation(L"Hand_Swipe_R", false);
+				}
+
+				mbPlayAnimation = false;
+			}
+
+			math::Vector2 nowPos = tr->GetPosition();
+			if (mHandPos == HandPos::Left)
+			{
+				nowPos.x -= 150.0f * Time::GetDeltaTime();
+			}
+			if (mHandPos == HandPos::Right)
+			{
+				nowPos.x += 150.0f * Time::GetDeltaTime();
+			}
+			tr->SetPosition(nowPos);
+			float gap = mDepartPosX - nowPos.x;
+
+			// 특정 위치까지 이동하면 ReadyFinish의 플래그값으로 본체에게 준비가 끝났음을 알려준다.
+			if (fabs(gap) >= 550.0f)
+			{
+				mbFinish = true;
+				mbEnd = true;
+				mSwipeDepartPosX = nowPos.x;	// Swipe 패턴이 끝나기전에 행동을 한번 수행한 다음 수행까지 복귀하여 대기해야하는 위치
+			}
+		}
 	}
 
 	void YggdrasillHand::MagicOrbsReady()
@@ -309,13 +363,12 @@ namespace van
 
 	void YggdrasillHand::FistSlamAttack()
 	{
-		// Hand 객체의 Wall, FrontFloor 레이어의 객체들과 충돌 설정 ON
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::FrontFloor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Wall, true);
+		// nothing
 	}
 
 	void YggdrasillHand::SwipeAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillHand::MagicOrbsAttack()
@@ -326,10 +379,6 @@ namespace van
 	{
 		// [ Do List ]
 		// - Idle 위치로 Hand 이동
-
-		// Hand 객체의 Wall, FrontFloor 레이어의 객체들과의 충돌설정 OFF
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::FrontFloor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Wall, true);
 
 		Transform* tr = GetComponent<Transform>();
 		math::Vector2 pos = tr->GetPosition();
@@ -362,6 +411,53 @@ namespace van
 
 	void YggdrasillHand::SwipeEnd()
 	{
+		// Hand 객체의 Player 레이어의 객체들과의 충돌설정 OFF
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, false);
+
+		Transform* tr = GetComponent<Transform>();
+		Animator* at = GetComponent<Animator>();
+		math::Vector2 pos = tr->GetPosition();
+		float initPosX = mDepartPosX;
+
+		if (mbFinish == false
+			&& mbEnd == false)
+		{
+			// 초기위치보다 왼쪽에 있을 때
+			if (pos.x < initPosX - 5.0f)
+			{
+				pos.x += 150.0f * Time::GetDeltaTime();
+				tr->SetPosition(pos);
+			}
+			// 초기위치보다 오른쪽에 있을 때
+			else if (pos.x > initPosX + 5.0f)
+			{
+				pos.x -= 150.0f * Time::GetDeltaTime();
+				tr->SetPosition(pos);
+			}
+			// 오차범위내에 들어왔을 때
+			else
+			{
+				tr->SetPosition(math::Vector2(initPosX, pos.y));
+				if (mbPlayAnimation == true)
+				{
+					if (mHandPos == HandPos::Left)
+					{
+						at->PlayAnimation(L"Hand_Swipe_End_L");
+					}
+					if (mHandPos == HandPos::Right)
+					{
+						at->PlayAnimation(L"Hand_Swipe_End_R");
+					}
+					mbPlayAnimation = false;
+				}
+
+				if (at->IsActiveAnimationComplete() == true)
+				{
+					mbEnd = true;
+					mbFinish = true;
+				}
+			}
+		}
 	}
 
 	void YggdrasillHand::MagicOrbsEnd()
@@ -424,6 +520,11 @@ namespace van
 		// 방향벡터의 방향으로 주먹 날리기 수행
 		if (mbCollisionFloor == false)
 		{
+			// Hand 객체의 Wall, FrontFloor, Player 레이어의 객체들과의 충돌설정 ON
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::FrontFloor, true);
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Wall, true);
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, true);
+
 			pos.x += dir.x * FIST_SLAM_SPEED * Time::GetDeltaTime();
 			pos.y += dir.y * FIST_SLAM_SPEED * Time::GetDeltaTime();
 
@@ -432,6 +533,11 @@ namespace van
 		// 벽과 충돌하면 출발위치로 주먹이 되돌아온다.
 		else
 		{
+			// Hand 객체의 Wall, FrontFloor, Player 레이어의 객체들과의 충돌설정 OFF
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::FrontFloor, false);
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Wall, false);
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, false);
+
 			pos.x -= dir.x * FIST_SLAM_SPEED * Time::GetDeltaTime();
 			pos.y -= dir.y * FIST_SLAM_SPEED * Time::GetDeltaTime();
 
@@ -456,6 +562,9 @@ namespace van
 		math::Vector2 pos = tr->GetPosition();				// Hand 위치
 		math::Vector2 targetPos = tr_target->GetPosition();	// Target 위치
 		
+		// Hand 객체의 Player 레이어의 객체들과의 충돌설정 OFF
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, false);
+
 		float resetPosX = mResetPos.x;
 
 		if (mbFinish == false)
@@ -476,7 +585,47 @@ namespace van
 			{
 				tr->SetPosition(mResetPos);
 				mbFinish = true;	// FistSlam Attack 행동 완료 플래그 ON
+				// 초기화
+				mResetPos = math::Vector2::Zero;
 			}
+		}
+	}
+
+	void YggdrasillHand::Swip()
+	{
+		Yggdrasill* owner = dynamic_cast<Yggdrasill*>(GetOwner());
+		GameObject* target = owner->GetTarget();
+		Transform* tr = GetComponent<Transform>();
+		Transform* tr_target = target->GetComponent<Transform>();
+		math::Vector2 pos = tr->GetPosition();	// Hand 위치
+
+		if (mbSwipe == false)
+		{
+			// Hand 객체의 Player 레이어의 객체들과 충돌 설정 ON
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, true);
+
+			if (mHandPos == HandPos::Left)
+			{
+				pos.x += SWIP_SPEED * Time::GetDeltaTime();
+			}
+			if (mHandPos == HandPos::Right)
+			{
+				pos.x -= SWIP_SPEED * Time::GetDeltaTime();
+			}
+			tr->SetPosition(pos);
+		}
+
+		float gap = fabs(mSwipeDepartPosX - pos.x);
+		// 일정거리 이상 이동하게되면 종료
+		if (gap >= 1800.0f)
+		{
+			// Hand 객체의 Player 레이어의 객체들과 충돌 설정 ON
+			CollisionManager::SetCollisionLayerCheck(eLayerType::Yggdrasill_Hand, eLayerType::Player, false);
+
+			// 공격수행이 완료됨을 알려준다.
+			mbSwipe = true;												
+			// 공격수행 대기위치로 Hand를 옮겨준다.
+			tr->SetPosition(math::Vector2(mSwipeDepartPosX, pos.y));	
 		}
 	}
 
