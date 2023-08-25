@@ -13,7 +13,7 @@
 #define INIT_POS_LEFT_Y		100.0f
 #define INIT_POS_RIGHT_X	420.0f
 #define INIT_POS_RIGHT_Y	100.0f
-#define IDLE_SPEED			15.0f
+#define IDLE_UP_DOWN_SPEED	15.0f
 #define FISTSLAM_CNT		2
 
 namespace van
@@ -43,9 +43,9 @@ namespace van
 		GameObject::Update();
 
 		InitAddPos();		// 최기위치값 저장 -> Left, Right 구분을 Init에서 할 수 없기에 Update에 넣어준다.
-		FollowBodyPos();
+		FollowBodyPos();	// Body객체의 위치를 기준으로 Hand의 위치값을 설정한다.
 
-		mPastState = mState;
+		mPastState = mState;	// 현재의 상태와 미래의 상태를 비교하여 애니메이션 재생여부를 결정한다.(다르면 mPlayAnimation = true)
 
 		switch (mState)
 		{
@@ -55,32 +55,14 @@ namespace van
 		case HandState::Idle:
 			Idle();
 			break;
-		case HandState::FistSlamReady:
-			FistSlamReady();
+		case HandState::AttackReady:
+			AttackReady();
 			break;
-		case HandState::SwipeReady:
-			SwipeReady();
+		case HandState::Attack:
+			Attack();
 			break;
-		case HandState::MagicOrbsReady:
-			MagicOrbsReady();
-			break;
-		case HandState::FistSlam:
-			FistSlam();
-			break;
-		case HandState::Swipe:
-			Swipe();
-			break;
-		case HandState::MagicOrbs:
-			MagicOrbs();
-			break;
-		case HandState::FistSlamEnd:
-			FistSlamEnd();
-			break;
-		case HandState::SwipeEnd:
-			SwipeEnd();
-			break;
-		case HandState::MagicOrbsEnd:
-			MagicOrbsEnd();
+		case HandState::AttackEnd:
+			AttackEnd();
 			break;
 		case HandState::Dead:
 			Dead();
@@ -127,21 +109,24 @@ namespace van
 
 	void YggdrasillHand::OnCollisionStay(Collider* _other)
 	{
+
 	}
 
 	void YggdrasillHand::OnCollisionExit(Collider* _other)
 	{
+
 	}
 
 	void YggdrasillHand::Gen()
 	{
+
 	}
 
 	void YggdrasillHand::Idle()
 	{
 		Transform* tr = GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();
 		Animator* at = GetComponent<Animator>();
+		math::Vector2 pos = tr->GetPosition();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 
 		if (mbPlayAnimation == true)
@@ -150,10 +135,11 @@ namespace van
 			{
 				at->PlayAnimation(L"Hand_Idle_L", true);
 			}
-			else if (mHandPos == HandPos::Right)
+			if (mHandPos == HandPos::Right)
 			{
 				at->PlayAnimation(L"Hand_Idle_R", true);
 			}
+
 			mbPlayAnimation = false;
 		}
 
@@ -173,13 +159,90 @@ namespace van
 
 		if (mUpDownFlag == true)
 		{
-			mAddPos.y += IDLE_SPEED * Time::GetDeltaTime();
+			mAddPos.y += IDLE_UP_DOWN_SPEED * Time::GetDeltaTime();
 		}
 		else
 		{
-			mAddPos.y -= IDLE_SPEED * Time::GetDeltaTime();
+			mAddPos.y -= IDLE_UP_DOWN_SPEED * Time::GetDeltaTime();
 		}
 	}
+
+	void YggdrasillHand::AttackReady()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlamReady();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			SwipeReady();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbsReady();
+			break;
+		default:
+			__noop;
+		}
+	}
+
+	void YggdrasillHand::Attack()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlam();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			Swipe();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbs();
+			break;
+		default:
+			__noop;
+		}
+
+	}
+
+	void YggdrasillHand::AttackEnd()
+	{
+		Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+
+		if (boss == nullptr)
+		{
+			return;
+		}
+
+		switch (boss->GetAttackCase())
+		{
+		case Yggdrasill::BossSkill::FistSlam:
+			FistSlamEnd();
+			break;
+		case Yggdrasill::BossSkill::Swipe:
+			SwipeEnd();
+			break;
+		case Yggdrasill::BossSkill::MagicOrbs:
+			MagicOrbsEnd();
+			break;
+		default:
+			__noop;
+		}
+	}
+
 
 	void YggdrasillHand::Dead()
 	{
@@ -193,19 +256,20 @@ namespace van
 
 		if (mbReadyFinish == false)
 		{
-			if (mbReadyInit == false)
+			if (mbPlayAnimation == true)
 			{
 				ResetInitPos();
 				mInitPos = tr->GetPosition();
 				if (mHandPos == HandPos::Left)
 				{
-					at->PlayAnimation(L"Hand_FistSlam_L");
+					at->PlayAnimation(L"Hand_FistSlam_L", false);
 				}
-				else
+				if (mHandPos == HandPos::Right)
 				{
-					at->PlayAnimation(L"Hand_FistSlam_R");
+					at->PlayAnimation(L"Hand_FistSlam_R", false);
 				}
-				mbReadyInit = true;
+
+				mbPlayAnimation = false;
 			}
 
 			math::Vector2 pos = tr->GetPosition();

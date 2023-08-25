@@ -59,6 +59,9 @@ namespace van
 		void AddFistSlamCnt() { mFistSlamCnt += 1; }
 		int GetFistSlamCnt() { return mFistSlamCnt; }
 
+		BossSkill GetAttackCase() { return mAttackCase; }
+		void SetAttackCase(BossSkill _case) { mAttackCase = _case; }
+
 	private:
 		YggdrasillBody* mBody = nullptr;		// ¸öÃ¼
 		YggdrasillHead* mHead = nullptr;		// ¸Ó¸®
