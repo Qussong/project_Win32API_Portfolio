@@ -4,8 +4,9 @@
 #include "vanPlayer.h"
 #include "vanObject.h"
 
-#define INIT_POS_X	Window_X / 2
-#define INIT_POS_Y	Window_Y / 2
+#define INIT_POS_X		Window_X / 2
+#define INIT_POS_Y		Window_Y / 2
+#define FIST_SLAM_CNT	10
 
 namespace van
 {
@@ -58,8 +59,10 @@ namespace van
 			Gen();
 			break;
 		case BossState::Idle:
+		{
 			Idle();
 			break;
+		}
 		case BossState::AttackReady:
 			AttackReady();
 			break;
@@ -119,6 +122,7 @@ namespace van
 		mHandRight->SetState(YggdrasillHand::HandState::Idle);
 
 		mTime += Time::GetDeltaTime();
+		// Idle --(3초)--> Attack Ready
 		if (mTime >= 3.0f)
 		{
 			mTime = 0.0f;
@@ -166,13 +170,13 @@ namespace van
 		switch (mAttackCase)
 		{
 		case BossSkill::FistSlam:
-			FistSlam();
+			FistSlamAttack();
 			break;
 		case BossSkill::Swipe:
-			Swipe();
+			SwipeAttack();
 			break;
 		case BossSkill::MagicOrbs:
-			MagicOrbs();
+			MagicOrbsAttack();
 			break;
 		default:
 			__noop;
@@ -184,8 +188,10 @@ namespace van
 		switch (mAttackCase)
 		{
 		case BossSkill::FistSlam:
+		{
 			FistSlamEnd();
 			break;
+		}
 		case BossSkill::Swipe:
 			SwipeEnd();
 			break;
@@ -209,22 +215,19 @@ namespace van
 
 	void Yggdrasill::FistSlamReady()
 	{
-		//mBody->SetState(YggdrasillBody::BodyState::FistSlamReady);
-		//mHead->SetState(YggdrasillHead::HeadState::FistSlamReady);
-		//mChin->SetState(YggdrasillChin::ChinState::FistSlamReady);
-		mHandLeft->SetState(YggdrasillHand::HandState::FistSlamReady);
-		mHandRight->SetState(YggdrasillHand::HandState::FistSlamReady);
+		mHandLeft->SetState(YggdrasillHand::HandState::AttackReady);
+		mHandRight->SetState(YggdrasillHand::HandState::AttackReady);
 
-		if (mHandLeft->GetReadyFinishFlag() == true
-			&& mHandRight->GetReadyFinishFlag() == true)
+		if (mHandLeft->GetFinishFlag() == true
+			&& mHandRight->GetFinishFlag() == true)
 		{
-			mHandLeft->SetReadyFinishFlag(false);
-			mHandRight->SetReadyFinishFlag(false);
+			mHandLeft->SetFinishFlag(false);
+			mHandRight->SetFinishFlag(false);
 
 			mState = BossState::Attack;
 		}
 	}
-
+	
 	void Yggdrasill::SwipeReady()
 	{
 	}
@@ -233,56 +236,108 @@ namespace van
 	{
 	}
 
-	void Yggdrasill::FistSlam()
+	void Yggdrasill::FistSlamAttack()
 	{
-		//mBody->SetState(YggdrasillBody::BodyState::FistSlam);
-		//mHead->SetState(YggdrasillHead::HeadState::FistSlam);
-		//mChin->SetState(YggdrasillChin::ChinState::FistSlam);
-		mHandLeft->SetState(YggdrasillHand::HandState::FistSlam);
-		mHandRight->SetState(YggdrasillHand::HandState::FistSlam);
+		// 각 부위별 상태값 변경
+		mHandLeft->SetState(YggdrasillHand::HandState::Attack);
+		mHandRight->SetState(YggdrasillHand::HandState::Attack);
 
-		if (mHandLeft->GetEndFinishFlag() == true
-			&& mHandRight->GetEndFinishFlag() == true)
+		// Logic
+		GameObject* target = GetTarget();
+		math::Vector2 targetPos = target->GetComponent<Transform>()->GetPosition();
+		math::Vector2 ownPos = GetComponent<Transform>()->GetPosition();
+
+		// 공격할 Hand 방향 선택
+		if(mAttackDir == AttackHandDir::None)
 		{
-			// 초기화
-			mHandLeft->SetEndFinishFlag(false);
-			mHandRight->SetEndFinishFlag(false);
-			mFistSlamCnt = 0;
+			// target 이 own 보다 왼쪽에 있을 때 (target.x < own.x)
+			if (targetPos.x <= ownPos.x)
+			{
+				mAttackDir = AttackHandDir::Left;
+			}
+			// target 이 own 보다 오른쪽에 있을 때 (target.x > own.x)
+			if (targetPos.x > ownPos.x)
+			{
+				mAttackDir = AttackHandDir::Right;
+			}
+		}
 
-			mState = BossState::AttackEnd;
+		// 정해진 횟수만큼 공격수행
+		if (mFistSlamCnt < FIST_SLAM_CNT
+			&& mAttackDir != AttackHandDir::None)
+		{
+			if (mAttackDir == AttackHandDir::Left)
+			{
+				mHandLeft->FistSlam();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandLeft->GetFistSlamFlag() == true)
+				{
+					mHandLeft->SetFistSlamFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mFistSlamCnt;
+				}
+			}
+			if (mAttackDir == AttackHandDir::Right)
+			{
+				mHandRight->FistSlam();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandRight->GetFistSlamFlag() == true)
+				{
+					mHandRight->SetFistSlamFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mFistSlamCnt;
+				}
+			}
+		}
+		// 공격을 완료했을 때
+		else
+		{
+			mHandLeft->FistSlamAfter();
+			mHandRight->FistSlamAfter();
+
+			if (mHandLeft->GetFinishFlag() == true
+				&& mHandRight->GetFinishFlag() == true)
+			{
+				// 초기화
+				mFistSlamCnt = 0;
+				mHandLeft->SetFinishFlag(false);
+				mHandRight->SetFinishFlag(false);
+				// 상태변경 (Attack --> Attack End)
+				mState = BossState::AttackEnd;
+			}
 		}
 	}
 
-	void Yggdrasill::Swipe()
+	void Yggdrasill::SwipeAttack()
 	{
 
 	}
 
-	void Yggdrasill::MagicOrbs()
+	void Yggdrasill::MagicOrbsAttack()
 	{
 	}
+
 	void Yggdrasill::FistSlamEnd()
 	{
-		//mBody->SetState(YggdrasillBody::BodyState::FistSlamEnd);
-		//mHead->SetState(YggdrasillHead::HeadState::FistSlamEnd);
-		//mChin->SetState(YggdrasillChin::ChinState::FistSlamEnd);
-		mHandLeft->SetState(YggdrasillHand::HandState::FistSlamEnd);
-		mHandRight->SetState(YggdrasillHand::HandState::FistSlamEnd);
+		mHandLeft->SetState(YggdrasillHand::HandState::AttackEnd);
+		mHandRight->SetState(YggdrasillHand::HandState::AttackEnd);
 
-		if (mHandLeft->GetEndFinishFlag() == true
-			&& mHandRight->GetEndFinishFlag() == true)
+		if (mHandLeft->GetFinishFlag() == true
+			&& mHandRight->GetFinishFlag() == true)
 		{
 			// 초기화
-			mHandLeft->SetEndFinishFlag(false);
-			mHandRight->SetEndFinishFlag(false);
+			mHandLeft->SetFinishFlag(false);
+			mHandRight->SetFinishFlag(false);
 			mbChooseSkill = false;
+			// 상태변경 (Attack End --> Idle)
 			mState = BossState::Idle;
 		}
-
 	}
+
 	void Yggdrasill::SwipeEnd()
 	{
 	}
+
 	void Yggdrasill::MagicOrbsEnd()
 	{
 	}

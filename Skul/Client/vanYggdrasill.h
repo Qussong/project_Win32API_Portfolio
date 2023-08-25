@@ -18,6 +18,13 @@ namespace van
 			None,
 		};
 
+		enum class AttackHandDir
+		{
+			Left,
+			Right,
+			None
+		};
+
 	public:
 		Yggdrasill();
 		~Yggdrasill();
@@ -42,9 +49,9 @@ namespace van
 		void FistSlamReady();
 		void SwipeReady();
 		void MagicOrbsReady();
-		void FistSlam();	// 번갈아가면서 주먹찍기
-		void Swipe();		// 바닥 쓸기
-		void MagicOrbs();	// 광범위 레이저공격
+		void FistSlamAttack();	// 번갈아가면서 주먹찍기
+		void SwipeAttack();		// 바닥 쓸기
+		void MagicOrbsAttack();	// 광범위 레이저공격
 		void FistSlamEnd();
 		void SwipeEnd();
 		void MagicOrbsEnd();
@@ -69,17 +76,19 @@ namespace van
 		YggdrasillHand* mHandLeft = nullptr;	// 왼손
 		YggdrasillHand* mHandRight = nullptr;	// 오른손
 
+		int mHp = 0;
+		int mArmor = 0;
 		BossState mState = BossState::None;
 
 		float mTime = 0.0f;
-
-		int mHp;
-		int mArmor;
 		bool mbChooseSkill = false;				// 공격스킬 선택 여부
 		BossSkill mAttackCase = BossSkill::None;
 		math::Vector2 mInitPos = math::Vector2::Zero;
 
+		// FistSlam
 		int mFistSlamCnt = 0;
+		AttackHandDir mAttackDir = AttackHandDir::None;
+
 	};
 }
 

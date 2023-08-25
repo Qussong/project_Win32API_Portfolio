@@ -61,9 +61,11 @@ namespace van
 		ComparePosWithBossAndTarget();
 		// LandingTimer 카운트
 		LandingTimerCnt();
-
+		
 		mBossPastState = GetBossState();
 		mBossPastDirection = GetBossDirection();
+
+		
 
 		switch (GetBossState())
 		{
@@ -350,18 +352,14 @@ namespace van
 		if (mbChooseSkill == false)
 		{
 			/*
-				FireBall,		// 0
-				RangeFire,		// 1
+				RangeFire,		// 0
+				FireBall,		// 1
 				RangeFire,		// 2
 				PhoenixLanding,	// 3
 				FinishMove		// 4
 			*/
 			srand((UINT)time(NULL));
 			mAttackCase = (BossSkill)(rand() % 4);
-			if (mAttackCase == (BossSkill)(0))
-			{
-				int a = 0;
-			}
 			mbChooseSkill = true;
 		}
 
@@ -370,11 +368,11 @@ namespace van
 			// 필살기 외의 다른 스킬이 선택되었을 때
 			switch (mAttackCase)
 			{
-			case BossSkill::FireBall:
+			case BossSkill::FireBall1:
+			case BossSkill::FireBall2:
 				AttackFireBallReady();
 				break;
-			case BossSkill::RangeFire1:
-			case BossSkill::RangeFire2:
+			case BossSkill::RangeFire:
 				AttackRangeFireReady();
 				break;
 			case BossSkill::PhoenixLanding:
@@ -390,11 +388,11 @@ namespace van
 	{
 		switch (mAttackCase)
 		{
-		case BossSkill::FireBall:
+		case BossSkill::FireBall1:
+		case BossSkill::FireBall2:
 			AttackFireBall();
 			break;
-		case BossSkill::RangeFire1:
-		case BossSkill::RangeFire2:
+		case BossSkill::RangeFire:
 			AttackRangeFire();
 			break;
 		case BossSkill::PhoenixLanding:
@@ -681,7 +679,8 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
-		if (mbPlayAnimation == true)
+		if (mbPlayAnimation == true
+			&& PhoenixLandingAnimation == true)
 		{
 			if (GetBossDirection() == BossDirection::Left)
 			{
@@ -693,6 +692,7 @@ namespace van
 			}
 
 			mbPlayAnimation = false;
+			PhoenixLandingAnimation = false;
 		}
 
 		if (at->IsActiveAnimationComplete())

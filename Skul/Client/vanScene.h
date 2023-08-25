@@ -40,7 +40,7 @@ namespace van
 		math::Vector2 mCameraWidthLimit;	// 해당 Scene에서 Camera의 좌우 최대 이동 가능거리
 		math::Vector2 mCameraHeightLimit;	// 해당 Scene에서 Camera의 상하 최대 이동 가능거리
 
-		int mMonsterCnt;					// 해당 Scene에서의 몬스터 개수
+		int mMonsterCnt = 0;					// 해당 Scene에서의 몬스터 개수
 	};
 }
 

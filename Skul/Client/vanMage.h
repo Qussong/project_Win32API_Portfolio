@@ -12,9 +12,9 @@ namespace van
 	public:
 		enum class BossSkill
 		{
-			FireBall,
-			RangeFire1,
-			RangeFire2,
+			FireBall1,
+			FireBall2,
+			RangeFire,
 			PhoenixLanding,
 			//FinishMove,
 			None,
@@ -82,6 +82,7 @@ namespace van
 		std::vector<RangeFire*> mListRangeFire;
 
 		// PhoenixLanding
+		bool PhoenixLandingAnimation = true;	// Phoenix Landing Attack 애니메이션 재생여부
 		bool mbTakeOff = false;			// 위치 초기화 여부
 		// mbTakeOff (false -> true) 가 될 때 초기화 ↓
 		float mLandingTimer = 0.0f;						// Delay 10초 예상
