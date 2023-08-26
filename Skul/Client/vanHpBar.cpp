@@ -50,39 +50,48 @@ namespace van
 	{
 		UI::Render(_hdc);
 
-		float playerHP = mPlayer->GetHp();
-		float playerMaxHP = mPlayer->GetMaxHp();
-		float hpPercent = playerHP / playerMaxHP;
+		if (mPlayer == nullptr)
+		{
+			GameObject* obj = SceneManager::GetActiveScene()->GetSceneTarget();
+			mPlayer = dynamic_cast<Player*>(obj);
+		}
+		else
+		{
+			float playerHP = mPlayer->GetHp();
+			float playerMaxHP = mPlayer->GetMaxHp();
+			float hpPercent = playerHP / playerMaxHP;
 
-		// ºóÄ­ À§Ä¡ = 168.0f, 654.0f
-		// Damage Bar
-		::TransparentBlt(
-			// target
-			_hdc,
-			168.0f - 82.0f,
-			654.0f + 22.0f,
-			mDamageBar->GetWidth() * (mReductionHp / playerMaxHP) * 2.0f,
-			mDamageBar->GetHeight() * 2.0f,
-			// source
-			mDamageBar->GetHdc(),
-			0, 0,
-			mDamageBar->GetWidth() * (mReductionHp / playerMaxHP),
-			mDamageBar->GetHeight(),
-			RGB(255, 0, 255));
+			// ºóÄ­ À§Ä¡ = 168.0f, 654.0f
+			// Damage Bar
+			::TransparentBlt(
+				// target
+				_hdc,
+				168.0f - 82.0f,
+				654.0f + 22.0f,
+				mDamageBar->GetWidth() * (mReductionHp / playerMaxHP) * 2.0f,
+				mDamageBar->GetHeight() * 2.0f,
+				// source
+				mDamageBar->GetHdc(),
+				0, 0,
+				mDamageBar->GetWidth() * (mReductionHp / playerMaxHP),
+				mDamageBar->GetHeight(),
+				RGB(255, 0, 255));
 
-		::TransparentBlt(
-			// target
-			_hdc,
-			168.0f - 82.0f,
-			654.0f + 22.0f,
-			mHpBar->GetWidth() * hpPercent * 2.0f,
-			mHpBar->GetHeight() * 2.0f,
-			// source
-			mHpBar->GetHdc(),
-			0, 0,
-			mHpBar->GetWidth() * hpPercent,
-			mHpBar->GetHeight(),
-			RGB(255, 0, 255));
+			::TransparentBlt(
+				// target
+				_hdc,
+				168.0f - 82.0f,
+				654.0f + 22.0f,
+				mHpBar->GetWidth() * hpPercent * 2.0f,
+				mHpBar->GetHeight() * 2.0f,
+				// source
+				mHpBar->GetHdc(),
+				0, 0,
+				mHpBar->GetWidth() * hpPercent,
+				mHpBar->GetHeight(),
+				RGB(255, 0, 255));
+		}
+
 	}
 
 	void HpBar::MakeAnimation()

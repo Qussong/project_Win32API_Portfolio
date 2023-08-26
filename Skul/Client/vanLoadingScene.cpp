@@ -88,8 +88,6 @@ namespace van
 		//\MyResources\skul\UI
 		ResourceManager::Load<Texture>(L"UI_Player_Frame", L"..\\MyResources\\skul\\UI\\UI_Player_Frame.png");
 		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
-		//ResourceManager::Load<Texture>(L"UI_Player_HpBar", L"..\\MyResources\\skul\\UI\\HpBar.bmp");
-		//ResourceManager::Load<Texture>(L"UI_Player_HpBar_Damage", L"..\\MyResources\\skul\\UI\\HpBar_Damage.bmp");
 
 		// [ BackGround ]
 		// BG_Test_Scene
@@ -101,19 +99,19 @@ namespace van
 		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\BG\\1_Loading\\Skul_Loading.bmp");
 		// BG_Home_Scene
-		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\BG\\2_Home\\Home.bmp");
+		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\BG\\2_Home\\Home.png");
 		// BG_Stage1_Enter_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\BG\\3_Stage1_Enter\\Stage1_Enter.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Enter", L"..\\MyResources\\skul\\BG\\3_Stage1_Enter\\Stage1_Enter.png");
 		// BG_Stage1_Monster_1_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1", L"..\\MyResources\\skul\\BG\\4_Stage1_Monster_1\\Stage1_Monster_1.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_1", L"..\\MyResources\\skul\\BG\\4_Stage1_Monster_1\\Stage1_Monster_1.png");
 		// BG_Stage1_Monster_2_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_2", L"..\\MyResources\\skul\\BG\\5_Stage1_Monster_2\\Stage1_Monster_2.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Monster_2", L"..\\MyResources\\skul\\BG\\5_Stage1_Monster_2\\Stage1_Monster_2.png");
 		// BG_Stage1_Middle_Boss_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Middle_Boss", L"..\\MyResources\\skul\\BG\\6_Stage1_Middle_Boss\\Stage1_Middle_Boss.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Middle_Boss", L"..\\MyResources\\skul\\BG\\6_Stage1_Middle_Boss\\Stage1_Middle_Boss.png");
 		// BG_Stage1_Boss_Enter_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.png");
 		// BG_Stage1_Boss_Scene
-		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.bmp");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.png");
 		// BG_Market_Scene
 		
 		// BG_EndingScene

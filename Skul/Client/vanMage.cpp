@@ -18,7 +18,7 @@
 #define LANDING_SPEED			200.0f
 #define PHOENIX_READY_GAP_POS	100.0f
 #define FLY_READY_GAP_POS		150.0f
-#define LANDING_TIMER			10.0f
+#define LANDING_TIMER			20.0f
 
 namespace van
 {
