@@ -148,25 +148,47 @@ namespace van
 		ResourceManager::Load<Texture>(L"Stage1_Door_Boss_DeActive", L"..\\MyResources\\skul\\Door_Stage1\\Door_Boss_DeActive.bmp");
 		
 		// [ Player ]
-		ResourceManager::Load<Texture>(L"Idle_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_L\\Idle_Weapon_L.bmp");
-		ResourceManager::Load<Texture>(L"Idle_Weapon_R", L"..\\MyResources\\skul\\Basic_Skul\\Idle_Weapon_R\\Idle_Weapon_R.bmp");
-		ResourceManager::Load<Texture>(L"Walk_Weapon_L", L"..\\MyResources\\skul\\Basic_Skul\\Walk_Weapon_L\\Walk_Weapon_L.bmp");
-		ResourceManager::Load<Texture>(L"Walk_Weapon_R", L"..\\MyResources\\skul\\Basic_Skul\\Walk_Weapon_R\\Walk_Weapon_R.bmp");
-		ResourceManager::Load<Texture>(L"Attack_A_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A_L\\Attack_A_L.bmp");
-		ResourceManager::Load<Texture>(L"Attack_A_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A_R\\Attack_A_R.bmp");
-		ResourceManager::Load<Texture>(L"Attack_B_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B_L\\Attack_B_L.bmp");
-		ResourceManager::Load<Texture>(L"Attack_B_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B_R\\Attack_B_R.bmp");
-		ResourceManager::Load<Texture>(L"Jump_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_L\\Jump_L.bmp");
-		ResourceManager::Load<Texture>(L"Jump_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_R\\Jump_R.bmp");
-		ResourceManager::Load<Texture>(L"Jump_Attack_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack_L\\Jump_Attack_L.bmp");
-		ResourceManager::Load<Texture>(L"Jump_Attack_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack_R\\Jump_Attack_R.bmp");
-		ResourceManager::Load<Texture>(L"Dash_L", L"..\\MyResources\\skul\\Basic_Skul\\Dash_L\\Dash_L.bmp");
-		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash_R\\Dash_R.bmp");
-		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_L\\Fall_L.bmp");
-		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_R\\Fall_R.bmp");
-		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_L\\Fall_Repeat_L.bmp");
-		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat_R\\Fall_Repeat_R.bmp");
+		// Head
+		ResourceManager::Load<Texture>(L"Idle_L", L"..\\MyResources\\skul\\Basic_Skul\\Idle\\Idle_L.png");
+		ResourceManager::Load<Texture>(L"Idle_R", L"..\\MyResources\\skul\\Basic_Skul\\Idle\\Idle_R.png");
+		ResourceManager::Load<Texture>(L"Walk_L", L"..\\MyResources\\skul\\Basic_Skul\\Walk\\Walk_L.png");
+		ResourceManager::Load<Texture>(L"Walk_R", L"..\\MyResources\\skul\\Basic_Skul\\Walk\\Walk_R.png");
+		ResourceManager::Load<Texture>(L"AttackA_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A\\AttackA_L.png");
+		ResourceManager::Load<Texture>(L"AttackA_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A\\AttackA_R.png");
+		ResourceManager::Load<Texture>(L"AttackB_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B\\AttackB_L.png");
+		ResourceManager::Load<Texture>(L"AttackB_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B\\AttackB_R.png");
+		ResourceManager::Load<Texture>(L"Jump_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump\\Jump_L.png");
+		ResourceManager::Load<Texture>(L"Jump_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump\\Jump_R.png");
+		ResourceManager::Load<Texture>(L"Jump_Attack_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack\\Jump_Attack_L.png");
+		ResourceManager::Load<Texture>(L"Jump_Attack_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack\\Jump_Attack_R.png");
+		ResourceManager::Load<Texture>(L"Dash_L", L"..\\MyResources\\skul\\Basic_Skul\\Dash\\Dash_L.png");
+		ResourceManager::Load<Texture>(L"Dash_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash\\Dash_R.png");
+		ResourceManager::Load<Texture>(L"Fall_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall\\Fall_L.png");
+		ResourceManager::Load<Texture>(L"Fall_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall\\Fall_R.png");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat\\FallRepeat_L.png");
+		ResourceManager::Load<Texture>(L"Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat\\FallRepeat_R.png");
+		// NoHead
+		ResourceManager::Load<Texture>(L"NoHead_Idle_L", L"..\\MyResources\\skul\\Basic_Skul\\Idle\\Idle_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Idle_R", L"..\\MyResources\\skul\\Basic_Skul\\Idle\\Idle_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Walk_L", L"..\\MyResources\\skul\\Basic_Skul\\Walk\\Walk_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Walk_R", L"..\\MyResources\\skul\\Basic_Skul\\Walk\\Walk_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_AttackA_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A\\AttackA_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_AttackA_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_A\\AttackA_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_AttackB_L", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B\\AttackB_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_AttackB_R", L"..\\MyResources\\skul\\Basic_Skul\\Attack_B\\AttackB_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Jump_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump\\Jump_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Jump_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump\\Jump_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Jump_Attack_L", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack\\Jump_Attack_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Jump_Attack_R", L"..\\MyResources\\skul\\Basic_Skul\\Jump_Attack\\Jump_Attack_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Dash_L", L"..\\MyResources\\skul\\Basic_Skul\\Dash\\Dash_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Dash_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash\\Dash_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Fall_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall\\Fall_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Fall_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall\\Fall_NoHead_R.png");
+		ResourceManager::Load<Texture>(L"NoHead_Fall_Repeat_L", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat\\FallRepeat_NoHead_L.png");
+		ResourceManager::Load<Texture>(L"NoHead_Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat\\FallRepeat_NoHead_R.png");
+		// Skill
 		ResourceManager::Load<Texture>(L"Head", L"..\\MyResources\\skul\\Basic_Skul\\Head\\Skul.bmp");
+
 
 		// [ NPC ]
 		// TiedSkul

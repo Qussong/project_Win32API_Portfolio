@@ -122,7 +122,7 @@ namespace van
 		float mBone;
 		float mJewelry;
 
-		bool mbSkullLess;
+		bool mbSkullLess;	// 머리 유무
 		bool mbSkillFlag;	//	스킬 발동여부
 		float mHeadTime;
 		float mCoolTime;

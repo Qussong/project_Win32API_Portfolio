@@ -57,7 +57,7 @@ namespace van
 		MakeAnimation();
 
 		Animator* at = GetComponent<Animator>();
-		at->PlayAnimation(L"Idle_Weapon_R", true);
+		at->PlayAnimation(L"Idle_R", true);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));
 
@@ -134,27 +134,44 @@ namespace van
 	{
 		Animator* animator = GetComponent<Animator>();
 		math::Vector2 offset = GetOffset();	// 기본값 math::Vector2::Zero
-
-		animator->CreateAnimation(L"Idle_Weapon_L", ResourceManager::Find<Texture>(L"Idle_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
-		animator->CreateAnimation(L"Idle_Weapon_R", ResourceManager::Find<Texture>(L"Idle_Weapon_R"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
-		animator->CreateAnimation(L"Walk_Weapon_L", ResourceManager::Find<Texture>(L"Walk_Weapon_L"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
-		animator->CreateAnimation(L"Walk_Weapon_R", ResourceManager::Find<Texture>(L"Walk_Weapon_R"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
-		animator->CreateAnimation(L"Attack_A_L", ResourceManager::Find<Texture>(L"Attack_A_L"), math::Vector2::Zero, math::Vector2(63.0f, 65.0f), 5, offset);
-		animator->CreateAnimation(L"Attack_A_R", ResourceManager::Find<Texture>(L"Attack_A_R"), math::Vector2::Zero, math::Vector2(63.0f, 65.0f), 5, offset);
-		animator->CreateAnimation(L"Attack_B_L", ResourceManager::Find<Texture>(L"Attack_B_L"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
-		animator->CreateAnimation(L"Attack_B_R", ResourceManager::Find<Texture>(L"Attack_B_R"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
-		animator->CreateAnimation(L"Jump_Attack_L", ResourceManager::Find<Texture>(L"Jump_Attack_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
-		animator->CreateAnimation(L"Jump_Attack_R", ResourceManager::Find<Texture>(L"Jump_Attack_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
+		// Head
+		animator->CreateAnimation(L"Idle_L", ResourceManager::Find<Texture>(L"Idle_L"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
+		animator->CreateAnimation(L"Idle_R", ResourceManager::Find<Texture>(L"Idle_R"), math::Vector2::Zero, math::Vector2(44.0f, 37.0f), 4, offset);
+		animator->CreateAnimation(L"Walk_L", ResourceManager::Find<Texture>(L"Walk_L"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
+		animator->CreateAnimation(L"Walk_R", ResourceManager::Find<Texture>(L"Walk_R"), math::Vector2::Zero, math::Vector2(44.0f, 36.0f), 8, offset);
+		animator->CreateAnimation(L"AttackA_L", ResourceManager::Find<Texture>(L"AttackA_L"), math::Vector2::Zero, math::Vector2(63.0f, 57.0f), 5, offset + math::Vector2(0.0f, -5.0f));
+		animator->CreateAnimation(L"AttackA_R", ResourceManager::Find<Texture>(L"AttackA_R"), math::Vector2::Zero, math::Vector2(63.0f, 57.0f), 5, offset + math::Vector2(0.0f, -5.0f));
+		animator->CreateAnimation(L"AttackB_L", ResourceManager::Find<Texture>(L"AttackB_L"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset + math::Vector2(0.0f, -2.0f));
+		animator->CreateAnimation(L"AttackB_R", ResourceManager::Find<Texture>(L"AttackB_R"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset + math::Vector2(0.0f, -2.0f));
 		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(22.0f, 36.0f), 2, offset);
-		animator->CreateAnimation(L"Jump_L", ResourceManager::Find<Texture>(L"Jump_L"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
-		animator->CreateAnimation(L"Jump_R", ResourceManager::Find<Texture>(L"Jump_R"), math::Vector2::Zero, math::Vector2(61.0f, 57.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_Attack_L", ResourceManager::Find<Texture>(L"Jump_Attack_L"), math::Vector2::Zero, math::Vector2(61.0f, 60.0f), 4, offset);
+		animator->CreateAnimation(L"Jump_Attack_R", ResourceManager::Find<Texture>(L"Jump_Attack_R"), math::Vector2::Zero, math::Vector2(61.0f, 60.0f), 4, offset);
 		animator->CreateAnimation(L"Dash_L", ResourceManager::Find<Texture>(L"Dash_L"), math::Vector2::Zero, math::Vector2(42.0f, 28.0f), 1, offset);
 		animator->CreateAnimation(L"Dash_R", ResourceManager::Find<Texture>(L"Dash_R"), math::Vector2::Zero, math::Vector2(42.0f, 28.0f), 1, offset);
 		animator->CreateAnimation(L"Fall_L", ResourceManager::Find<Texture>(L"Fall_L"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Fall_R", ResourceManager::Find<Texture>(L"Fall_R"), math::Vector2::Zero, math::Vector2(34.0f, 36.0f), 2, offset);
 		animator->CreateAnimation(L"Fall_Repeat_L", ResourceManager::Find<Texture>(L"Fall_Repeat_L"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
 		animator->CreateAnimation(L"Fall_Repeat_R", ResourceManager::Find<Texture>(L"Fall_Repeat_R"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
+		// NoHead
+		animator->CreateAnimation(L"NoHead_Idle_L", ResourceManager::Find<Texture>(L"NoHead_Idle_L"), math::Vector2::Zero, math::Vector2(44.0f, 29.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_Idle_R", ResourceManager::Find<Texture>(L"NoHead_Idle_R"), math::Vector2::Zero, math::Vector2(44.0f, 29.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_Walk_L", ResourceManager::Find<Texture>(L"NoHead_Walk_L"), math::Vector2::Zero, math::Vector2(44.0f, 40.0f), 8, offset);
+		animator->CreateAnimation(L"NoHead_Walk_R", ResourceManager::Find<Texture>(L"NoHead_Walk_R"), math::Vector2::Zero, math::Vector2(44.0f, 40.0f), 8, offset);
+		animator->CreateAnimation(L"NoHead_AttackA_L", ResourceManager::Find<Texture>(L"NoHead_AttackA_L"), math::Vector2::Zero, math::Vector2(63.0f, 57.0f), 5, offset);
+		animator->CreateAnimation(L"NoHead_AttackA_R", ResourceManager::Find<Texture>(L"NoHead_AttackA_R"), math::Vector2::Zero, math::Vector2(63.0f, 57.0f), 5, offset);
+		animator->CreateAnimation(L"NoHead_AttackB_L", ResourceManager::Find<Texture>(L"NoHead_AttackB_L"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_AttackB_R", ResourceManager::Find<Texture>(L"NoHead_AttackB_R"), math::Vector2::Zero, math::Vector2(62.0f, 65.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_Jump_L", ResourceManager::Find<Texture>(L"NoHead_Jump_L"), math::Vector2::Zero, math::Vector2(22.0f, 28.0f), 2, offset);
+		animator->CreateAnimation(L"NoHead_Jump_R", ResourceManager::Find<Texture>(L"NoHead_Jump_R"), math::Vector2::Zero, math::Vector2(22.0f, 28.0f), 2, offset);
+		animator->CreateAnimation(L"NoHead_Jump_Attack_L", ResourceManager::Find<Texture>(L"NoHead_Jump_Attack_L"), math::Vector2::Zero, math::Vector2(61.0f, 60.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_Jump_Attack_R", ResourceManager::Find<Texture>(L"NoHead_Jump_Attack_R"), math::Vector2::Zero, math::Vector2(61.0f, 60.0f), 4, offset);
+		animator->CreateAnimation(L"NoHead_Dash_L", ResourceManager::Find<Texture>(L"NoHead_Dash_L"), math::Vector2::Zero, math::Vector2(35.0f, 24.0f), 1, offset);
+		animator->CreateAnimation(L"NoHead_Dash_R", ResourceManager::Find<Texture>(L"NoHead_Dash_R"), math::Vector2::Zero, math::Vector2(35.0f, 24.0f), 1, offset);
+		animator->CreateAnimation(L"NoHead_Fall_L", ResourceManager::Find<Texture>(L"NoHead_Fall_L"), math::Vector2::Zero, math::Vector2(34.0f, 33.0f), 2, offset);
+		animator->CreateAnimation(L"NoHead_Fall_R", ResourceManager::Find<Texture>(L"NoHead_Fall_R"), math::Vector2::Zero, math::Vector2(34.0f, 33.0f), 2, offset);
+		animator->CreateAnimation(L"NoHead_Fall_Repeat_L", ResourceManager::Find<Texture>(L"NoHead_Fall_Repeat_L"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
+		animator->CreateAnimation(L"NoHead_Fall_Repeat_R", ResourceManager::Find<Texture>(L"NoHead_Fall_Repeat_R"), math::Vector2::Zero, math::Vector2(40.0f, 40.0f), 3, offset);
 	}
 
 	void Player::ShowStatus(HDC _hdc)
@@ -223,7 +240,14 @@ namespace van
 			if (!mbDoubleKey)
 			{
 				// Animation
-				animator->PlayAnimation(L"Walk_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Walk_L", true);
+				}
+				else 
+				{
+					animator->PlayAnimation(L"Walk_L", true);
+				}
 				// Logic
 				// State
 				mDirection = PlayerDirection::Left;
@@ -239,7 +263,14 @@ namespace van
 			if (!mbDoubleKey)
 			{
 				// Animation
-				animator->PlayAnimation(L"Walk_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Walk_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Walk_R", true);
+				}
 				// Logic
 				// State
 				mDirection = PlayerDirection::Left;
@@ -253,11 +284,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_L", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_L", false);
+				}
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_R", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_R", false);
+				}
 			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;		// 윗방향 초기 속도(v0)
@@ -273,11 +318,25 @@ namespace van
 		{
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Attack_A_L", false);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_AttackA_L", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"AttackA_L", false);
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Attack_A_R", false);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_AttackA_R", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"AttackA_R", false);
+				}
 			}
 
 			mState = PlayerState::AttackA;
@@ -291,7 +350,14 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animmator
-				animator->PlayAnimation(L"Dash_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_L");
+				}
 				// Logic
 				velocity.x -= DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -299,7 +365,14 @@ namespace van
 			if (mDirection == PlayerDirection::Right)
 			{
 				// Animator
-				animator->PlayAnimation(L"Dash_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_R");
+				}
 				// Logic
 				velocity.x += DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -316,14 +389,28 @@ namespace van
 		{
 			if (Input::GetKeyUp(eKeyCode::Right))
 			{
-				animator->PlayAnimation(L"Walk_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Walk_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Walk_L", true);
+				}
 				mState = PlayerState::Walk;
 				mbDoubleKey = false;
 			}
 
 			if (Input::GetKeyUp(eKeyCode::Left))
 			{
-				animator->PlayAnimation(L"Walk_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Walk_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Walk_R", true);
+				}
 				mState = PlayerState::Walk;
 				mbDoubleKey = false;
 			}
@@ -361,7 +448,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
-			animator->PlayAnimation(L"Dash_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_L");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x -= DASH_FORCE_X;
@@ -377,7 +471,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
-			animator->PlayAnimation(L"Dash_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_R");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x += DASH_FORCE_X;
@@ -393,7 +494,14 @@ namespace van
 			&& Input::GetKeyDown(eKeyCode::C))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -409,7 +517,14 @@ namespace van
 			&& Input::GetKeyDown(eKeyCode::C))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -423,14 +538,28 @@ namespace van
 		// Idle_Right
 		if (Input::GetKeyUp(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Idle_Weapon_R", true);
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Idle_R", true);
+			}
+			else
+			{
+				animator->PlayAnimation(L"Idle_R", true);
+			}
 			mState = PlayerState::Idle;
 		}
 
 		// Idle_Left
 		if (Input::GetKeyUp(eKeyCode::Left))
 		{
-			animator->PlayAnimation(L"Idle_Weapon_L", true);
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Idle_L", true);
+			}
+			else
+			{
+				animator->PlayAnimation(L"Idle_L", true);
+			}
 			mState = PlayerState::Idle;
 		}
 
@@ -441,12 +570,26 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				velocity.x -= DASH_FORCE_X;
-				animator->PlayAnimation(L"Attack_A_L", false);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_AttackA_L", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"AttackA_L", false);
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
 				velocity.x += DASH_FORCE_X;
-				animator->PlayAnimation(L"Attack_A_R", false);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_AttackA_R", false);
+				}
+				else
+				{
+					animator->PlayAnimation(L"AttackA_R", false);
+				}
 			}
 			rb->SetVelocity(velocity);
 			// State
@@ -460,12 +603,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 			// State
@@ -480,13 +637,27 @@ namespace van
 			{
 				if (mDirection == PlayerDirection::Right)
 				{
-					animator->PlayAnimation(L"Idle_Weapon_R", true);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_Idle_R", true);
+					}
+					else
+					{
+						animator->PlayAnimation(L"Idle_R", true);
+					}
 					mState = PlayerState::Idle;
 				}
 
 				if (mDirection == PlayerDirection::Left)
 				{
-					animator->PlayAnimation(L"Idle_Weapon_L", true);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_Idle_L", true);
+					}
+					else
+					{
+						animator->PlayAnimation(L"Idle_L", true);
+					}
 					mState = PlayerState::Idle;
 				}
 				mbDoubleKey = true;
@@ -506,13 +677,27 @@ namespace van
 		// Direction_L_Animator
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
-			animator->PlayAnimation(L"Jump_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
 		}
 
 		// Direction_R_Animator
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Jump_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
 		}
 
 		// Direction_L
@@ -540,7 +725,14 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_L");
+				}
 				// Logic
 				mDashX1 = pos.x;
 				velocity.x -= DASH_FORCE_X;
@@ -549,7 +741,14 @@ namespace van
 			if (mDirection == PlayerDirection::Right)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_R");
+				}
 				// Logic
 				mDashX1 = pos.x;
 				velocity.x += DASH_FORCE_X;
@@ -566,7 +765,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_L");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x -= DASH_FORCE_X;
@@ -583,7 +789,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_R");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x += DASH_FORCE_X;
@@ -602,11 +815,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_Attack_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_L");
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_Attack_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_R");
+				}
 			}
 			// Logic
 			// State
@@ -618,7 +845,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
 			// Logic
 			// State
 			mDirection = PlayerDirection::Left;
@@ -630,9 +864,15 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
 			// Logic
-			
 			// State
 			mDirection = PlayerDirection::Right;
 			mState = PlayerState::JumpAttack;
@@ -644,11 +884,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_L");
+				}
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_R");
+				}
 			}
 			else
 			{
@@ -674,12 +928,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 			
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 			// State
@@ -693,12 +961,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L");
+				}
 			}
 
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R");
+				}
 			}
 			// Logic
 			// State
@@ -733,7 +1015,14 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_L");
+				}
 				// Logic
 				mDashX1 = pos.x;
 				velocity.x = 0.0f;
@@ -744,7 +1033,14 @@ namespace van
 			if (mDirection == PlayerDirection::Right)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_R");
+				}
 				// Logic
 				mDashX1 = pos.x;
 				velocity.x = 0.0f;
@@ -763,7 +1059,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_L");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x = -DASH_FORCE_X;
@@ -780,7 +1083,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animator
-			animator->PlayAnimation(L"Dash_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_R");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x = DASH_FORCE_X;
@@ -797,11 +1107,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R", true);
+				}
 			}
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L", true);
+				}
 			}
 			// Logic
 			// State
@@ -815,12 +1139,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 			// State
@@ -892,11 +1230,25 @@ namespace van
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
-					animator->PlayAnimation(L"Attack_B_L", false);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_AttackB_L", false);
+					}
+					else
+					{
+						animator->PlayAnimation(L"AttackB_L", false);
+					}
 				}
 				if (mDirection == PlayerDirection::Right)
 				{
-					animator->PlayAnimation(L"Attack_B_R", false);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_AttackB_R", false);
+					}
+					else
+					{
+						animator->PlayAnimation(L"AttackB_R", false);
+					}
 				}
 				// Logic
 				// State
@@ -909,11 +1261,25 @@ namespace van
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
-					animator->PlayAnimation(L"Idle_Weapon_L", true);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_Idle_L", true);
+					}
+					else
+					{
+						animator->PlayAnimation(L"Idle_L", true);
+					}
 				}
 				else if (mDirection == PlayerDirection::Right)
 				{
-					animator->PlayAnimation(L"Idle_Weapon_R", true);
+					if (mbSkullLess)
+					{
+						animator->PlayAnimation(L"NoHead_Idle_R", true);
+					}
+					else
+					{
+						animator->PlayAnimation(L"Idle_R", true);
+					}
 				}
 				// Logic
 				// State
@@ -946,11 +1312,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L", true);
+				}
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R", true);
+				}
 			}
 			// Logic
 			// State
@@ -988,12 +1368,26 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L", true);
+				}
 			}
 			if(mDirection == PlayerDirection::Right)
 			{ 
 				// Animation
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R", true);
+				}
 			}
 			// Logic
 			// State
@@ -1006,11 +1400,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 			// State
@@ -1030,13 +1438,27 @@ namespace van
 		// Direction_L_Animation
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
-			animator->PlayAnimation(L"Jump_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
 		}
 
 		// Direction_R_Animation
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Jump_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
 		}
 
 		// Direction_L_Logic
@@ -1065,7 +1487,14 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_L");
+				}
 				// Logic
 				velocity.x -= DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -1073,7 +1502,14 @@ namespace van
 			if (mDirection == PlayerDirection::Right)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_R");
+				}
 				// Logic
 				velocity.x += DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -1089,7 +1525,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_L");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x -= DASH_FORCE_X;
@@ -1106,7 +1549,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_R");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x += DASH_FORCE_X;
@@ -1125,11 +1575,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_Attack_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_L");
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_Attack_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_R");
+				}
 			}
 			// Logic
 			// State
@@ -1141,7 +1605,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
 			// Logic
 			// State
 			mDirection = PlayerDirection::Left;
@@ -1153,7 +1624,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
 			// Logic
 
 			// State
@@ -1168,11 +1646,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 
@@ -1187,12 +1679,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L");
+				}
 			}
 
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R");
+				}
 			}
 			// Logic
 			// State
@@ -1226,12 +1732,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R", true);
+				}
 				mState = PlayerState::Idle;
 			}
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L", true);
+				}
 				mState = PlayerState::Idle;
 			}
 			// Logic
@@ -1248,12 +1768,26 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_L");
+				}
 			}
 
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Fall_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Fall_R");
+				}
 			}
 			// Logic
 			// State
@@ -1268,7 +1802,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
-			animator->PlayAnimation(L"Fall_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Fall_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Fall_L");
+			}
 			// Logic
 			// State
 			mDashCnt = 0;
@@ -1283,7 +1824,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
-			animator->PlayAnimation(L"Fall_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Fall_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Fall_R");
+			}
 			// Logic
 			// State
 			mDashCnt = 0;
@@ -1308,11 +1856,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_R", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_R", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_R", true);
+				}
 			}
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Idle_Weapon_L", true);
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Idle_L", true);
+				}
+				else
+				{
+					animator->PlayAnimation(L"Idle_L", true);
+				}
 			}
 			// Logic
 			// State
@@ -1325,7 +1887,7 @@ namespace van
 		{
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Fall_Repeat_L", true);
+				animator->PlayAnimation(L"NoHead_Fall_Repeat_L", true);
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
@@ -1336,13 +1898,27 @@ namespace van
 		// Direction_L Fall_Repeat Animation
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
-			animator->PlayAnimation(L"Fall_Repeat_L", true);
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Fall_Repeat_L", true);
+			}
+			else
+			{
+				animator->PlayAnimation(L"Fall_Repeat_L", true);
+			}
 		}
 
 		// Direction_R Fall_Repeat Animation
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
-			animator->PlayAnimation(L"Fall_Repeat_R", true);
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Fall_Repeat_R", true);
+			}
+			else
+			{
+				animator->PlayAnimation(L"Fall_Repeat_R", true);
+			}
 		}
 
 		// Direction_L_Logic
@@ -1373,7 +1949,14 @@ namespace van
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_L");
+				}
 				// Logic
 				velocity.x -= DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -1381,7 +1964,14 @@ namespace van
 			if (mDirection == PlayerDirection::Right)
 			{
 				// Animation
-				animator->PlayAnimation(L"Dash_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Dash_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Dash_R");
+				}
 				// Logic
 				velocity.x += DASH_FORCE_X;
 				rb->SetVelocity(velocity);
@@ -1397,7 +1987,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_L");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x -= DASH_FORCE_X;
@@ -1414,7 +2011,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animmator
-			animator->PlayAnimation(L"Dash_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Dash_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Dash_R");
+			}
 			// Logic
 			mDashX1 = pos.x;
 			velocity.x += DASH_FORCE_X;
@@ -1436,11 +2040,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_L");
+				}
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_R");
+				}
 			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
@@ -1458,7 +2076,14 @@ namespace van
 			&& mJumpCnt == 1)
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -1476,7 +2101,14 @@ namespace van
 			&& mJumpCnt == 1)
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -1496,11 +2128,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_L");
+				}
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_R");
+				}
 			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
@@ -1518,7 +2164,14 @@ namespace van
 			&& mJumpCnt == 0)
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_L");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -1536,7 +2189,14 @@ namespace van
 			&& mJumpCnt == 0)
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_R");
+			}
 			// Logic
 			velocity.y = -JUMP_FORCE_Y;
 			rb->SetVelocity(velocity);
@@ -1554,11 +2214,25 @@ namespace van
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
-				animator->PlayAnimation(L"Jump_Attack_L");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_L");
+				}
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
-				animator->PlayAnimation(L"Jump_Attack_R");
+				if (mbSkullLess)
+				{
+					animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+				}
+				else
+				{
+					animator->PlayAnimation(L"Jump_Attack_R");
+				}
 			}
 			// Logic
 			// State
@@ -1570,7 +2244,14 @@ namespace van
 			&& Input::GetKey(eKeyCode::Left))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_L");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_L");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_L");
+			}
 			// Logic
 			// State
 			mDirection = PlayerDirection::Left;
@@ -1582,14 +2263,19 @@ namespace van
 			&& Input::GetKey(eKeyCode::Right))
 		{
 			// Animation
-			animator->PlayAnimation(L"Jump_Attack_R");
+			if (mbSkullLess)
+			{
+				animator->PlayAnimation(L"NoHead_Jump_Attack_R");
+			}
+			else
+			{
+				animator->PlayAnimation(L"Jump_Attack_R");
+			}
 			// Logic
 			// State
 			mDirection = PlayerDirection::Right;
 			mState = PlayerState::JumpAttack;
 		}
-
-
 	}
 
 	void Player::Skill()
@@ -1602,6 +2288,8 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::A)
 			&& mbSkillFlag == false)
 		{
+			// 머리 없음 설정
+			mbSkullLess = true;
 			// 스킬 발동
 			mbSkillFlag = true;
 			// 투사체 생성
@@ -1615,8 +2303,6 @@ namespace van
 			{
 				head->SetDirection(Skull::HeadDirection::Right);
 			}
-			// 머리 없음 설정
-			mbSkullLess = true;
 			// 머리 유지시간 4초
 			mHeadTime = SKILL_HEAD_TIME;
 		}
@@ -1643,13 +2329,12 @@ namespace van
 			}
 		}
 
-		// 투사체 발사
+		// 투사체 날아가는 로직
 		if (head != nullptr
-			&& head->GetCollision() == false &&
-			mbSkullLess)
+			&& head->GetCollision() == false 
+			&& mbSkullLess == true)
 		{
 			// 투사체가 생성되었고 어디에도 부딪히지 않은 상태일 때
-
 			Transform* tr_head = head->GetComponent<Transform>();
 			math::Vector2 pos_head = tr_head->GetPosition();
 			if (head->GetDirection() == Skull::HeadDirection::Left)
