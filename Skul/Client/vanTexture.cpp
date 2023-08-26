@@ -2,6 +2,7 @@
 #include "vanApplication.h"
 #include "vanResourceManager.h"
 #include "vanCamera.h"
+#include "vanSceneManager.h"
 
 extern van::Application application;
 
@@ -234,13 +235,24 @@ namespace van
 					, func);
 		}
 		else
-			__noop;
+		{
 
-		Rectangle(_hdc
-			, (int)_pos.x
-			, (int)_pos.y
-			, (int)_pos.x + 10
-			, (int)_pos.y + 10);
+			__noop;
+		}
+
+		// ColliderVisible Flag 값을 기준으로 Texture의 중심점 출력을 결정한다.
+		if (SceneManager::GetColliderVisibleFlag() == true)
+		{
+			Rectangle(_hdc
+				, (int)_pos.x
+				, (int)_pos.y
+				, (int)_pos.x + 10
+				, (int)_pos.y + 10);
+		}
+		else
+		{
+			__noop;
+		}
 	}
 
 }

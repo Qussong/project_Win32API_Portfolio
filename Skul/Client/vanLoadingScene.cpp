@@ -84,6 +84,13 @@ namespace van
 		Texture* img = new Texture();
 		// ResourceManager::Load<Texture>(L"", L"");
 
+		// [ UI ]
+		//\MyResources\skul\UI
+		ResourceManager::Load<Texture>(L"UI_Player_Frame", L"..\\MyResources\\skul\\UI\\UI_Player_Frame.png");
+		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
+		//ResourceManager::Load<Texture>(L"UI_Player_HpBar", L"..\\MyResources\\skul\\UI\\HpBar.bmp");
+		//ResourceManager::Load<Texture>(L"UI_Player_HpBar_Damage", L"..\\MyResources\\skul\\UI\\HpBar_Damage.bmp");
+
 		// [ BackGround ]
 		// BG_Test_Scene
 		ResourceManager::Load<Texture>(L"BG_Test", L"..\\MyResources\\skul\\BG\\0_Test\\Background_Grid.bmp");

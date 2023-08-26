@@ -26,6 +26,7 @@ namespace van
 
 		static void Next(const std::wstring& name);
 		static void Previous(const std::wstring& name);
+		__forceinline static bool GetColliderVisibleFlag() { return mbColliderVisible; }
 
 	private:
 		/*
@@ -39,6 +40,7 @@ namespace van
 		 */
 		static std::map<std::wstring, Scene*> mScenes;
 		static Scene* mActiveScene;
+		static bool mbColliderVisible;
 	};
 }
 

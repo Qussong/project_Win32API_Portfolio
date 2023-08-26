@@ -42,6 +42,7 @@ namespace van
 	void TestScene::Init()
 	{	
 		Scene::Init();
+		
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
@@ -90,6 +91,22 @@ namespace van
 	void TestScene::Update()
 	{
 		Scene::Update();
+
+		if (Input::GetKeyDown(eKeyCode::D))
+		{
+			GameObject* obj = SceneManager::GetActiveScene()->GetSceneTarget();
+			Player* player = dynamic_cast<Player*>(obj);
+
+			player->LoseHp(20.0f);
+		}
+
+		if (Input::GetKeyDown(eKeyCode::H))
+		{
+			GameObject* obj = SceneManager::GetActiveScene()->GetSceneTarget();
+			Player* player = dynamic_cast<Player*>(obj);
+
+			player->AddHp(20.0f);
+		}
 	}
 
 	void TestScene::Render(HDC _hdc)

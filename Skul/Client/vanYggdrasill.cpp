@@ -142,9 +142,9 @@ namespace van
 				Swipe,		// 1
 				MagicOrbs,	// 2
 			*/
-			srand((UINT)time(NULL));
-			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(2);
+			((UINT)time(NULL));
+			mAttackCase = (BossSkill)(rand() % 3);
+			//mAttackCase = (BossSkill)(1);
 			mbChooseSkill = true;
 		}
 

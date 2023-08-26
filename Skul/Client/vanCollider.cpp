@@ -49,53 +49,61 @@ namespace van
 	// 출력
 	void Collider::Render(HDC hdc)
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		math::Vector2 pos = tr->GetPosition();	
+		// ColliderVisible Flag의 값이 true 일때만 Collider가 화면상에 보인다.
+		if (SceneManager::GetColliderVisibleFlag() == true)
+		{
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+			math::Vector2 pos = tr->GetPosition();	
 		
-		pos.x -= mSize.x / 2.0f;	// 그려질 도형(사각형)의 너비값 중심이 pos.x
-		pos.y -= mSize.y / 2.0f;	// 그려질 도형(사각형)의 높이값 중심이 pos.y
-		pos.x += mOffset.x;			// 그려질 도형(사각형)의 너비 위치 조정 값
-		pos.y += mOffset.y;			// 그려질 도형(사각형)의 높이 위치 조정 값
+			pos.x -= mSize.x / 2.0f;	// 그려질 도형(사각형)의 너비값 중심이 pos.x
+			pos.y -= mSize.y / 2.0f;	// 그려질 도형(사각형)의 높이값 중심이 pos.y
+			pos.x += mOffset.x;			// 그려질 도형(사각형)의 너비 위치 조정 값
+			pos.y += mOffset.y;			// 그려질 도형(사각형)의 높이 위치 조정 값
 
-		// 카메라 영향여부에 따른 위치값 변화
-		if (mbAffectedCamera == true)
-		{
-			// 카메라 영향 받음
-			pos = Camera::CalculatePosition(pos);
-		}
-
-		HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);	// 투명브러쉬 핸들 값을 얻어온다.
-		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);	// Brush 교체
-		HPEN newPen = NULL;
-
-		// 충돌여부에 따른 색 변화
-		if (mbActive == true)
-		{
-			if (mbIsCollision == true)	// 충돌
+			// 카메라 영향여부에 따른 위치값 변화
+			if (mbAffectedCamera == true)
 			{
-				newPen = CreatePen(PS_SOLID, 2, collisionLineColor);
+				// 카메라 영향 받음
+				pos = Camera::CalculatePosition(pos);
 			}
-			else // 비충돌 or 충돌탈출
+
+			HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);	// 투명브러쉬 핸들 값을 얻어온다.
+			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);	// Brush 교체
+			HPEN newPen = NULL;
+
+			// 충돌여부에 따른 색 변화
+			if (mbActive == true)
 			{
-				newPen = CreatePen(PS_SOLID, 2, lineColor);
+				if (mbIsCollision == true)	// 충돌
+				{
+					newPen = CreatePen(PS_SOLID, 2, collisionLineColor);
+				}
+				else // 비충돌 or 충돌탈출
+				{
+					newPen = CreatePen(PS_SOLID, 2, lineColor);
+				}
 			}
+			else
+			{
+				newPen = CreatePen(PS_SOLID, 2, inActiveLineColor);
+			}
+
+			HPEN oldPen = (HPEN)SelectObject(hdc, newPen);	// 충돌여부에 따른 색상을 가지고 있는 PEN으로 변경
+
+			Rectangle(hdc
+				, pos.x, pos.y
+				, pos.x + mSize.x, pos.y + mSize.y);	// 사각형 그리기
+
+			SelectObject(hdc, oldBrush);	// 원복
+			DeleteObject(transparentBrush);	// 메모리 해제
+
+			SelectObject(hdc, oldPen);		// 원복
+			DeleteObject(newPen);			// 메모리 해제
 		}
 		else
 		{
-			newPen = CreatePen(PS_SOLID, 2, inActiveLineColor);
+			__noop;
 		}
-
-		HPEN oldPen = (HPEN)SelectObject(hdc, newPen);	// 충돌여부에 따른 색상을 가지고 있는 PEN으로 변경
-
-		Rectangle(hdc
-			, pos.x, pos.y
-			, pos.x + mSize.x, pos.y + mSize.y);	// 사각형 그리기
-
-		SelectObject(hdc, oldBrush);	// 원복
-		DeleteObject(transparentBrush);	// 메모리 해제
-
-		SelectObject(hdc, oldPen);		// 원복
-		DeleteObject(newPen);			// 메모리 해제
 	}
 
 	void Collider::OnCollisionEnter(Collider* _other)

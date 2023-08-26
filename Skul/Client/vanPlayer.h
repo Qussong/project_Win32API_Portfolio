@@ -70,8 +70,24 @@ namespace van
 
 		__forceinline float GetHp() { return mHp; }
 		__forceinline void SetHp(float _hp) { mHp = _hp; }
-		__forceinline void AddHp(float _hp) { mHp += _hp; }
-		__forceinline void LoseHp(float _hp) { mHp -= _hp; }
+		__forceinline float GetMaxHp() { return mMaxHp; }
+		__forceinline float SetMaxHp(float _hp) { mMaxHp = _hp; }
+		__forceinline void AddHp(float _hp) 
+		{ 
+			mHp += _hp; 
+			if (mHp > mMaxHp)
+			{
+				mHp = mMaxHp;
+			}
+		}
+		__forceinline void LoseHp(float _hp) 
+		{
+			mHp -= _hp;
+			if (mHp < 0)
+			{
+				mHp = 0;
+			}
+		}
 
 		__forceinline float GetCoin() { return mCoin; }
 		__forceinline void SetCoin(float _coin) { mCoin = _coin; }
@@ -101,6 +117,7 @@ namespace van
 		bool mbFallRepeatAniFlag = true;
 
 		float mHp;
+		float mMaxHp = 100.0f;
 		float mCoin;
 		float mBone;
 		float mJewelry;

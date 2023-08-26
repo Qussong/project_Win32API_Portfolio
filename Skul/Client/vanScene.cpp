@@ -1,4 +1,5 @@
 #include "vanScene.h"
+#include "vanObject.h"
 
 namespace van
 {
@@ -19,6 +20,7 @@ namespace van
 		MakeFloor();
 		MakeWall();
 		MakeDoor();
+		MakeUI();
 	}
 
 	void Scene::Update()
@@ -82,5 +84,12 @@ namespace van
 	void Scene::MakeDoor()
 	{
 		// nothing
+	}
+
+	void Scene::MakeUI()
+	{
+		// UI °´Ã¼ »ý¼º
+		mPlayerFrame = Object::Instantiate<PlayerFrame>(enums::eLayerType::UI);
+		mHpBar = Object::Instantiate<HpBar>(enums::eLayerType::UI);
 	}
 }

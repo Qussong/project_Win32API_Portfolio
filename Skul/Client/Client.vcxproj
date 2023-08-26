@@ -142,10 +142,13 @@
     <ClInclude Include="vanBoss.h" />
     <ClInclude Include="vanCatSeol.h" />
     <ClInclude Include="vanFireBall.h" />
+    <ClInclude Include="vanHpBar.h" />
     <ClInclude Include="vanMage.h" />
     <ClInclude Include="vanPhoenixLanding.h" />
+    <ClInclude Include="vanPlayerFrame.h" />
     <ClInclude Include="vanRangeFire.h" />
     <ClInclude Include="vanSkill.h" />
+    <ClInclude Include="vanUI.h" />
     <ClInclude Include="vanYggdrasillChin.h" />
     <ClInclude Include="vanDeathKnight.h" />
     <ClInclude Include="vanDoor.h" />
@@ -216,10 +219,13 @@
     <ClCompile Include="vanBoss.cpp" />
     <ClCompile Include="vanCatSeol.cpp" />
     <ClCompile Include="vanFireBall.cpp" />
+    <ClCompile Include="vanHpBar.cpp" />
     <ClCompile Include="vanMage.cpp" />
     <ClCompile Include="vanPhoenixLanding.cpp" />
+    <ClCompile Include="vanPlayerFrame.cpp" />
     <ClCompile Include="vanRangeFire.cpp" />
     <ClCompile Include="vanSkill.cpp" />
+    <ClCompile Include="vanUI.cpp" />
     <ClCompile Include="vanYggdrasillChin.cpp" />
     <ClCompile Include="vanDeathKnight.cpp" />
     <ClCompile Include="vanDoor.cpp" />

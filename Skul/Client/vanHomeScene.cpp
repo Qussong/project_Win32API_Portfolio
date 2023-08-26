@@ -41,11 +41,12 @@ namespace van
 
 	void HomeScene::Init()
 	{
-		Scene::Init();
 
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 60.0f, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
+
+		Scene::Init();
 
 		// DeathKnight
 		DeathKnight* deathKnight = Object::Instantiate<DeathKnight>(enums::eLayerType::NPC);

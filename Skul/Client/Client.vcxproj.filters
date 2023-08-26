@@ -232,6 +232,15 @@
     <Filter Include="Contents\GameObject\Boss\Yggdrasill\Chin">
       <UniqueIdentifier>{c15c953e-cf3f-43e5-9e19-00c4f0e50e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\UI">
+      <UniqueIdentifier>{83e03b51-424c-45b7-af9a-8c0ccef8c118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\PlayerFrame">
+      <UniqueIdentifier>{71a9ab16-b06d-488f-8606-5ed5bb5e3de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\HpBar">
+      <UniqueIdentifier>{3a5aa937-5c9d-4d3a-b76d-55a6c33a0613}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -462,6 +471,15 @@
     <ClInclude Include="vanPhoenixLanding.h">
       <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding</Filter>
     </ClInclude>
+    <ClInclude Include="vanUI.h">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="vanPlayerFrame.h">
+      <Filter>Contents\GameObject\UI\PlayerFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="vanHpBar.h">
+      <Filter>Contents\GameObject\UI\HpBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -687,6 +705,15 @@
     </ClCompile>
     <ClCompile Include="vanPhoenixLanding.cpp">
       <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding</Filter>
+    </ClCompile>
+    <ClCompile Include="vanUI.cpp">
+      <Filter>Contents\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="vanPlayerFrame.cpp">
+      <Filter>Contents\GameObject\UI\PlayerFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="vanHpBar.cpp">
+      <Filter>Contents\GameObject\UI\HpBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ namespace van
 
 	GameObject::~GameObject()
 	{
-		// nothing
+		// nothingz
 	}
 
 	void GameObject::Init()

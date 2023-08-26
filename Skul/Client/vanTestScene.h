@@ -18,6 +18,7 @@ namespace van
 		virtual void MakeFloor() override;
 		virtual void MakeWall() override;
 		virtual void MakeDoor() override;
+
 	private:
 
 	};

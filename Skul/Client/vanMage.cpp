@@ -352,14 +352,14 @@ namespace van
 		if (mbChooseSkill == false)
 		{
 			/*
-				RangeFire,		// 0
-				FireBall,		// 1
-				RangeFire,		// 2
-				PhoenixLanding,	// 3
-				FinishMove		// 4
+				FireBall,		// 0
+				RangeFire,		// 1
+				PhoenixLanding,	// 2
+				FinishMove		// 3
+				None			// 4
 			*/
 			srand((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 4);
+			mAttackCase = (BossSkill)(rand() % 3);
 			mbChooseSkill = true;
 		}
 
@@ -368,8 +368,7 @@ namespace van
 			// 필살기 외의 다른 스킬이 선택되었을 때
 			switch (mAttackCase)
 			{
-			case BossSkill::FireBall1:
-			case BossSkill::FireBall2:
+			case BossSkill::FireBall:
 				AttackFireBallReady();
 				break;
 			case BossSkill::RangeFire:
@@ -388,8 +387,7 @@ namespace van
 	{
 		switch (mAttackCase)
 		{
-		case BossSkill::FireBall1:
-		case BossSkill::FireBall2:
+		case BossSkill::FireBall:
 			AttackFireBall();
 			break;
 		case BossSkill::RangeFire:

@@ -1,7 +1,6 @@
 #include "vanSceneManager.h"
 #include "CommonInclude.h"
 #include "vanCamera.h"
-
 #include "vanTitleScene.h"
 #include "vanLoadingScene.h"
 #include "vanTestScene.h"
@@ -18,15 +17,15 @@ namespace van
 {
 	std::map<std::wstring, Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScene = nullptr;
+	bool SceneManager::mbColliderVisible = true;
 
 	void SceneManager::Init()
 	{
+		// Scene 생성
 		CreateScene<LoadingScene>(L"LoadingScene");	// 제일 먼저 생성해줘야한다.
-
 		CreateScene<TitleScene>(L"TitleScene");
 		CreateScene<EndingScene>(L"EndingScene");
 		CreateScene<TestScene>(L"TestScene");
-
 		CreateScene<HomeScene>(L"HomeScene");
 		CreateScene<Stage1EnterScene>(L"Stage1EnterScene");
 		CreateScene<Stage1Monster1Scene>(L"Stage1Monster1Scene");
@@ -35,6 +34,7 @@ namespace van
 		CreateScene<Stage1BossEnterScene>(L"Stage1BossEnterScene");
 		CreateScene<Stage1BossScene>(L"Stage1BossScene");
 
+		// 제일 먼저 띄워줄 Scene 설정
 		LoadScene(L"TitleScene");
 	}
 
@@ -50,7 +50,7 @@ namespace van
 		{
 			LoadScene(L"TestScene");
 		}
-		// 화면전환_Next6
+		// 화면전환_Next
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			std::wstring name = mActiveScene->GetName();
@@ -61,6 +61,18 @@ namespace van
 		{
 			std::wstring name = mActiveScene->GetName();
 			Previous(name);
+		}
+		// Collider 출력여부 설정
+		if (Input::GetKeyDown(eKeyCode::V))
+		{
+			if (mbColliderVisible == true)
+			{
+				mbColliderVisible = false;
+			}
+			else
+			{
+				mbColliderVisible = true;
+			}
 		}
 
 		mActiveScene->Update();

@@ -12,8 +12,7 @@ namespace van
 	public:
 		enum class BossSkill
 		{
-			FireBall1,
-			FireBall2,
+			FireBall,
 			RangeFire,
 			PhoenixLanding,
 			//FinishMove,

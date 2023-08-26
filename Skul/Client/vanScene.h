@@ -1,6 +1,8 @@
 #pragma once
 #include "vanEntity.h"	// Entity 클래스 상속
 #include "vanLayer.h"	// mLayers 변수로 Layer객체들 관리
+#include "vanPlayerFrame.h"
+#include "vanHpBar.h"
 
 namespace van
 {
@@ -20,6 +22,7 @@ namespace van
 		virtual void MakeFloor();
 		virtual void MakeWall();
 		virtual void MakeDoor();
+		virtual void MakeUI();
 
 		__forceinline void AddGameObject(enums::eLayerType type, GameObject* gameObj) { mLayers[(int)type].AddGameObject(gameObj); }
 		__forceinline Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }	// 해당 Scene이 관리하는 Layer들중 파라미터에 해당하는 정보를 가져온다.
@@ -41,6 +44,8 @@ namespace van
 		math::Vector2 mCameraHeightLimit;	// 해당 Scene에서 Camera의 상하 최대 이동 가능거리
 
 		int mMonsterCnt = 0;					// 해당 Scene에서의 몬스터 개수
+		PlayerFrame* mPlayerFrame = nullptr;
+		HpBar* mHpBar = nullptr;
 	};
 }
 
