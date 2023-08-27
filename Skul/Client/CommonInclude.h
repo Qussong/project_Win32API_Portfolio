@@ -56,6 +56,7 @@ namespace van::enums
 		Yggdrasill_Head,
 		Yggdrasill_Chin,
 		Yggdrasill_Hand,
+		Yggdrasill_Effect,
 		Yggdrasill_Skill_EnergyBomb,
 		Door,
 		NPC,
@@ -68,6 +69,7 @@ namespace van::enums
 		Skill,
 		Drop,
 		Player,
+		Cat_Seol,
 		UI,
 		End,
 	};

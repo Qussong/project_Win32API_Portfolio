@@ -4,6 +4,7 @@
 #include "vanPlayer.h"
 #include "vanObject.h"
 #include "vanEnergyBomb.h"
+#include "vanEnergyBombCharge.h"
 
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
@@ -264,16 +265,18 @@ namespace van
 			mChin->SetFinishFlag(false);
 
 			mbShakeFlag = true;
+			mCharge = Object::Instantiate<EnergyBombCharge>(enums::eLayerType::Yggdrasill_Effect);
+			mCharge->SetOwner(mHead);
 		}
 
 		if (mbShakeFlag == true)
 		{
 			mHead->ShakeHead();
 
-			mTime += Time::GetDeltaTime();
-			if (mTime >= 2.0f)
+			if (mCharge->GetChargeFinishFlag() == true)
 			{
-				mTime = 0.0f;
+				mCharge = nullptr;
+				mbShakeFlag = false;
 				mState = BossState::Attack;
 			}
 		}
@@ -535,7 +538,5 @@ namespace van
 		EnergyBomb* energyBomb = Object::Instantiate<EnergyBomb>(enums::eLayerType::Yggdrasill_Skill_EnergyBomb);
 		energyBomb->SetOwner(mHead);
 		energyBomb->GetComponent<Transform>()->SetPosition(tr_head->GetPosition());
-
-		mListEnergyBomb.push_back(energyBomb);
 	}
 }

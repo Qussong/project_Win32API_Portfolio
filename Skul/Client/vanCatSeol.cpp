@@ -27,10 +27,7 @@ namespace van
 		// NPC 초기설정
 		SetNPCDirection(NPCDirection::Left);
 		SetNPCState(NPCState::Patrol);
-
-		Animator* at = GetComponent<Animator>();
-		at->SetScale(math::Vector2(2.0f*3 , 2.0f*3));
-		GetComponent<Collider>()->SetSize(math::Vector2(58.0f * 3, 40.0f * 3));
+		GetComponent<Collider>()->SetSize(math::Vector2(58.0f, 40.0f));
 	}
 
 	void CatSeol::Update()
@@ -74,11 +71,12 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		// Idle
-		//at->CreateAnimation(L"Cat_Seol_Idle_L", ResourceManager::Find<Texture>(L"Cat_Seol_Idle_L"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
-		//at->CreateAnimation(L"Cat_Seol_Idle_R", ResourceManager::Find<Texture>(L"Cat_Seol_Idle_R"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
+		at->CreateAnimation(L"Cat_Seol_Idle_L", ResourceManager::Find<Texture>(L"Cat_Seol_Idle_L"), math::Vector2(0.0f, 0.0f), math::Vector2(27.0f, 20.0f), 2);
+		at->CreateAnimation(L"Cat_Seol_Idle_R", ResourceManager::Find<Texture>(L"Cat_Seol_Idle_R"), math::Vector2(0.0f, 0.0f), math::Vector2(27.0f, 20.0f), 2);
 		// Walk
 		at->CreateAnimation(L"Cat_Seol_Walk_L", ResourceManager::Find<Texture>(L"Cat_Seol_Walk_L"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
 		at->CreateAnimation(L"Cat_Seol_Walk_R", ResourceManager::Find<Texture>(L"Cat_Seol_Walk_R"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
+		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
 	void CatSeol::Idle()
@@ -92,7 +90,7 @@ namespace van
 			AddTimer(Time::GetDeltaTime());
 
 			// 누적된 시간이 3초 이상이되면
-			if (GetTimer() >= 0.1f)
+			if (GetTimer() >= 3.0f)
 			{
 				SetTimer(0.0f);					// 누적시간 0초로 초기화
 				SetNPCState(NPCState::Walk);	// Monster의 상태를 Walk 로 변경

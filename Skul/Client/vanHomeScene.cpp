@@ -17,6 +17,7 @@
 #include "vanDeathKnight.h"
 #include "vanDruid.h"
 #include "vanWall.h"
+#include "vanCatSeol.h"
 
 #define OFFSET1						400.0f
 #define OFFSET2						900.0f
@@ -67,6 +68,10 @@ namespace van
 		Druid* druid = Object::Instantiate<Druid>(enums::eLayerType::NPC);
 		druid->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
+		// Seol
+		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::Cat_Seol);
+		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2 + 500.0f, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
+
 		// 카메라 시작 offset 값
 		Camera::SetCameraOffset(math::Vector2(CAMERA_OFFSET_X, CAMERA_OFFSET_Y));
 
@@ -107,6 +112,7 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Cat_Seol, eLayerType::Floor, true);
 	}
 
 	void HomeScene::SceneOut()

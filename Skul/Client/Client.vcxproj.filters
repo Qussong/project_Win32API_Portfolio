@@ -507,6 +507,9 @@
     <ClInclude Include="vanEnergyBomb.h">
       <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb</Filter>
     </ClInclude>
+    <ClInclude Include="vanEnergyBombCharge.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -753,6 +756,9 @@
     </ClCompile>
     <ClCompile Include="vanEnergyBomb.cpp">
       <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb</Filter>
+    </ClCompile>
+    <ClCompile Include="vanEnergyBombCharge.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

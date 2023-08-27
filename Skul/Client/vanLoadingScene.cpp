@@ -205,6 +205,8 @@ namespace van
 		// Cat_Seol
 		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_L", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Walk_L.bmp");
 		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Walk_R.bmp");
+		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_L", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_L.png");
+		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_R.png");
 
 		// [ Monster ]
 		// Common
@@ -272,6 +274,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_L.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_R.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Object", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Object.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Charge", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Charge.png");
 
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");

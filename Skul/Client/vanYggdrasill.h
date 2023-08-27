@@ -8,6 +8,7 @@
 namespace van
 {
 	class EnergyBomb;
+	class EnergyBombCharge;
 
 	class Yggdrasill : public Boss
 	{
@@ -94,12 +95,11 @@ namespace van
 		int mSwipCnt = 0;
 
 		// MagicOrb
+		EnergyBombCharge* mCharge = nullptr;
 		bool mbShakeFlag = false;
 		bool mbMagicOrbShootFlag = false;
 		int mMagicOrbCnt = 0;
 		bool mbShootDelay = false;
-		std::vector<EnergyBomb*> mListEnergyBomb;
-
 	};
 }
 
