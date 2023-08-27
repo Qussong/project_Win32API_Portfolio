@@ -17,7 +17,7 @@ namespace van
 {
 	std::map<std::wstring, Scene*> SceneManager::mScenes = {};
 	Scene* SceneManager::mActiveScene = nullptr;
-	bool SceneManager::mbColliderVisible = true;
+	bool SceneManager::mbColliderVisible = false;
 
 	void SceneManager::Init()
 	{

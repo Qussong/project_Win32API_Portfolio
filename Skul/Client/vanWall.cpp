@@ -118,7 +118,10 @@ namespace van
 		if (monster != nullptr
 			&& monster->GetWallFlag() == false)
 		{
-			monster->SetWallFlag(true);
+			if (monster->GetMonsterState() != Monster::MonsterState::Attack)
+			{
+				monster->SetWallFlag(true);
+			}
 		}
 	}
 

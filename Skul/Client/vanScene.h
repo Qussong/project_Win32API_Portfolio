@@ -48,7 +48,6 @@ namespace van
 		int mMonsterCnt = 0;					// 해당 Scene에서의 몬스터 개수
 		PlayerFrame* mPlayerFrame = nullptr;
 		HpBar* mHpBar = nullptr;
-
 		Sound* mBgSound = nullptr;
 	};
 }

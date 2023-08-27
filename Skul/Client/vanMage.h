@@ -92,6 +92,9 @@ namespace van
 		bool mbRecordPosY = false;	// 초기 pos.y 값 기록
 		bool mbFly = true;			// 특정위치에 도달했는지 확인 도달했으면 false 더 올라가야하면 true
 		bool mbLand = false;		// 낙하수행 여부 확인, 낙하준비가 완료되면 true 그 전까진 false
+		
+		bool mbCmd = false;
+		int mCmdSkill = 3;
 	};
 }
 

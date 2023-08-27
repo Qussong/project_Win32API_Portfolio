@@ -62,8 +62,8 @@ namespace van
 		//trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
 		// Cat_Seol
-		//CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
-		//catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
+		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Gold
 		//for (int i = 0; i < 10; ++i)

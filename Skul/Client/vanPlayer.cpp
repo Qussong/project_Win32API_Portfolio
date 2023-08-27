@@ -1347,9 +1347,6 @@ namespace van
 			// AttackA 후 콤보공격으로 이어지지 않고 Idle 상태로 이어질 때
 			else 
 			{
-				// Sound
-				mAttackBSound->Play(false);
-
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{

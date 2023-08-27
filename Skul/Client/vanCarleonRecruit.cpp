@@ -14,7 +14,7 @@
 #include "vanGold.h"
 
 #define DASH_FORCE_X		900.0f
-#define DASH_DISTANCE_X		50.0f
+#define DASH_DISTANCE_X		70.0f
 #define ATTACK_READY_DELAY	0.6f
 	
 namespace van

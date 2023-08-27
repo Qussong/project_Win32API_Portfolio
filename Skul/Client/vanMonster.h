@@ -126,7 +126,7 @@ namespace van
 
 		bool mbWallEffected = true;
 
-		float mAttackDamage = 1.0f;
+		float mAttackDamage = 5.0f;
 	};
 }
 

@@ -274,19 +274,21 @@ namespace van
 		{
 			mbWave1 = true;
 
-			for (int i = 0; i < 2; ++i)
-			{
-				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-				//carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
-			}
+			// Layer2_L
+			CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+			carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X, Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
 
-			for (int i = 0; i < 2; ++i)
-			{
-				CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-				carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-				//carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
-			}
+			// Layer2_R
+			CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+			carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X, Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
+
+			// Layer3
+			CarleonRecruit* carleon3 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+			carleon3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+
+			// Layer4
+			CarleonRecruit* carleon4 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+			carleon4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_4_Y + 10.0f + FLOOR_UP_CONDITION));
 		}
 	}
 
@@ -298,19 +300,6 @@ namespace van
 		{
 			mbWave2 = true;
 
-			for (int i = 0; i < 2; ++i)
-			{
-				CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-				carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-				carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
-			}
-
-			for (int i = 0; i < 2; ++i)
-			{
-				CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-				carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X + (i * 20), Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
-				carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
-			}
 		}
 	}
 

@@ -18,7 +18,7 @@
 #define LANDING_SPEED			200.0f
 #define PHOENIX_READY_GAP_POS	100.0f
 #define FLY_READY_GAP_POS		150.0f
-//#define LANDING_TIMER			20.0f
+//#define LANDING_TIMER			60.0f
 #define LANDING_TIMER			5.0f
 
 namespace van
@@ -115,6 +115,8 @@ namespace van
 
 	void Mage::MakeAnimation()
 	{
+		math::Vector2 offset = math::Vector2(0.0f, -15.0f);
+
 		Animator* at = GetComponent<Animator>();
 		at->CreateAnimation(L"Intor_1", ResourceManager::Find<Texture>(L"Mage_Intor_1"), math::Vector2(0.0f, 0.0f), math::Vector2(33.0f, 81.0f), 40);
 		at->CreateAnimation(L"Intor_2", ResourceManager::Find<Texture>(L"Mage_Intor_2"), math::Vector2(0.0f, 0.0f), math::Vector2(42.0f, 96.0f), 10, math::Vector2(0.0f, -8.0f));
@@ -124,14 +126,16 @@ namespace van
 		at->CreateAnimation(L"Walk_Front_R", ResourceManager::Find<Texture>(L"Mage_Walk_Front_R"), math::Vector2(0.0f, 0.0f), math::Vector2(57.0f, 55.0f), 6);
 		at->CreateAnimation(L"Walk_Back_L", ResourceManager::Find<Texture>(L"Mage_Walk_Back_L"), math::Vector2(0.0f, 0.0f), math::Vector2(60.0f, 60.0f), 6);
 		at->CreateAnimation(L"Walk_Back_R", ResourceManager::Find<Texture>(L"Mage_Walk_Back_R"), math::Vector2(0.0f, 0.0f), math::Vector2(60.0f, 60.0f), 6);
-		at->CreateAnimation(L"Attack_Ready_FireBall_L", ResourceManager::Find<Texture>(L"Mage_FireBall_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(55.0f, 96.0f), 13);
-		at->CreateAnimation(L"Attack_Ready_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(55.0f, 96.0f), 13);
-		at->CreateAnimation(L"Attack_FireBall_L", ResourceManager::Find<Texture>(L"Mage_FireBall_L"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f), 0.09F);
-		at->CreateAnimation(L"Attack_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_R"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f), 0.09F);
-		at->CreateAnimation(L"Attack_Ready_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f));
-		at->CreateAnimation(L"Attack_Ready_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f));
-		at->CreateAnimation(L"Attack_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f));
-		at->CreateAnimation(L"Attack_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f));
+
+		at->CreateAnimation(L"Attack_Ready_FireBall_L", ResourceManager::Find<Texture>(L"Mage_FireBall_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(55.0f, 96.0f), 13, offset);
+		at->CreateAnimation(L"Attack_Ready_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(55.0f, 96.0f), 13, offset);
+		at->CreateAnimation(L"Attack_FireBall_L", ResourceManager::Find<Texture>(L"Mage_FireBall_L"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f) + offset, 0.09F);
+		at->CreateAnimation(L"Attack_FireBall_R", ResourceManager::Find<Texture>(L"Mage_FireBall_R"), math::Vector2(0.0f, 0.0f), math::Vector2(52.0f, 69.0f), 8, math::Vector2(0.0f, 10.0f) + offset, 0.09F);
+		at->CreateAnimation(L"Attack_Ready_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"Attack_Ready_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 15, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"Attack_RangeFire_L", ResourceManager::Find<Texture>(L"Mage_RangeFire_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f) + offset);
+		at->CreateAnimation(L"Attack_RangeFire_R", ResourceManager::Find<Texture>(L"Mage_RangeFire_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 8.0f) + offset);
+
 		at->CreateAnimation(L"Attack_Ready_PhoenixLanding_L", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 58.0f), 3);
 		at->CreateAnimation(L"Attack_Ready_PhoenixLanding_R", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(58.0f, 58.0f), 3);
 		at->CreateAnimation(L"Attack_PhoenixLanding_L", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_L"), math::Vector2(0.0f, 0.0f), math::Vector2(47.0f, 54.0f), 9, math::Vector2(0.0f, 7.0f));
@@ -227,6 +231,27 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::W))
+		{
+			mbCmd = true;
+			mCmdSkill = 0;
+		}
+
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::E))
+		{
+			mbCmd = true;
+			mCmdSkill = 1;
+		}
+
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::R))
+		{
+			mbCmd = true;
+			mCmdSkill = 2;
+		}
+
 		if (mbAnimationReDirectionFlag == true)
 		{
 			SetBossDirection(mBossAttackDirection);
@@ -271,9 +296,17 @@ namespace van
 			}
 			else
 			{
-				srand((UINT)time(NULL));
-				nextCase = (rand() % 2);
+				if (mbCmd == true)
+				{
+					nextCase = 1;
+				}
+				else
+				{
+					srand((UINT)time(NULL));
+					nextCase = (rand() % 2);
+				}
 			}
+
 			switch (nextCase)
 			{
 			case 0:
@@ -350,15 +383,25 @@ namespace van
 	{
 		if (mbChooseSkill == false)
 		{
-			/*
-				FireBall,		// 0
-				RangeFire,		// 1
-				PhoenixLanding,	// 2
-				FinishMove		// 3
-				None			// 4
-			*/
-			srand((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 3);
+			if (mbCmd == true)
+			{
+				mAttackCase = (BossSkill)mCmdSkill;
+			}
+			else
+			{
+				/*
+					FireBall,		// 0
+					RangeFire,		// 1
+					PhoenixLanding,	// 2
+					FinishMove		// 3
+					None			// 4
+				*/
+				srand((UINT)time(NULL));
+				mAttackCase = (BossSkill)(rand() % 3);
+				//mAttackCase = (BossSkill)(1);
+
+			}
+
 			mbChooseSkill = true;
 		}
 
@@ -408,6 +451,8 @@ namespace van
 		mbChooseSkill = false;				// 공격스킬 선택여부 초기화(false = 선택해야함)
 		mbAnimationReDirectionFlag = true;	// 플레이어 방향에 맞게 다시 애니메이션 방향 조정
 		SetBossState(BossState::Idle);		// Idle 상태로 전환
+		mbCmd = false;
+		mCmdSkill = 3;
 	}
 
 	void Mage::Hit()

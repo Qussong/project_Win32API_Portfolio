@@ -6,6 +6,8 @@
 #include "vanPlayer.h"
 #include "vanMage.h"
 
+#define DAMAGE			25.0f
+
 namespace van
 {
 	PhoenixLanding::PhoenixLanding()

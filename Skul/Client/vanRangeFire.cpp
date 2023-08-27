@@ -11,6 +11,8 @@
 #include "vanTransform.h"
 #include "vanCollisionManager.h"
 
+#define DAMAGE			10.0f
+
 namespace van
 {
 	RangeFire::RangeFire()
@@ -76,7 +78,7 @@ namespace van
 		if (player != nullptr)
 		{
 			// 플레이어에게 데미지를 준다 or 플레이어에게 맞았음을 알려준다.
-			player->LoseHp(5.0f);
+			player->LoseHp(DAMAGE);
 		}
 	}
 

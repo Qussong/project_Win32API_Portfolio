@@ -38,7 +38,7 @@ namespace van
 		GetComponent<Collider>()->SetSize(math::Vector2(160.0f, 190.0f));
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 		GetComponent<Animator>()->SetScale(math::Vector2(2.0f, 2.0f));		// 이미지 스케일 설정
-		SetAttackDamage(3.0f);
+		SetAttackDamage(10.0f);
 
 		// traceBox의 초기값 설정
 		MonsterTrace* traceBox = GetMonsterTraceBox();
