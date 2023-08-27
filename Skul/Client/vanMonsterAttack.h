@@ -21,7 +21,7 @@ namespace van
 		__forceinline std::set<GameObject*>* GetMonsterAttackList() { return &mAttackList; }
 
 		__forceinline bool GetAttackReadyFlag() { return mbAttackReadyFlag; }
-		__forceinline void SetAttackReadyFlag(bool _flag) { mbAttackReadyFlag = _flag; }\
+		__forceinline void SetAttackReadyFlag(bool _flag) { mbAttackReadyFlag = _flag; }
 
 		__forceinline bool GetNotifyFlag() { return mbForNotify; }
 		__forceinline void SetNotifyFlag(bool _flag) { mbForNotify = _flag; }

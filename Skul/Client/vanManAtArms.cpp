@@ -38,6 +38,7 @@ namespace van
 		GetComponent<Collider>()->SetSize(math::Vector2(160.0f, 190.0f));
 		GetComponent<RigidBody>()->SetMass(10.0f);							// 무게 설정
 		GetComponent<Animator>()->SetScale(math::Vector2(2.0f, 2.0f));		// 이미지 스케일 설정
+		SetAttackDamage(3.0f);
 
 		// traceBox의 초기값 설정
 		MonsterTrace* traceBox = GetMonsterTraceBox();
@@ -84,10 +85,6 @@ namespace van
 		animator->CreateAnimation(L"Attack_R", ResourceManager::Find<Texture>(L"ManAtArms_Attack_R"), math::Vector2(0.0f, 0.0f), math::Vector2(108.0f, 109.0f), 5, math::Vector2(0.0f, 0.0f));
 		animator->CreateAnimation(L"Attack_Ready_L", ResourceManager::Find<Texture>(L"ManAtArms_Attack_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(108.0f, 109.0f), 3, math::Vector2(0.0f, 0.0f));
 		animator->CreateAnimation(L"Attack_Ready_R", ResourceManager::Find<Texture>(L"ManAtArms_Attack_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(108.0f, 109.0f), 3, math::Vector2(0.0f, 0.0f));
-		//animator->CreateAnimation(L"Dead_L", ResourceManager::Find<Texture>(L"ManAtArms_Dead_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 64.0f), 1);
-		//animator->CreateAnimation(L"Dead_R", ResourceManager::Find<Texture>(L"ManAtArms_Dead_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 64.0f), 1);
-		//animator->CreateAnimation(L"Hit_L", ResourceManager::Find<Texture>(L"ManAtArms_Hit_L"), math::Vector2(0.0f, 0.0f), math::Vector2(56.0f, 67.0f), 1);
-		//animator->CreateAnimation(L"Hit_R", ResourceManager::Find<Texture>(L"ManAtArms_Hit_R"), math::Vector2(0.0f, 0.0f), math::Vector2(56.0f, 67.0f), 1);
 		animator->CreateAnimation(L"Idle_L", ResourceManager::Find<Texture>(L"ManAtArms_Idle_L"), math::Vector2(0.0f, 0.0f), math::Vector2(109.0f, 100.0f), 4);
 		animator->CreateAnimation(L"Idle_R", ResourceManager::Find<Texture>(L"ManAtArms_Idle_R"), math::Vector2(0.0f, 0.0f), math::Vector2(109.0f, 100.0f), 4);
 		animator->CreateAnimation(L"Walk_L", ResourceManager::Find<Texture>(L"ManAtArms_Walk_L"), math::Vector2(0.0f, 0.0f), math::Vector2(112.0f, 100.0f), 8, math::Vector2(0.0f, 0.0f));

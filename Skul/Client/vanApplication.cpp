@@ -4,6 +4,7 @@
 #include "vanSceneManager.h"
 #include "vanCamera.h"
 #include "vanCollisionManager.h"
+#include "vanSoundManager.h"
 
 namespace van
 {
@@ -50,6 +51,7 @@ namespace van
 
 		Time::Init();
 		Input::Init();
+		SoundManager::Initialize();
 		Camera::Init();
 		CollisionManager::Init();
 		SceneManager::Init();

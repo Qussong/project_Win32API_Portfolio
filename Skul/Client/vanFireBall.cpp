@@ -90,7 +90,7 @@ namespace van
 		if (player != nullptr)
 		{
 			// 플레이어에게 데미지를 준다 or 플레이어에게 맞았음을 알려준다.
-
+			player->LoseHp(3.0f);
 			// FireBall객체 소멸
 			mState = FireBallState::Dead;
 		}

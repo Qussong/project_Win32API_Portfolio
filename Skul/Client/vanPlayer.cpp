@@ -21,6 +21,8 @@
 #define SKILL_COOL_TIME		5.0f
 #define SKILL_HEAD_TIME		4.0f
 
+#define HIT_BUMP_X			200.0f
+
 // Z : Dash / X : Attack / C : Jump
 namespace van
 {
@@ -72,41 +74,49 @@ namespace van
 
 		Skill();
 
-		switch (mState)
+		if (mState == PlayerState::Hit)
 		{
-		case Player::PlayerState::Idle:
-			Idle();
-			break;
-		case Player::PlayerState::Walk:
-			Walk();
-			break;
-		case Player::PlayerState::Jump:
-			Jump();
-			break;
-		case Player::PlayerState::Dash:
-			Dash();
-			break;
-		case Player::PlayerState::AttackA:
-			AttackA();
-			break;
-		case Player::PlayerState::AttackB:
-			AttackB();
-			break;
-		case Player::PlayerState::JumpAttack:
-			JumpAttack();
-			break;
-		case Player::PlayerState::DoubleJump:
-			DoubleJump();
-			break;
-		case Player::PlayerState::DoubleDash:
-			DoubleDash();
-			break;
-		case Player::PlayerState::Fall:
-			Fall();
-			break;
-		default:
-			__noop;
+			Hit();
 		}
+		else
+		{
+			switch (mState)
+			{
+			case Player::PlayerState::Idle:
+				Idle();
+				break;
+			case Player::PlayerState::Walk:
+				Walk();
+				break;
+			case Player::PlayerState::Jump:
+				Jump();
+				break;
+			case Player::PlayerState::Dash:
+				Dash();
+				break;
+			case Player::PlayerState::AttackA:
+				AttackA();
+				break;
+			case Player::PlayerState::AttackB:
+				AttackB();
+				break;
+			case Player::PlayerState::JumpAttack:
+				JumpAttack();
+				break;
+			case Player::PlayerState::DoubleJump:
+				DoubleJump();
+				break;
+			case Player::PlayerState::DoubleDash:
+				DoubleDash();
+				break;
+			case Player::PlayerState::Fall:
+				Fall();
+				break;
+			default:
+				__noop;
+			}
+		}
+
 	}
 
 	void Player::Render(HDC _hdc)
@@ -2276,6 +2286,43 @@ namespace van
 			mDirection = PlayerDirection::Right;
 			mState = PlayerState::JumpAttack;
 		}
+	}
+
+	void Player::Hit()
+	{
+		Animator* at = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
+		math::Vector2 velocity = rb->GetVelocity();
+
+		// 피격 애니메이션
+		// Monster가 왼쪽에서 공격받았을 경우
+		if (mDamageDirection == PlayerDirection::Left)
+		{
+			at->PlayAnimation(L"Idle_L", true);
+			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
+			velocity.x = HIT_BUMP_X;
+			rb->SetVelocity(velocity);
+
+			mDirection = PlayerDirection::Left;
+		}
+		// 몬스터가 오른쪽에서 공격받았을 경우
+		if (mDamageDirection == PlayerDirection::Right)
+		{
+			at->PlayAnimation(L"Idle_R", true);
+			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
+			velocity.x = -HIT_BUMP_X;
+			rb->SetVelocity(velocity);
+
+			mDirection = PlayerDirection::Right;
+		}
+		// 몬스터가 공격받은 방향을 초기화해준다.
+		mDamageDirection == PlayerDirection::None;
+
+		if (rb->GetGround() == true)
+		{
+			mState = PlayerState::Idle;
+		}
+
 	}
 
 	void Player::Skill()

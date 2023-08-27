@@ -24,7 +24,7 @@ namespace van
 			DoubleJump,
 			DoubleDash,
 			Fall,
-			DownFall,
+			Hit,
 			None,
 		};
 		
@@ -61,11 +61,13 @@ namespace van
 		void DoubleJump();
 		void DoubleDash();
 		void Fall();
+		void Hit();
 
 		void Skill();
 
 		__forceinline PlayerDirection GetPlayerDirection() { return mDirection; }
 		__forceinline PlayerState GetPlayerState() { return mState; }
+		__forceinline void SetPlayerState(PlayerState _state) { mState = _state; }
 		__forceinline bool GetCombo() { return mbCombo; }
 
 		__forceinline float GetHp() { return mHp; }
@@ -99,9 +101,13 @@ namespace van
 		__forceinline float GetJewelry() { return mJewelry; }
 		__forceinline void SetJewelry(float _jewelry) { mJewelry = _jewelry; }
 
+		__forceinline void SetDamageDirection(PlayerDirection _dir) { mDamageDirection = _dir; }
+
 	private:
 		PlayerState mState;				// 현재 Player의 상태
 		PlayerDirection mDirection;		// 현재 Player가 바라보고 있는 방향 (Left, Right)
+		PlayerDirection mDamageDirection = PlayerDirection::None;	//	공격받은 방향
+
 		bool mbDoubleKey;				// 이중키 입력 여부 (방향키에서 사용)
 		UINT mJumpCnt;					// Jump 횟수 (최대 2번)
 		UINT mDashCnt;					// Dash 횟수 (최대 2번)
@@ -128,5 +134,7 @@ namespace van
 		float mCoolTime;
 
 		Skull* head;
+
+
 	};
 }

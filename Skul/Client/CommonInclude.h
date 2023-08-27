@@ -6,16 +6,21 @@
 #include <set>
 #include <functional>	// 함수 포인터
 #include <string>
-#pragma comment(lib, "Msimg32.lib")
 #include <filesystem>
 #include <bitset>
 #include <typeinfo>		// 타입비교
 #include <cstdlib>		//rand(), srand()
 #include <ctime>		//time()
+#include <assert.h>
+#pragma comment(lib, "Msimg32.lib")
+#include <mmsystem.h>	// sound 관련
+#include <dsound.h>		// sound 관련
+#include <dinput.h>		// sound 관련
+#pragma comment(lib, "winmm.lib")	// sound 관련
+#pragma comment(lib, "dsound.lib")	// sound 관련
 
 // 제공되는 헤더
 #include "framework.h"
-
 // 직접만든 헤더
 #include "vanMath.h"
 #include "vanTime.h"

@@ -18,7 +18,8 @@
 #define LANDING_SPEED			200.0f
 #define PHOENIX_READY_GAP_POS	100.0f
 #define FLY_READY_GAP_POS		150.0f
-#define LANDING_TIMER			20.0f
+//#define LANDING_TIMER			20.0f
+#define LANDING_TIMER			5.0f
 
 namespace van
 {
@@ -64,8 +65,6 @@ namespace van
 		
 		mBossPastState = GetBossState();
 		mBossPastDirection = GetBossDirection();
-
-		
 
 		switch (GetBossState())
 		{
@@ -359,7 +358,8 @@ namespace van
 				None			// 4
 			*/
 			srand((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 3);
+			//mAttackCase = (BossSkill)(rand() % 3);
+			mAttackCase = (BossSkill)(2);
 			mbChooseSkill = true;
 		}
 
@@ -699,6 +699,7 @@ namespace van
 			mbFly = true;
 			mbLand = false;
 			mbLandingTimer = true;	// Landing 시간 카운트시작
+			PhoenixLandingAnimation = true;
 			// mbSky, mInitPosY 는 다시 하늘로 오르고 난 후 초기화한다.
 			SetBossState(BossState::AttackEnd);
 		}

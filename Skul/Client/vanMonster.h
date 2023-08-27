@@ -104,6 +104,9 @@ namespace van
 		__forceinline void SetAttackCnt(int _cnt) { mAttackCnt = _cnt; }
 		__forceinline void AddAttackCnt() { mAttackCnt += 1; }
 
+		__forceinline float GetAttackDamage() { return mAttackDamage; }
+		__forceinline void SetAttackDamage(float _damage) { mAttackDamage = _damage; }
+
 	private:
 		GameObject* mTarget;			// Monster의 목표대상(Trace)
 		MonsterState mState;
@@ -122,6 +125,8 @@ namespace van
 		int mAttackCnt;
 
 		bool mbWallEffected = true;
+
+		float mAttackDamage = 1.0f;
 	};
 }
 

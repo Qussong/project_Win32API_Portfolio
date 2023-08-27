@@ -241,6 +241,12 @@
     <Filter Include="Contents\GameObject\UI\HpBar">
       <UniqueIdentifier>{3a5aa937-5c9d-4d3a-b76d-55a6c33a0613}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Manageres\SoundManager">
+      <UniqueIdentifier>{9e58d36a-ca1e-4e74-8124-a9ec0da50e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resource\Sound">
+      <UniqueIdentifier>{40cef75c-0c9e-46f3-9089-a87422ae2d95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -480,6 +486,12 @@
     <ClInclude Include="vanHpBar.h">
       <Filter>Contents\GameObject\UI\HpBar</Filter>
     </ClInclude>
+    <ClInclude Include="vanSound.h">
+      <Filter>Engine\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="vanSoundManager.h">
+      <Filter>Engine\Manageres\SoundManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -714,6 +726,12 @@
     </ClCompile>
     <ClCompile Include="vanHpBar.cpp">
       <Filter>Contents\GameObject\UI\HpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSound.cpp">
+      <Filter>Engine\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSoundManager.cpp">
+      <Filter>Engine\Manageres\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

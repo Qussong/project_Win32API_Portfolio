@@ -74,9 +74,11 @@ namespace van
 
 	void MonsterAttack::OnCollisionStay(Collider* _other)
 	{
-		Monster* monster = (Monster*)GetOwner();	// // MonsterAttack 클래스를 소유한 객체의 주소 저장
+		Monster* monster = (Monster*)GetOwner();	// MonsterAttack 클래스를 소유한 객체의 주소 저장
 		GameObject* obj = _other->GetOwner();		// 충돌 대상의 주소저장
 		Player* playr = dynamic_cast<Player*>(obj);	// 충돌 대상이 Player 인지 확인
+		Monster::MonsterDirection direction = (Monster::MonsterDirection)GetOwnerDirection();
+
 
 		// Attack Ready 상태로 진입
 		// 충돌한 객체가 Player이고 Attack Ready로 상태전환된적이 없다면 Attack Ready로 상태전환
@@ -108,7 +110,17 @@ namespace van
 					if (player != nullptr)
 					{
 						// hp 감소
+						player->LoseHp(monster->GetAttackDamage());
+						if (direction == Monster::MonsterDirection::Left)
+						{
+							player->SetDamageDirection(Player::PlayerDirection::Right);
+						}
+						if(direction == Monster::MonsterDirection::Right)
+						{
+							player->SetDamageDirection(Player::PlayerDirection::Left);
+						}
 						// 피격판정시 날아간다..
+						player->SetPlayerState(Player::PlayerState::Hit);
 					}
 					// 피격대상이 플레이어가 아닐때
 					else
