@@ -358,8 +358,7 @@ namespace van
 				None			// 4
 			*/
 			srand((UINT)time(NULL));
-			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(2);
+			mAttackCase = (BossSkill)(rand() % 3);
 			mbChooseSkill = true;
 		}
 

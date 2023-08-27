@@ -8,6 +8,7 @@ namespace van
 	class Animator;
 	class PlayerAttack;
 	class Skull;
+	class Sound;
 
 	class Player : public GameObject
 	{
@@ -133,8 +134,17 @@ namespace van
 		float mHeadTime;
 		float mCoolTime;
 
+		// 스킬
 		Skull* head;
 
-
+		// 효과음
+		Sound* mDashSound;
+		Sound* mJumpSound;
+		Sound* mDoubleJumpSound;
+		Sound* mLandingSound;
+		Sound* mAttackASound;
+		Sound* mAttackBSound;
+		Sound* mJumpAttackSound;
+		Sound* mSkullThrowingSound;
 	};
 }

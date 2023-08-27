@@ -16,6 +16,7 @@
 #include "vanDoor.h"
 #include "vanCarleonRecruit.h"
 #include "vanMage.h"
+#include "vanMageFrame.h"
 
 #define PLAYER_INIT_POS_Y	55
 #define PLAYER_INIT_POS_X	-1480
@@ -55,7 +56,6 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
-		
 
 		SetSceneTarget(player);
 	}
@@ -82,6 +82,10 @@ namespace van
 
 	void Stage1MiddleBossScene::SceneIN()
 	{
+		// 배경 사운드
+		SetBgSound(ResourceManager::Load<Sound>(L"Chapter1_Stage", L"..\\MyResources\\skul\\Sound\\Chapter1_Stage.wav"));
+		GetBgSound()->Play(false);
+
 		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 
@@ -107,6 +111,8 @@ namespace van
 
 	void Stage1MiddleBossScene::SceneOut()
 	{
+		// 배경 사운드 종료
+		GetBgSound()->Stop(true);
 		// 카메라 타겟 설정 초기화
 		Camera::SetTarget(nullptr);
 		// 충돌판정 설정 초기화
@@ -120,8 +126,16 @@ namespace van
 		float offset_Y = fabs(cameraPosLimit_Y - playerPos.y);
 
 		if (playerPos.x > CAMERA_CONTROL_POS_X_1
-			&& playerPos.x < CAMERA_CONTROL_POS_X_2)
+			&& playerPos.x < CAMERA_CONTROL_POS_X_2)	// -340.0f ~ 1020.0f
 		{
+			// Boss
+			if (playerPos.x > CAMERA_CONTROL_POS_X_1 + 50.0f
+				&& mbBossFlag == false)
+			{
+				BossTurn();
+				mbBossFlag = true;
+			}
+
 			math::Vector2 anchorPosX = math::Vector2(CAMERA_ANCHOR_X, CAMERA_ANCHOR_X);
 			math::Vector2 anchorPosY = math::Vector2(CAMERA_ANCHOR_Y, CAMERA_ANCHOR_Y);
 			Camera::SetLimitDistance(anchorPosX, anchorPosY);
@@ -187,15 +201,15 @@ namespace van
 		wall_2->GetComponent<Collider>()->SetSize(math::Vector2(2.0f, 190.0f));
 
 		// Monster Wall
-		Wall* wall_3 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall_3->SetFloorLimit(true);
-		wall_3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 954.0f + 20.0f, Window_Y / 2 - 150.0f));
-		wall_3->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
+		mBossWall1 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		mBossWall1->SetFloorLimit(true);
+		mBossWall1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 954.0f + 20.0f, Window_Y / 2 - 150.0f));
+		mBossWall1->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
 
-		Wall* wall_4 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		wall_4->SetFloorLimit(true);
-		wall_4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f - 20.0f, Window_Y / 2 - 150.0f));
-		wall_4->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
+		mBossWall2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		mBossWall2->SetFloorLimit(true);
+		mBossWall2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f - 20.0f, Window_Y / 2 - 150.0f));
+		mBossWall2->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
 	}
 
 	void Stage1MiddleBossScene::MakeDoor()
@@ -284,5 +298,18 @@ namespace van
 		{
 			OpenDoor();
 		}
+	}
+
+	void Stage1MiddleBossScene::BossTurn()
+	{
+		MageFrame* mageFrame = Object::Instantiate<MageFrame>(enums::eLayerType::UI);
+
+		// 배경 사운드
+		GetBgSound()->Stop(true);	// 기존 배경 사운드 종료
+		SetBgSound(ResourceManager::Load<Sound>(L"MiddleBoss_Stage", L"..\\MyResources\\skul\\Sound\\MiddleBoss_Stage.wav"));
+		GetBgSound()->Play(false);	// 보스Scene 전용 브금 실행
+
+		mBossWall1->SetFloorLimit(false);
+		mBossWall2->SetFloorLimit(false);
 	}
 }

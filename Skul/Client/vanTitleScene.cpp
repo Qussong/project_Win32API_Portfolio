@@ -7,13 +7,13 @@
 #include "vanResourceManager.h"
 #include "vanBackGround.h"
 #include "vanCamera.h"
-
-#include "vanMonster.h"
 #include "vanAnimator.h"
+#include "vanSound.h"
 
 namespace van
 {
 	TitleScene::TitleScene()
+		: mBackGround(nullptr)
 	{
 		// nothing
 	}
@@ -25,31 +25,32 @@ namespace van
 
 	void TitleScene::Init()
 	{
-		// 1) Title Art
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		bg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Title_Art"));
-		bgsr->SetScale(math::Vector2(0.67f,0.67f));
-		bgsr->SetAffectCamera(false);
-		// 해당 Scene에서의 카메라 최대 이동거리 설정
-		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
+		mBackGround = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
+		mBackGround->GetComponent<Animator>()->PlayAnimation(L"BG_Intro", false);
+		mBackGround->GetComponent<Animator>()->SetAffectedCamera(false);
+		mBackGround->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 
-		// 2) Title Logo
-		BackGround* logo = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);
-		logo->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 200));
-		bgsr = logo->GetComponent<SpriteRenderer>();
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Title_Logo"));
-		bgsr->SetScale(math::Vector2(0.67f,0.67f));
-		bgsr->SetAffectCamera(false);
+		// 해당 Scene에서의 카메라 최대 이동거리 설정
+		SetCameraWidthLimit(math::Vector2(mBackGround->GetLimitLeft(), mBackGround->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(mBackGround->GetLimitUp(), mBackGround->GetLimitDown()));
 
 		SetSceneTarget(nullptr);	// 기본값 nullptr이라 생략 가능
 	}
 
 	void TitleScene::Update()
 	{
+		Animator* at = mBackGround->GetComponent<Animator>();
+
 		Scene::Update();						// 부모의 Update 함수 호출
+
+		if (at->IsActiveAnimationComplete() == true)
+		{
+			if(mbPlayAnimation == true)
+			{
+				at->PlayAnimation(L"BG_Intro_Loop", true);
+				mbPlayAnimation = false;
+			}
+		}
 	}
 
 	void TitleScene::Render(HDC _hdc)
@@ -63,6 +64,10 @@ namespace van
 
 	void TitleScene::SceneIN()
 	{
+		// 배경 사운드
+		SetBgSound(ResourceManager::Load<Sound>(L"TitleSound", L"..\\MyResources\\skul\\Sound\\MainTitle.wav"));
+		GetBgSound()->Play(false);
+
 		//  카메라 최대 이동 가능 거리 설정
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 
@@ -72,6 +77,9 @@ namespace van
 
 	void TitleScene::SceneOut()
 	{
+		// 배경 사운드 종료
+		GetBgSound()->Stop(true);
+
 		// 카메라 타겟 설정 초기화
 		Camera::SetTarget(nullptr);
 	}

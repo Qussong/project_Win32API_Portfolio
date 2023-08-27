@@ -92,6 +92,7 @@ namespace van
 
 		return true;
 	}
+
 	void Sound::Play(bool loop)
 	{
 		mSoundBuffer->SetCurrentPosition(0);
@@ -101,6 +102,7 @@ namespace van
 		else
 			mSoundBuffer->Play(0, 0, 0);
 	}
+
 	void Sound::Stop(bool reset)
 	{
 		mSoundBuffer->Stop();
@@ -108,6 +110,7 @@ namespace van
 		if (reset)
 			mSoundBuffer->SetCurrentPosition(0);
 	}
+
 	void Sound::SetPosition(float position, bool loop)
 	{
 		Stop(true);
@@ -120,11 +123,13 @@ namespace van
 		else
 			mSoundBuffer->Play(0, 0, 0);
 	}
+
 	void Sound::SetVolume(float volume)
 	{
 		mVolume = GetDecibel(volume);
 		mSoundBuffer->SetVolume(mVolume);
 	}
+
 	int Sound::GetDecibel(float volume)
 	{
 		if (volume > 100.f)

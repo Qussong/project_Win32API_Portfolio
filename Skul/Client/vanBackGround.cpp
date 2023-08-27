@@ -1,6 +1,9 @@
 #include "vanBackGround.h"
 #include "vanSpriteRenderer.h"
 #include "vanTransform.h"
+#include "vanAnimator.h"
+#include "vanResourceManager.h"
+#include "vanTexture.h"
 
 namespace van
 {
@@ -21,7 +24,7 @@ namespace van
 
 	void BackGround::Init()
 	{
-		// nothing
+		MakeAnimation();
 	}
 
 	void BackGround::Update()
@@ -36,7 +39,11 @@ namespace van
 
 	void BackGround::MakeAnimation()
 	{
-		// nothing
+		Animator* at = GetComponent<Animator>();
+
+		at->CreateAnimation(L"BG_Intro", ResourceManager::Find<Texture>(L"BG_Intro"), math::Vector2(0.0f, 0.0f), math::Vector2(1920.0f, 1080.0f), 40);
+		at->CreateAnimation(L"BG_Intro_Loop", ResourceManager::Find<Texture>(L"BG_Intro_Loop"), math::Vector2(0.0f, 0.0f), math::Vector2(1920.0f, 1080.0f), 11);
+		at->SetScale(math::Vector2(0.67f, 0.67f));
 	}
 
 	void BackGround::SetAutoCameraLimit()

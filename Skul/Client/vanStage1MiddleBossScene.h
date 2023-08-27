@@ -1,5 +1,6 @@
 #pragma once
 #include "vanScene.h"
+#include "vanWall.h"
 
 namespace van
 {
@@ -24,11 +25,18 @@ namespace van
 		void Wave1();
 		void Wave2();
 		void WaveExit();
+		void BossTurn();
 
 	private:
 		bool mbWave1 = false;
 		bool mbWave2 = false;
 		bool mbOpenDoor = false;
+
+		Wall* mBossWall1 = nullptr;
+		Wall* mBossWall2 = nullptr;
+
+		bool mbBossFlag = false;
+
 	};
 }
 

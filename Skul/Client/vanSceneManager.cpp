@@ -23,8 +23,8 @@ namespace van
 	{
 		// Scene 积己
 		CreateScene<LoadingScene>(L"LoadingScene");	// 力老 刚历 积己秦拎具茄促.
+
 		CreateScene<TitleScene>(L"TitleScene");
-		CreateScene<EndingScene>(L"EndingScene");
 		CreateScene<TestScene>(L"TestScene");
 		CreateScene<HomeScene>(L"HomeScene");
 		CreateScene<Stage1EnterScene>(L"Stage1EnterScene");
@@ -33,6 +33,7 @@ namespace van
 		CreateScene<Stage1MiddleBossScene>(L"Stage1MiddleBossScene");
 		CreateScene<Stage1BossEnterScene>(L"Stage1BossEnterScene");
 		CreateScene<Stage1BossScene>(L"Stage1BossScene");
+		CreateScene<EndingScene>(L"EndingScene");
 
 		// 力老 刚历 剁况临 Scene 汲沥
 		LoadScene(L"TitleScene");

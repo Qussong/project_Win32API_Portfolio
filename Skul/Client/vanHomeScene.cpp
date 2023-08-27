@@ -41,7 +41,6 @@ namespace van
 
 	void HomeScene::Init()
 	{
-
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 60.0f, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
@@ -94,6 +93,10 @@ namespace van
 
 	void HomeScene::SceneIN()
 	{
+		// 배경 사운드
+		SetBgSound(ResourceManager::Load<Sound>(L"HomeSound", L"..\\MyResources\\skul\\Sound\\Home.wav"));
+		GetBgSound()->Play(true);
+
 		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 
@@ -108,6 +111,8 @@ namespace van
 
 	void HomeScene::SceneOut()
 	{
+		// 배경 사운드 종료
+		GetBgSound()->Stop(true);
 		// 카메라 타겟 설정 초기화
 		Camera::SetTarget(nullptr);
 		// 카메라 offset 설정 초기화

@@ -12,6 +12,7 @@
 #include "vanPlayerAttack.h"
 #include "vanCollisionManager.h"
 #include "vanSkull.h"
+#include "vanSound.h"
 
 #define DASH_FORCE_X		700.0f
 #define DASH_LIMIT			180.0f
@@ -47,6 +48,14 @@ namespace van
 		, head(nullptr)
 	{
 		AddComponent<RigidBody>()->SetMass(50.0f);
+		mDashSound = ResourceManager::Load<Sound>(L"Dash", L"..\\MyResources\\skul\\Sound\\Skul_Dash.wav");
+		mJumpSound = ResourceManager::Load<Sound>(L"Jump", L"..\\MyResources\\skul\\Sound\\Skul_Jump.wav");
+		mDoubleJumpSound = ResourceManager::Load<Sound>(L"DoubleJump", L"..\\MyResources\\skul\\Sound\\Skul_Double_Jump.wav");
+		mLandingSound = ResourceManager::Load<Sound>(L"DoubleJump", L"..\\MyResources\\skul\\Sound\\Skul_Landing.wav");
+		mAttackASound = ResourceManager::Load<Sound>(L"AttackA", L"..\\MyResources\\skul\\Sound\\Skul_AttackA.wav");
+		mAttackBSound = ResourceManager::Load<Sound>(L"AttackB", L"..\\MyResources\\skul\\Sound\\Skul_AttackB.wav");
+		mJumpAttackSound = ResourceManager::Load<Sound>(L"JumpAttack", L"..\\MyResources\\skul\\Sound\\Skul_Jump_Attack.wav");
+		mSkullThrowingSound = ResourceManager::Load<Sound>(L"JumpAttack", L"..\\MyResources\\skul\\Sound\\Skul_SkullThrowing.wav");
 	}
 
 	Player::~Player()
@@ -291,6 +300,9 @@ namespace van
 		// Jump
 		if (Input::GetKeyDown(eKeyCode::C))
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -305,6 +317,7 @@ namespace van
 			}
 			else if (mDirection == PlayerDirection::Right)
 			{
+
 				if (mbSkullLess)
 				{
 					animator->PlayAnimation(L"NoHead_Jump_R", false);
@@ -326,6 +339,9 @@ namespace van
 		// AttackA
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
+			// Sound
+			mAttackASound->Play(false);
+
 			if (mDirection == PlayerDirection::Left)
 			{
 				if (mbSkullLess)
@@ -356,6 +372,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z) 
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -457,6 +476,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z) 
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -480,6 +502,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z) 
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -503,6 +528,9 @@ namespace van
 		if (Input::GetKey(eKeyCode::Left)
 			&& Input::GetKeyDown(eKeyCode::C))
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -526,6 +554,9 @@ namespace van
 		if (Input::GetKey(eKeyCode::Right)
 			&& Input::GetKeyDown(eKeyCode::C))
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -576,6 +607,9 @@ namespace van
 		// Walk + AttackA
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
+			// Sound
+			mAttackASound->Play(false);
+
 			mAttackDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -687,6 +721,9 @@ namespace van
 		// Direction_L_Animator
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			if (mbSkullLess)
 			{
 				animator->PlayAnimation(L"NoHead_Jump_L");
@@ -700,6 +737,9 @@ namespace van
 		// Direction_R_Animator
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			if (mbSkullLess)
 			{
 				animator->PlayAnimation(L"NoHead_Jump_R");
@@ -732,6 +772,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			if (mDirection == PlayerDirection::Left)
 			{
 				// Animation
@@ -774,6 +817,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -798,6 +844,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -822,6 +871,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -854,6 +906,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -873,6 +928,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -891,6 +949,9 @@ namespace van
 		// DoubleJump
 		if (Input::GetKeyDown(eKeyCode::C) && mJumpCnt == 1)	
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -1024,6 +1085,9 @@ namespace van
 		{
 			if (mDirection == PlayerDirection::Left)
 			{
+				// Sound
+				mDashSound->Play(false);
+
 				// Animation
 				if (mbSkullLess)
 				{
@@ -1042,6 +1106,9 @@ namespace van
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
+				// Sound
+				mDashSound->Play(false);
+
 				// Animation
 				if (mbSkullLess)
 				{
@@ -1068,6 +1135,9 @@ namespace van
 			&& Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -1092,6 +1162,9 @@ namespace van
 			&& Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animator
 			if (mbSkullLess)
 			{
@@ -1240,6 +1313,9 @@ namespace van
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
+					// Sound
+					mAttackBSound->Play(false);
+
 					if (mbSkullLess)
 					{
 						animator->PlayAnimation(L"NoHead_AttackB_L", false);
@@ -1251,6 +1327,9 @@ namespace van
 				}
 				if (mDirection == PlayerDirection::Right)
 				{
+					// Sound
+					mAttackBSound->Play(false);
+
 					if (mbSkullLess)
 					{
 						animator->PlayAnimation(L"NoHead_AttackB_R", false);
@@ -1268,6 +1347,9 @@ namespace van
 			// AttackA 후 콤보공격으로 이어지지 않고 Idle 상태로 이어질 때
 			else 
 			{
+				// Sound
+				mAttackBSound->Play(false);
+
 				// Animation
 				if (mDirection == PlayerDirection::Left)
 				{
@@ -1448,6 +1530,9 @@ namespace van
 		// Direction_L_Animation
 		if (Input::GetKeyDown(eKeyCode::Left))
 		{
+			// Sound
+			mDoubleJumpSound->Play(false);
+
 			if (mbSkullLess)
 			{
 				animator->PlayAnimation(L"NoHead_Jump_L");
@@ -1461,6 +1546,9 @@ namespace van
 		// Direction_R_Animation
 		if (Input::GetKeyDown(eKeyCode::Right))
 		{
+			// Sound
+			mDoubleJumpSound->Play(false);
+
 			if (mbSkullLess)
 			{
 				animator->PlayAnimation(L"NoHead_Jump_R");
@@ -1496,6 +1584,9 @@ namespace van
 			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
+				// Sound
+				mDashSound->Play(false);
+
 				// Animation
 				if (mbSkullLess)
 				{
@@ -1511,6 +1602,9 @@ namespace van
 			}
 			if (mDirection == PlayerDirection::Right)
 			{
+				// Sound
+				mDashSound->Play(false);
+
 				// Animation
 				if (mbSkullLess)
 				{
@@ -1534,6 +1628,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -1558,6 +1655,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -1582,6 +1682,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -1614,6 +1717,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -1633,6 +1739,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -1863,6 +1972,9 @@ namespace van
 		// Idle
 		if (isGround == true)
 		{
+			// Sound
+			mLandingSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Right)
 			{
@@ -1955,6 +2067,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -1996,6 +2111,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -2020,6 +2138,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::Z)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mDashSound->Play(false);
+
 			// Animmator
 			if (mbSkullLess)
 			{
@@ -2047,6 +2168,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 1)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -2085,6 +2209,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 1)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2110,6 +2237,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 1)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2135,6 +2265,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 0)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -2173,6 +2306,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 0)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2198,6 +2334,9 @@ namespace van
 			&& !isGround
 			&& mJumpCnt == 0)
 		{
+			// Sound
+			mJumpSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2221,6 +2360,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& !Input::CheckGetDirectionKey())
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -2253,6 +2395,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Left))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2272,6 +2417,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::X)
 			&& Input::GetKey(eKeyCode::Right))
 		{
+			// Sound
+			mJumpAttackSound->Play(false);
+
 			// Animation
 			if (mbSkullLess)
 			{
@@ -2335,6 +2483,9 @@ namespace van
 		if (Input::GetKeyDown(eKeyCode::A)
 			&& mbSkillFlag == false)
 		{
+			// Sound
+			mSkullThrowingSound->Play(false);
+
 			// 머리 없음 설정
 			mbSkullLess = true;
 			// 스킬 발동

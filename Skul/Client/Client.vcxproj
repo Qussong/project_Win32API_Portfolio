@@ -144,6 +144,7 @@
     <ClInclude Include="vanFireBall.h" />
     <ClInclude Include="vanHpBar.h" />
     <ClInclude Include="vanMage.h" />
+    <ClInclude Include="vanMageFrame.h" />
     <ClInclude Include="vanPhoenixLanding.h" />
     <ClInclude Include="vanPlayerFrame.h" />
     <ClInclude Include="vanRangeFire.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="vanFireBall.cpp" />
     <ClCompile Include="vanHpBar.cpp" />
     <ClCompile Include="vanMage.cpp" />
+    <ClCompile Include="vanMageFrame.cpp" />
     <ClCompile Include="vanPhoenixLanding.cpp" />
     <ClCompile Include="vanPlayerFrame.cpp" />
     <ClCompile Include="vanRangeFire.cpp" />

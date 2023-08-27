@@ -163,9 +163,6 @@
     <Filter Include="Contents\Scene\04_Stage1_Monster_1">
       <UniqueIdentifier>{8b231028-7b49-4121-a078-939854538acf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\Scene\11_Ending">
-      <UniqueIdentifier>{e76b5cf9-1bf6-425d-a475-1ed461e45f86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\Scene\07_Stage1_Boss_Enter">
       <UniqueIdentifier>{b4228a39-51b2-4ea6-b90b-fe97d51ce01b}</UniqueIdentifier>
     </Filter>
@@ -246,6 +243,12 @@
     </Filter>
     <Filter Include="Engine\Resource\Sound">
       <UniqueIdentifier>{40cef75c-0c9e-46f3-9089-a87422ae2d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene\09_Ending">
+      <UniqueIdentifier>{e76b5cf9-1bf6-425d-a475-1ed461e45f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\MageFrame">
+      <UniqueIdentifier>{89794b86-7e1f-4d8f-88c7-857e4d1cf20d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -394,7 +397,7 @@
       <Filter>Contents\Scene\05_Stage1_Monster_2</Filter>
     </ClInclude>
     <ClInclude Include="vanEndingScene.h">
-      <Filter>Contents\Scene\11_Ending</Filter>
+      <Filter>Contents\Scene\09_Ending</Filter>
     </ClInclude>
     <ClInclude Include="vanStage1MiddleBossScene.h">
       <Filter>Contents\Scene\06_Stage1_Middle_Boss</Filter>
@@ -491,6 +494,9 @@
     </ClInclude>
     <ClInclude Include="vanSoundManager.h">
       <Filter>Engine\Manageres\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="vanMageFrame.h">
+      <Filter>Contents\GameObject\UI\MageFrame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -635,7 +641,7 @@
       <Filter>Contents\Scene\05_Stage1_Monster_2</Filter>
     </ClCompile>
     <ClCompile Include="vanEndingScene.cpp">
-      <Filter>Contents\Scene\11_Ending</Filter>
+      <Filter>Contents\Scene\09_Ending</Filter>
     </ClCompile>
     <ClCompile Include="vanStage1MiddleBossScene.cpp">
       <Filter>Contents\Scene\06_Stage1_Middle_Boss</Filter>
@@ -732,6 +738,9 @@
     </ClCompile>
     <ClCompile Include="vanSoundManager.cpp">
       <Filter>Engine\Manageres\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMageFrame.cpp">
+      <Filter>Contents\GameObject\UI\MageFrame</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

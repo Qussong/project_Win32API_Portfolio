@@ -1,5 +1,6 @@
 #pragma once
 #include "vanScene.h"
+#include "vanBackGround.h"
 
 namespace van
 {
@@ -16,7 +17,8 @@ namespace van
 		virtual void SceneOut() override;
 
 	private:
-
+		BackGround* mBackGround;
+		bool mbPlayAnimation = true;
 	};
 }
 

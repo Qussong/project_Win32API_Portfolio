@@ -74,9 +74,9 @@ namespace van
 	void FireBall::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
-
 		at->CreateAnimation(L"Mage_FireBall_Object_L", ResourceManager::Find<Texture>(L"Mage_FireBall_Object_L"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 28.0f), 12);
 		at->CreateAnimation(L"Mage_FireBall_Object_R", ResourceManager::Find<Texture>(L"Mage_FireBall_Object_R"), math::Vector2(0.0f, 0.0f), math::Vector2(46.0f, 28.0f), 12);
+		at->SetScale(math::Vector2(1.5f, 1.5f));
 	}
 
 	void FireBall::OnCollisionEnter(Collider* _other)
