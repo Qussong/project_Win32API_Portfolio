@@ -56,6 +56,7 @@ namespace van::enums
 		Yggdrasill_Head,
 		Yggdrasill_Chin,
 		Yggdrasill_Hand,
+		Yggdrasill_Skill_EnergyBomb,
 		Door,
 		NPC,
 		Range_Monster_Trace,

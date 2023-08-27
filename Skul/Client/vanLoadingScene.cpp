@@ -271,6 +271,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_End_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_End_R.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_L.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Object", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Object.png");
 
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");

@@ -28,6 +28,7 @@ namespace van
 	void RangeFire::Init()
 	{
 		Skill::Init();
+		MakeAnimation();
 
 		Collider* col = GetComponent<Collider>();
 		col->SetSize(math::Vector2(110.0f, 110.0f));
@@ -38,8 +39,6 @@ namespace van
 	void RangeFire::Update()
 	{
 		Skill::Update();
-
-		MakeAnimation();
 
 		switch (mState)
 		{
@@ -84,12 +83,12 @@ namespace van
 
 	void RangeFire::OnCollisionStay(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void RangeFire::OnCollisionExit(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void RangeFire::Gen()

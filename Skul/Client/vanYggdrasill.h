@@ -7,6 +7,8 @@
 
 namespace van
 {
+	class EnergyBomb;
+
 	class Yggdrasill : public Boss
 	{
 	public:
@@ -56,15 +58,14 @@ namespace van
 		void SwipeEnd();
 		void MagicOrbsEnd();
 
+		void ShootEnergyBomb();
+
 		BossState GetState() { return mState; }
 		void SetState(BossState _state) { mState = _state; }
 
 		YggdrasillHead* GetHead() { return mHead; }
 
 		math::Vector2 GetInitPos() { return mInitPos; }
-
-		//void AddFistSlamCnt() { mFistSlamCnt += 1; }
-		//int GetFistSlamCnt() { return mFistSlamCnt; }
 
 		BossSkill GetAttackCase() { return mAttackCase; }
 		void SetAttackCase(BossSkill _case) { mAttackCase = _case; }
@@ -97,6 +98,7 @@ namespace van
 		bool mbMagicOrbShootFlag = false;
 		int mMagicOrbCnt = 0;
 		bool mbShootDelay = false;
+		std::vector<EnergyBomb*> mListEnergyBomb;
 
 	};
 }

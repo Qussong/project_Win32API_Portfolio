@@ -12,14 +12,14 @@
 #include "vanCollisionManager.h"
 #include "vanMage.h"
 
-#define OBJECT_SPEED	200.0f
+#define OBJECT_SPEED	250.0f
 #define DAMAGE			15.0f
 
 namespace van
 {
 	FireBall::FireBall()
 	{
-		AddComponent<RigidBody>();
+		// nothing
 	}
 
 	FireBall::~FireBall()
@@ -30,9 +30,6 @@ namespace van
 	void FireBall::Init()
 	{
 		Skill::Init();
-
-		RigidBody* rb = GetComponent<RigidBody>();
-		rb->SetProjectiveBody(true);		// 투사체관련 로직을 타도록 설정
 
 		Collider* col = GetComponent<Collider>();
 		col->SetSize(math::Vector2(25.0f, 25.0f));
@@ -114,8 +111,6 @@ namespace van
 
 	void FireBall::Gen()
 	{
-		SetFireBallMove();
-
 		Animator* at = GetComponent<Animator>();
 		GameObject* owner = GetOwner();
 		Mage* mage = dynamic_cast<Mage*>(owner);
@@ -134,6 +129,7 @@ namespace van
 
 	void FireBall::Active()
 	{
+		SetFireBallMove();
 		// nothing
 	}
 
@@ -145,41 +141,25 @@ namespace van
 
 	void FireBall::SetFireBallMove()
 	{
-		RigidBody* rb = GetComponent<RigidBody>();
 		Boss* owner = dynamic_cast<Boss*>(GetOwner());
-
+		Transform* tr = GetComponent<Transform>();
 		Transform* tr_owner = owner->GetComponent<Transform>();
 		Transform* tr_target = owner->GetTarget()->GetComponent<Transform>();
 
-		math::Vector2 pos = tr_owner->GetPosition();			// 발사지점
-		math::Vector2 pos_target = tr_target->GetPosition();	// 도착지점
-		math::Vector2 dir = pos_target - pos;					// 방향
-		math::Vector2 speed = math::Vector2::Zero;				// 투사체 속도
-		if (dir.x < 0)
-		{
-			if (dir.y < 0)
-			{
-				speed = math::Vector2(-OBJECT_SPEED, -OBJECT_SPEED);
-			}
-			else
-			{
-				speed = math::Vector2(-OBJECT_SPEED, OBJECT_SPEED);
-			}
+		math::Vector2 pos = tr->GetPosition();
 
-		}
-		else
+		if (mbSetFlag == true)
 		{
-			if (dir.y < 0)
-			{
-				speed = math::Vector2(OBJECT_SPEED, -OBJECT_SPEED);
-			}
-			else
-			{
-				speed = math::Vector2(OBJECT_SPEED, OBJECT_SPEED);
-			}
+			mDepartPos = tr_owner->GetPosition();				// 발사지점
+			mTargetPos = tr_target->GetPosition();				// 도착지점
+			mDirect = (mTargetPos - mDepartPos).Normalize();	// 방향벡터
+
+			mbSetFlag = false;
 		}
 
-		rb->SetProjectiveDirection(dir);			// RigidBody 속성에 방향벡터값 설정
-		rb->SetVelocity(speed);						// 속도값 설정
+		pos.x += mDirect.x * OBJECT_SPEED * Time::GetDeltaTime();
+		pos.y += mDirect.y * OBJECT_SPEED * Time::GetDeltaTime();
+
+		tr->SetPosition(pos);
 	}
 }

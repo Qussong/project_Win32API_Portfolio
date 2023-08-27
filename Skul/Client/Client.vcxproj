@@ -141,6 +141,7 @@
     <ClInclude Include="vanAnimator.h" />
     <ClInclude Include="vanBoss.h" />
     <ClInclude Include="vanCatSeol.h" />
+    <ClInclude Include="vanEnergyBomb.h" />
     <ClInclude Include="vanFireBall.h" />
     <ClInclude Include="vanHpBar.h" />
     <ClInclude Include="vanMage.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="vanAnimator.cpp" />
     <ClCompile Include="vanBoss.cpp" />
     <ClCompile Include="vanCatSeol.cpp" />
+    <ClCompile Include="vanEnergyBomb.cpp" />
     <ClCompile Include="vanFireBall.cpp" />
     <ClCompile Include="vanHpBar.cpp" />
     <ClCompile Include="vanMage.cpp" />

@@ -250,6 +250,12 @@
     <Filter Include="Contents\GameObject\UI\MageFrame">
       <UniqueIdentifier>{89794b86-7e1f-4d8f-88c7-857e4d1cf20d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_EnergyBomb">
+      <UniqueIdentifier>{7fb4d986-cfaf-4795-9761-eb0a6ef52634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge">
+      <UniqueIdentifier>{17e01b0c-a531-4d2e-8c7b-4e0a235cf930}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -498,6 +504,9 @@
     <ClInclude Include="vanMageFrame.h">
       <Filter>Contents\GameObject\UI\MageFrame</Filter>
     </ClInclude>
+    <ClInclude Include="vanEnergyBomb.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -741,6 +750,9 @@
     </ClCompile>
     <ClCompile Include="vanMageFrame.cpp">
       <Filter>Contents\GameObject\UI\MageFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="vanEnergyBomb.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

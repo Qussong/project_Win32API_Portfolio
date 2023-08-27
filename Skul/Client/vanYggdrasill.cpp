@@ -3,6 +3,7 @@
 #include "vanPlayerAttack.h"
 #include "vanPlayer.h"
 #include "vanObject.h"
+#include "vanEnergyBomb.h"
 
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
@@ -143,8 +144,8 @@ namespace van
 				MagicOrbs,	// 2
 			*/
 			((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 3);
-			//mAttackCase = (BossSkill)(1);
+			//mAttackCase = (BossSkill)(rand() % 3);
+			mAttackCase = (BossSkill)(2);
 			mbChooseSkill = true;
 		}
 
@@ -448,6 +449,9 @@ namespace van
 			}
 			else
 			{
+				// EnergyBomb 생성 & 발사
+				ShootEnergyBomb();
+
 				mbShootDelay = false;
 				++mMagicOrbCnt;
 				mHead->SetMagicOrbShootFlag(false);
@@ -522,5 +526,16 @@ namespace van
 			// 상태변경 (Attack End --> Idle)
 			mState = BossState::Idle;
 		}
+	}
+
+	void Yggdrasill::ShootEnergyBomb()
+	{
+		Transform* tr_head = mHead->GetComponent<Transform>();
+
+		EnergyBomb* energyBomb = Object::Instantiate<EnergyBomb>(enums::eLayerType::Yggdrasill_Skill_EnergyBomb);
+		energyBomb->SetOwner(mHead);
+		energyBomb->GetComponent<Transform>()->SetPosition(tr_head->GetPosition());
+
+		mListEnergyBomb.push_back(energyBomb);
 	}
 }

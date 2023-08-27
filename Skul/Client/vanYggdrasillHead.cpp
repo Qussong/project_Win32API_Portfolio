@@ -3,7 +3,6 @@
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanCollider.h"
-
 #include "vanYggdrasill.h"
 
 #define INIT_POS_X	-10.0f
@@ -283,21 +282,6 @@ namespace van
 
 	void YggdrasillHead::MagicOrbsEnd()
 	{
-		/*Transform* tr = GetComponent<Transform>();
-		Transform* tr_owner = GetOwner()->GetComponent<Transform>();
-		math::Vector2 ownerPos = tr_owner->GetPosition();
-
-		if (mbEnd == false)
-		{
-			mAddPos.y += 50.0f * Time::GetDeltaTime();
-
-			float gap = mInitAddPos.y - mAddPos.y;
-			if (gap <= 0.0f)
-			{
-				mbFinish = true;
-				mbEnd = true;
-			}
-		}*/
 		InitHeadPos();
 	}
 
@@ -369,12 +353,6 @@ namespace van
 
 	void YggdrasillHead::InitHeadPos()
 	{
-		//Transform* tr = GetComponent<Transform>();
-		//Yggdrasill* owner = dynamic_cast<Yggdrasill*>(GetOwner());
-		//math::Vector2 ownerInitPos = owner->GetInitPos();
-
-		//math::Vector2 goalPos = ownerInitPos + mInitAddPos;
-		//math::Vector2 nowPos = tr->GetPosition();
 		if (mbEnd == false)
 		{
 			mbFinish = false;
