@@ -45,13 +45,11 @@ namespace van
 		void AttackFireBallReady();
 		void AttackRangeFireReady();
 		void AttackPhoenixLandingReady();
-		//void AttackFinishMoveReady();
 
 		// Attack
 		void AttackFireBall();
 		void AttackRangeFire();
 		void AttackPhoenixLanding();
-		//void AttackFinishMove();
 
 		void ComparePosWithBossAndTarget();
 		void LandingTimerCnt();

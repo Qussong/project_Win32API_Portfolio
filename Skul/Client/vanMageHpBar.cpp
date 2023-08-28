@@ -1,51 +1,51 @@
-#include "vanHpBar.h"
-#include "vanTexture.h"
+#include "vanMageHpBar.h"
 #include "vanResourceManager.h"
-#include "vanPlayer.h"
-#include "vanSceneManager.h"
+#include "vanTexture.h"
+#include "vanMage.h"
+
 namespace van
 {
-	HpBar::HpBar()
+	MageHpBar::MageHpBar()
 	{
-
+		// nothing
 	}
 
-	HpBar::~HpBar()
+	MageHpBar::~MageHpBar()
 	{
-
+		// nothing
 	}
 
-	void HpBar::Init()
+	void MageHpBar::Init()
 	{
 		UI::Init();
 
-		mHpBar = ResourceManager::Load<Texture>(L"UI_Player_HpBar", L"..\\MyResources\\skul\\UI\\HpBar.bmp");
-		mDamageBar = ResourceManager::Load<Texture>(L"UI_Player_HpBar_Damage", L"..\\MyResources\\skul\\UI\\HpBar_Damage.bmp");
+		mHpBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar", L"..\\MyResources\\skul\\UI\\MageHPBar.png");
+		mDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\MageHealthBar_Damage.png");
+		mHealBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Heal", L"..\\MyResources\\skul\\UI\\MageHPBar_Heal.png");
 	}
 
-	void HpBar::Update()
+	void MageHpBar::Update()
 	{
 		UI::Update();
 
-		if (mPlayer == nullptr)
+		if (mMage == nullptr)
 		{
-			GameObject* obj = SceneManager::GetActiveScene()->GetSceneTarget();
-			mPlayer = dynamic_cast<Player*>(obj);
+			// nothing
 		}
 		else
 		{
-			if (mReductionHp >= mPlayer->GetHp())
+			if (mReductionHp >= mMage->GetHp())
 			{
 				mReductionHp -= Time::GetDeltaTime() * 50.0f;
 			}
 			else
 			{
-				mReductionHp = mPlayer->GetHp();
+				mReductionHp = mMage->GetHp();
 			}
 		}
 	}
 
-	void HpBar::Render(HDC _hdc)
+	void MageHpBar::Render(HDC _hdc)
 	{
 		UI::Render(_hdc);
 
@@ -92,19 +92,23 @@ namespace van
 		}
 	}
 
-	void HpBar::MakeAnimation()
+	void MageHpBar::MakeAnimation()
 	{
+		// nothing
 	}
 
-	void HpBar::OnCollisionEnter(Collider* _other)
+	void MageHpBar::OnCollisionEnter(Collider* _other)
 	{
+		// nothing
 	}
 
-	void HpBar::OnCollisionStay(Collider* _other)
+	void MageHpBar::OnCollisionStay(Collider* _other)
 	{
+		// nothing
 	}
 
-	void HpBar::OnCollisionExit(Collider* _other)
+	void MageHpBar::OnCollisionExit(Collider* _other)
 	{
+		// nothing
 	}
 }

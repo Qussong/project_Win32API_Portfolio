@@ -262,6 +262,9 @@
     <Filter Include="Contents\GameObject\UI\HitSign">
       <UniqueIdentifier>{1794c167-928e-4d76-a0c5-9c45a1bce12a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\UI\Mage_HpBar">
+      <UniqueIdentifier>{b18b8461-fda7-4604-b81a-ba33b11164ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -522,6 +525,9 @@
     <ClInclude Include="vanHitSign.h">
       <Filter>Contents\GameObject\UI\HitSign</Filter>
     </ClInclude>
+    <ClInclude Include="vanMageHpBar.h">
+      <Filter>Contents\GameObject\UI\Mage_HpBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -777,6 +783,9 @@
     </ClCompile>
     <ClCompile Include="vanHitSign.cpp">
       <Filter>Contents\GameObject\UI\HitSign</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMageHpBar.cpp">
+      <Filter>Contents\GameObject\UI\Mage_HpBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
