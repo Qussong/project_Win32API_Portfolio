@@ -297,13 +297,12 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_RangeFire_R.png");
 		ResourceManager::Load<Texture>(L"Mage_RangeFire_Sign", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire_Sign.png");
 		ResourceManager::Load<Texture>(L"Mage_RangeFire", L"..\\MyResources\\skul\\Monster\\Mage\\RangeFire.bmp");
-
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_L.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_R.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_L.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
 
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
 		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding_Land_.png");
 	}
 }

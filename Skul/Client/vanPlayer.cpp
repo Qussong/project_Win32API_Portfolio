@@ -125,7 +125,6 @@ namespace van
 				__noop;
 			}
 		}
-
 	}
 
 	void Player::Render(HDC _hdc)

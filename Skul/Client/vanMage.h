@@ -4,7 +4,8 @@
 namespace van
 {
 	class FireBall;
-	class RangeFire;	
+	class RangeFire;
+	class PhoenixRandingReady;
 	//class PhoenixLanding;
 
 	class Mage : public Boss
@@ -83,6 +84,7 @@ namespace van
 		// PhoenixLanding
 		bool PhoenixLandingAnimation = true;	// Phoenix Landing Attack 애니메이션 재생여부
 		bool mbTakeOff = false;			// 위치 초기화 여부
+		PhoenixRandingReady* mReadyEffect = nullptr;
 		// mbTakeOff (false -> true) 가 될 때 초기화 ↓
 		float mLandingTimer = 0.0f;						// Delay 10초 예상
 		bool mbLandingTimer = false;					// Landing 후 다시 올라가기까지의 Delay 시간 카운트 여부

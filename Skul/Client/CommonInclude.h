@@ -48,6 +48,7 @@ namespace van::enums
 		Floor,
 		Wall,
 		Boss_Mage,
+		Boss_Mage_Effect,
 		Boss_Mage_Skill_FireBall,
 		Boss_Mage_Skill_RangeFire,
 		Boss_Mage_Skill_PhoenixLanding,

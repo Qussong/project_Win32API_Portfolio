@@ -145,8 +145,8 @@ namespace van
 				MagicOrbs,	// 2
 			*/
 			((UINT)time(NULL));
-			//mAttackCase = (BossSkill)(rand() % 3);
-			mAttackCase = (BossSkill)(2);
+			mAttackCase = (BossSkill)(rand() % 3);
+			//mAttackCase = (BossSkill)(2);
 			mbChooseSkill = true;
 		}
 

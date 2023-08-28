@@ -256,6 +256,9 @@
     <Filter Include="Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge">
       <UniqueIdentifier>{17e01b0c-a531-4d2e-8c7b-4e0a235cf930}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_PhoenixLanding_Ready">
+      <UniqueIdentifier>{d1beb01a-1b7b-4532-9196-2ffae6c39bb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -510,6 +513,9 @@
     <ClInclude Include="vanEnergyBombCharge.h">
       <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge</Filter>
     </ClInclude>
+    <ClInclude Include="vanPhoenixRandingReady.h">
+      <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding_Ready</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -759,6 +765,9 @@
     </ClCompile>
     <ClCompile Include="vanEnergyBombCharge.cpp">
       <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBomb_Charge</Filter>
+    </ClCompile>
+    <ClCompile Include="vanPhoenixRandingReady.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding_Ready</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

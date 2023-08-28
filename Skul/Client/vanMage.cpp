@@ -10,6 +10,7 @@
 #include "vanRangeFire.h"
 #include "vanObject.h"
 #include "vanPhoenixLanding.h"
+#include "vanPhoenixRandingReady.h"
 
 #define MAX_HP					100.0f
 #define FLY_POS					150.0f
@@ -570,6 +571,10 @@ namespace van
 			// Ready 애니메이션 실행
 			if (mbPlayAnimation == true)
 			{
+				// 이펙트 실행
+				mReadyEffect = Object::Instantiate<PhoenixRandingReady>(enums::eLayerType::Boss_Mage_Effect);
+				mReadyEffect->SetOwner(this);
+
 				if (GetBossDirection() == BossDirection::Left)
 				{
 					at->PlayAnimation(L"Attack_Ready_PhoenixLanding_L");
@@ -583,7 +588,8 @@ namespace van
 			}
 
 			// 애니메이션 완료시 낙하수행
-			if (at->IsActiveAnimationComplete() == true)
+			if (at->IsActiveAnimationComplete() == true
+				&& mReadyEffect->GetEffectFinishFlag() == true)
 			{
 				mbLand = true;				// 낙하시작
 				rb->SetGround(false);		// 착지확인을 위해 중력을 적용받도록 한다.
