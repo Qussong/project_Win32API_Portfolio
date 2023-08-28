@@ -42,11 +42,10 @@ namespace van
 
 		float GetHp() { return mHp; }
 		void SetHp(float _hp) { mHp = _hp; }
+		float GetMaxHp() { return mMaxHp; }
+		void SetMaxHp(float _hp) { mMaxHp = _hp; }
 		void AddHp(float _heal) { mHp += _heal; }
 		void LoseHp(float _damage) { mHp -= _damage; }
-
-		float GetHpPercent() { return mHpPercent; }
-		void SetHpPercent(float _percent) { mHpPercent = _percent; }
 
 		BossState GetBossState() { return mBossState; }
 		void SetBossState(BossState _state) { mBossState = _state; }
@@ -73,7 +72,7 @@ namespace van
 
 	private:
 		float mHp;
-		float mHpPercent;
+		float mMaxHp;
 
 		BossState mBossState = BossState::None;
 		BossDirection mBossDirection = BossDirection::None;

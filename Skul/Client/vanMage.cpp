@@ -11,8 +11,10 @@
 #include "vanObject.h"
 #include "vanPhoenixLanding.h"
 #include "vanPhoenixRandingReady.h"
+#include "vanPlayerAttack.h"
+#include "vanSkull.h"
 
-#define MAX_HP					100.0f
+#define MAX_HP					500.0f
 #define FLY_POS					150.0f
 #define WALK_SPEED				200.0f
 #define FLY_SPEED				300.0f
@@ -42,8 +44,8 @@ namespace van
 
 		SetBossState(BossState::Gen);
 		SetBossDirection(BossDirection::Left);
+		SetMaxHp(MAX_HP);
 		SetHp(MAX_HP);
-		SetHpPercent(100.0f);
 
 		Collider* col = GetComponent<Collider>();
 		col->SetSize(math::Vector2(33.0f * 2, 65.0f * 2));
@@ -57,8 +59,6 @@ namespace van
 	{
 		Boss::Update();
 
-		SetHpPercent(GetHp() / MAX_HP * 100.0f);
-		
 		// Boss의 Attack Direction이 달라지는지 확인
 		ComparePosWithBossAndTarget();
 		// LandingTimer 카운트
@@ -146,8 +146,8 @@ namespace van
 
 	void Mage::OnCollisionEnter(Collider* _other)
 	{
-		// 벽에 충돌하면 Walk 방향을 바꿔준다.
 		GameObject* obj = _other->GetOwner();
+		// 벽에 충돌하면 Walk 방향을 바꿔준다.
 		Wall* wall = dynamic_cast<Wall*>(obj);
 
 		if (wall != nullptr)
@@ -164,11 +164,33 @@ namespace van
 			// 새로운 애니메이션 재생 ex) Walk
 			mbPlayAnimation = true;
 		}
+
+		// Player 의 스킬
+		Skull* playerSkill = dynamic_cast<Skull*>(obj);
+		if (playerSkill != nullptr)
+		{
+			LoseHp(playerSkill->GetSkillDamage());
+		}
 	}
 
 	void Mage::OnCollisionStay(Collider* _other)
 	{
-		// nothing
+		GameObject* obj = _other->GetOwner();
+
+		// Player 의 공격
+		PlayerAttack* playerAtk = dynamic_cast<PlayerAttack*>(obj);
+		if (playerAtk != nullptr)
+		{
+			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
+			std::set<GameObject*>* list = playerAtk->GetAttackList();
+
+			if (list->find(this) == list->end()
+				&& playerAtk->GetActiveFlag() == true)
+			{
+				list->insert(this);
+				LoseHp(playerAtk->GetPlayerAttackDamage());
+			}
+		}
 	}
 
 	void Mage::OnCollisionExit(Collider* _other)

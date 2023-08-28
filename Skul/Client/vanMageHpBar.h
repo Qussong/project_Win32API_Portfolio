@@ -24,9 +24,9 @@ namespace van
 		void SetMage(Mage* _mage) { mMage = _mage; }
 
 	private:
-		Texture* mHpBar;
-		Texture* mDamageBar;
-		Texture* mHealBar;
+		Texture* mMageHpBar;
+		Texture* mMageDamageBar;
+		Texture* mMageHealBar;
 
 		float mReductionHp = 0.0f;
 		//Player* mPlayer = nullptr;

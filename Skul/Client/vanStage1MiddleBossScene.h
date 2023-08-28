@@ -1,9 +1,10 @@
 #pragma once
 #include "vanScene.h"
 #include "vanWall.h"
-
 namespace van
 {
+	class Mage;
+
 	class Stage1MiddleBossScene : public Scene
 	{
 	public:
@@ -36,7 +37,6 @@ namespace van
 		Wall* mBossWall2 = nullptr;
 
 		bool mbBossFlag = false;
-
+		Mage* mage = nullptr;
 	};
 }
-

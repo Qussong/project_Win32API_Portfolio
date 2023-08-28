@@ -17,6 +17,7 @@
 #include "vanCarleonRecruit.h"
 #include "vanMage.h"
 #include "vanMageFrame.h"
+#include "vanMageHpBar.h"
 
 #define PLAYER_INIT_POS_Y	55
 #define PLAYER_INIT_POS_X	-1480
@@ -96,17 +97,12 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
-
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Trap, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
-
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Boss_Mage, true);
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
+
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
 
 	void Stage1MiddleBossScene::SceneOut()
@@ -254,7 +250,7 @@ namespace van
 			mbWave1 = true;
 
 			// Mage
-			Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+			mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
 			mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
 			mage->SetTartget(GetSceneTarget());
 
@@ -303,6 +299,8 @@ namespace van
 	void Stage1MiddleBossScene::BossTurn()
 	{
 		MageFrame* mageFrame = Object::Instantiate<MageFrame>(enums::eLayerType::UI);
+		MageHpBar* mMageHpBar = Object::Instantiate<MageHpBar>(enums::eLayerType::UI);
+		mMageHpBar->SetMage(mage);
 
 		// 배경 사운드
 		GetBgSound()->Stop(true);	// 기존 배경 사운드 종료

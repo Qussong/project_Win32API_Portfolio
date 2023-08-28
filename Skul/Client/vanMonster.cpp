@@ -168,6 +168,7 @@ namespace van
 
 		// 충돌한 객체가 PlayerAttack 클래스인 경우 == 피격(Hit)판정
 		if (attack != nullptr
+			&& attack->GetActiveFlag() == true
 			&& GetMonsterState() != MonsterState::Dead)
 		{
 			// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다

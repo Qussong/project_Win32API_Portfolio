@@ -6,10 +6,13 @@
 #include "vanCollisionManager.h"
 #include "vanPlayer.h"
 
+#define PLAYER_DAMAGE	10.0f
+
 namespace van
 {
 	PlayerAttack::PlayerAttack()
 		: mbCombo(false)
+		, mAttackDamage(PLAYER_DAMAGE)
 	{
 		// nothing
 	}
@@ -48,14 +51,12 @@ namespace van
 
 			// 활성화 여부 설정
 			SetOwnerState((UINT)(player->GetPlayerState()));						// Player의 상태를 읽어옴
+
 			if(GetOwnerState() == (UINT)Player::PlayerState::AttackA
 				|| GetOwnerState() == (UINT)Player::PlayerState::JumpAttack)		// Player가 공격상태일 때(AttackA,JumpAttack)
 			{
+				mActiveFlag = true;
 				GetComponent<Collider>()->SetActive(true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Boss_Mage, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Head, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Hand, true);
 				SetOwnerDirection((UINT)(player->GetPlayerDirection()));
 
 				mbCombo = player->GetCombo();
@@ -67,16 +68,13 @@ namespace van
 					attackList.clear();
 					mbCombo = false;
 				}
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Boss_Mage, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Head, true);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Hand, true);
+				mActiveFlag = true;
 				SetOwnerDirection((UINT)(player->GetPlayerDirection()));
 			}
 			else
 			{
+				mActiveFlag = false;
 				GetComponent<Collider>()->SetActive(false);
-				CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, false);
 
 				attackList.clear();	// 공격판정이 끝나면 공격범위 충돌 내역을 비워준다.
 			}

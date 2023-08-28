@@ -86,8 +86,6 @@ namespace van
 
 		Skill();
 
-
-
 		if (mState == PlayerState::Hit)
 		{
 			Hit();

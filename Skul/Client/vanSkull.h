@@ -32,9 +32,12 @@ namespace van
 		__forceinline bool GetCollision() { return mbCollision; }
 		__forceinline void SetCollision(bool _flag) { mbCollision = _flag; }
 
+		__forceinline float GetSkillDamage() { return mSkillDamage; }
+
 	private:
 		HeadDirection mDirection;
 		bool mbCollision = false;
+		float mSkillDamage;
 	};
 }
 

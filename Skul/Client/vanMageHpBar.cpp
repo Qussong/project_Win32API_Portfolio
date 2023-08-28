@@ -19,9 +19,9 @@ namespace van
 	{
 		UI::Init();
 
-		mHpBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar", L"..\\MyResources\\skul\\UI\\MageHPBar.png");
-		mDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\MageHealthBar_Damage.png");
-		mHealBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Heal", L"..\\MyResources\\skul\\UI\\MageHPBar_Heal.png");
+		mMageHpBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar", L"..\\MyResources\\skul\\UI\\MageHPBar.png");
+		mMageDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\MageHealthBar_Damage.png");
+		mMageHealBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Heal", L"..\\MyResources\\skul\\UI\\MageHPBar_Heal.png");
 	}
 
 	void MageHpBar::Update()
@@ -49,45 +49,44 @@ namespace van
 	{
 		UI::Render(_hdc);
 
-		if (mPlayer == nullptr)
+		if (mMage == nullptr)
 		{
-			GameObject* obj = SceneManager::GetActiveScene()->GetSceneTarget();
-			mPlayer = dynamic_cast<Player*>(obj);
+			// nothing
 		}
 		else
 		{
-			float playerHP = mPlayer->GetHp();
-			float playerMaxHP = mPlayer->GetMaxHp();
-			float hpPercent = playerHP / playerMaxHP;
+			float mageHP = mMage->GetHp();
+			float mageMaxHP = mMage->GetMaxHp();
+			float hpPercent = mageHP / mageMaxHP;
 
-			// ºóÄ­ À§Ä¡ = 168.0f, 654.0f
+			// ºóÄ­ À§Ä¡ = 1160.0f 40.0f
 			// Damage Bar
 			::TransparentBlt(
 				// target
 				_hdc,
-				168.0f - 82.0f,
-				654.0f + 22.0f,
-				mDamageBar->GetWidth() * (mReductionHp / playerMaxHP) * 2.0f,
-				mDamageBar->GetHeight() * 2.0f,
+				1160.0f - 106.0f,
+				40.0f + 15.0f,
+				mMageDamageBar->GetWidth() * (mReductionHp / mageMaxHP),
+				mMageDamageBar->GetHeight(),
 				// source
-				mDamageBar->GetHdc(),
+				mMageDamageBar->GetHdc(),
 				0, 0,
-				mDamageBar->GetWidth() * (mReductionHp / playerMaxHP),
-				mDamageBar->GetHeight(),
+				mMageDamageBar->GetWidth() * (mReductionHp / mageMaxHP),
+				mMageDamageBar->GetHeight(),
 				RGB(255, 0, 255));
 
 			::TransparentBlt(
 				// target
 				_hdc,
-				168.0f - 82.0f,
-				654.0f + 22.0f,
-				mHpBar->GetWidth() * hpPercent * 2.0f,
-				mHpBar->GetHeight() * 2.0f,
+				1160.0f - 106.0f,
+				40.0f + 15.0f,
+				mMageHpBar->GetWidth() * hpPercent,
+				mMageHpBar->GetHeight(),
 				// source
-				mHpBar->GetHdc(),
+				mMageHpBar->GetHdc(),
 				0, 0,
-				mHpBar->GetWidth() * hpPercent,
-				mHpBar->GetHeight(),
+				mMageHpBar->GetWidth() * hpPercent,
+				mMageHpBar->GetHeight(),
 				RGB(255, 0, 255));
 		}
 	}

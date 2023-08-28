@@ -9,10 +9,13 @@
 #include "vanTransform.h"
 #include "vanSceneManager.h"
 
-#define VELOCITY_X  150.0f
+#define VELOCITY_X      150.0f
+#define SKILL_DAMAGE    30.0f
+
 namespace van
 {
     Skull::Skull()
+        : mSkillDamage(SKILL_DAMAGE)
     {
         AddComponent<RigidBody>()->SetGround(true);
         AddComponent<SpriteRenderer>();
