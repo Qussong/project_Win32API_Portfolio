@@ -9,6 +9,7 @@ namespace van
 	class PlayerAttack;
 	class Skull;
 	class Sound;
+	class HitSign;
 
 	class Player : public GameObject
 	{
@@ -106,9 +107,11 @@ namespace van
 
 	private:
 		PlayerState mState;				// 현재 Player의 상태
+		PlayerState mPasteState = PlayerState::None;				
 		PlayerDirection mDirection;		// 현재 Player가 바라보고 있는 방향 (Left, Right)
 		PlayerDirection mDamageDirection = PlayerDirection::None;	//	공격받은 방향
 
+		bool mbPlayAnimation = true;
 		bool mbDoubleKey;				// 이중키 입력 여부 (방향키에서 사용)
 		UINT mJumpCnt;					// Jump 횟수 (최대 2번)
 		UINT mDashCnt;					// Dash 횟수 (최대 2번)
@@ -146,5 +149,8 @@ namespace van
 		Sound* mAttackBSound;
 		Sound* mJumpAttackSound;
 		Sound* mSkullThrowingSound;
+
+		// 피격효과
+		HitSign* mHitSign;
 	};
 }

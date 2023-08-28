@@ -13,6 +13,7 @@
 #include "vanCollisionManager.h"
 #include "vanSkull.h"
 #include "vanSound.h"
+#include "vanHitSign.h"
 
 #define DASH_FORCE_X		700.0f
 #define DASH_LIMIT			180.0f
@@ -75,6 +76,8 @@ namespace van
 		attackBox = Object::Instantiate<PlayerAttack>(enums::eLayerType::Range_Attack);	// PlayerAttack 클래스 객체 생성
 		attackBox->SetOwner(this);														// PlayerAttack 클래스의 소유자 설정
 		attackBox->GetComponent<Collider>()->SetSize(math::Vector2(50.0f, 70.0f));		// PlayerAttack 클래스의 충돌체 크기 설정
+
+		mHitSign = Object::Instantiate<HitSign>(enums::eLayerType::UI_HitSign);
 	}
 
 	void Player::Update()
@@ -83,12 +86,16 @@ namespace van
 
 		Skill();
 
+
+
 		if (mState == PlayerState::Hit)
 		{
 			Hit();
 		}
 		else
 		{
+			mPasteState = mState;
+
 			switch (mState)
 			{
 			case Player::PlayerState::Idle:
@@ -125,6 +132,12 @@ namespace van
 				__noop;
 			}
 		}
+
+		if (mPasteState != mState)
+		{
+			mbPlayAnimation = true;
+		}
+		
 	}
 
 	void Player::Render(HDC _hdc)
@@ -2439,34 +2452,38 @@ namespace van
 		math::Vector2 velocity = rb->GetVelocity();
 
 		// 피격 애니메이션
-		// Monster가 왼쪽에서 공격받았을 경우
-		if (mDamageDirection == PlayerDirection::Left)
+		if (mbPlayAnimation == true)
 		{
-			at->PlayAnimation(L"Idle_L", true);
-			// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
-			velocity.x = HIT_BUMP_X;
-			rb->SetVelocity(velocity);
+			mHitSign->GetComponent<Animator>()->PlayAnimation(L"UI_Player_HitSign", false);
+			// Monster가 왼쪽에서 공격받았을 경우
+			if (mDamageDirection == PlayerDirection::Left)
+			{
+				at->PlayAnimation(L"Idle_L", true);
+				// 왼쪽에서 맞았기에 오른쪽으로 날아가야한다.
+				velocity.x = HIT_BUMP_X;
+				rb->SetVelocity(velocity);
 
-			mDirection = PlayerDirection::Left;
-		}
-		// 몬스터가 오른쪽에서 공격받았을 경우
-		if (mDamageDirection == PlayerDirection::Right)
-		{
-			at->PlayAnimation(L"Idle_R", true);
-			// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
-			velocity.x = -HIT_BUMP_X;
-			rb->SetVelocity(velocity);
+				mDirection = PlayerDirection::Left;
+			}
+			// 몬스터가 오른쪽에서 공격받았을 경우
+			if (mDamageDirection == PlayerDirection::Right)
+			{
+				at->PlayAnimation(L"Idle_R", true);
+				// 오른쪽에서 맞았기에 왼쪽으로 날아가야한다.
+				velocity.x = -HIT_BUMP_X;
+				rb->SetVelocity(velocity);
 
-			mDirection = PlayerDirection::Right;
+				mDirection = PlayerDirection::Right;
+				mbPlayAnimation = false;
+			}
+			// 몬스터가 공격받은 방향을 초기화해준다.
+			mDamageDirection == PlayerDirection::None;
 		}
-		// 몬스터가 공격받은 방향을 초기화해준다.
-		mDamageDirection == PlayerDirection::None;
 
 		if (rb->GetGround() == true)
 		{
 			mState = PlayerState::Idle;
 		}
-
 	}
 
 	void Player::Skill()

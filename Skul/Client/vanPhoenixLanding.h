@@ -8,11 +8,9 @@ namespace van
 	public:
 		enum class PhoenixLandingState
 		{
-			Wait,
-			LandingReady,
-			LandingReadyEnd,
-			Landing,
-			LandingEnd,
+			Gen,
+			Active,
+			Dead,
 			None,
 		};
 
@@ -29,18 +27,20 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
-		void SetState(PhoenixLandingState _state) { mState = _state; }
-		PhoenixLandingState GetState() { return mState; }
+		void Gen();
+		void Active();
+		void Dead();
 
-		void Wait();
-		void LandingReady();
-		void LandingReadyEnd();
-		void Landing();
-		void LandingEnd();
+		__forceinline void SetState(PhoenixLandingState _state) { mState = _state; }
+		__forceinline PhoenixLandingState GetState() { return mState; }
+
+		__forceinline bool GetEffectFinishFlag() { return mbEffectFinish; }
 
 	private:
 		PhoenixLandingState mState = PhoenixLandingState::None;
-		bool mbPlayAnimation = true;
+		bool mbSetFlag = false;		// 애니메이션 재생을 위한 설정 완료 여부
+		bool mbEffectFinish = false;
+		//std::set<GameObject*> mAttackList;
 	};
 }
 

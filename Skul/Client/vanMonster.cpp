@@ -20,6 +20,7 @@
 #define WALL_BUMP_X			20.0f
 #define WALL_BUMP_Y			-100.0f
 #define ATTACK_READY_DELAY	1.0f
+
 namespace van
 {
 	Monster::Monster()

@@ -7,6 +7,8 @@
 
 namespace van
 {
+	class BackGround;
+
 	class Scene : public Entity
 	{
 	public:
@@ -27,8 +29,8 @@ namespace van
 
 		__forceinline void AddGameObject(enums::eLayerType type, GameObject* gameObj) { mLayers[(int)type].AddGameObject(gameObj); }
 		__forceinline Layer& GetLayer(enums::eLayerType _type) { return mLayers[(UINT)_type]; }	// 해당 Scene이 관리하는 Layer들중 파라미터에 해당하는 정보를 가져온다.
-		__forceinline void SetSceneTarget(GameObject* _target = nullptr) { target = _target; }	// 해당 Scene 에서의 타겟 설정
-		__forceinline GameObject* GetSceneTarget() { return target; }							// 해당 Scene 에서의 타겟 정보 받아오기
+		__forceinline void SetSceneTarget(GameObject* _target = nullptr) { mTarget = _target; }	// 해당 Scene 에서의 타겟 설정
+		__forceinline GameObject* GetSceneTarget() { return mTarget; }							// 해당 Scene 에서의 타겟 정보 받아오기
 		__forceinline math::Vector2 GetCameraWidthLimit() { return mCameraWidthLimit; }
 		__forceinline void SetCameraWidthLimit(math::Vector2 _limit) { mCameraWidthLimit = _limit; }
 		__forceinline math::Vector2 GetCameraHeightLimit() { return mCameraHeightLimit; }
@@ -42,10 +44,10 @@ namespace van
 
 	private:
 		std::vector<Layer> mLayers;			// 해당 Scene이 관리하는 Layer 객체들을 저장
-		GameObject* target;					// 해당 Scene에서 Camera의 Target
+		GameObject* mTarget;				// 해당 Scene에서 Camera의 Target
 		math::Vector2 mCameraWidthLimit;	// 해당 Scene에서 Camera의 좌우 최대 이동 가능거리
 		math::Vector2 mCameraHeightLimit;	// 해당 Scene에서 Camera의 상하 최대 이동 가능거리
-		int mMonsterCnt = 0;					// 해당 Scene에서의 몬스터 개수
+		int mMonsterCnt = 0;				// 해당 Scene에서의 몬스터 개수
 		PlayerFrame* mPlayerFrame = nullptr;
 		HpBar* mHpBar = nullptr;
 		Sound* mBgSound = nullptr;

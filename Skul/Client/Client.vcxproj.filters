@@ -259,6 +259,9 @@
     <Filter Include="Contents\GameObject\Skill\Mage_PhoenixLanding_Ready">
       <UniqueIdentifier>{d1beb01a-1b7b-4532-9196-2ffae6c39bb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\UI\HitSign">
+      <UniqueIdentifier>{1794c167-928e-4d76-a0c5-9c45a1bce12a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -516,6 +519,9 @@
     <ClInclude Include="vanPhoenixRandingReady.h">
       <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding_Ready</Filter>
     </ClInclude>
+    <ClInclude Include="vanHitSign.h">
+      <Filter>Contents\GameObject\UI\HitSign</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -768,6 +774,9 @@
     </ClCompile>
     <ClCompile Include="vanPhoenixRandingReady.cpp">
       <Filter>Contents\GameObject\Skill\Mage_PhoenixLanding_Ready</Filter>
+    </ClCompile>
+    <ClCompile Include="vanHitSign.cpp">
+      <Filter>Contents\GameObject\UI\HitSign</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

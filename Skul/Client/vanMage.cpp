@@ -15,8 +15,8 @@
 #define MAX_HP					100.0f
 #define FLY_POS					150.0f
 #define WALK_SPEED				200.0f
-#define FLY_SPEED				200.0f
-#define LANDING_SPEED			200.0f
+#define FLY_SPEED				300.0f
+#define LANDING_SPEED			400.0f
 #define PHOENIX_READY_GAP_POS	100.0f
 #define FLY_READY_GAP_POS		150.0f
 //#define LANDING_TIMER			60.0f
@@ -730,6 +730,9 @@ namespace van
 		if (mbPlayAnimation == true
 			&& PhoenixLandingAnimation == true)
 		{
+			mAttackEffect = Object::Instantiate<PhoenixLanding>(enums::eLayerType::Boss_Mage_Skill_PhoenixLanding);
+			mAttackEffect->SetOwner(this);
+
 			if (GetBossDirection() == BossDirection::Left)
 			{
 				at->PlayAnimation(L"Attack_PhoenixLanding_L");
@@ -743,7 +746,8 @@ namespace van
 			PhoenixLandingAnimation = false;
 		}
 
-		if (at->IsActiveAnimationComplete())
+		if (at->IsActiveAnimationComplete()
+			&& mAttackEffect->GetEffectFinishFlag() == true)
 		{
 			mbRecordPosY = false;
 			mbFly = true;

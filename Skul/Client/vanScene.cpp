@@ -1,10 +1,13 @@
 #include "vanScene.h"
 #include "vanObject.h"
+#include "vanPlayer.h"
+#include "vanAnimator.h"
+#include "vanBackGround.h"
 
 namespace van
 {
 	Scene::Scene()
-		: target(nullptr)
+		: mTarget(nullptr)
 	{
 		mLayers.resize((int)enums::eLayerType::End);
 	}

@@ -87,6 +87,7 @@ namespace van
 		// [ UI ]
 		ResourceManager::Load<Texture>(L"UI_Player_Frame", L"..\\MyResources\\skul\\UI\\UI_Player_Frame.png");
 		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
+		ResourceManager::Load<Texture>(L"UI_Player_HitSign", L"..\\MyResources\\skul\\UI\\UI_Player_HitSign.png");
 
 		// [ BackGround ]
 		// BG_Test_Scene
@@ -303,6 +304,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
 
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
-		//ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding_Land_.png");
+		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding.png");
 	}
 }

@@ -4,10 +4,12 @@ namespace van
 {
 	UI::UI()
 	{
+		// nothing
 	}
 
 	UI::~UI()
 	{
+		// nothing
 	}
 
 	void UI::Init()
