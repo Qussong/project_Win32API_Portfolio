@@ -53,7 +53,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Mage_PhoenixRanding_Ready_Effect", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(92.0f, 97.0f), 16, math::Vector2::Zero, 0.06F);
+		at->CreateAnimation(L"Mage_PhoenixRanding_Ready_Effect", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Ready_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(92.0f, 97.0f), 16, math::Vector2::Zero, 0.03F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
