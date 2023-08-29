@@ -100,17 +100,25 @@ namespace van
 
 	void Stage1BossScene::MakeWorld()
 	{
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::FrontFloor);	// BackGround 객체 생성
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
-		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss_Tile"));			// BackGround 객체의 texture 설정
-		bgsr->SetScale(math::Vector2(0.5f, 0.5f));
-		bgsr->SetAffectCamera(true);
+		BackGround* bg_tile = Object::Instantiate<BackGround>(enums::eLayerType::FrontFloor);	// BackGround 객체 생성
+		SpriteRenderer* bgsr_tile = bg_tile->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		bgsr_tile->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss_Tile"));			// BackGround 객체의 texture 설정
+		bgsr_tile->SetScale(math::Vector2(0.5f, 0.5f));
+		bgsr_tile->SetAffectCamera(true);
 		// 배경이미지의 크기를 기반으로 카메라의 이동제한값 계산
-		bg->SetAutoCameraLimit();
+		bg_tile->SetAutoCameraLimit();
 		// 해당 Scene에 카메라의 이동제한값 저장
-		SetCameraWidthLimit(math::Vector2(bg->GetLimitLeft(), bg->GetLimitRight()));
-		SetCameraHeightLimit(math::Vector2(bg->GetLimitUp(), bg->GetLimitDown()));
-		
+		SetCameraWidthLimit(math::Vector2(bg_tile->GetLimitLeft(), bg_tile->GetLimitRight()));
+		SetCameraHeightLimit(math::Vector2(bg_tile->GetLimitUp(), bg_tile->GetLimitDown()));
+
+		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
+		Transform* tr = bg->GetComponent<Transform>();
+		tr->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 80.0f));
+		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss"));			// BackGround 객체의 texture 설정
+		bgsr->SetScale(math::Vector2(2.0f, 2.0f));
+		bgsr->SetAffectCamera(true);
+
 		// [ World_Wall ]
 		Texture* image = bgsr->GetTexture();
 		math::Vector2 scale = bgsr->GetScale();	// 화면에 그려지는 배경의 scale 값도 고려

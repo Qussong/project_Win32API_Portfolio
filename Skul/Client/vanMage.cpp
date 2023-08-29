@@ -433,7 +433,7 @@ namespace van
 				*/
 				srand((UINT)time(NULL));
 				mAttackCase = (BossSkill)(rand() % 3);
-				//mAttackCase = (BossSkill)(1);
+				//mAttackCase = (BossSkill)(3);
 
 			}
 
@@ -454,6 +454,9 @@ namespace van
 			case BossSkill::PhoenixLanding:
 				AttackPhoenixLandingReady();
 				break;
+			case BossSkill::FinishMove:
+				AttackFinishMoveReady();
+				break;
 			default:
 				__noop;
 			}
@@ -473,9 +476,9 @@ namespace van
 		case BossSkill::PhoenixLanding:
 			AttackPhoenixLanding();
 			break;
-		//case BossSkill::FinishMove:
-		//	AttackFinishMove();
-		//	break;
+		case BossSkill::FinishMove:
+			AttackFinishMove();
+			break;
 		default:
 			__noop;
 		}
@@ -646,6 +649,11 @@ namespace van
 		}
 	}
 
+	void Mage::AttackFinishMoveReady()
+	{
+
+	}
+
 	void Mage::AttackFireBall()
 	{
 		Animator* at = GetComponent<Animator>();
@@ -794,6 +802,11 @@ namespace van
 			// mbSky, mInitPosY 는 다시 하늘로 오르고 난 후 초기화한다.
 			SetBossState(BossState::AttackEnd);
 		}
+	}
+
+	void Mage::AttackFinishMove()
+	{
+
 	}
 
 	void Mage::ComparePosWithBossAndTarget()

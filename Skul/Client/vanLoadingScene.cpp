@@ -114,6 +114,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Enter", L"..\\MyResources\\skul\\BG\\7_Stage1_Boss_Enter\\Stage1_Boss_Enter.png");
 		// BG_Stage1_Boss_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.png");
+		ResourceManager::Load<Texture>(L"BG_Stage1_Boss", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss.png");
 		// BG_EndingScene
 
 		// [ Door]

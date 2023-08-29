@@ -59,7 +59,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
-		at->CreateAnimation(L"Attack_Effect_PhoenixLanding", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(149.0f, 135.0f), 41, math::Vector2(0.0f, 0.0f), 0.02F);
+		at->CreateAnimation(L"Attack_Effect_PhoenixLanding", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(149.0f, 135.0f), 41, math::Vector2(0.0f, 0.0f), 0.01F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
