@@ -8,6 +8,7 @@
 #include "vanFloor.h"
 #include "vanWall.h"
 #include "vanTransform.h"
+#include "vanPlayer.h"
 
 #define INIT_POS_LEFT_X		-380.0f
 #define INIT_POS_LEFT_Y		100.0f
@@ -16,6 +17,9 @@
 #define IDLE_UP_DOWN_SPEED	15.0f
 #define FIST_SLAM_SPEED		800.0f
 #define SWIP_SPEED			600.0f
+
+#define DAMAGE_FISTSLAM		20.0f
+#define DAMAGE_SWIPE		15.0f
 
 namespace van
 {
@@ -115,6 +119,38 @@ namespace van
 			|| wall != nullptr)
 		{
 			mbCollisionFloor = true;
+		}
+
+		if (mState == HandState::Attack)
+		{
+			Player* player = dynamic_cast<Player*>(obj);
+			if (player != nullptr
+				&& player->GetPlayerState() != Player::PlayerState::Dash
+				&& player->GetPlayerState() != Player::PlayerState::DoubleDash)
+			{
+				// hp 감소
+				Yggdrasill* boss = dynamic_cast<Yggdrasill*>(mOwner);
+				if (boss->GetAttackCase() == Yggdrasill::BossSkill::FistSlam)
+				{
+					player->LoseHp(10);
+				}
+				else if(boss->GetAttackCase() == Yggdrasill::BossSkill::Swipe)
+				{
+					player->LoseHp(10);
+				}
+
+				// 피격판정시 날아간다..
+				//if (direction == Monster::MonsterDirection::Left)
+				//{
+				//	player->SetDamageDirection(Player::PlayerDirection::Right);
+				//}
+				//if (direction == Monster::MonsterDirection::Right)
+				//{
+				//	player->SetDamageDirection(Player::PlayerDirection::Left);
+				//}
+
+				player->SetPlayerState(Player::PlayerState::Hit);
+			}
 		}
 	}
 

@@ -4,6 +4,8 @@
 #include "vanTexture.h"
 #include "vanCollider.h"
 #include "vanYggdrasill.h"
+#include "vanPlayerAttack.h"
+#include "vanSkull.h"
 
 #define INIT_POS_X	-10.0f
 #define INIT_POS_Y	-60.0f
@@ -97,12 +99,42 @@ namespace van
 	
 	void YggdrasillHead::OnCollisionEnter(Collider* _other)
 	{
-		// 피격판정
+		GameObject* obj = _other->GetOwner();
+
+		// Player 의 스킬
+		Skull* playerSkill = dynamic_cast<Skull*>(obj);
+		if (playerSkill != nullptr)
+		{
+			Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(mOwner);
+			if (ygg != nullptr)
+			{
+				ygg->LoseHp(playerSkill->GetSkillDamage());
+			}
+		}
 	}
 
 	void YggdrasillHead::OnCollisionStay(Collider* _other)
 	{
-		// nothing
+		GameObject* obj = _other->GetOwner();
+
+		// Player 의 공격
+		PlayerAttack* playerAtk = dynamic_cast<PlayerAttack*>(obj);
+		if (playerAtk != nullptr)
+		{
+			Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(mOwner);
+			if (ygg != nullptr)
+			{
+				// PlayerAttack 클래스의 충돌체 저장 정보를 가져온다
+				std::set<GameObject*>* list = playerAtk->GetAttackList();
+
+				if (list->find(this) == list->end()
+					&& playerAtk->GetActiveFlag() == true)
+				{
+					list->insert(this);
+					ygg->LoseHp(playerAtk->GetPlayerAttackDamage());
+				}
+			}
+		}
 	}
 
 	void YggdrasillHead::OnCollisionExit(Collider* _other)

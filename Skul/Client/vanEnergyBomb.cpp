@@ -33,7 +33,7 @@ namespace van
 		MakeAnimation();
 
 		Collider* col = GetComponent<Collider>();
-		col->SetSize(math::Vector2(200.0f, 200.0f));
+		col->SetSize(math::Vector2(150.0f, 150.0f));
 
 		mState = EnergyBombState::Gen;
 

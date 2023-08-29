@@ -22,8 +22,8 @@ namespace van
 	{
 		UI::Init();
 
-		mYggHpBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar", L"..\\MyResources\\skul\\UI\\YggdrasillHPBar.png");
-		mYggDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\YggdrasillHPBar_Damage.png");
+		mYggHpBar = ResourceManager::Load<Texture>(L"UI_Yggdrasill_HpBar", L"..\\MyResources\\skul\\UI\\YggdrasillHPBar.png");
+		mYggDamageBar = ResourceManager::Load<Texture>(L"UI_Yggdrasill_HpBar_Damage", L"..\\MyResources\\skul\\UI\\YggdrasillHPBar_Damage.png");
 	}
 
 	void YggdrasillHpBar::Update()

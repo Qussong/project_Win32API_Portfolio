@@ -203,8 +203,8 @@ namespace van
 
 		mBossWall2 = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		mBossWall2->SetFloorLimit(true);
-		mBossWall2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f - 20.0f, Window_Y / 2 - 150.0f));
-		mBossWall2->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 400.0f));
+		mBossWall2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 395.0f - 20.0f, Window_Y / 2 - 40.0f));
+		mBossWall2->GetComponent<Collider>()->SetSize(math::Vector2(10.0f, 620.0f));
 	}
 
 	void Stage1MiddleBossScene::MakeDoor()

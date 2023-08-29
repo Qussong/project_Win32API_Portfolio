@@ -149,7 +149,7 @@ namespace van
 			*/
 			((UINT)time(NULL));
 			mAttackCase = (BossSkill)(rand() % 3);
-			//mAttackCase = (BossSkill)(0);
+			//mAttackCase = (BossSkill)(1);
 			mbChooseSkill = true;
 		}
 

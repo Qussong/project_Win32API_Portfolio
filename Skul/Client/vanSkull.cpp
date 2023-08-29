@@ -8,6 +8,7 @@
 #include "vanWall.h"
 #include "vanTransform.h"
 #include "vanSceneManager.h"
+#include "vanYggdrasillHand.h"
 
 #define VELOCITY_X      150.0f
 #define SKILL_DAMAGE    30.0f
@@ -54,7 +55,7 @@ namespace van
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Monster, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Boss_Mage, true);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Yggdrasill_Head, true);
-        CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Yggdrasill_Hand, true);
+        //CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Yggdrasill_Hand, true);
     }
 
     void Skull::Update()
@@ -98,7 +99,6 @@ namespace van
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Monster, false);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Boss_Mage, false);
         CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Yggdrasill_Head, false);
-        CollisionManager::SetCollisionLayerCheck(eLayerType::Skill, eLayerType::Yggdrasill_Hand, false);
 
         // 머리 상태 변경
         mbCollision = true;
