@@ -102,6 +102,11 @@ namespace van
 		bool mbFly = true;			// 특정위치에 도달했는지 확인 도달했으면 false 더 올라가야하면 true
 		bool mbLand = false;		// 낙하수행 여부 확인, 낙하준비가 완료되면 true 그 전까진 false
 		
+		// FinishMove
+		bool mbFinishMoveReadyRe = false;	// 준비반복자세 재생여부
+		float mFinishMoveChargeTime = 0.0f;
+		bool mbFinishMoveCharge = false;	// FinishMove 준비완료여부
+
 		bool mbCmd = false;
 		int mCmdSkill = 3;
 		bool mbDead = false;

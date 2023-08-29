@@ -662,23 +662,69 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 
+		// Finish Move 준비 애니메이션 재생
 		if (mbPlayAnimation == true)
 		{
+			// FinishMove Charge Effect 애니메이션 재생 (넣어줄것)
+
+			
 			if (GetBossDirection() == BossDirection::Left)
 			{
-				at->PlayAnimation(L"Attack_Ready_RangeFire_L");
+				at->PlayAnimation(L"FinishMove_Ready_L");
 			}
 
 			if (GetBossDirection() == BossDirection::Right)
 			{
-				at->PlayAnimation(L"Attack_Ready_RangeFire_R");
+				at->PlayAnimation(L"FinishMove_Ready_R");
 			}
 
 			mbPlayAnimation = false;
 		}
-
-		if (at->IsActiveAnimationComplete() == true)
+		// Finish Move 준비_Re 애니메이션 재생
+		if (at->IsActiveAnimationComplete() == true
+			&& mbFinishMoveReadyRe == false)
 		{
+			mbFinishMoveReadyRe = true;
+			if (GetBossDirection() == BossDirection::Left)
+			{
+				at->PlayAnimation(L"FinishMove_Ready_Re_L", true);
+			}
+
+			if (GetBossDirection() == BossDirection::Right)
+			{
+				at->PlayAnimation(L"FinishMove_Ready_Re_R", true);
+			}
+		}
+
+		// Finish Move 준비시간 카운트
+		if (mbFinishMoveReadyRe == true
+			&& mbFinishMoveCharge == false)
+		{
+			mFinishMoveChargeTime += Time::GetDeltaTime();
+			// 3초 이상 준비했다면...
+			if (mFinishMoveChargeTime >= 3.0f)
+			{
+				mFinishMoveChargeTime = 0.0f;
+				mbFinishMoveCharge = true;
+			}
+		}
+
+		if (mbFinishMoveCharge == true)
+		{
+			// FinishMove Charge Effect 완료 애니메이션 재생 (넣어줄것)
+
+			// FinishMove Attack 자세 재생
+			if (GetBossDirection() == BossDirection::Left)
+			{
+				at->PlayAnimation(L"FinishMove_L", false);
+			}
+			if (GetBossDirection() == BossDirection::Right)
+			{
+				at->PlayAnimation(L"FinishMove_R", false);
+			}
+
+			mbFinishMoveCharge = false;
+			mbFinishMoveReadyRe = false;
 			SetBossState(BossState::Attack);
 		}
 	}
@@ -835,7 +881,26 @@ namespace van
 
 	void Mage::AttackFinishMove()
 	{
+		Animator* at = GetComponent<Animator>();
+		if (at->IsActiveAnimationComplete() == true
+			&& mbPlayAnimation == true)
+		{
+			// FinishMove Attack_Re 자세 재생
+			if (GetBossDirection() == BossDirection::Left)
+			{
+				at->PlayAnimation(L"FinishMove_Re_L", true);
+			}
+			if (GetBossDirection() == BossDirection::Right)
+			{
+				at->PlayAnimation(L"FinishMove_Re_R", true);
+			}
+			mbPlayAnimation = false;
+		}
 
+		// 구체 3개 생성
+		
+		// 각 구체의 할일이 다 완료되면 AttackEnd 상태로 넘어가기
+		SetBossState(BossState::AttackEnd);
 	}
 
 	void Mage::ComparePosWithBossAndTarget()
