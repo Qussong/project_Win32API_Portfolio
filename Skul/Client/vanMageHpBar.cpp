@@ -3,6 +3,9 @@
 #include "vanTexture.h"
 #include "vanMage.h"
 
+#define MAGE_HP_POS_X	1054.0f
+#define MAGE_HP_POS_Y	55.0f
+
 namespace van
 {
 	MageHpBar::MageHpBar()
@@ -20,7 +23,7 @@ namespace van
 		UI::Init();
 
 		mMageHpBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar", L"..\\MyResources\\skul\\UI\\MageHPBar.png");
-		mMageDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\MageHealthBar_Damage.png");
+		mMageDamageBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Damage", L"..\\MyResources\\skul\\UI\\MageHPBar_Damage.png");
 		mMageHealBar = ResourceManager::Load<Texture>(L"UI_Mage_HpBar_Heal", L"..\\MyResources\\skul\\UI\\MageHPBar_Heal.png");
 	}
 
@@ -64,8 +67,8 @@ namespace van
 			::TransparentBlt(
 				// target
 				_hdc,
-				1160.0f - 106.0f,
-				40.0f + 15.0f,
+				MAGE_HP_POS_X,
+				MAGE_HP_POS_Y,
 				mMageDamageBar->GetWidth() * (mReductionHp / mageMaxHP),
 				mMageDamageBar->GetHeight(),
 				// source
@@ -78,8 +81,8 @@ namespace van
 			::TransparentBlt(
 				// target
 				_hdc,
-				1160.0f - 106.0f,
-				40.0f + 15.0f,
+				MAGE_HP_POS_X,
+				MAGE_HP_POS_Y,
 				mMageHpBar->GetWidth() * hpPercent,
 				mMageHpBar->GetHeight(),
 				// source

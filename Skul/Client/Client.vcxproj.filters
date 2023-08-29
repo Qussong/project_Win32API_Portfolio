@@ -262,8 +262,14 @@
     <Filter Include="Contents\GameObject\UI\HitSign">
       <UniqueIdentifier>{1794c167-928e-4d76-a0c5-9c45a1bce12a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObject\UI\Mage_HpBar">
+    <Filter Include="Contents\GameObject\UI\MageHpBar">
       <UniqueIdentifier>{b18b8461-fda7-4604-b81a-ba33b11164ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\YggdrasillHpBar">
+      <UniqueIdentifier>{399b059b-f5fe-41b4-a1ae-98b9df801629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\UI\YggdrasillFrame">
+      <UniqueIdentifier>{0c44be9a-2d63-4bef-83b3-f234d28ab5a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -526,7 +532,13 @@
       <Filter>Contents\GameObject\UI\HitSign</Filter>
     </ClInclude>
     <ClInclude Include="vanMageHpBar.h">
-      <Filter>Contents\GameObject\UI\Mage_HpBar</Filter>
+      <Filter>Contents\GameObject\UI\MageHpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="vanYggdrasillFrame.h">
+      <Filter>Contents\GameObject\UI\YggdrasillFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="vanYggdrasillHpBar.h">
+      <Filter>Contents\GameObject\UI\YggdrasillHpBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -785,7 +797,13 @@
       <Filter>Contents\GameObject\UI\HitSign</Filter>
     </ClCompile>
     <ClCompile Include="vanMageHpBar.cpp">
-      <Filter>Contents\GameObject\UI\Mage_HpBar</Filter>
+      <Filter>Contents\GameObject\UI\MageHpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillFrame.cpp">
+      <Filter>Contents\GameObject\UI\YggdrasillFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="vanYggdrasillHpBar.cpp">
+      <Filter>Contents\GameObject\UI\YggdrasillHpBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

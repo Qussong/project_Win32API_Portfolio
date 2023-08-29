@@ -6,6 +6,7 @@
 #include "vanEnergyBomb.h"
 #include "vanEnergyBombCharge.h"
 
+#define MAX_HP			2000.0f
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
 #define FIST_SLAM_CNT	2
@@ -35,6 +36,8 @@ namespace van
 		mState = BossState::Idle;
 		SetBossDirection(BossDirection::Center);
 		mInitPos = math::Vector2(INIT_POS_X, INIT_POS_Y);
+		SetMaxHp(MAX_HP);
+		SetHp(MAX_HP);
 
 		mBody = Object::Instantiate<YggdrasillBody>(enums::eLayerType::Yggdrasill_Body);
 		mHead = Object::Instantiate<YggdrasillHead>(enums::eLayerType::Yggdrasill_Head);
@@ -146,7 +149,7 @@ namespace van
 			*/
 			((UINT)time(NULL));
 			mAttackCase = (BossSkill)(rand() % 3);
-			//mAttackCase = (BossSkill)(2);
+			//mAttackCase = (BossSkill)(0);
 			mbChooseSkill = true;
 		}
 

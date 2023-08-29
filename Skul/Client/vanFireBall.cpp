@@ -87,9 +87,13 @@ namespace van
 
 		if (player != nullptr)
 		{
-			// 플레이어에게 데미지를 준다 or 플레이어에게 맞았음을 알려준다.
-			player->LoseHp(DAMAGE);
-			player->SetPlayerState(Player::PlayerState::Hit);
+			if (player->GetPlayerState() != Player::PlayerState::Dash
+				&& player->GetPlayerState() != Player::PlayerState::DoubleDash)
+			{
+				// 플레이어에게 데미지를 준다 or 플레이어에게 맞았음을 알려준다.
+				player->LoseHp(DAMAGE);
+				player->SetPlayerState(Player::PlayerState::Hit);
+			}
 			// FireBall객체 소멸
 			mState = FireBallState::Dead;
 		}

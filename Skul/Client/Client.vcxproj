@@ -157,6 +157,7 @@
     <ClInclude Include="vanSound.h" />
     <ClInclude Include="vanSoundManager.h" />
     <ClInclude Include="vanUI.h" />
+    <ClInclude Include="vanYggdrasillFrame.h" />
     <ClInclude Include="vanYggdrasillChin.h" />
     <ClInclude Include="vanDeathKnight.h" />
     <ClInclude Include="vanDoor.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="vanYggdrasillBody.h" />
     <ClInclude Include="vanYggdrasillHand.h" />
     <ClInclude Include="vanYggdrasillHead.h" />
+    <ClInclude Include="vanYggdrasillHpBar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
@@ -242,6 +244,7 @@
     <ClCompile Include="vanSound.cpp" />
     <ClCompile Include="vanSoundManager.cpp" />
     <ClCompile Include="vanUI.cpp" />
+    <ClCompile Include="vanYggdrasillFrame.cpp" />
     <ClCompile Include="vanYggdrasillChin.cpp" />
     <ClCompile Include="vanDeathKnight.cpp" />
     <ClCompile Include="vanDoor.cpp" />
@@ -303,6 +306,7 @@
     <ClCompile Include="vanYggdrasillBody.cpp" />
     <ClCompile Include="vanYggdrasillHand.cpp" />
     <ClCompile Include="vanYggdrasillHead.cpp" />
+    <ClCompile Include="vanYggdrasillHpBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />

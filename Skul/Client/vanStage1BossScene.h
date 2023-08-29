@@ -1,5 +1,6 @@
 #pragma once
 #include "vanScene.h"
+#include "vanYggdrasill.h"
 
 namespace van
 {
@@ -20,8 +21,12 @@ namespace van
 		virtual void MakeWall() override;
 		virtual void MakeDoor() override;
 
-	private:
+		void BossTurn();
 
+	private:
+		Yggdrasill* mYgg;
+		bool mbPhase1 = true;
+		bool mbPhase2 = true;
 	};
 }
 

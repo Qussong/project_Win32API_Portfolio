@@ -86,8 +86,10 @@ namespace van
 
 		// [ UI ]
 		ResourceManager::Load<Texture>(L"UI_Player_Frame", L"..\\MyResources\\skul\\UI\\UI_Player_Frame.png");
-		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
 		ResourceManager::Load<Texture>(L"UI_Player_HitSign", L"..\\MyResources\\skul\\UI\\UI_Player_HitSign.png");
+		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
+		ResourceManager::Load<Texture>(L"UI_MiddleBoss_Frame", L"..\\MyResources\\skul\\UI\\UI_MiddleBoss_Frame.png");
+		ResourceManager::Load<Texture>(L"UI_Boss_Ch1_Frame", L"..\\MyResources\\skul\\UI\\UI_Boss_Ch1_Frame.png");
 
 		// [ BackGround ]
 		// BG_Test_Scene
@@ -95,8 +97,6 @@ namespace van
 		// BG_Title_Scene
 		ResourceManager::Load<Texture>(L"BG_Intro", L"..\\MyResources\\skul\\BG\\0_Title\\Intro.png");
 		ResourceManager::Load<Texture>(L"BG_Intro_Loop", L"..\\MyResources\\skul\\BG\\0_Title\\IntroLoop.png");
-		//ResourceManager::Load<Texture>(L"BG_Title_Art", L"..\\MyResources\\skul\\BG\\0_Title\\DarkMirror_Title_Art.bmp");
-		//ResourceManager::Load<Texture>(L"BG_Title_Logo", L"..\\MyResources\\skul\\BG\\0_Title\\DarkMirror_Title_Logo.png");
 		// BG_Loading_Scene
 		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\BG\\1_Loading\\Black.bmp");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\BG\\1_Loading\\Skul_Loading.bmp");
@@ -115,7 +115,6 @@ namespace van
 		// BG_Stage1_Boss_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.png");
 		// BG_EndingScene
-
 
 		// [ Door]
 		// Door1

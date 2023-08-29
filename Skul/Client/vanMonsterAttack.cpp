@@ -107,7 +107,9 @@ namespace van
 
 					// 피격대상이 플레이어 일때
 					Player* player = dynamic_cast<Player*>(obj);
-					if (player != nullptr)
+					if (player != nullptr
+						&& player->GetPlayerState() != Player::PlayerState::Dash
+						&& player->GetPlayerState() != Player::PlayerState::DoubleDash)
 					{
 						// hp 감소
 						player->LoseHp(monster->GetAttackDamage());

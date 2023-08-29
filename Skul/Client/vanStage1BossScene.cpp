@@ -12,6 +12,8 @@
 #include "vanWall.h"
 #include "vanFloor.h"
 #include "vanYggdrasill.h"
+#include "vanYggdrasillFrame.h"
+#include "vanYggdrasillHpBar.h"
 
 namespace van
 {
@@ -37,14 +39,15 @@ namespace van
 
 		SetSceneTarget(player);
 
-		Yggdrasill* boss = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
-		boss->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+		mYgg = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
+		mYgg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
 	}
 
 	void Stage1BossScene::Update()
 	{
 		Scene::Update();
-		CameraMove();
+		//CameraMove();
+		BossTurn();
 	}
 
 	void Stage1BossScene::Render(HDC _hdc)
@@ -70,7 +73,7 @@ namespace van
 		Camera::SetTarget(GetSceneTarget());
 
 		// 해당 Scene에서의 충돌판정 설정
-		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::FrontFloor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
@@ -139,5 +142,27 @@ namespace van
 	void Stage1BossScene::MakeDoor()
 	{
 		// nothing
+	}
+
+	void Stage1BossScene::BossTurn()
+	{
+		// Phase1 BossHp Frame
+		if (mbPhase1 == true
+			&& mbPhase2 == true)
+		{
+			YggdrasillFrame* yggFrame = Object::Instantiate<YggdrasillFrame>(enums::eLayerType::UI);
+			YggdrasillHpBar* mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
+			mMageHpBar->SetMage(mYgg);
+
+			mbPhase1 = false;
+		}
+
+		// Phase2 BossHp Frame
+		if (mbPhase1 == false
+			&& mbPhase2 == true)
+		{
+
+			mbPhase2 = false;
+		}
 	}
 }

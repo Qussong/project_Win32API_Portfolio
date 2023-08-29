@@ -2449,6 +2449,8 @@ namespace van
 		RigidBody* rb = GetComponent<RigidBody>();
 		math::Vector2 velocity = rb->GetVelocity();
 
+		rb->SetSkyDash(false);
+
 		// 피격 애니메이션
 		if (mbPlayAnimation == true)
 		{
@@ -2476,12 +2478,14 @@ namespace van
 			}
 			// 몬스터가 공격받은 방향을 초기화해준다.
 			mDamageDirection == PlayerDirection::None;
-		}
 
-		if (rb->GetGround() == true)
-		{
 			mState = PlayerState::Idle;
 		}
+
+		//if (rb->GetGround() == true)
+		//{
+		//	mState = PlayerState::Idle;
+		//}
 	}
 
 	void Player::Skill()

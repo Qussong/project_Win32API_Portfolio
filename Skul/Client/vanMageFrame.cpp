@@ -16,6 +16,7 @@ namespace van
 
 	MageFrame::~MageFrame()
 	{
+		// nothing
 	}
 
 	void MageFrame::Init()
@@ -25,7 +26,7 @@ namespace van
 
 	void MageFrame::Update()
 	{
-		UI::Init();
+		UI::Update();
 		MakeAnimation();
 
 		SpriteRenderer* sr = GetComponent<SpriteRenderer>();
@@ -44,17 +45,21 @@ namespace van
 
 	void MageFrame::MakeAnimation()
 	{
+		// nothing
 	}
 
 	void MageFrame::OnCollisionEnter(Collider* _other)
 	{
+		// nothing
 	}
 
 	void MageFrame::OnCollisionStay(Collider* _other)
 	{
+		// nothing
 	}
 
 	void MageFrame::OnCollisionExit(Collider* _other)
 	{
+		// nothing
 	}
 }

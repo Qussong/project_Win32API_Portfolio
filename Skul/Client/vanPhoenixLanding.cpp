@@ -68,7 +68,9 @@ namespace van
 		GameObject* obj = _other->GetOwner();
 		Player* player = dynamic_cast<Player*>(obj);
 
-		if (player != nullptr)
+		if (player != nullptr
+			&& player->GetPlayerState() != Player::PlayerState::Dash
+			&& player->GetPlayerState() != Player::PlayerState::DoubleDash)
 		{
 			// 플레이어에게 데미지를 준다 or 플레이어에게 맞았음을 알려준다.
 			player->LoseHp(DAMAGE);

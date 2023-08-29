@@ -37,6 +37,7 @@ namespace van
 	private:
 		float mMass;
 		float mFriction;
+
 		//float mStaticFriction;	// 정지마찰력
 		//float mKineticFriction;	// 운동마찰력
 		//float mCoefficentFriction;
