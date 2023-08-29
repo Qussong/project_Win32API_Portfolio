@@ -74,6 +74,10 @@ namespace van
 
 	void Stage1Monster2Scene::SceneIN()
 	{
+		// 배경 사운드
+		SetBgSound(ResourceManager::Load<Sound>(L"Chapter1_Stage", L"..\\MyResources\\skul\\Sound\\Chapter1_Stage.wav"));
+		GetBgSound()->Play(false);
+
 		// 해당 Scene에서의 카메라 최대 이동 가능 거리값 카메라에 세팅
 		Camera::SetLimitDistance(GetCameraWidthLimit(), GetCameraHeightLimit());
 

@@ -59,7 +59,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
-		at->CreateAnimation(L"Attack_Effect_PhoenixLanding", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(149.0f, 135.0f), 41, math::Vector2(0.0f, 0.0f), 0.03F);
+		at->CreateAnimation(L"Attack_Effect_PhoenixLanding", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(149.0f, 135.0f), 41, math::Vector2(0.0f, 0.0f), 0.02F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
@@ -121,7 +121,7 @@ namespace van
 			&& at->IsActiveAnimationComplete() == true)
 		{
 			CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage_Skill_PhoenixLanding, eLayerType::Player, false);
-
+			dynamic_cast<Mage*>(owner)->SetPhoenixLandingEffectFlag(true);
 			mbSetFlag = false;
 			mbEffectFinish = true;
 			mState = PhoenixLandingState::Dead;

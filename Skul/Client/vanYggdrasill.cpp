@@ -61,6 +61,12 @@ namespace van
 	{
 		Boss::Update();	// 해당 객체가 가지고 있는 Component 속성들의 값을 업데이트해준다.
 
+		if (Input::GetKey(eKeyCode::M)
+			&& Input::GetKeyDown(eKeyCode::D))
+		{
+			LoseHp(MAX_HP * 0.99);
+		}
+
 		switch (mState)
 		{
 		case BossState::Gen:

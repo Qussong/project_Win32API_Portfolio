@@ -301,8 +301,9 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_PhoenixLanding_R.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_L.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_PhoenixLanding_Land_R.png");
-
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Ready_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_Effect_PhoenixLanding.png");
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding.png");
+		ResourceManager::Load<Texture>(L"Mage_Die_L", L"..\\MyResources\\skul\\Monster\\Mage\\Die_L.bmp");
+		ResourceManager::Load<Texture>(L"Mage_Die_R", L"..\\MyResources\\skul\\Monster\\Mage\\Die_R.bmp");
 	}
 }

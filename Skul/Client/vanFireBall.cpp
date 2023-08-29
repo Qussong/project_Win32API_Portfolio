@@ -147,24 +147,27 @@ namespace van
 	void FireBall::SetFireBallMove()
 	{
 		Boss* owner = dynamic_cast<Boss*>(GetOwner());
-		Transform* tr = GetComponent<Transform>();
-		Transform* tr_owner = owner->GetComponent<Transform>();
-		Transform* tr_target = owner->GetTarget()->GetComponent<Transform>();
-
-		math::Vector2 pos = tr->GetPosition();
-
-		if (mbSetFlag == true)
+		if (owner != nullptr)
 		{
-			mDepartPos = tr_owner->GetPosition();				// 발사지점
-			mTargetPos = tr_target->GetPosition();				// 도착지점
-			mDirect = (mTargetPos - mDepartPos).Normalize();	// 방향벡터
+			Transform* tr = GetComponent<Transform>();
+			Transform* tr_owner = owner->GetComponent<Transform>();
+			Transform* tr_target = owner->GetTarget()->GetComponent<Transform>();
 
-			mbSetFlag = false;
+			math::Vector2 pos = tr->GetPosition();
+
+			if (mbSetFlag == true)
+			{
+				mDepartPos = tr_owner->GetPosition();				// 발사지점
+				mTargetPos = tr_target->GetPosition();				// 도착지점
+				mDirect = (mTargetPos - mDepartPos).Normalize();	// 방향벡터
+
+				mbSetFlag = false;
+			}
+
+			pos.x += mDirect.x * OBJECT_SPEED * Time::GetDeltaTime();
+			pos.y += mDirect.y * OBJECT_SPEED * Time::GetDeltaTime();
+
+			tr->SetPosition(pos);
 		}
-
-		pos.x += mDirect.x * OBJECT_SPEED * Time::GetDeltaTime();
-		pos.y += mDirect.y * OBJECT_SPEED * Time::GetDeltaTime();
-
-		tr->SetPosition(pos);
 	}
 }

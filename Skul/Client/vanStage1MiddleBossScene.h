@@ -37,6 +37,7 @@ namespace van
 		Wall* mBossWall2 = nullptr;
 
 		bool mbBossFlag = false;
-		Mage* mage = nullptr;
+		bool mbBossDead = false;
+		Mage* mMage = nullptr;
 	};
 }

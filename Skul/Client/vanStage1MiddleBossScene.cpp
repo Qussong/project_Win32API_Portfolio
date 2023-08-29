@@ -57,6 +57,11 @@ namespace van
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
 
+		// Mage
+		mMage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+		mMage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+		mMage->SetTartget(player);
+
 		SetSceneTarget(player);
 	}
 
@@ -64,6 +69,31 @@ namespace van
 	{
 		Scene::Update();
 		CameraMove();
+
+		if (mbBossFlag == true)
+		{
+			if (mMage->GetBossState() == Boss::BossState::Dead)
+			{
+				GetBgSound()->Stop(true);
+				SetBgSound(ResourceManager::Load<Sound>(L"Chapter1_Stage", L"..\\MyResources\\skul\\Sound\\Chapter1_Stage.wav"));
+				GetBgSound()->Play(false);
+				mbBossDead = true;
+				mbBossFlag = false;
+			}
+		}
+
+		// BossTurn 이 되면 벽을 막아준다.
+		if (mbBossFlag == true)
+		{
+			mBossWall1->SetFloorLimit(false);
+			mBossWall2->SetFloorLimit(false);
+		}
+		// BossTurn 이 끝나면 막았던 벽을 풀어준다.
+		else
+		{
+			mBossWall1->SetFloorLimit(true);
+			mBossWall2->SetFloorLimit(true);
+		}
 
 		Wave1();
 		Wave2();
@@ -125,7 +155,8 @@ namespace van
 		{
 			// Boss
 			if (playerPos.x > CAMERA_CONTROL_POS_X_1 + 50.0f
-				&& mbBossFlag == false)
+				&& mbBossFlag == false
+				&& mbBossDead == false)
 			{
 				BossTurn();
 				mbBossFlag = true;
@@ -248,11 +279,6 @@ namespace van
 		{
 			mbWave1 = true;
 
-			// Mage
-			mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
-			mage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
-			mage->SetTartget(GetSceneTarget());
-
 			for (int i = 0; i < 2; ++i)
 			{
 				//CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
@@ -289,7 +315,8 @@ namespace van
 	void Stage1MiddleBossScene::WaveExit()
 	{
 		if (GetMonsterCnt() == 0
-			&& mbWave2 == true)
+			&& mbWave2 == true
+			&& mbBossDead == true)
 		{
 			OpenDoor();
 		}
@@ -299,14 +326,11 @@ namespace van
 	{
 		MageFrame* mageFrame = Object::Instantiate<MageFrame>(enums::eLayerType::UI);
 		MageHpBar* mMageHpBar = Object::Instantiate<MageHpBar>(enums::eLayerType::UI);
-		mMageHpBar->SetMage(mage);
+		mMageHpBar->SetMage(mMage);
 
 		// 배경 사운드
 		GetBgSound()->Stop(true);	// 기존 배경 사운드 종료
 		SetBgSound(ResourceManager::Load<Sound>(L"MiddleBoss_Stage", L"..\\MyResources\\skul\\Sound\\MiddleBoss_Stage.wav"));
 		GetBgSound()->Play(false);	// 보스Scene 전용 브금 실행
-
-		mBossWall1->SetFloorLimit(false);
-		mBossWall2->SetFloorLimit(false);
 	}
 }

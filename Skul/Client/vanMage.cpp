@@ -52,13 +52,14 @@ namespace van
 
 		Animator* at = GetComponent<Animator>();
 		at->SetScale(math::Vector2(2.0f, 2.0f));
-
 	}
 
 	void Mage::Update()
 	{
 		Boss::Update();
 
+		// 강제로 데미지 주기
+		CmdDamage();
 		// Boss의 Attack Direction이 달라지는지 확인
 		ComparePosWithBossAndTarget();
 		// LandingTimer 카운트
@@ -67,38 +68,48 @@ namespace van
 		mBossPastState = GetBossState();
 		mBossPastDirection = GetBossDirection();
 
-		switch (GetBossState())
+		if (GetBossState() == BossState::Dead)
 		{
-		case BossState::Gen:
-			Gen();
-			break;
-		case BossState::Idle:
-			Idle();
-			break;
-		case BossState::Walk:
-			Walk();
-			break;
-		case BossState::AttackReady:
-			AttackReady();
-			break;
-		case BossState::Attack:
-			Attack();
-			break;
-		case BossState::AttackEnd:
-			AttackEnd();
-			break;
-		case BossState::Hit:
-			Hit();
-			break;
-		case BossState::Dead:
 			Dead();
-			break;
-		case BossState::TakeOff:
-			TakeOff();
-			break;
-		default:
-			__noop;
 		}
+		else
+		{
+			switch (GetBossState())
+			{
+			case BossState::Gen:
+				Gen();
+				break;
+			case BossState::Idle:
+				Idle();
+				break;
+			case BossState::Walk:
+				Walk();
+				break;
+			case BossState::AttackReady:
+				AttackReady();
+				break;
+			case BossState::Attack:
+				Attack();
+				break;
+			case BossState::AttackEnd:
+				AttackEnd();
+				break;
+			case BossState::Hit:
+				Hit();
+				break;
+			case BossState::Dead:
+				Dead();
+				break;
+			case BossState::TakeOff:
+				TakeOff();
+				break;
+			default:
+				__noop;
+			}
+		}
+
+		// Dead 상태로 바껴야하는지 확인
+		ChekDead();
 
 		// Boss의 State(상태)가 달라지면 새로운 애니메이션 재생
 		if (mBossPastState != GetBossState()
@@ -111,7 +122,6 @@ namespace van
 	void Mage::Render(HDC _hdc)
 	{
 		Boss::Render(_hdc);
-
 	}
 
 	void Mage::MakeAnimation()
@@ -142,6 +152,8 @@ namespace van
 		at->CreateAnimation(L"Attack_PhoenixLanding_L", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_L"), math::Vector2(0.0f, 0.0f), math::Vector2(47.0f, 54.0f), 9, math::Vector2(0.0f, 7.0f));
 		at->CreateAnimation(L"Attack_PhoenixLanding_R", ResourceManager::Find<Texture>(L"Mage_PhoenixRanding_Land_R"), math::Vector2(0.0f, 0.0f), math::Vector2(47.0f, 54.0f), 9, math::Vector2(0.0f, 7.0f));
 		
+		at->CreateAnimation(L"Die_L", ResourceManager::Find<Texture>(L"Mage_Die_L"), math::Vector2(0.0f, 0.0f), math::Vector2(70.0f, 41.0f), 5, math::Vector2(0.0f, 20.0f));
+		at->CreateAnimation(L"Die_R", ResourceManager::Find<Texture>(L"Mage_Die_R"), math::Vector2(0.0f, 0.0f), math::Vector2(70.0f, 41.0f), 5, math::Vector2(0.0f, 20.0f));
 	}
 
 	void Mage::OnCollisionEnter(Collider* _other)
@@ -229,7 +241,7 @@ namespace van
 		{
 			// 공중으로 올려준다.
 			tr->SetPosition(tr->GetPosition() - math::Vector2(0.0f, FLY_POS));
-
+			mbSky = true;
 			at->PlayAnimation(L"Intor_2", false);
 			mbPlayAnimation = false;
 			mbIntroEndFlag = true;
@@ -485,7 +497,26 @@ namespace van
 
 	void Mage::Dead()
 	{
+		Animator* at = GetComponent<Animator>();
+		RigidBody* rb = GetComponent<RigidBody>();
 
+		if (mbPlayAnimation == true)
+		{
+			if (mbSky == true)
+			{
+				rb->SetGround(false);
+			}
+
+			if (GetBossDirection() == Boss::BossDirection::Left)
+			{
+				at->PlayAnimation(L"Die_L", false);
+			}
+			if(GetBossDirection() == Boss::BossDirection::Right)
+			{
+				at->PlayAnimation(L"Die_L", false);
+			}
+			mbPlayAnimation = false;
+		}
 	}
 
 	void Mage::AttackFireBallReady()
@@ -534,24 +565,7 @@ namespace van
 
 		if (at->IsActiveAnimationComplete() == true)
 		{
-			if (mbPlayAnimation == true)
-			{
-				if (mBossAttackDirection == BossDirection::Left)
-				{
-					at->PlayAnimation(L"Attack_FireBall_L", true);
-				}
-
-				if (mBossAttackDirection == BossDirection::Right)
-				{
-					at->PlayAnimation(L"Attack_FireBall_R", true);
-				}
-
-				mbPlayAnimation = false;
-			}
-			if (at->IsActiveAnimationComplete() == true)
-			{
-				SetBossState(BossState::Attack);
-			}
+			SetBossState(BossState::Attack);
 		}
 	}
 
@@ -769,13 +783,14 @@ namespace van
 		}
 
 		if (at->IsActiveAnimationComplete()
-			&& mAttackEffect->GetEffectFinishFlag() == true)
+			&& mbPhoenixLandingEffect == true)
 		{
 			mbRecordPosY = false;
 			mbFly = true;
 			mbLand = false;
 			mbLandingTimer = true;	// Landing 시간 카운트시작
 			PhoenixLandingAnimation = true;
+			mbPhoenixLandingEffect = false;
 			// mbSky, mInitPosY 는 다시 하늘로 오르고 난 후 초기화한다.
 			SetBossState(BossState::AttackEnd);
 		}
@@ -854,4 +869,23 @@ namespace van
 		}
 	}
 
+	void Mage::ChekDead()
+	{
+		if (GetHp() <= 0.0f
+			&& mbDead == false)
+		{
+			mbDead = true;
+			SetBossState(BossState::Dead);
+		}
+	}
+
+	void Mage::CmdDamage()
+	{
+		if (Input::GetKey(eKeyCode::M)
+			&& Input::GetKeyDown(eKeyCode::D))
+		{
+			//LoseHp(MAX_HP * 0.99f);
+			LoseHp(MAX_HP * 1.0f);
+		}
+	}
 }

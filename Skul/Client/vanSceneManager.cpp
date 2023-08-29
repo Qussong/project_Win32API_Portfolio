@@ -41,10 +41,10 @@ namespace van
 
 	void SceneManager::Update()
 	{
-		// 화면 전환
-		if (Input::GetKey(eKeyCode::M))
+		// 화면 전환_Boss
+		if (Input::GetKey(eKeyCode::B))
 		{
-			LoadScene(L"Stage1BossScene");	// 편집용
+			LoadScene(L"Stage1BossScene");
 		}
 		// 화면전환_Test
 		if (Input::GetKeyDown(eKeyCode::T))

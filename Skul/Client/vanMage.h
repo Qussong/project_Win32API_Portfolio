@@ -54,7 +54,12 @@ namespace van
 		void ComparePosWithBossAndTarget();
 		void LandingTimerCnt();
 		void TakeOff();
+		void ChekDead();
 		BossDirection GetBossAttackDirection() { return mBossAttackDirection; }
+		void CmdDamage();
+
+		__forceinline void SetPhoenixLandingEffectFlag(bool _flag) { mbPhoenixLandingEffect = _flag; }
+
 
 	private:
 		bool mbPlayAnimation = true;
@@ -80,6 +85,7 @@ namespace van
 		std::vector<RangeFire*> mListRangeFire;
 
 		// PhoenixLanding
+		bool mbPhoenixLandingEffect = false;	// Phoenix Landing Attack 애니메이션 재생완료 여부
 		bool PhoenixLandingAnimation = true;	// Phoenix Landing Attack 애니메이션 재생여부
 		bool mbTakeOff = false;			// 위치 초기화 여부
 		PhoenixRandingReady* mReadyEffect = nullptr;
@@ -88,7 +94,7 @@ namespace van
 		float mLandingTimer = 0.0f;						// Delay 10초 예상
 		bool mbLandingTimer = false;					// Landing 후 다시 올라가기까지의 Delay 시간 카운트 여부
 		math::Vector2 mInitPos = math::Vector2::Zero;	// 날아오르기전 초기위치값 저장
-		bool mbSky = true;								// 초기값 true = 하늘에 있다 -> 스킬 사용후 다시 날아오르기전까지 false
+		bool mbSky = false;								// 초기값 true = 하늘에 있다 -> 스킬 사용후 다시 날아오르기전까지 false
 		// ↓공격수행후 초기화 ↓
 		bool mbRecordPosY = false;	// 초기 pos.y 값 기록
 		bool mbFly = true;			// 특정위치에 도달했는지 확인 도달했으면 false 더 올라가야하면 true
@@ -96,6 +102,7 @@ namespace van
 		
 		bool mbCmd = false;
 		int mCmdSkill = 3;
+		bool mbDead = false;
 	};
 }
 
