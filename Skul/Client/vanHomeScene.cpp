@@ -70,6 +70,7 @@ namespace van
 
 		// Seol
 		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::Cat_Seol);
+		//catSeol->GetComponent<Animator>()->SetScale(math::Vector2(3.0f, 3.0f));
 		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - OFFSET1 * 1 + OFFSET2 + 500.0f, Window_Y / 2 + FLOOR_POS_Y + FLOOR_UP_CONDITION));
 
 		// 카메라 시작 offset 값

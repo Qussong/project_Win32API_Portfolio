@@ -154,6 +154,15 @@ namespace van
 		
 		at->CreateAnimation(L"Die_L", ResourceManager::Find<Texture>(L"Mage_Die_L"), math::Vector2(0.0f, 0.0f), math::Vector2(70.0f, 41.0f), 5, math::Vector2(0.0f, 20.0f));
 		at->CreateAnimation(L"Die_R", ResourceManager::Find<Texture>(L"Mage_Die_R"), math::Vector2(0.0f, 0.0f), math::Vector2(70.0f, 41.0f), 5, math::Vector2(0.0f, 20.0f));
+
+		at->CreateAnimation(L"FinishMove_Ready_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 9, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Ready_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 9, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Ready_Re_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_Re_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Ready_Re_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_Re_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_L", ResourceManager::Find<Texture>(L"Attack_FinishMove_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_R", ResourceManager::Find<Texture>(L"Attack_FinishMove_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Re_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Re_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
 	}
 
 	void Mage::OnCollisionEnter(Collider* _other)
@@ -432,8 +441,8 @@ namespace van
 					None			// 4
 				*/
 				srand((UINT)time(NULL));
-				mAttackCase = (BossSkill)(rand() % 3);
-				//mAttackCase = (BossSkill)(3);
+				//mAttackCase = (BossSkill)(rand() % 3);
+				mAttackCase = (BossSkill)(3);
 
 			}
 
@@ -651,7 +660,27 @@ namespace van
 
 	void Mage::AttackFinishMoveReady()
 	{
+		Animator* at = GetComponent<Animator>();
 
+		if (mbPlayAnimation == true)
+		{
+			if (GetBossDirection() == BossDirection::Left)
+			{
+				at->PlayAnimation(L"Attack_Ready_RangeFire_L");
+			}
+
+			if (GetBossDirection() == BossDirection::Right)
+			{
+				at->PlayAnimation(L"Attack_Ready_RangeFire_R");
+			}
+
+			mbPlayAnimation = false;
+		}
+
+		if (at->IsActiveAnimationComplete() == true)
+		{
+			SetBossState(BossState::Attack);
+		}
 	}
 
 	void Mage::AttackFireBall()

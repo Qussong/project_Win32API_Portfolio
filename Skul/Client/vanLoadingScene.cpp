@@ -98,7 +98,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"BG_Intro", L"..\\MyResources\\skul\\BG\\0_Title\\Intro.png");
 		ResourceManager::Load<Texture>(L"BG_Intro_Loop", L"..\\MyResources\\skul\\BG\\0_Title\\IntroLoop.png");
 		// BG_Loading_Scene
-		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\BG\\1_Loading\\Black.bmp");
+		ResourceManager::Load<Texture>(L"BG_Black_BackGround", L"..\\MyResources\\skul\\BG\\1_Loading\\Black.png");
 		ResourceManager::Load<Texture>(L"Skul_Loading", L"..\\MyResources\\skul\\BG\\1_Loading\\Skul_Loading.bmp");
 		// BG_Home_Scene
 		ResourceManager::Load<Texture>(L"BG_Home_Scene", L"..\\MyResources\\skul\\BG\\2_Home\\Home.png");
@@ -276,7 +276,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_R.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Object", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Object.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Charge", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Charge.png");
-
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Intor_2", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_2.bmp");
@@ -306,5 +305,20 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding.png");
 		ResourceManager::Load<Texture>(L"Mage_Die_L", L"..\\MyResources\\skul\\Monster\\Mage\\Die_L.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Die_R", L"..\\MyResources\\skul\\Monster\\Mage\\Die_R.bmp");
+
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_L.png");
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_R.png");
+
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_Re_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_Re_L.png");
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_Re_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_Re_R.png");
+
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_L.png");
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_R.png");
+
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Re_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_Re_L.png");
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Re_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_Re_R.png");
+
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Charge_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\FinishMove_Charge_Effect.png");
+		ResourceManager::Load<Texture>(L"Mage_FinishMove_Charge_Finish_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\FinishMove_Charge_Finish_Effect.png");
 	}
 }

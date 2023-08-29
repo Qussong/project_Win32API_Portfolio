@@ -271,6 +271,9 @@
     <Filter Include="Contents\GameObject\UI\YggdrasillFrame">
       <UniqueIdentifier>{0c44be9a-2d63-4bef-83b3-f234d28ab5a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_FinishMove_Ready">
+      <UniqueIdentifier>{89da3876-96a5-4731-8947-4f6ceb5c36c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -540,6 +543,9 @@
     <ClInclude Include="vanYggdrasillHpBar.h">
       <Filter>Contents\GameObject\UI\YggdrasillHpBar</Filter>
     </ClInclude>
+    <ClInclude Include="vanFinishMoveReady.h">
+      <Filter>Contents\GameObject\Skill\Mage_FinishMove_Ready</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -804,6 +810,9 @@
     </ClCompile>
     <ClCompile Include="vanYggdrasillHpBar.cpp">
       <Filter>Contents\GameObject\UI\YggdrasillHpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="vanFinishMoveReady.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_FinishMove_Ready</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
