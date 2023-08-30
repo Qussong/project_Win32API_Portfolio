@@ -13,6 +13,7 @@
 #include "vanPhoenixRandingReady.h"
 #include "vanPlayerAttack.h"
 #include "vanSkull.h"
+#include "vanFinishMoveReady.h"
 
 #define MAX_HP					500.0f
 #define FLY_POS					150.0f
@@ -159,10 +160,10 @@ namespace van
 		at->CreateAnimation(L"FinishMove_Ready_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 9, math::Vector2(0.0f, 15.0f) + offset);
 		at->CreateAnimation(L"FinishMove_Ready_Re_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_Re_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
 		at->CreateAnimation(L"FinishMove_Ready_Re_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Ready_Re_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
-		at->CreateAnimation(L"FinishMove_L", ResourceManager::Find<Texture>(L"Attack_FinishMove_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
-		at->CreateAnimation(L"FinishMove_R", ResourceManager::Find<Texture>(L"Attack_FinishMove_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
-		at->CreateAnimation(L"FinishMove_Re_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
-		at->CreateAnimation(L"FinishMove_Re_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_L"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_R"), math::Vector2(0.0f, 0.0f), math::Vector2(61.0f, 109.0f), 3, math::Vector2(0.0f, 15.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Re_L", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_L"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 10.0f) + offset);
+		at->CreateAnimation(L"FinishMove_Re_R", ResourceManager::Find<Texture>(L"Mage_FinishMove_Re_R"), math::Vector2(0.0f, 0.0f), math::Vector2(62.0f, 109.0f), 3, math::Vector2(0.0f, 10.0f) + offset);
 	}
 
 	void Mage::OnCollisionEnter(Collider* _other)
@@ -347,7 +348,8 @@ namespace van
 				else
 				{
 					srand((UINT)time(NULL));
-					nextCase = (rand() % 2);
+					//nextCase = (rand() % 2);
+					nextCase = 1;
 				}
 			}
 
@@ -663,28 +665,29 @@ namespace van
 		Animator* at = GetComponent<Animator>();
 
 		// Finish Move 준비 애니메이션 재생
-		if (mbPlayAnimation == true)
+		if (mbPlayAnimation == true
+			&& mbFinishMoveReadyRe == false)
 		{
-			// FinishMove Charge Effect 애니메이션 재생 (넣어줄것)
+			// FinishMove Charge Effect 객체 생성
+			readyEffect = Object::Instantiate<FinishMoveReady>(enums::eLayerType::Boss_Mage_Effect);
+			readyEffect->SetOwner(this);
 
-			
 			if (GetBossDirection() == BossDirection::Left)
 			{
-				at->PlayAnimation(L"FinishMove_Ready_L");
+				at->PlayAnimation(L"FinishMove_Ready_L", false);
 			}
-
 			if (GetBossDirection() == BossDirection::Right)
 			{
-				at->PlayAnimation(L"FinishMove_Ready_R");
+				at->PlayAnimation(L"FinishMove_Ready_R", false);
 			}
 
 			mbPlayAnimation = false;
 		}
+
 		// Finish Move 준비_Re 애니메이션 재생
 		if (at->IsActiveAnimationComplete() == true
 			&& mbFinishMoveReadyRe == false)
 		{
-			mbFinishMoveReadyRe = true;
 			if (GetBossDirection() == BossDirection::Left)
 			{
 				at->PlayAnimation(L"FinishMove_Ready_Re_L", true);
@@ -694,9 +697,11 @@ namespace van
 			{
 				at->PlayAnimation(L"FinishMove_Ready_Re_R", true);
 			}
+
+			mbFinishMoveReadyRe = true;
 		}
 
-		// Finish Move 준비시간 카운트
+		// Finish Move 준비시간 카운트 (3초)
 		if (mbFinishMoveReadyRe == true
 			&& mbFinishMoveCharge == false)
 		{
@@ -705,27 +710,37 @@ namespace van
 			if (mFinishMoveChargeTime >= 3.0f)
 			{
 				mFinishMoveChargeTime = 0.0f;
-				mbFinishMoveCharge = true;
+				mbFinishMoveCharge = true;	// Effect 에도 전달해준다.
+				mbPlayAnimation = true;		// FinishMove Attack_1 애니메이션을 재생하기 위해서
 			}
 		}
 
-		if (mbFinishMoveCharge == true)
+		// 이펙트가 종료되면
+		if (mbFinishMoveCharge == true
+			&& mbFinishMoveEffectFinish == true)
 		{
-			// FinishMove Charge Effect 완료 애니메이션 재생 (넣어줄것)
-
-			// FinishMove Attack 자세 재생
-			if (GetBossDirection() == BossDirection::Left)
+			// FinishMove Ready 자세에서 FinishMove Attack_1 자세로 변경하여 재생
+			if (mbPlayAnimation == true)
 			{
-				at->PlayAnimation(L"FinishMove_L", false);
-			}
-			if (GetBossDirection() == BossDirection::Right)
-			{
-				at->PlayAnimation(L"FinishMove_R", false);
+				if (GetBossDirection() == BossDirection::Left)
+				{
+					at->PlayAnimation(L"FinishMove_L", false);
+				}
+				if (GetBossDirection() == BossDirection::Right)
+				{
+					at->PlayAnimation(L"FinishMove_R", false);
+				}
+
+				mbPlayAnimation = false;
 			}
 
-			mbFinishMoveCharge = false;
-			mbFinishMoveReadyRe = false;
-			SetBossState(BossState::Attack);
+			if(at->IsActiveAnimationComplete() == true)
+			{
+				mbFinishMoveCharge = false;
+				mbFinishMoveReadyRe = false;
+				mbFinishMoveEffectFinish = false;
+				SetBossState(BossState::Attack);
+			}
 		}
 	}
 
@@ -882,8 +897,8 @@ namespace van
 	void Mage::AttackFinishMove()
 	{
 		Animator* at = GetComponent<Animator>();
-		if (at->IsActiveAnimationComplete() == true
-			&& mbPlayAnimation == true)
+
+		if (mbPlayAnimation == true)
 		{
 			// FinishMove Attack_Re 자세 재생
 			if (GetBossDirection() == BossDirection::Left)
@@ -897,17 +912,13 @@ namespace van
 			mbPlayAnimation = false;
 		}
 
-		// 구체 3개 생성
-		mFinishMoveChargeTime += Time::GetDeltaTime();
-		// 3초 이상 준비했다면...
-		if (mFinishMoveChargeTime >= 3.0f)
-		{
-			mFinishMoveChargeTime = 0.0f;
-			mbFinishMoveCharge = true;
-		}
+		// 구체생성 * 3
+		// 각 구체에서 FireBall 발사한다. (2개)
+
+
 
 		// 각 구체의 할일이 다 완료되면 AttackEnd 상태로 넘어가기
-		SetBossState(BossState::AttackEnd);
+		//SetBossState(BossState::AttackEnd);
 	}
 
 	void Mage::ComparePosWithBossAndTarget()

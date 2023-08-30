@@ -30,16 +30,14 @@ namespace van
 		__forceinline void SetState(FinishMoveReadyState _state) { mState = _state; }
 		__forceinline FinishMoveReadyState GetState() { return mState; }
 
-		__forceinline bool GetChargeFinishFlag() { return mbChargeFinish; }
-
 		void Gen();
 		void Active();
 		void Dead();
 
 	private:
 		FinishMoveReadyState mState = FinishMoveReadyState::None;
-		bool mbSetFlag = false;		// 애니메이션 재생을 위한 설정 완료 여부
-		bool mbChargeFinish = false;
+		//bool mbSetFlag = false;		// 애니메이션 재생을 위한 설정 완료 여부
+		bool mbPlayAnimation = true;
 	};
 }
 
