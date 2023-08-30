@@ -3,6 +3,8 @@
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanCollider.h"
+#include "vanWorldOnFireGen.h"
+#include "vanObject.h"
 
 namespace van
 {
@@ -83,6 +85,10 @@ namespace van
 		if (owner != nullptr)
 		{
 			// GenEffect 애니메이션 출력
+			WorldOnFireGen* effect = Object::Instantiate<WorldOnFireGen>(enums::eLayerType::Boss_Mage_Effect);
+			effect->SetOwner(this);
+
+			// Orb 애니메이션 출력
 			at->PlayAnimation(L"WorldOnFire_Orb_Object", true);
 			mState = OrbState::Active;
 		}

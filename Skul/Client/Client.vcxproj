@@ -223,6 +223,7 @@
     <ClInclude Include="vanYggdrasillHand.h" />
     <ClInclude Include="vanYggdrasillHead.h" />
     <ClInclude Include="vanYggdrasillHpBar.h" />
+    <ClInclude Include="vanWorldOnFireGen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
@@ -311,6 +312,7 @@
     <ClCompile Include="vanYggdrasillHand.cpp" />
     <ClCompile Include="vanYggdrasillHead.cpp" />
     <ClCompile Include="vanYggdrasillHpBar.cpp" />
+    <ClCompile Include="vanWorldOnFireGen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
