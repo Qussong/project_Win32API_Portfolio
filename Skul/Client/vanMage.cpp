@@ -898,7 +898,14 @@ namespace van
 		}
 
 		// 구체 3개 생성
-		
+		mFinishMoveChargeTime += Time::GetDeltaTime();
+		// 3초 이상 준비했다면...
+		if (mFinishMoveChargeTime >= 3.0f)
+		{
+			mFinishMoveChargeTime = 0.0f;
+			mbFinishMoveCharge = true;
+		}
+
 		// 각 구체의 할일이 다 완료되면 AttackEnd 상태로 넘어가기
 		SetBossState(BossState::AttackEnd);
 	}
