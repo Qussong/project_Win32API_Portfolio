@@ -279,26 +279,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		
-		if (Input::GetKey(eKeyCode::Q)
-			&& Input::GetKeyDown(eKeyCode::W))
-		{
-			mbCmd = true;
-			mCmdSkill = 0;
-		}
-
-		if (Input::GetKey(eKeyCode::Q)
-			&& Input::GetKeyDown(eKeyCode::E))
-		{
-			mbCmd = true;
-			mCmdSkill = 1;
-		}
-
-		if (Input::GetKey(eKeyCode::Q)
-			&& Input::GetKeyDown(eKeyCode::R))
-		{
-			mbCmd = true;
-			mCmdSkill = 2;
-		}
+		CmdSkill();	// 강제 커맨드 스킬
 
 		if (mbAnimationReDirectionFlag == true)
 		{
@@ -351,8 +332,8 @@ namespace van
 				else
 				{
 					srand((UINT)time(NULL));
-					//nextCase = (rand() % 2);
-					nextCase = 1;
+					nextCase = (rand() % 2);
+					//nextCase = 1;	// test
 				}
 			}
 
@@ -446,33 +427,43 @@ namespace van
 					None			// 4
 				*/
 				srand((UINT)time(NULL));
-				//mAttackCase = (BossSkill)(rand() % 3);
-				mAttackCase = (BossSkill)(3);
-
+				//mAttackCase = (BossSkill)(rand() % 4);
+				mAttackCase = (BossSkill)(3);	// test
 			}
-
 			mbChooseSkill = true;
 		}
 
 		if (mbChooseSkill == true)
 		{
-			// 필살기 외의 다른 스킬이 선택되었을 때
-			switch (mAttackCase)
+			if (mAttackCase == BossSkill::FinishMove)
 			{
-			case BossSkill::FireBall:
-				AttackFireBallReady();
-				break;
-			case BossSkill::RangeFire:
-				AttackRangeFireReady();
-				break;
-			case BossSkill::PhoenixLanding:
-				AttackPhoenixLandingReady();
-				break;
-			case BossSkill::FinishMove:
-				AttackFinishMoveReady();
-				break;
-			default:
-				__noop;
+				// FinishMove 발동조건 : 체력 50% 이하
+				if (GetHp() / MAX_HP * 100.0f <= 50.0f)
+				{
+					AttackFinishMoveReady();
+				}
+				else
+				{
+					SetBossState(BossState::AttackEnd);
+				}
+			}
+			else
+			{
+				// 필살기 외의 다른 스킬이 선택되었을 때
+				switch (mAttackCase)
+				{
+				case BossSkill::FireBall:
+					AttackFireBallReady();
+					break;
+				case BossSkill::RangeFire:
+					AttackRangeFireReady();
+					break;
+				case BossSkill::PhoenixLanding:
+					AttackPhoenixLandingReady();
+					break;
+				default:
+					__noop;
+				}
 			}
 		}
 	}
@@ -785,7 +776,7 @@ namespace van
 		{
 			FireBall* fireBall = Object::Instantiate<FireBall>(enums::eLayerType::Boss_Mage_Skill_FireBall);
 			fireBall->SetOwner(this);
-			fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+			//fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());
 
 			mListFireBall.push_back(fireBall);
 
@@ -892,6 +883,7 @@ namespace van
 			mbLandingTimer = true;	// Landing 시간 카운트시작
 			PhoenixLandingAnimation = true;
 			mbPhoenixLandingEffect = false;
+
 			// mbSky, mInitPosY 는 다시 하늘로 오르고 난 후 초기화한다.
 			SetBossState(BossState::AttackEnd);
 		}
@@ -1034,8 +1026,38 @@ namespace van
 		if (Input::GetKey(eKeyCode::M)
 			&& Input::GetKeyDown(eKeyCode::D))
 		{
-			//LoseHp(MAX_HP * 0.99f);
-			LoseHp(MAX_HP * 1.0f);
+			LoseHp(MAX_HP * 0.55f);
+		}
+	}
+
+	void Mage::CmdSkill()
+	{
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::W))
+		{
+			mbCmd = true;
+			mCmdSkill = 0;
+		}
+
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::E))
+		{
+			mbCmd = true;
+			mCmdSkill = 1;
+		}
+
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::R))
+		{
+			mbCmd = true;
+			mCmdSkill = 2;
+		}
+
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::Y))
+		{
+			mbCmd = true;
+			mCmdSkill = 3;
 		}
 	}
 }

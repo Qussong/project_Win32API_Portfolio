@@ -3,10 +3,10 @@
 
 namespace van
 {
-	class FireBall : public Skill
+	class WorldOnFireFireBall : public Skill
 	{
 	public:
-		enum class FireBallState
+		enum class WorldOnFireFireBallState
 		{
 			Gen,
 			Active,
@@ -15,8 +15,8 @@ namespace van
 		};
 
 	public:
-		FireBall();
-		virtual ~FireBall();
+		WorldOnFireFireBall();
+		virtual ~WorldOnFireFireBall();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -27,8 +27,8 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
-		void SetState(FireBallState _state) { mState = _state; }
-		FireBallState GetState() { return mState; }
+		void SetState(WorldOnFireFireBallState _state) { mState = _state; }
+		WorldOnFireFireBallState GetState() { return mState; }
 
 		void Gen();
 		void Active();
@@ -36,7 +36,7 @@ namespace van
 		void SetFireBallMove();
 
 	private:
-		FireBallState mState = FireBallState::None;
+		WorldOnFireFireBallState mState = WorldOnFireFireBallState::None;
 
 		bool mbSetFlag = true;									// 객체 발사를 위한 설정 여부
 		math::Vector2 mDepartPos = math::Vector2(0.0f, 0.0f);	// 발사지점

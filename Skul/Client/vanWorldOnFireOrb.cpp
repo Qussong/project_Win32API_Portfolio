@@ -5,6 +5,11 @@
 #include "vanCollider.h"
 #include "vanWorldOnFireGen.h"
 #include "vanObject.h"
+#include "vanBoss.h"
+#include "vanWorldOnFireFireBall.h"
+#include "vanTransform.h"
+
+#define FIREBALL_MAX_CNT	3
 
 namespace van
 {
@@ -88,18 +93,55 @@ namespace van
 			WorldOnFireGen* effect = Object::Instantiate<WorldOnFireGen>(enums::eLayerType::Boss_Mage_Effect);
 			effect->SetOwner(this);
 
+			// Target 설정
+			Boss* boss = dynamic_cast<Boss*>(owner);
+			mTarget = boss->GetTarget();
+
 			// Orb 애니메이션 출력
 			at->PlayAnimation(L"WorldOnFire_Orb_Object", true);
+
+			// Orb 상태 변경
 			mState = OrbState::Active;
 		}
 	}
 
 	void WorldOnFireOrb::Active()
 	{
-		// FireBall 2발 발사
-		
-		// FireBall 발사할때마다 FireBall Shoot Effect 출력
+		Transform* tr = GetComponent<Transform>();
 
+		// FireBall 딜레이
+		if (mbShoot == false)
+		{
+			mShootDelay += Time::GetDeltaTime();
+
+			if (mShootDelay >= 1.5f)
+			{
+				mShootDelay = 0.0f;
+				mbShoot = true;
+			}
+		}
+
+		// FireBall 생성
+		if (mFireBallCnt < FIREBALL_MAX_CNT
+			&& mbShoot == true)
+		{
+			WorldOnFireFireBall* fireBall = Object::Instantiate<WorldOnFireFireBall>(enums::eLayerType::Boss_Mage_Skill_FireBall);
+			fireBall->SetOwner(this);
+			fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+
+			++mFireBallCnt;
+			mbShoot = false;
+		}
+
+		// FireBall 종료조건
+		// FireBall 이 전부 소멸했는지 확인
+		if (mFireBallCnt == FIREBALL_MAX_CNT
+			&& mFireBallDeadCnt == FIREBALL_MAX_CNT)
+		{
+			mFireBallCnt = 0;
+			mbShoot = true;
+			mState = OrbState::Dead;
+		}
 	}
 
 	void WorldOnFireOrb::Dead()

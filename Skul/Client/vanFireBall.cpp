@@ -117,25 +117,30 @@ namespace van
 	void FireBall::Gen()
 	{
 		Animator* at = GetComponent<Animator>();
+		Transform* tr = GetComponent<Transform>();
 		GameObject* owner = GetOwner();
-		Mage* mage = dynamic_cast<Mage*>(owner);
 
-		if (mage->GetBossAttackDirection() == Mage::BossDirection::Left)
+		if (owner != nullptr)
 		{
-			at->PlayAnimation(L"Mage_FireBall_Object_L", true);
-		}
-		else
-		{
-			at->PlayAnimation(L"Mage_FireBall_Object_R", true);
-		}
+			Mage* mage = dynamic_cast<Mage*>(owner);
+			tr->SetPosition(mage->GetComponent<Transform>()->GetPosition());
 
-		mState = FireBallState::Active;
+			if (mage->GetBossAttackDirection() == Mage::BossDirection::Left)
+			{
+				at->PlayAnimation(L"Mage_FireBall_Object_L", true);
+			}
+			else
+			{
+				at->PlayAnimation(L"Mage_FireBall_Object_R", true);
+			}
+
+			mState = FireBallState::Active;
+		}
 	}
 
 	void FireBall::Active()
 	{
 		SetFireBallMove();
-		// nothing
 	}
 
 	void FireBall::Dead()
@@ -147,17 +152,16 @@ namespace van
 	void FireBall::SetFireBallMove()
 	{
 		Boss* owner = dynamic_cast<Boss*>(GetOwner());
+
 		if (owner != nullptr)
 		{
 			Transform* tr = GetComponent<Transform>();
-			Transform* tr_owner = owner->GetComponent<Transform>();
 			Transform* tr_target = owner->GetTarget()->GetComponent<Transform>();
-
 			math::Vector2 pos = tr->GetPosition();
 
 			if (mbSetFlag == true)
 			{
-				mDepartPos = tr_owner->GetPosition();				// 발사지점
+				mDepartPos = pos;									// 발사지점
 				mTargetPos = tr_target->GetPosition();				// 도착지점
 				mDirect = (mTargetPos - mDepartPos).Normalize();	// 방향벡터
 

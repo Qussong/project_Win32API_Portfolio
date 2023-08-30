@@ -60,6 +60,7 @@ namespace van
 		void ChekDead();
 		BossDirection GetBossAttackDirection() { return mBossAttackDirection; }
 		void CmdDamage();
+		void CmdSkill();
 
 		__forceinline void SetPhoenixLandingEffectFlag(bool _flag) { mbPhoenixLandingEffect = _flag; }
 

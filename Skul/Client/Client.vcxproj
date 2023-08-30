@@ -158,6 +158,7 @@
     <ClInclude Include="vanSound.h" />
     <ClInclude Include="vanSoundManager.h" />
     <ClInclude Include="vanUI.h" />
+    <ClInclude Include="vanWorldOnFireFireBall.h" />
     <ClInclude Include="vanWorldOnFireOrb.h" />
     <ClInclude Include="vanYggdrasillFrame.h" />
     <ClInclude Include="vanYggdrasillChin.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="vanSound.cpp" />
     <ClCompile Include="vanSoundManager.cpp" />
     <ClCompile Include="vanUI.cpp" />
+    <ClCompile Include="vanWorldOnFireFireBall.cpp" />
     <ClCompile Include="vanWorldOnFireOrb.cpp" />
     <ClCompile Include="vanYggdrasillFrame.cpp" />
     <ClCompile Include="vanYggdrasillChin.cpp" />
