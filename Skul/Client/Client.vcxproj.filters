@@ -274,6 +274,18 @@
     <Filter Include="Contents\GameObject\Skill\Mage_FinishMove_Ready">
       <UniqueIdentifier>{89da3876-96a5-4731-8947-4f6ceb5c36c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_WorldOnFire_Orb">
+      <UniqueIdentifier>{89033416-0a12-4a00-bd06-60504aee54a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_WorldOnFire_Gen">
+      <UniqueIdentifier>{24a434db-9a29-46be-a5ee-6bfbf2f35f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_WorldOnFire_FireBall">
+      <UniqueIdentifier>{023f35b4-474b-4b48-9e25-5d592f3a8106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Mage_WorldOnFire_FireBall_Shoot">
+      <UniqueIdentifier>{6d7aa214-908a-43bf-a310-556cb791e489}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -546,6 +558,9 @@
     <ClInclude Include="vanFinishMoveReady.h">
       <Filter>Contents\GameObject\Skill\Mage_FinishMove_Ready</Filter>
     </ClInclude>
+    <ClInclude Include="vanWorldOnFireOrb.h">
+      <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_Orb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -813,6 +828,9 @@
     </ClCompile>
     <ClCompile Include="vanFinishMoveReady.cpp">
       <Filter>Contents\GameObject\Skill\Mage_FinishMove_Ready</Filter>
+    </ClCompile>
+    <ClCompile Include="vanWorldOnFireOrb.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_Orb</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

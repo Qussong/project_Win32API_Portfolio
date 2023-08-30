@@ -14,6 +14,8 @@
 #include "vanPlayerAttack.h"
 #include "vanSkull.h"
 #include "vanFinishMoveReady.h"
+#include "vanWorldOnFireOrb.h"
+
 
 #define MAX_HP					500.0f
 #define FLY_POS					150.0f
@@ -24,6 +26,7 @@
 #define FLY_READY_GAP_POS		150.0f
 //#define LANDING_TIMER			60.0f
 #define LANDING_TIMER			5.0f
+#define	MAX_ORB_CNT				3
 
 namespace van
 {
@@ -912,13 +915,35 @@ namespace van
 			mbPlayAnimation = false;
 		}
 
-		// 구체생성 * 3
-		// 각 구체에서 FireBall 발사한다. (2개)
+		// Orb 생성 ( Max = 3)
+		if (mbOrbGenFlag == true)
+		{
+			WorldOnFireOrb* orb = Object::Instantiate<WorldOnFireOrb>(enums::eLayerType::Boss_Mage_Effect);
+			orb->SetOwner(this);
+			orb->GetComponent<Transform>()->SetPosition(math::Vector2(math::Vector2(-15.0f + mOrbCnt * 350.0f, Window_Y / 2 - 200.0f)));
 
+			++mOrbCnt;
+			mbOrbGenFlag = false;
+		}
 
+		// Orb 개수 제한
+		if (mOrbCnt >= MAX_ORB_CNT)
+		{
+			mOrbCnt = 0;
+			mbOrbGenFlag = true;
+			SetBossState(BossState::AttackEnd);
+		}
 
-		// 각 구체의 할일이 다 완료되면 AttackEnd 상태로 넘어가기
-		//SetBossState(BossState::AttackEnd);
+		// Orb 생성 Delay
+		if (mbOrbGenFlag == false)
+		{
+			mOrbGenDelay += Time::GetDeltaTime();
+			if (mOrbGenDelay >= 1.5f)
+			{
+				mOrbGenDelay = 0.0f;
+				mbOrbGenFlag = true;
+			}
+		}
 	}
 
 	void Mage::ComparePosWithBossAndTarget()

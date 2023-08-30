@@ -305,20 +305,22 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_PhoenixRanding_Land_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Effect_PhoenixLanding.png");
 		ResourceManager::Load<Texture>(L"Mage_Die_L", L"..\\MyResources\\skul\\Monster\\Mage\\Die_L.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Die_R", L"..\\MyResources\\skul\\Monster\\Mage\\Die_R.bmp");
-
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_L.png");
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_R.png");
-
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_Re_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_Re_L.png");
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Ready_Re_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_Ready_FinishMove_Re_R.png");
-
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_L.png");
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_R.png");
-
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Re_L", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_Re_L.png");
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Re_R", L"..\\MyResources\\skul\\Monster\\Mage\\Attack_FinishMove_Re_R.png");
-
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Charge_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\FinishMove_Charge_Effect.png");
 		ResourceManager::Load<Texture>(L"Mage_FinishMove_Charge_Finish_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\FinishMove_Charge_Finish_Effect.png");
+
+		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_Orb_Object", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_Orb_Object.png");
+		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_Orb_Gen_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_Orb_Gen_Effect.png");
+		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_FireBall_Object_L", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_FireBall_Object_L.png");
+		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_FireBall_Object_R", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_FireBall_Object_R.png");
+		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_FireBall_Shoot_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_FireBall_Shoot_Effect.png");
+
 	}
 }

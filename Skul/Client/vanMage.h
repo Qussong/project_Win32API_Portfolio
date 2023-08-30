@@ -112,6 +112,10 @@ namespace van
 		bool mbFinishMoveCharge = false;		// FinishMove 준비완료여부
 		bool mbFinishMoveEffectFinish = false;	// 이펙트 완료여부
 
+		float mOrbGenDelay = 0.0f;
+		bool mbOrbGenFlag = true;
+		int mOrbCnt = 0;
+
 		bool mbCmd = false;
 		int mCmdSkill = 3;
 		bool mbDead = false;

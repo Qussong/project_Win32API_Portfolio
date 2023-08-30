@@ -34,7 +34,7 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"UI_Player_HitSign", ResourceManager::Find<Texture>(L"UI_Player_HitSign"), math::Vector2(0.0f, 0.0f), math::Vector2(640.0f, 360.0f), 12, math::Vector2(0.0f, 0.0f), 0.04F);
+		at->CreateAnimation(L"UI_Player_HitSign", ResourceManager::Find<Texture>(L"UI_Player_HitSign"), math::Vector2(0.0f, 0.0f), math::Vector2(640.0f, 360.0f), 12, math::Vector2(0.0f, 0.0f), 0.07F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 		at->SetAffectedCamera(false);
 	}
