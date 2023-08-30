@@ -160,6 +160,7 @@
     <ClInclude Include="vanUI.h" />
     <ClInclude Include="vanWorldOnFireFireBall.h" />
     <ClInclude Include="vanWorldOnFireOrb.h" />
+    <ClInclude Include="vanWorldOnFireShootEffect.h" />
     <ClInclude Include="vanYggdrasillFrame.h" />
     <ClInclude Include="vanYggdrasillChin.h" />
     <ClInclude Include="vanDeathKnight.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="vanUI.cpp" />
     <ClCompile Include="vanWorldOnFireFireBall.cpp" />
     <ClCompile Include="vanWorldOnFireOrb.cpp" />
+    <ClCompile Include="vanWorldOnFireShootEffect.cpp" />
     <ClCompile Include="vanYggdrasillFrame.cpp" />
     <ClCompile Include="vanYggdrasillChin.cpp" />
     <ClCompile Include="vanDeathKnight.cpp" />

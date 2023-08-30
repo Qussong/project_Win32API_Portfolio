@@ -8,6 +8,7 @@
 #include "vanBoss.h"
 #include "vanWorldOnFireFireBall.h"
 #include "vanTransform.h"
+#include "vanWorldOnFireShootEffect.h"
 
 #define FIREBALL_MAX_CNT	3
 
@@ -125,6 +126,11 @@ namespace van
 		if (mFireBallCnt < FIREBALL_MAX_CNT
 			&& mbShoot == true)
 		{
+			// Shoot Effect 출력
+			WorldOnFireShootEffect* shootEffect = Object::Instantiate<WorldOnFireShootEffect>(enums::eLayerType::Boss_Mage_Effect);
+			shootEffect->SetOwner(this);
+
+			// FireBall 생성
 			WorldOnFireFireBall* fireBall = Object::Instantiate<WorldOnFireFireBall>(enums::eLayerType::Boss_Mage_Skill_FireBall);
 			fireBall->SetOwner(this);
 			fireBall->GetComponent<Transform>()->SetPosition(tr->GetPosition());

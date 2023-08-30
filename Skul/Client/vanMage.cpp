@@ -427,8 +427,8 @@ namespace van
 					None			// 4
 				*/
 				srand((UINT)time(NULL));
-				//mAttackCase = (BossSkill)(rand() % 4);
-				mAttackCase = (BossSkill)(3);	// test
+				mAttackCase = (BossSkill)(rand() % 4);
+				//mAttackCase = (BossSkill)(3);	// test
 			}
 			mbChooseSkill = true;
 		}

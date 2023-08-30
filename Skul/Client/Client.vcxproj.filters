@@ -567,6 +567,9 @@
     <ClInclude Include="vanWorldOnFireFireBall.h">
       <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_FireBall</Filter>
     </ClInclude>
+    <ClInclude Include="vanWorldOnFireShootEffect.h">
+      <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_FireBall_Shoot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -843,6 +846,9 @@
     </ClCompile>
     <ClCompile Include="vanWorldOnFireFireBall.cpp">
       <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="vanWorldOnFireShootEffect.cpp">
+      <Filter>Contents\GameObject\Skill\Mage_WorldOnFire_FireBall_Shoot</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

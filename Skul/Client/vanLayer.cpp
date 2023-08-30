@@ -19,26 +19,45 @@ namespace van
 
 	void Layer::Update()
 	{
-		for (GameObject* obj : mGameObjects)
+		//for (GameObject* obj : mGameObjects)
+		//{
+		//	if (obj->GetState() == GameObject::eState::Pause)
+		//	{
+		//		continue;
+		//	}
+		//	obj->Update();
+		//}
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			if (obj->GetState() == GameObject::eState::Pause)
+			if (mGameObjects[i]->GetState() == GameObject::eState::Pause)
 			{
 				continue;
 			}
-			obj->Update();
+			mGameObjects[i]->Update();
 		}
 	}
 
 	void Layer::Render(HDC _hdc)
 	{
-		for (GameObject* obj : mGameObjects)
+		//for (GameObject* obj : mGameObjects)
+		//{
+		//	if (obj->GetState() == GameObject::eState::Pause)
+		//	{
+		//		continue;
+		//	}
+		//	obj->Render(_hdc);
+		//}
+
+		for (int i = 0; i < mGameObjects.size(); ++i)
 		{
-			if (obj->GetState() == GameObject::eState::Pause)
+			if (mGameObjects[i]->GetState() == GameObject::eState::Pause)
 			{
 				continue;
 			}
-			obj->Render(_hdc);
+			mGameObjects[i]->Render(_hdc);
 		}
+
 
 		for (std::vector<GameObject*>::iterator iter = mGameObjects.begin()
 			; iter != mGameObjects.end()
