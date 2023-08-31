@@ -70,7 +70,7 @@ namespace van
 		GameObject* mOwner;
 		BodyState mState = BodyState::None;
 		BodyState mPastState = BodyState::None;
-		bool mbConfirm = true;
+		bool mbCPhaseonfirm = true;		// Phase 확인 유무 (true = 해야함, false = 했음)
 
 		bool mbFinish = false;			// 본체에 수행이 끝났음을 알려준다.
 		bool mbEnd = false;

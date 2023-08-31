@@ -25,12 +25,12 @@ namespace van
 		virtual void MakeDoor() override;
 
 		void Phase2();
+		void Phase3();
 
 	private:
 		Yggdrasill* mYgg = nullptr;
 		Yggdrasill* mYgg2 = nullptr;
-		//bool mbPhase1 = true;
-		//bool mbPhase2 = false;
+		Yggdrasill* mYgg3 = nullptr;
 		float mTime = 0.0f;
 		bool mbCameraEffect = true;
 

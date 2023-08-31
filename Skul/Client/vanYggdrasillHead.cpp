@@ -46,6 +46,7 @@ namespace van
 	void YggdrasillHead::Update()
 	{
 		GameObject::Update();
+		ChkNextPhase();
 
 		if (mState != HeadState::Dead)
 		{
@@ -98,6 +99,8 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		at->CreateAnimation(L"Head", ResourceManager::Find<Texture>(L"Yggdrasill_Head"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 168.0f), 2, math::Vector2::Zero, 1.0F);
+		at->CreateAnimation(L"Head_2Phase", ResourceManager::Find<Texture>(L"Yggdrasill_Head_2Phase"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 158.0f), 1, math::Vector2::Zero, 1.0F);
+
 	}
 	
 	void YggdrasillHead::OnCollisionEnter(Collider* _other)
@@ -337,6 +340,20 @@ namespace van
 		math::Vector2 newPos = ownerPos + mAddPos;
 		
 		tr->SetPosition(newPos);
+	}
+
+	void YggdrasillHead::ChkNextPhase()
+	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		if (mbPhaseConfirm == true)
+		{
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				Animator* at = GetComponent<Animator>();
+				at->PlayAnimation(L"Head_2Phase");
+			}
+			mbPhaseConfirm = false;
+		}
 	}
 
 	void YggdrasillHead::ShakeHead()

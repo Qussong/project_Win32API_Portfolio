@@ -52,6 +52,7 @@ namespace van
 		void MagicOrbsEnd();
 
 		void FollowHeadPos();
+		void ChkNextPhase();
 
 		__forceinline void SetPos(math::Vector2 _pos) { GetComponent<Transform>()->SetPosition(_pos); }
 		__forceinline math::Vector2 GetPos() { return GetComponent<Transform>()->GetPosition(); }
@@ -69,6 +70,7 @@ namespace van
 		GameObject* mOwner;
 		ChinState mState = ChinState::None;
 		ChinState mPastState = ChinState::None;
+		bool mbCPhaseonfirm = true;		// Phase 확인 유무 (true = 해야함, false = 했음)
 
 		bool mbFinish = false;						// 본체에 수행이 끝났음을 알려준다.
 		bool mbEnd = false;

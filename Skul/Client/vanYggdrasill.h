@@ -78,6 +78,9 @@ namespace van
 		bool GetNextPhaseFlag() { return mbNextPhase; }
 		void SetNextPhaseFlag(bool _flag) { mbNextPhase = _flag; }
 
+		bool GetLastPhaseFlag() { return mbLastPhase; }
+		void SetLastPhaseFlag(bool _flag) { mbLastPhase = _flag; }
+
 	private:
 		YggdrasillBody* mBody = nullptr;		// 몸체
 		YggdrasillHead* mHead = nullptr;		// 머리
@@ -114,6 +117,7 @@ namespace van
 		bool mbDestroy = false;	// 객체삭제 플레그 (= true)
 
 		bool mbNextPhase = false;
+		bool mbLastPhase = false;
 	};
 }
 

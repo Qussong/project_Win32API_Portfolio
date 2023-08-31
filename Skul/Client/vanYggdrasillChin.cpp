@@ -43,7 +43,7 @@ namespace van
 	void YggdrasillChin::Update()
 	{
 		GameObject::Update();	// 해당 객체가 가지고 있는 Component 속성들의 값을 업데이트해준다.
-
+		ChkNextPhase();
 		if (mState != ChinState::Dead)
 		{
 			FollowHeadPos();
@@ -312,6 +312,20 @@ namespace van
 		math::Vector2 newPos = headPos + mAddPos;
 
 		tr->SetPosition(newPos);
+	}
+
+	void YggdrasillChin::ChkNextPhase()
+	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		if (mbCPhaseonfirm == true)
+		{
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Chin_2Phase"));
+			}
+			mbCPhaseonfirm = false;
+		}
 	}
 
 }

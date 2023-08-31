@@ -332,14 +332,14 @@ namespace van
 	void YggdrasillBody::ChkNextPhase()
 	{
 		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
-		if (mbConfirm == true)
+		if (mbCPhaseonfirm == true)
 		{
 			if (ygg->GetNextPhaseFlag() == true)
 			{
 				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body_2Phase"));
 			}
-			mbConfirm = false;
+			mbCPhaseonfirm = false;
 		}
 	}
 }

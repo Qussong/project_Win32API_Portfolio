@@ -111,6 +111,20 @@ namespace van
 		at->CreateAnimation(L"Hand_MagicOrb_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_R"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
 		at->CreateAnimation(L"Hand_Dead_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_L"), math::Vector2(0.0f, 0.0f), math::Vector2(218.0f, 148.0f), 1);
 		at->CreateAnimation(L"Hand_Dead_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_R"), math::Vector2(0.0f, 0.0f), math::Vector2(218.0f, 148.0f), 1);
+		// Phase2
+		at->CreateAnimation(L"Hand_Idle_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Idle_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(166.0f, 147.0f), 7, math::Vector2::Zero, 0.2f);
+		at->CreateAnimation(L"Hand_Idle_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Idle_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(166.0f, 147.0f), 7, math::Vector2::Zero, 0.2f);
+		at->CreateAnimation(L"Hand_FistSlam_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_FistSlam_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(165.0f, 144.0f), 1);
+		at->CreateAnimation(L"Hand_FistSlam_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_FistSlam_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(165.0f, 144.0f), 1);
+		at->CreateAnimation(L"Hand_Swipe_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_End_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_Swipe_End_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
+		at->CreateAnimation(L"Hand_MagicOrb_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
+		at->CreateAnimation(L"Hand_MagicOrb_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
+		at->CreateAnimation(L"Hand_Dead_2Phase_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_2Phase_L"), math::Vector2(0.0f, 0.0f), math::Vector2(219.0f, 148.0f), 1);
+		at->CreateAnimation(L"Hand_Dead_2Phase_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_2Phase_R"), math::Vector2(0.0f, 0.0f), math::Vector2(219.0f, 148.0f), 1);
+
 	}
 
 	void YggdrasillHand::OnCollisionEnter(Collider* _other)
@@ -161,17 +175,17 @@ namespace van
 
 	void YggdrasillHand::OnCollisionStay(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void YggdrasillHand::OnCollisionExit(Collider* _other)
 	{
-
+		// nothing
 	}
 
 	void YggdrasillHand::Gen()
 	{
-
+		// nothing
 	}
 
 	void YggdrasillHand::Idle()
@@ -185,13 +199,28 @@ namespace van
 
 		if (mbPlayAnimation == true)
 		{
-			if (mHandPos == HandPos::Left)
+			Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+			if (ygg->GetNextPhaseFlag() == true)
 			{
-				at->PlayAnimation(L"Hand_Idle_L", true);
+				if (mHandPos == HandPos::Left)
+				{
+					at->PlayAnimation(L"Hand_Idle_2Phase_L", true);
+				}
+				if (mHandPos == HandPos::Right)
+				{
+					at->PlayAnimation(L"Hand_Idle_2Phase_R", true);
+				}
 			}
-			if (mHandPos == HandPos::Right)
+			else
 			{
-				at->PlayAnimation(L"Hand_Idle_R", true);
+				if (mHandPos == HandPos::Left)
+				{
+					at->PlayAnimation(L"Hand_Idle_L", true);
+				}
+				if (mHandPos == HandPos::Right)
+				{
+					at->PlayAnimation(L"Hand_Idle_R", true);
+				}
 			}
 
 			mbPlayAnimation = false;
@@ -300,22 +329,36 @@ namespace van
 	{
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
 
 		if (mbFinish == false)
 		{
 			if (mHandPos == HandPos::Left)
 			{
-				at->PlayAnimation(L"Hand_Dead_L");
+				if (ygg->GetNextPhaseFlag() == true)
+				{
+					at->PlayAnimation(L"Hand_Dead_2Phase_L");
+				}
+				else
+				{
+					at->PlayAnimation(L"Hand_Dead_L");
+				}
 				tr->SetPosition(math::Vector2(260.0f, 460.0f));
 			}
 			if (mHandPos == HandPos::Right)
 			{
-				at->PlayAnimation(L"Hand_Dead_R");
+				if (ygg->GetNextPhaseFlag() == true)
+				{
+					at->PlayAnimation(L"Hand_Dead_2Phase_R");
+				}
+				else
+				{
+					at->PlayAnimation(L"Hand_Dead_R");
+				}
 				tr->SetPosition(math::Vector2(1080.0f, 460.0f));
 			}
 
 			mbFinish = true;
-			//Destroy(this);
 		}
 	}
 
@@ -327,7 +370,8 @@ namespace van
 
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
-
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		
 		if (mbFinish == false)
 		{
 			// FistSlam Ready 애니메이션 재생
@@ -340,11 +384,25 @@ namespace van
 
 				if (mHandPos == HandPos::Left)
 				{
-					at->PlayAnimation(L"Hand_FistSlam_L", false);
+					if (ygg->GetNextPhaseFlag() == true)
+					{
+						at->PlayAnimation(L"Hand_FistSlam_2Phase_L", false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Hand_FistSlam_L", false);
+					}
 				}
 				if (mHandPos == HandPos::Right)
 				{
-					at->PlayAnimation(L"Hand_FistSlam_R", false);
+					if (ygg->GetNextPhaseFlag() == true)
+					{
+						at->PlayAnimation(L"Hand_FistSlam_2Phase_R", false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Hand_FistSlam_R", false);
+					}
 				}
 
 				mbPlayAnimation = false;
@@ -372,7 +430,8 @@ namespace van
 
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
-
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		
 		if (mbFinish == false
 			&& mbEnd == false)
 		{
@@ -386,11 +445,25 @@ namespace van
 
 				if (mHandPos == HandPos::Left)
 				{
-					at->PlayAnimation(L"Hand_Swipe_L", false);
+					if (ygg->GetNextPhaseFlag() == true)
+					{
+						at->PlayAnimation(L"Hand_Swipe_2Phase_L", false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Hand_Swipe_L", false);
+					}
 				}
 				if (mHandPos == HandPos::Right)
 				{
-					at->PlayAnimation(L"Hand_Swipe_R", false);
+					if (ygg->GetNextPhaseFlag() == true)
+					{
+						at->PlayAnimation(L"Hand_Swipe_2Phase_R", false);
+					}
+					else
+					{
+						at->PlayAnimation(L"Hand_Swipe_L", false);
+					}
 				}
 
 				mbPlayAnimation = false;
@@ -423,7 +496,8 @@ namespace van
 		Yggdrasill* owner = dynamic_cast<Yggdrasill*>(GetOwner());
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
-
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		
 		if (mbEnd == false)
 		{
 			math::Vector2 nowPos = tr->GetPosition();
@@ -441,11 +515,25 @@ namespace van
 				{
 					if (mHandPos == HandPos::Left)
 					{
-						at->PlayAnimation(L"Hand_MagicOrb_L", false);
+						if (ygg->GetNextPhaseFlag() == true)
+						{
+							at->PlayAnimation(L"Hand_MagicOrb_2Phase_L", false);
+						}
+						else
+						{
+							at->PlayAnimation(L"Hand_MagicOrb_L", false);
+						}
 					}
 					if (mHandPos == HandPos::Right)
 					{
-						at->PlayAnimation(L"Hand_MagicOrb_R", false);
+						if (ygg->GetNextPhaseFlag() == true)
+						{
+							at->PlayAnimation(L"Hand_MagicOrb_2Phase_R", false);
+						}
+						else
+						{
+							at->PlayAnimation(L"Hand_MagicOrb_R", false);
+						}
 					}
 					mbPlayAnimation = false;
 					mbEnd = true;
@@ -467,6 +555,7 @@ namespace van
 
 	void YggdrasillHand::MagicOrbsAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillHand::FistSlamEnd()
@@ -510,6 +599,7 @@ namespace van
 
 		Transform* tr = GetComponent<Transform>();
 		Animator* at = GetComponent<Animator>();
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
 		math::Vector2 pos = tr->GetPosition();
 		float initPosX = mDepartPosX;
 
@@ -536,11 +626,25 @@ namespace van
 				{
 					if (mHandPos == HandPos::Left)
 					{
-						at->PlayAnimation(L"Hand_Swipe_End_L");
+						if (ygg->GetNextPhaseFlag() == true)
+						{
+							at->PlayAnimation(L"Hand_Swipe_End_2Phase_L");
+						}
+						else
+						{
+							at->PlayAnimation(L"Hand_Swipe_End_L");
+						}
 					}
 					if (mHandPos == HandPos::Right)
 					{
-						at->PlayAnimation(L"Hand_Swipe_End_R");
+						if (ygg->GetNextPhaseFlag() == true)
+						{
+							at->PlayAnimation(L"Hand_Swipe_End_2Phase_R");
+						}
+						else
+						{
+							at->PlayAnimation(L"Hand_Swipe_End_R");
+						}
 					}
 					mbPlayAnimation = false;
 				}
@@ -556,6 +660,7 @@ namespace van
 
 	void YggdrasillHand::MagicOrbsEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillHand::InitAddPos()

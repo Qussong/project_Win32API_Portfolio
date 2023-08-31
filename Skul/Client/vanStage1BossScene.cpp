@@ -52,6 +52,7 @@ namespace van
 	{
 		Scene::Update();
 		Phase2();
+		Phase3();
 	}
 
 	void Stage1BossScene::Render(HDC _hdc)
@@ -184,6 +185,42 @@ namespace van
 				// Ygg2 HpBar 积己
 				mMageHpBar2 = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
 				mMageHpBar2->SetMage(mYgg2);
+			}
+		}
+	}
+
+	void Stage1BossScene::Phase3()
+	{
+		if (mYgg2 != nullptr
+			&& mYgg2->GetState() == Boss::BossState::Dead)
+		{
+			if (mbCameraEffect == true)
+			{
+				Camera::fadeOut(1.f, RGB(255, 255, 255));
+				Camera::fadeIn(1.f, RGB(255, 255, 255));
+				mbCameraEffect = false;
+			}
+
+			mTime += Time::GetDeltaTime();
+			if (mTime >= 1.0f)
+			{
+				// 檬扁拳
+				mTime = 0.0f;
+				mbCameraEffect = true;
+				// Ygg2  按眉 家戈
+				mYgg2->SetDestroyFlag(true);
+				mYgg2 = nullptr;
+				// Ygg2 按眉 HpBar 家戈
+				Destroy(mMageHpBar2);
+				// Ygg 按眉 HpBar Frame 家戈
+				Destroy(yggFrame);
+				// Ygg3 按眉 积己
+				mYgg3 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
+				mYgg3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+				//mYgg3->SetNextPhaseFlag(true);
+				//// Ygg2 HpBar 积己
+				//mMageHpBar2 = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
+				//mMageHpBar2->SetMage(mYgg2);
 			}
 		}
 	}

@@ -348,7 +348,37 @@ namespace van
 		}
 
 		// 정해진 횟수만큼 공격수행
-		if (mFistSlamCnt < FIST_SLAM_CNT
+		// 1Phase
+		if (mbNextPhase == false
+			&& mFistSlamCnt < FIST_SLAM_CNT
+			&& mAttackDir != AttackHandDir::None)
+		{
+			if (mAttackDir == AttackHandDir::Left)
+			{
+				mHandLeft->FistSlam();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandLeft->GetFistSlamFlag() == true)
+				{
+					mHandLeft->SetFistSlamFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mFistSlamCnt;
+				}
+			}
+			if (mAttackDir == AttackHandDir::Right)
+			{
+				mHandRight->FistSlam();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandRight->GetFistSlamFlag() == true)
+				{
+					mHandRight->SetFistSlamFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mFistSlamCnt;
+				}
+			}
+		}
+		// 2Phase
+		else if (mbNextPhase == true
+			&& mFistSlamCnt < FIST_SLAM_CNT * 2
 			&& mAttackDir != AttackHandDir::None)
 		{
 			if (mAttackDir == AttackHandDir::Left)
@@ -419,7 +449,35 @@ namespace van
 		}
 
 		// 정해진 횟수만큼 공격수행
-		if (mSwipCnt < FIST_SLAM_CNT
+		if (mbNextPhase == false
+			&& mSwipCnt < SWIPE_CNT
+			&& mAttackDir != AttackHandDir::None)
+		{
+			if (mAttackDir == AttackHandDir::Left)
+			{
+				mHandLeft->Swip();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandLeft->GetSwipeFlag() == true)
+				{
+					mHandLeft->SetSwipeFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mSwipCnt;
+				}
+			}
+			if (mAttackDir == AttackHandDir::Right)
+			{
+				mHandRight->Swip();
+				// 수행 완료시 공격횟수 카운트
+				if (mHandRight->GetSwipeFlag() == true)
+				{
+					mHandRight->SetSwipeFlag(false);
+					mAttackDir = AttackHandDir::None;
+					++mSwipCnt;
+				}
+			}
+		}
+		else if (mbNextPhase == true
+			&& mSwipCnt < SWIPE_CNT * 2
 			&& mAttackDir != AttackHandDir::None)
 		{
 			if (mAttackDir == AttackHandDir::Left)
