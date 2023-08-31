@@ -30,7 +30,6 @@ namespace van
 		sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body"));
 
 		Collider* col = GetComponent<Collider>();
-		//col->SetSize(math::Vector2(418.0f * 2, 341.0f * 2));
 		col->SetSize(math::Vector2(700.0f, 600.0f));
 	}
 
@@ -215,10 +214,12 @@ namespace van
 
 	void YggdrasillBody::FistSlamReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::SwipeReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::MagicOrbsReady()
@@ -248,10 +249,12 @@ namespace van
 
 	void YggdrasillBody::FistSlamAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::SwipeAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::MagicOrbsAttack()
@@ -281,10 +284,12 @@ namespace van
 
 	void YggdrasillBody::FistSlamEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::SwipeEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillBody::MagicOrbsEnd()
@@ -307,7 +312,14 @@ namespace van
 
 	void YggdrasillBody::Dead()
 	{
+		if (mbFinish == false)
+		{
+			Transform* tr = GetComponent<Transform>();
+			tr->SetPosition(math::Vector2(640.0f, 360.0f));
 
+			mbFinish = true;
+			//Destroy(this);
+		}
 	}
 
 	void YggdrasillBody::SetOwnerPos()

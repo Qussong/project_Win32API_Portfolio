@@ -24,9 +24,11 @@ namespace van
 		void BossTurn();
 
 	private:
-		Yggdrasill* mYgg;
+		Yggdrasill* mYgg = nullptr;
+		Yggdrasill* mYgg2 = nullptr;
 		bool mbPhase1 = true;
-		bool mbPhase2 = true;
+		bool mbPhase2 = false;
+		float mTime = 0.0f;
 	};
 }
 

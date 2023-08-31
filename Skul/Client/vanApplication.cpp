@@ -89,6 +89,7 @@ namespace van
 
 		CollisionManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
+		Camera::Render(mBackHdc);
 
 		// 2번 비트맵(mBackHdc)을 1번 비트맵(mHdc)에 복사한다.
 		BitBlt(mHdc, 0, 0, mWidth, mHeight,

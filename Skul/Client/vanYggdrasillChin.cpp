@@ -44,7 +44,10 @@ namespace van
 	{
 		GameObject::Update();	// 해당 객체가 가지고 있는 Component 속성들의 값을 업데이트해준다.
 
-		FollowHeadPos();
+		if (mState != ChinState::Dead)
+		{
+			FollowHeadPos();
+		}
 
 		if (mPastState != mState)
 		{
@@ -289,6 +292,14 @@ namespace van
 
 	void YggdrasillChin::Dead()
 	{
+		if (mbFinish == false)
+		{
+			Transform* tr = GetComponent<Transform>();
+			tr->SetPosition(math::Vector2(660.0f, 490.0f));
+
+			mbFinish = true;
+			//Destroy(this);
+		}
 	}
 
 	void YggdrasillChin::FollowHeadPos()

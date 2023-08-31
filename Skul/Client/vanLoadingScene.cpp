@@ -115,6 +115,7 @@ namespace van
 		// BG_Stage1_Boss_Scene
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss_Tile", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss_Tile.png");
 		ResourceManager::Load<Texture>(L"BG_Stage1_Boss", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\Stage1_Boss.png");
+		ResourceManager::Load<Texture>(L"BG_White", L"..\\MyResources\\skul\\BG\\8_Stage1_Boss\\White.png");
 		// BG_EndingScene
 
 		// [ Door]
@@ -260,7 +261,7 @@ namespace van
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Range", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Range.bmp");
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee_Ready", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee_Ready.bmp");
 		ResourceManager::Load<Texture>(L"GianticEnt_Attack_Melee", L"..\\MyResources\\skul\\Monster\\GianticEnt\\GianticEnt_Attack_Melee.bmp");
-		// Yggdrasill
+		// Yggdrasill_1Phase
 		ResourceManager::Load<Texture>(L"Yggdrasill_Head", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Head.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Chin", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\chin.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Body", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body.png");
@@ -276,6 +277,23 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_R.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Object", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Object.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_EnergyBomb_Charge", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\EnergyBomb_Charge.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Dead_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Dead_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Dead_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Dead_R.png");
+		// Yggdrasill_2Phase
+		ResourceManager::Load<Texture>(L"Yggdrasill_Head_2Phase", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Head_2.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Chin_2Phase", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\chin_2.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Body_2Phase", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body_2.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_2Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_2_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_2Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_2_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_2Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_2_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_FistSlam_2Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Hand_2_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_2Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_2_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_2Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_2_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_End_2Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_End_2_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Swipe_End_2Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Swipe_End_2_R.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_2Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_2_L.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_MagicOrb_2Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_MagicOrb_2_R.png");
+
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");
 		ResourceManager::Load<Texture>(L"Mage_Intor_2", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_2.bmp");

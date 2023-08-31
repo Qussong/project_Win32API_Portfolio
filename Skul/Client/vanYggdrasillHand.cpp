@@ -47,7 +47,10 @@ namespace van
 	{
 		GameObject::Update();
 
-		InitAddPos();
+		if (mState != HandState::Dead)
+		{
+			InitAddPos();
+		}
 
 		if (mPastState != mState)
 		{
@@ -106,6 +109,8 @@ namespace van
 		at->CreateAnimation(L"Hand_Swipe_End_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Swipe_End_R"), math::Vector2(0.0f, 0.0f), math::Vector2(174.0f, 151.0f), 3);
 		at->CreateAnimation(L"Hand_MagicOrb_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_L"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
 		at->CreateAnimation(L"Hand_MagicOrb_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_MagicOrb_R"), math::Vector2(0.0f, 0.0f), math::Vector2(192.0f, 112.0f), 1);
+		at->CreateAnimation(L"Hand_Dead_L", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_L"), math::Vector2(0.0f, 0.0f), math::Vector2(218.0f, 148.0f), 1);
+		at->CreateAnimation(L"Hand_Dead_R", ResourceManager::Find<Texture>(L"Yggdrasill_Hand_Dead_R"), math::Vector2(0.0f, 0.0f), math::Vector2(218.0f, 148.0f), 1);
 	}
 
 	void YggdrasillHand::OnCollisionEnter(Collider* _other)
@@ -293,7 +298,25 @@ namespace van
 
 	void YggdrasillHand::Dead()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Animator* at = GetComponent<Animator>();
 
+		if (mbFinish == false)
+		{
+			if (mHandPos == HandPos::Left)
+			{
+				at->PlayAnimation(L"Hand_Dead_L");
+				tr->SetPosition(math::Vector2(260.0f, 460.0f));
+			}
+			if (mHandPos == HandPos::Right)
+			{
+				at->PlayAnimation(L"Hand_Dead_R");
+				tr->SetPosition(math::Vector2(1080.0f, 460.0f));
+			}
+
+			mbFinish = true;
+			//Destroy(this);
+		}
 	}
 
 	void YggdrasillHand::FistSlamReady()

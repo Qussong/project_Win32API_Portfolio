@@ -47,7 +47,10 @@ namespace van
 	{
 		GameObject::Update();
 
-		FollowBodyPos();
+		if (mState != HeadState::Dead)
+		{
+			FollowBodyPos();
+		}
 
 		if (mPastState != mState)
 		{
@@ -252,6 +255,14 @@ namespace van
 
 	void YggdrasillHead::Dead()
 	{
+		if (mbFinish == false)
+		{
+			Transform* tr = GetComponent<Transform>();
+			tr->SetPosition(math::Vector2(630.0f, 300.0f));
+
+			mbFinish = true;
+			//Destroy(this);
+		}
 	}
 
 	void YggdrasillHead::FistSlamReady()

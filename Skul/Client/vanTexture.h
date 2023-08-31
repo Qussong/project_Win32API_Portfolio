@@ -22,7 +22,8 @@ namespace van
 		static Texture* Create(
 			const std::wstring& _name
 			, UINT _width
-			, UINT _height);
+			, UINT _height
+			, COLORREF rgb = RGB(255, 255, 255));
 
 		void Render(
 			HDC _hdc

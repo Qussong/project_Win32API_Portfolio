@@ -1,6 +1,7 @@
 #include "vanCamera.h"
 #include "vanApplication.h"
 #include "vanTransform.h"
+#include "vanTexture.h"
 
 #define CAMERA_SPEED			500.0f
 #define CAMERA_OFFSET_SPEED		10.0f	// Camera의 offset 값을 10의 단위로 조정한다.
@@ -20,11 +21,19 @@ namespace van
 	math::Vector2 Camera::mWidthLimit = math::Vector2::Zero;
 	math::Vector2 Camera::mHeightLimit = math::Vector2::Zero;
 
+	std::list<tCamEffect>	Camera::m_listCamEffect = {};
+	Texture* Camera::mWhiteTex = nullptr;
+	Texture* Camera::mBlackTex = nullptr;
+
 	void Camera::Init()
 	{
 		mResolution.x = application.GetWidth();
 		mResolution.y = application.GetHeight();
 		mLookPosition = mResolution / 2.0f;
+
+		// 상단화면 크기의 카메라 효과용 텍스쳐 생성
+		mWhiteTex = Texture::Create(L"WhiteTex", (UINT)mResolution.x, (UINT)mResolution.y, RGB(255, 255, 255));
+		mBlackTex = Texture::Create(L"BlackTex", (UINT)mResolution.x, (UINT)mResolution.y, RGB(0, 0, 0));
 	}
 
 	void Camera::Update()
@@ -78,6 +87,80 @@ namespace van
 		if (mDistance.y >= mHeightLimit.y)
 		{
 			mDistance.y = mHeightLimit.y;
+		}
+	}
+
+	void Camera::Render(HDC _hdc)
+	{
+		// 이벤트가 없다면 리턴
+		if (m_listCamEffect.empty())
+			return;
+
+		tCamEffect& effect = m_listCamEffect.front();
+		//mCurCamEffect = effect.eEffect;
+
+		effect.fCurTime += Time::GetDeltaTime();
+
+		float fRatio = effect.fCurTime / effect.fDuration;
+
+		if (fRatio < 0.f)
+			fRatio = 0.f;
+		if (fRatio > 1.f)
+			fRatio = 1.f;
+
+		int iAlpha = 0;
+
+		// 이벤트에 따라 알파값 설정
+		if (effect.eEffect == CAM_EFFECT::FADE_OUT)
+		{
+			iAlpha = (int)(255.f * fRatio);
+		}
+		else if (effect.eEffect == CAM_EFFECT::FADE_IN)
+		{
+			iAlpha = (int)(255.f * (1.f - fRatio));
+		}
+		else if (effect.eEffect == CAM_EFFECT::Pause)
+		{
+			iAlpha = 255;
+		}
+
+		// AlphaBlend 셋팅값 설정
+		BLENDFUNCTION bf = {};
+		bf.BlendOp = AC_SRC_OVER; // 원본과 대상 이미지를 합친다는 의미
+		bf.BlendFlags = 0;
+		bf.AlphaFormat = 0;
+		bf.SourceConstantAlpha = iAlpha; // 고정 알파값 설정
+
+		if (effect.TexColor == RGB(255, 255, 255))
+		{
+			AlphaBlend(_hdc,
+				0, 0
+				, (int)mWhiteTex->GetWidth()
+				, (int)mWhiteTex->GetHeight()
+				, mWhiteTex->GetHdc()
+				, 0, 0
+				, (int)mWhiteTex->GetWidth()
+				, (int)mWhiteTex->GetHeight()
+				, bf);
+		}
+		else if (effect.TexColor == RGB(0, 0, 0))
+		{
+			AlphaBlend(_hdc,
+				0, 0
+				, (int)mBlackTex->GetWidth()
+				, (int)mBlackTex->GetHeight()
+				, mBlackTex->GetHdc()
+				, 0, 0
+				, (int)mBlackTex->GetWidth()
+				, (int)mBlackTex->GetHeight()
+				, bf);
+		}
+
+
+		if (effect.fCurTime > effect.fDuration)
+		{
+			//mCurCamEffect = CAM_EFFECT::NONE;
+			m_listCamEffect.pop_front();
 		}
 	}
 

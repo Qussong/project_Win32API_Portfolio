@@ -62,6 +62,7 @@ namespace van
 
 		void CmdDamage();
 		void CmdSkill();
+		void ChekDead();
 
 		BossState GetState() { return mState; }
 		void SetState(BossState _state) { mState = _state; }
@@ -72,7 +73,7 @@ namespace van
 
 		BossSkill GetAttackCase() { return mAttackCase; }
 		void SetAttackCase(BossSkill _case) { mAttackCase = _case; }
-
+		void SetDestroyFlag(bool _flag) { mbDestroy = _flag; }
 	private:
 		YggdrasillBody* mBody = nullptr;		// 몸체
 		YggdrasillHead* mHead = nullptr;		// 머리
@@ -105,6 +106,8 @@ namespace van
 
 		bool mbCmd = false;
 		int mCmdSkill = 0;
+		bool mbDead = false;	// Dead 상태임 (= true)
+		bool mbDestroy = false;	// 객체삭제 플레그 (= true)
 	};
 }
 

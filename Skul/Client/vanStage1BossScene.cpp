@@ -46,8 +46,27 @@ namespace van
 	void Stage1BossScene::Update()
 	{
 		Scene::Update();
-		//CameraMove();
 		BossTurn();
+
+		if (mYgg != nullptr
+			&& mYgg->GetState() == Boss::BossState::Dead)
+		{
+			Camera::fadeOut(1.f, RGB(255, 255, 255));
+			Camera::fadeIn(1.f, RGB(255, 255, 255));
+
+			mTime += Time::GetDeltaTime();
+			if (mTime >= 1.0f)
+			{
+				mTime = 0.0f;
+				// Ygg1  按眉 家戈
+				mYgg->SetDestroyFlag(true);
+				mYgg = nullptr;
+				// Ygg2 按眉 积己
+				mYgg2 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
+				mYgg2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+				mbPhase2 = true;
+			}
+		}
 	}
 
 	void Stage1BossScene::Render(HDC _hdc)
@@ -78,7 +97,6 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Door, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Yggdrasill_Hand, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Yggdrasill_Head, true);
-
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 	}
@@ -154,8 +172,7 @@ namespace van
 	void Stage1BossScene::BossTurn()
 	{
 		// Phase1 BossHp Frame
-		if (mbPhase1 == true
-			&& mbPhase2 == true)
+		if (mbPhase1 == true)
 		{
 			YggdrasillFrame* yggFrame = Object::Instantiate<YggdrasillFrame>(enums::eLayerType::UI);
 			YggdrasillHpBar* mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
@@ -168,7 +185,8 @@ namespace van
 		if (mbPhase1 == false
 			&& mbPhase2 == true)
 		{
-
+			YggdrasillHpBar* mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
+			mMageHpBar->SetMage(mYgg2);
 			mbPhase2 = false;
 		}
 	}

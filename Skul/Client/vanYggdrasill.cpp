@@ -5,6 +5,7 @@
 #include "vanObject.h"
 #include "vanEnergyBomb.h"
 #include "vanEnergyBombCharge.h"
+#include "vanCamera.h"
 
 #define MAX_HP			800.0f
 #define INIT_POS_X		Window_X / 2
@@ -71,10 +72,8 @@ namespace van
 			Gen();
 			break;
 		case BossState::Idle:
-		{
 			Idle();
 			break;
-		}
 		case BossState::AttackReady:
 			AttackReady();
 			break;
@@ -93,6 +92,8 @@ namespace van
 		default:
 			__noop;
 		}
+
+		ChekDead();
 	}
 
 	void Yggdrasill::Render(HDC _hdc)
@@ -231,7 +232,29 @@ namespace van
 
 	void Yggdrasill::Dead()
 	{
+		mBody->SetState(YggdrasillBody::BodyState::Dead);
+		mHead->SetState(YggdrasillHead::HeadState::Dead);
+		mChin->SetState(YggdrasillChin::ChinState::Dead);
+		mHandLeft->SetState(YggdrasillHand::HandState::Dead);
+		mHandRight->SetState(YggdrasillHand::HandState::Dead);
 
+		if (mBody->GetFinishFlag() == true
+			&& mHead->GetFinishFlag() == true
+			&& mChin->GetFinishFlag() == true
+			&& mHandLeft->GetFinishFlag() == true
+			&& mHandRight->GetFinishFlag() == true)
+		{
+			if (mbDestroy)
+			{
+				Destroy(mBody);
+				Destroy(mHead);
+				Destroy(mChin);
+				Destroy(mHandLeft);
+				Destroy(mHandRight);
+
+				Destroy(this);
+			}
+		}
 	}
 
 	void Yggdrasill::FistSlamReady()
@@ -429,7 +452,6 @@ namespace van
 			// 상태변경 (Attack --> Attack End)
 			mState = BossState::AttackEnd;
 		}
-
 	}
 
 	void Yggdrasill::MagicOrbsAttack()
@@ -588,6 +610,15 @@ namespace van
 		{
 			mbCmd = true;
 			mCmdSkill = 2;
+		}
+	}
+	void Yggdrasill::ChekDead()
+	{
+		if (GetHp() <= 0.0f
+			&& mbDead == false)
+		{
+			mbDead = true;
+			mState = BossState::Dead;
 		}
 	}
 }
