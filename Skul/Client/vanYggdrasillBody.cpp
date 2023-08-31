@@ -36,7 +36,7 @@ namespace van
 	void YggdrasillBody::Update()
 	{
 		GameObject::Update();
-
+		ChkNextPhase();
 		SetOwnerPos();
 
 		if (mPastState != mState)
@@ -327,5 +327,19 @@ namespace van
 		Transform* tr = GetComponent<Transform>();
 		Transform* tr_owner = GetOwner()->GetComponent<Transform>();
 		tr_owner->SetPosition(tr->GetPosition());
+	}
+
+	void YggdrasillBody::ChkNextPhase()
+	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+		if (mbConfirm == true)
+		{
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body_2Phase"));
+			}
+			mbConfirm = false;
+		}
 	}
 }

@@ -180,6 +180,7 @@ namespace van
 				// Ygg2 梓端 持失
 				mYgg2 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
 				mYgg2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+				mYgg2->SetNextPhaseFlag(true);
 				// Ygg2 HpBar 持失
 				mMageHpBar2 = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
 				mMageHpBar2->SetMage(mYgg2);

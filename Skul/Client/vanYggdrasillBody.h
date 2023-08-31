@@ -52,6 +52,7 @@ namespace van
 		void MagicOrbsEnd();
 
 		void SetOwnerPos();
+		void ChkNextPhase();
 
 		__forceinline void SetPos(math::Vector2 _pos) { GetComponent<Transform>()->SetPosition(_pos); }
 		__forceinline math::Vector2 GetPos() { return GetComponent<Transform>()->GetPosition(); }
@@ -69,6 +70,7 @@ namespace van
 		GameObject* mOwner;
 		BodyState mState = BodyState::None;
 		BodyState mPastState = BodyState::None;
+		bool mbConfirm = true;
 
 		bool mbFinish = false;			// 본체에 수행이 끝났음을 알려준다.
 		bool mbEnd = false;
