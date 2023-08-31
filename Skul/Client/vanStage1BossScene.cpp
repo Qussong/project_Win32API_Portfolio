@@ -39,34 +39,19 @@ namespace van
 
 		SetSceneTarget(player);
 
+		// Ygg1 按眉 积己
 		mYgg = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
 		mYgg->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+		// Ygg1 HpBar, HpFrame 积己
+		yggFrame = Object::Instantiate<YggdrasillFrame>(enums::eLayerType::UI);
+		mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
+		mMageHpBar->SetMage(mYgg);
 	}
 
 	void Stage1BossScene::Update()
 	{
 		Scene::Update();
-		BossTurn();
-
-		if (mYgg != nullptr
-			&& mYgg->GetState() == Boss::BossState::Dead)
-		{
-			Camera::fadeOut(1.f, RGB(255, 255, 255));
-			Camera::fadeIn(1.f, RGB(255, 255, 255));
-
-			mTime += Time::GetDeltaTime();
-			if (mTime >= 1.0f)
-			{
-				mTime = 0.0f;
-				// Ygg1  按眉 家戈
-				mYgg->SetDestroyFlag(true);
-				mYgg = nullptr;
-				// Ygg2 按眉 积己
-				mYgg2 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
-				mYgg2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-				mbPhase2 = true;
-			}
-		}
+		Phase2();
 	}
 
 	void Stage1BossScene::Render(HDC _hdc)
@@ -169,25 +154,37 @@ namespace van
 		// nothing
 	}
 
-	void Stage1BossScene::BossTurn()
+	void Stage1BossScene::Phase2()
 	{
-		// Phase1 BossHp Frame
-		if (mbPhase1 == true)
+		if (mYgg != nullptr
+			&& mYgg->GetState() == Boss::BossState::Dead)
 		{
-			YggdrasillFrame* yggFrame = Object::Instantiate<YggdrasillFrame>(enums::eLayerType::UI);
-			YggdrasillHpBar* mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
-			mMageHpBar->SetMage(mYgg);
+			if (mbCameraEffect == true)
+			{
+				Camera::fadeOut(1.f, RGB(255, 255, 255));
+				Camera::fadeIn(1.f, RGB(255, 255, 255));
+				mbCameraEffect = false;
+			}
 
-			mbPhase1 = false;
-		}
-
-		// Phase2 BossHp Frame
-		if (mbPhase1 == false
-			&& mbPhase2 == true)
-		{
-			YggdrasillHpBar* mMageHpBar = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
-			mMageHpBar->SetMage(mYgg2);
-			mbPhase2 = false;
+			mTime += Time::GetDeltaTime();
+			if (mTime >= 1.0f)
+			{
+				// 檬扁拳
+				mTime = 0.0f;
+				mbCameraEffect = true;
+				// Ygg1  按眉 家戈
+				mYgg->SetDestroyFlag(true);
+				mYgg = nullptr;
+				// Ygg1 按眉 HpBar 家戈
+				Destroy(mMageHpBar);
+				// Ygg2 按眉 积己
+				mYgg2 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
+				mYgg2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
+				// Ygg2 HpBar 积己
+				mMageHpBar2 = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
+				mMageHpBar2->SetMage(mYgg2);
+			}
 		}
 	}
+
 }
