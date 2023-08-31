@@ -6,13 +6,14 @@
 #include "vanEnergyBomb.h"
 #include "vanEnergyBombCharge.h"
 
-#define MAX_HP			2000.0f
+#define MAX_HP			800.0f
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
 #define FIST_SLAM_CNT	2
 #define SWIPE_CNT		2
 #define MAGIC_ORB_CNT	2
 #define MAGIC_ORB_DELAY	1.5f
+#define DAMAGE_PERCENT	0.5f
 
 namespace van
 {
@@ -61,11 +62,8 @@ namespace van
 	{
 		Boss::Update();	// 해당 객체가 가지고 있는 Component 속성들의 값을 업데이트해준다.
 
-		if (Input::GetKey(eKeyCode::M)
-			&& Input::GetKeyDown(eKeyCode::D))
-		{
-			LoseHp(MAX_HP * 0.99);
-		}
+		// 강제로 데미지 주기
+		CmdDamage();
 
 		switch (mState)
 		{
@@ -142,20 +140,29 @@ namespace van
 			mTime = 0.0f;
 			mState = BossState::AttackReady;
 		}
+
+		CmdSkill();	// 강제 커맨드 스킬
 	}
 
 	void Yggdrasill::AttackReady()
 	{
 		if (mbChooseSkill == false)
 		{
-			/*
-				FistSlam,	// 0
-				Swipe,		// 1
-				MagicOrbs,	// 2
-			*/
-			((UINT)time(NULL));
-			mAttackCase = (BossSkill)(rand() % 3);
-			//mAttackCase = (BossSkill)(1);
+			if (mbCmd == true)
+			{
+				mAttackCase = (BossSkill)mCmdSkill;
+			}
+			else
+			{
+				/*
+					FistSlam,	// 0
+					Swipe,		// 1
+					MagicOrbs,	// 2
+				*/
+				((UINT)time(NULL));
+				mAttackCase = (BossSkill)(rand() % 3);
+				//mAttackCase = (BossSkill)(1);
+			}
 			mbChooseSkill = true;
 		}
 
@@ -201,10 +208,8 @@ namespace van
 		switch (mAttackCase)
 		{
 		case BossSkill::FistSlam:
-		{
 			FistSlamEnd();
 			break;
-		}
 		case BossSkill::Swipe:
 			SwipeEnd();
 			break;
@@ -214,6 +219,9 @@ namespace van
 		default:
 			__noop;
 		}
+		// 초기화
+		mbCmd = false;
+		mCmdSkill = 0;
 	}
 
 	void Yggdrasill::Hit()
@@ -547,5 +555,39 @@ namespace van
 		EnergyBomb* energyBomb = Object::Instantiate<EnergyBomb>(enums::eLayerType::Yggdrasill_Skill_EnergyBomb);
 		energyBomb->SetOwner(mHead);
 		energyBomb->GetComponent<Transform>()->SetPosition(tr_head->GetPosition());
+	}
+
+	void Yggdrasill::CmdDamage()
+	{
+		// FistSlam
+		if (Input::GetKey(eKeyCode::M)
+			&& Input::GetKeyDown(eKeyCode::D))
+		{
+			LoseHp(MAX_HP * DAMAGE_PERCENT);
+		}
+	}
+
+	void Yggdrasill::CmdSkill()
+	{
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::W))
+		{
+			mbCmd = true;
+			mCmdSkill = 0;
+		}
+		// Swipe
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::E))
+		{
+			mbCmd = true;
+			mCmdSkill = 1;
+		}
+		// MagicOrb
+		if (Input::GetKey(eKeyCode::Q)
+			&& Input::GetKeyDown(eKeyCode::R))
+		{
+			mbCmd = true;
+			mCmdSkill = 2;
+		}
 	}
 }

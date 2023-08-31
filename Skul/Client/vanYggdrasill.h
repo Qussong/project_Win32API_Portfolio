@@ -58,8 +58,10 @@ namespace van
 		void FistSlamEnd();
 		void SwipeEnd();
 		void MagicOrbsEnd();
-
 		void ShootEnergyBomb();
+
+		void CmdDamage();
+		void CmdSkill();
 
 		BossState GetState() { return mState; }
 		void SetState(BossState _state) { mState = _state; }
@@ -100,6 +102,9 @@ namespace van
 		bool mbMagicOrbShootFlag = false;
 		int mMagicOrbCnt = 0;
 		bool mbShootDelay = false;
+
+		bool mbCmd = false;
+		int mCmdSkill = 0;
 	};
 }
 

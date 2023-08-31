@@ -118,7 +118,7 @@ namespace van
 		int mOrbCnt = 0;
 
 		bool mbCmd = false;
-		int mCmdSkill = 3;
+		int mCmdSkill = 0;
 		bool mbDead = false;
 	};
 }

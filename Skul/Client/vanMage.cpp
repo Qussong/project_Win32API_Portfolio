@@ -27,7 +27,7 @@
 //#define LANDING_TIMER			60.0f
 #define LANDING_TIMER			5.0f
 #define	MAX_ORB_CNT				3
-
+#define DAMAGE_PERCENT			0.5f
 namespace van
 {
 	Mage::Mage()
@@ -495,7 +495,7 @@ namespace van
 		mbAnimationReDirectionFlag = true;	// 플레이어 방향에 맞게 다시 애니메이션 방향 조정
 		SetBossState(BossState::Idle);		// Idle 상태로 전환
 		mbCmd = false;
-		mCmdSkill = 3;
+		mCmdSkill = 0;
 	}
 
 	void Mage::Hit()
@@ -1026,7 +1026,7 @@ namespace van
 		if (Input::GetKey(eKeyCode::M)
 			&& Input::GetKeyDown(eKeyCode::D))
 		{
-			LoseHp(MAX_HP * 0.55f);
+			LoseHp(MAX_HP * DAMAGE_PERCENT);
 		}
 	}
 
