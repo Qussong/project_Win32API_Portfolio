@@ -44,14 +44,20 @@ namespace van
 		for (Layer& layer : mLayers)
 			layer.Render(_hdc);
 
-		Time::Render(_hdc);
 
-		// Monster 카운트 출력
-		const int SIZE = 100;
-		wchar_t szFloat[SIZE] = {};
-		swprintf_s(szFloat, SIZE, L"MonsterCnt : %d", mMonsterCnt);
-		int strLen = (int)wcsnlen_s(szFloat, SIZE);
-		TextOut(_hdc, 150, 10, szFloat, strLen);
+		// ColliderVisible Flag의 값이 true 일때만 화면상에 보인다.
+		if (SceneManager::GetColliderVisibleFlag() == true)
+		{
+			Time::Render(_hdc);
+
+			// Monster 카운트 출력
+			const int SIZE = 100;
+			wchar_t szFloat[SIZE] = {};
+			swprintf_s(szFloat, SIZE, L"MonsterCnt : %d", mMonsterCnt);
+			int strLen = (int)wcsnlen_s(szFloat, SIZE);
+			TextOut(_hdc, 150, 10, szFloat, strLen);
+		}
+
 	}
 
 	void Scene::SceneIN()

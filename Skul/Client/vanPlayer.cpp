@@ -143,7 +143,12 @@ namespace van
 	void Player::Render(HDC _hdc)
 	{
 		GameObject::Render(_hdc);
-		ShowStatus(_hdc);
+
+		// ColliderVisible Flag의 값이 true 일때만 화면상에 보인다.
+		if (SceneManager::GetColliderVisibleFlag() == true)
+		{
+			ShowStatus(_hdc);
+		}
 	}
 
 	void Player::OnCollisionEnter(Collider* _other)
