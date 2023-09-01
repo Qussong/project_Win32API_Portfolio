@@ -15,6 +15,7 @@
 
 #include "vanCarleonRecruit.h"
 #include "vanManAtArms.h"
+#include "vanManAtArms.h"
 
 // player
 #define PLAYER_INIT_POS_X	-1200.0f
@@ -284,12 +285,24 @@ namespace van
 			carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + FLOOR_2_X, Window_Y / 2 + FLOOR_2_Y + FLOOR_UP_CONDITION));
 
 			// Layer3
-			CarleonRecruit* carleon3 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-			carleon3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			ManAtArms* manAtArms1 = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
+			manAtArms1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 500.0f + 150, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			ManAtArms* manAtArms2 = Object::Instantiate<ManAtArms>(enums::eLayerType::Monster);
+			manAtArms2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 500.0f + 150, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			for (int i = 0; i < 3; ++i)
+			{
+				CarleonRecruit* carleon3_1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon3_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 500.0f + 150 * i, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			}
+			for (int i = 0; i < 3; ++i)
+			{
+				CarleonRecruit* carleon3_2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon3_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 500.0f + 150 * i, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			}
 
 			// Layer4
-			CarleonRecruit* carleon4 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-			carleon4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_4_Y + 10.0f + FLOOR_UP_CONDITION));
+			//CarleonRecruit* carleon4 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+			//carleon4->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_4_Y + 10.0f + FLOOR_UP_CONDITION));
 		}
 	}
 
@@ -301,6 +314,17 @@ namespace van
 		{
 			mbWave2 = true;
 
+			// Layer3
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon3_1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon3_1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 500.0f + 150 * i, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			}
+			for (int i = 0; i < 2; ++i)
+			{
+				CarleonRecruit* carleon3_2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+				carleon3_2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 500.0f + 150 * i, Window_Y / 2 + FLOOR_3_Y + 15.0f + FLOOR_UP_CONDITION));
+			}
 		}
 	}
 

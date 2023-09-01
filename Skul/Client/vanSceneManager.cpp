@@ -47,10 +47,10 @@ namespace van
 			LoadScene(L"Stage1BossScene");
 		}
 		// 화면전환_Test
-		if (Input::GetKeyDown(eKeyCode::T))
-		{
-			LoadScene(L"TestScene");
-		}
+		//if (Input::GetKeyDown(eKeyCode::T))
+		//{
+		//	LoadScene(L"TestScene");
+		//}
 		// 화면전환_Next
 		if (Input::GetKeyDown(eKeyCode::N))
 		{

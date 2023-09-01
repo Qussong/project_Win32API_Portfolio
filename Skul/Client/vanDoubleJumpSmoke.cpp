@@ -1,43 +1,42 @@
-#include "vanExplosionEffect.h"
+#include "vanDoubleJumpSmoke.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanTransform.h"
 
-
 namespace van
 {
-	ExplosionEffect::ExplosionEffect()
+	DoubleJumpSmoke::DoubleJumpSmoke()
 	{
 		// nothing
 	}
 
-	ExplosionEffect::~ExplosionEffect()
+	DoubleJumpSmoke::~DoubleJumpSmoke()
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Init()
+	void DoubleJumpSmoke::Init()
 	{
 		Skill::Init();
 		MakeAnimation();
 
-		mState = ExplosionEffectState::Gen;
+		mState = DoubleJumpSmokeState::Gen;
 	}
 
-	void ExplosionEffect::Update()
+	void DoubleJumpSmoke::Update()
 	{
 		Skill::Update();
 
 		switch (mState)
 		{
-		case ExplosionEffectState::Gen:
+		case DoubleJumpSmokeState::Gen:
 			Gen();
 			break;
-		case ExplosionEffectState::Active:
+		case DoubleJumpSmokeState::Active:
 			Active();
 			break;
-		case ExplosionEffectState::Dead:
+		case DoubleJumpSmokeState::Dead:
 			Dead();
 			break;
 		default:
@@ -45,35 +44,35 @@ namespace van
 		}
 	}
 
-	void ExplosionEffect::Render(HDC _hdc)
+	void DoubleJumpSmoke::Render(HDC _hdc)
 	{
 		Skill::Render(_hdc);
 	}
 
-	void ExplosionEffect::MakeAnimation()
+	void DoubleJumpSmoke::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Explosion_Effect", ResourceManager::Find<Texture>(L"Mage_Explosion_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(88.0f, 116.0f), 30, math::Vector2::Zero, 0.06F);
+		at->CreateAnimation(L"DoubleJump_Smoke", ResourceManager::Find<Texture>(L"DoubleJump_Smoke"), math::Vector2(0.0f, 0.0f), math::Vector2(95.0f, 25.0f), 10, math::Vector2(0.0f, 0.0f), 0.1F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
-	void ExplosionEffect::OnCollisionEnter(Collider* _other)
+	void DoubleJumpSmoke::OnCollisionEnter(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionStay(Collider* _other)
+	void DoubleJumpSmoke::OnCollisionStay(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionExit(Collider* _other)
+	void DoubleJumpSmoke::OnCollisionExit(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Gen()
+	void DoubleJumpSmoke::Gen()
 	{
 		Transform* tr = GetComponent<Transform>();
 
@@ -83,18 +82,18 @@ namespace van
 			Transform* tr_owner = owner->GetComponent<Transform>();
 			tr->SetPosition(tr_owner->GetPosition() + math::Vector2(0.0f, 0.0f));
 
-			mState = ExplosionEffectState::Active;
+			mState = DoubleJumpSmokeState::Active;
 		}
 	}
 
-	void ExplosionEffect::Active()
+	void DoubleJumpSmoke::Active()
 	{
 		GameObject* owner = GetOwner();
 		Animator* at = GetComponent<Animator>();
 
 		if (mbSetFlag == false)
 		{
-			at->PlayAnimation(L"Explosion_Effect", false);
+			at->PlayAnimation(L"DoubleJump_Smoke", false);
 			mbSetFlag = true;
 		}
 
@@ -102,11 +101,11 @@ namespace van
 			&& at->IsActiveAnimationComplete() == true)
 		{
 			mbSetFlag = false;
-			mState = ExplosionEffectState::Dead;
+			mState = DoubleJumpSmokeState::Dead;
 		}
 	}
 
-	void ExplosionEffect::Dead()
+	void DoubleJumpSmoke::Dead()
 	{
 		// °´Ã¼ ¼Ò¸ê
 		Destroy(this);

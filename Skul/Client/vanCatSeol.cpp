@@ -5,6 +5,9 @@
 #include "vanTexture.h"
 #include "vanRigidBody.h"
 #include "vanTransform.h"
+#include "vanPlayer.h"
+#include "vanSeolEffect.h"
+#include "vanObject.h"
 
 #define WALK_SPEED			150.0f
 
@@ -77,6 +80,32 @@ namespace van
 		at->CreateAnimation(L"Cat_Seol_Walk_L", ResourceManager::Find<Texture>(L"Cat_Seol_Walk_L"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
 		at->CreateAnimation(L"Cat_Seol_Walk_R", ResourceManager::Find<Texture>(L"Cat_Seol_Walk_R"), math::Vector2(0.0f, 0.0f), math::Vector2(29.0f, 20.0f), 6);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
+	}
+
+	void CatSeol::OnCollisionEnter(Collider* _other)
+	{
+		// nothing
+	}
+
+	void CatSeol::OnCollisionStay(Collider* _other)
+	{
+		GameObject* obj = _other->GetOwner();
+		Player* player = dynamic_cast<Player*>(obj);
+
+		if (player != nullptr)
+		{
+			if (Input::GetKeyDown(eKeyCode::F))
+			{
+				SeolEffect* effect = Object::Instantiate<SeolEffect>(enums::eLayerType::Cat_Seol_Effect);
+				effect->SetOwner(this);
+			}
+		}
+
+	}
+
+	void CatSeol::OnCollisionExit(Collider* _other)
+	{
+		// nothing
 	}
 
 	void CatSeol::Idle()

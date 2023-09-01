@@ -1,43 +1,42 @@
-#include "vanExplosionEffect.h"
+#include "vanSeolEffect.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanTransform.h"
 
-
 namespace van
 {
-	ExplosionEffect::ExplosionEffect()
+	SeolEffect::SeolEffect()
 	{
 		// nothing
 	}
 
-	ExplosionEffect::~ExplosionEffect()
+	SeolEffect::~SeolEffect()
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Init()
+	void SeolEffect::Init()
 	{
 		Skill::Init();
 		MakeAnimation();
 
-		mState = ExplosionEffectState::Gen;
+		mState = SeolEffectState::Gen;
 	}
 
-	void ExplosionEffect::Update()
+	void SeolEffect::Update()
 	{
 		Skill::Update();
 
 		switch (mState)
 		{
-		case ExplosionEffectState::Gen:
+		case SeolEffectState::Gen:
 			Gen();
 			break;
-		case ExplosionEffectState::Active:
+		case SeolEffectState::Active:
 			Active();
 			break;
-		case ExplosionEffectState::Dead:
+		case SeolEffectState::Dead:
 			Dead();
 			break;
 		default:
@@ -45,35 +44,35 @@ namespace van
 		}
 	}
 
-	void ExplosionEffect::Render(HDC _hdc)
+	void SeolEffect::Render(HDC _hdc)
 	{
 		Skill::Render(_hdc);
 	}
 
-	void ExplosionEffect::MakeAnimation()
+	void SeolEffect::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Explosion_Effect", ResourceManager::Find<Texture>(L"Mage_Explosion_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(88.0f, 116.0f), 30, math::Vector2::Zero, 0.06F);
-		at->SetScale(math::Vector2(2.0f, 2.0f));
+		at->CreateAnimation(L"Seol_Effect", ResourceManager::Find<Texture>(L"Cat_Seol_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(45.0f, 43.0f), 27, math::Vector2(0.0f, -15.0f), 0.06F);
+		//at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
-	void ExplosionEffect::OnCollisionEnter(Collider* _other)
+	void SeolEffect::OnCollisionEnter(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionStay(Collider* _other)
+	void SeolEffect::OnCollisionStay(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionExit(Collider* _other)
+	void SeolEffect::OnCollisionExit(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Gen()
+	void SeolEffect::Gen()
 	{
 		Transform* tr = GetComponent<Transform>();
 
@@ -83,18 +82,19 @@ namespace van
 			Transform* tr_owner = owner->GetComponent<Transform>();
 			tr->SetPosition(tr_owner->GetPosition() + math::Vector2(0.0f, 0.0f));
 
-			mState = ExplosionEffectState::Active;
+			mState = SeolEffectState::Active;
 		}
 	}
 
-	void ExplosionEffect::Active()
+	void SeolEffect::Active()
 	{
 		GameObject* owner = GetOwner();
 		Animator* at = GetComponent<Animator>();
 
 		if (mbSetFlag == false)
 		{
-			at->PlayAnimation(L"Explosion_Effect", false);
+			at->PlayAnimation(L"Seol_Effect", false);
+
 			mbSetFlag = true;
 		}
 
@@ -102,11 +102,11 @@ namespace van
 			&& at->IsActiveAnimationComplete() == true)
 		{
 			mbSetFlag = false;
-			mState = ExplosionEffectState::Dead;
+			mState = SeolEffectState::Dead;
 		}
 	}
 
-	void ExplosionEffect::Dead()
+	void SeolEffect::Dead()
 	{
 		// °´Ã¼ ¼Ò¸ê
 		Destroy(this);

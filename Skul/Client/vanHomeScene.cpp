@@ -114,6 +114,7 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Cat_Seol, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Cat_Seol, eLayerType::Player, true);
 	}
 
 	void HomeScene::SceneOut()

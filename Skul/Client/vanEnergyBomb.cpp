@@ -11,6 +11,8 @@
 #include "vanTransform.h"
 #include "vanYggdrasill.h"
 #include "vanYggdrasillHead.h"
+#include "vanMagicOrbEffect.h"
+#include "vanObject.h"
 
 #define OBJECT_SPEED	400.0f
 #define DAMAGE			20.0f
@@ -93,11 +95,17 @@ namespace van
 				player->SetPlayerState(Player::PlayerState::Hit);
 			}
 			// FireBall°´Ã¼ ¼Ò¸ê
-			mState = EnergyBombState::Dead;
+			//mState = EnergyBombState::Dead;
 		}
 
 		if (floor != nullptr || wall != nullptr)
 		{
+			if (floor != nullptr)
+			{
+				MagicOrbEffect* effect = Object::Instantiate<MagicOrbEffect>(enums::eLayerType::Yggdrasill_Effect);
+				effect->SetOwner(this);
+			}
+
 			mState = EnergyBombState::Dead;
 		}
 	}

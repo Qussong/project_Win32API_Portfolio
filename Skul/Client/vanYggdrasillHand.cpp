@@ -9,6 +9,8 @@
 #include "vanWall.h"
 #include "vanTransform.h"
 #include "vanPlayer.h"
+#include "vanFistSlamEffect.h"
+#include "vanObject.h"
 
 #define INIT_POS_LEFT_X		-380.0f
 #define INIT_POS_LEFT_Y		100.0f
@@ -16,7 +18,7 @@
 #define INIT_POS_RIGHT_Y	100.0f
 #define IDLE_UP_DOWN_SPEED	15.0f
 #define FIST_SLAM_SPEED		800.0f
-#define SWIP_SPEED			600.0f
+#define SWIP_SPEED			800.0f
 
 #define DAMAGE_FISTSLAM		20.0f
 #define DAMAGE_SWIPE		15.0f
@@ -139,6 +141,11 @@ namespace van
 		if (floor != nullptr
 			|| wall != nullptr)
 		{
+			if (floor != nullptr)
+			{
+				FistSlamEffect* effect = Object::Instantiate<FistSlamEffect>(enums::eLayerType::Yggdrasill_Effect);
+				effect->SetOwner(this);
+			}
 			mbCollisionFloor = true;
 		}
 

@@ -191,6 +191,11 @@ namespace van
 		ResourceManager::Load<Texture>(L"NoHead_Fall_Repeat_R", L"..\\MyResources\\skul\\Basic_Skul\\Fall_Repeat\\FallRepeat_NoHead_R.png");
 		// Skill
 		ResourceManager::Load<Texture>(L"Head", L"..\\MyResources\\skul\\Basic_Skul\\Head\\Skul.bmp");
+		// Effect
+		ResourceManager::Load<Texture>(L"Dash_Smoke_L", L"..\\MyResources\\skul\\Basic_Skul\\Dash_Smoke_L.png");
+		ResourceManager::Load<Texture>(L"Dash_Smoke_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash_Smoke_R.png");
+		ResourceManager::Load<Texture>(L"DoubleJump_Smoke", L"..\\MyResources\\skul\\Basic_Skul\\DoubleJump_Smoke.png");
+
 
 
 		// [ NPC ]
@@ -211,6 +216,8 @@ namespace van
 		ResourceManager::Load<Texture>(L"Cat_Seol_Walk_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Walk_R.bmp");
 		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_L", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_L.png");
 		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_R.png");
+		ResourceManager::Load<Texture>(L"Cat_Seol_Effect", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Seol_Effect.png");
+
 
 		// [ Monster ]
 		// Common
@@ -306,6 +313,9 @@ namespace van
 		ResourceManager::Load<Texture>(L"Yggdrasill_Body_3Phase", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Body_3.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_3Phase_L", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_3_L.png");
 		ResourceManager::Load<Texture>(L"Yggdrasill_Hand_Idle_3Phase_R", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\Hand_Idle_3_R.png");
+		
+		ResourceManager::Load<Texture>(L"Yggdrasill_FistSlam_Effect", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\FistSlam_Effect.png");
+		ResourceManager::Load<Texture>(L"Yggdrasill_MagicOrb_Effect", L"..\\MyResources\\skul\\Monster\\Yggdrasill\\MagicOrb_Effect.png");
 
 		// Mage
 		ResourceManager::Load<Texture>(L"Mage_Intor_1", L"..\\MyResources\\skul\\Monster\\Mage\\Intro_1.bmp");
@@ -353,6 +363,5 @@ namespace van
 		ResourceManager::Load<Texture>(L"Mage_WorldOnFire_FireBall_Shoot_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\WorldOnFire_FireBall_Shoot_Effect.png");
 
 		ResourceManager::Load<Texture>(L"Mage_Explosion_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Explosion_Effect.png");
-
 	}
 }

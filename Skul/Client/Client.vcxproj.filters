@@ -289,6 +289,21 @@
     <Filter Include="Contents\GameObject\Skill\Mage_Explosion_Effect">
       <UniqueIdentifier>{5e17c80d-1e9e-40b5-8a37-b742d9092588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_FistSlam_Effect">
+      <UniqueIdentifier>{1261abb1-4101-40ca-ab1c-66fb2a835c1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_MagicOrb_Effect">
+      <UniqueIdentifier>{7eb60905-b34b-45ab-8abf-210023109f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Seol_Effect">
+      <UniqueIdentifier>{12cdb92b-9c51-4b07-8ae6-9f6a9e228d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Player_Dash_Smoke">
+      <UniqueIdentifier>{6f431dc3-75f1-42c1-b4ba-e5e89c948869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Player_DoubleJump_Smoke">
+      <UniqueIdentifier>{13674fc5-80fc-4c91-9a4a-a29e3b0a3a75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -576,6 +591,21 @@
     <ClInclude Include="vanExplosionEffect.h">
       <Filter>Contents\GameObject\Skill\Mage_Explosion_Effect</Filter>
     </ClInclude>
+    <ClInclude Include="vanFistSlamEffect.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_FistSlam_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="vanMagicOrbEffect.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_MagicOrb_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="vanSeolEffect.h">
+      <Filter>Contents\GameObject\Skill\Seol_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="vanDashSmoke.h">
+      <Filter>Contents\GameObject\Skill\Player_Dash_Smoke</Filter>
+    </ClInclude>
+    <ClInclude Include="vanDoubleJumpSmoke.h">
+      <Filter>Contents\GameObject\Skill\Player_DoubleJump_Smoke</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -858,6 +888,21 @@
     </ClCompile>
     <ClCompile Include="vanExplosionEffect.cpp">
       <Filter>Contents\GameObject\Skill\Mage_Explosion_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="vanFistSlamEffect.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_FistSlam_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="vanMagicOrbEffect.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_MagicOrb_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="vanSeolEffect.cpp">
+      <Filter>Contents\GameObject\Skill\Seol_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="vanDashSmoke.cpp">
+      <Filter>Contents\GameObject\Skill\Player_Dash_Smoke</Filter>
+    </ClCompile>
+    <ClCompile Include="vanDoubleJumpSmoke.cpp">
+      <Filter>Contents\GameObject\Skill\Player_DoubleJump_Smoke</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

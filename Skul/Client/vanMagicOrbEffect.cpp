@@ -1,43 +1,42 @@
-#include "vanExplosionEffect.h"
+#include "vanMagicOrbEffect.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanTransform.h"
 
-
 namespace van
 {
-	ExplosionEffect::ExplosionEffect()
+	MagicOrbEffect::MagicOrbEffect()
 	{
 		// nothing
 	}
 
-	ExplosionEffect::~ExplosionEffect()
+	MagicOrbEffect::~MagicOrbEffect()
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Init()
+	void MagicOrbEffect::Init()
 	{
 		Skill::Init();
 		MakeAnimation();
 
-		mState = ExplosionEffectState::Gen;
+		mState = MagicOrbEffectState::Gen;
 	}
 
-	void ExplosionEffect::Update()
+	void MagicOrbEffect::Update()
 	{
 		Skill::Update();
 
 		switch (mState)
 		{
-		case ExplosionEffectState::Gen:
+		case MagicOrbEffectState::Gen:
 			Gen();
 			break;
-		case ExplosionEffectState::Active:
+		case MagicOrbEffectState::Active:
 			Active();
 			break;
-		case ExplosionEffectState::Dead:
+		case MagicOrbEffectState::Dead:
 			Dead();
 			break;
 		default:
@@ -45,35 +44,35 @@ namespace van
 		}
 	}
 
-	void ExplosionEffect::Render(HDC _hdc)
+	void MagicOrbEffect::Render(HDC _hdc)
 	{
 		Skill::Render(_hdc);
 	}
 
-	void ExplosionEffect::MakeAnimation()
+	void MagicOrbEffect::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Explosion_Effect", ResourceManager::Find<Texture>(L"Mage_Explosion_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(88.0f, 116.0f), 30, math::Vector2::Zero, 0.06F);
+		at->CreateAnimation(L"MagicOrb_Effect", ResourceManager::Find<Texture>(L"Yggdrasill_MagicOrb_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(428.0f, 222.0f), 37, math::Vector2(0.0f, -30.0f), 0.06F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
-	void ExplosionEffect::OnCollisionEnter(Collider* _other)
+	void MagicOrbEffect::OnCollisionEnter(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionStay(Collider* _other)
+	void MagicOrbEffect::OnCollisionStay(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionExit(Collider* _other)
+	void MagicOrbEffect::OnCollisionExit(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Gen()
+	void MagicOrbEffect::Gen()
 	{
 		Transform* tr = GetComponent<Transform>();
 
@@ -83,18 +82,19 @@ namespace van
 			Transform* tr_owner = owner->GetComponent<Transform>();
 			tr->SetPosition(tr_owner->GetPosition() + math::Vector2(0.0f, 0.0f));
 
-			mState = ExplosionEffectState::Active;
+			mState = MagicOrbEffectState::Active;
 		}
 	}
 
-	void ExplosionEffect::Active()
+	void MagicOrbEffect::Active()
 	{
 		GameObject* owner = GetOwner();
 		Animator* at = GetComponent<Animator>();
 
 		if (mbSetFlag == false)
 		{
-			at->PlayAnimation(L"Explosion_Effect", false);
+			at->PlayAnimation(L"MagicOrb_Effect", false);
+
 			mbSetFlag = true;
 		}
 
@@ -102,11 +102,11 @@ namespace van
 			&& at->IsActiveAnimationComplete() == true)
 		{
 			mbSetFlag = false;
-			mState = ExplosionEffectState::Dead;
+			mState = MagicOrbEffectState::Dead;
 		}
 	}
 
-	void ExplosionEffect::Dead()
+	void MagicOrbEffect::Dead()
 	{
 		// °´Ã¼ ¼Ò¸ê
 		Destroy(this);

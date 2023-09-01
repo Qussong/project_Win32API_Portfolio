@@ -1,43 +1,42 @@
-#include "vanExplosionEffect.h"
+#include "vanFistSlamEffect.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
 #include "vanTransform.h"
 
-
 namespace van
 {
-	ExplosionEffect::ExplosionEffect()
+	FistSlamEffect::FistSlamEffect()
 	{
 		// nothing
 	}
 
-	ExplosionEffect::~ExplosionEffect()
+	FistSlamEffect::~FistSlamEffect()
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Init()
+	void FistSlamEffect::Init()
 	{
 		Skill::Init();
 		MakeAnimation();
 
-		mState = ExplosionEffectState::Gen;
+		mState = FistSlamEffectState::Gen;
 	}
 
-	void ExplosionEffect::Update()
+	void FistSlamEffect::Update()
 	{
 		Skill::Update();
 
 		switch (mState)
 		{
-		case ExplosionEffectState::Gen:
+		case FistSlamEffectState::Gen:
 			Gen();
 			break;
-		case ExplosionEffectState::Active:
+		case FistSlamEffectState::Active:
 			Active();
 			break;
-		case ExplosionEffectState::Dead:
+		case FistSlamEffectState::Dead:
 			Dead();
 			break;
 		default:
@@ -45,35 +44,35 @@ namespace van
 		}
 	}
 
-	void ExplosionEffect::Render(HDC _hdc)
+	void FistSlamEffect::Render(HDC _hdc)
 	{
 		Skill::Render(_hdc);
 	}
 
-	void ExplosionEffect::MakeAnimation()
+	void FistSlamEffect::MakeAnimation()
 	{
 		Animator* at = GetComponent<Animator>();
 
-		at->CreateAnimation(L"Explosion_Effect", ResourceManager::Find<Texture>(L"Mage_Explosion_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(88.0f, 116.0f), 30, math::Vector2::Zero, 0.06F);
+		at->CreateAnimation(L"FistSlam_Effect", ResourceManager::Find<Texture>(L"Yggdrasill_FistSlam_Effect"), math::Vector2(0.0f, 0.0f), math::Vector2(415.0f, 260.0f), 28, math::Vector2(0.0f, -35.0f), 0.06F);
 		at->SetScale(math::Vector2(2.0f, 2.0f));
 	}
 
-	void ExplosionEffect::OnCollisionEnter(Collider* _other)
+	void FistSlamEffect::OnCollisionEnter(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionStay(Collider* _other)
+	void FistSlamEffect::OnCollisionStay(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::OnCollisionExit(Collider* _other)
+	void FistSlamEffect::OnCollisionExit(Collider* _other)
 	{
 		// nothing
 	}
 
-	void ExplosionEffect::Gen()
+	void FistSlamEffect::Gen()
 	{
 		Transform* tr = GetComponent<Transform>();
 
@@ -83,18 +82,19 @@ namespace van
 			Transform* tr_owner = owner->GetComponent<Transform>();
 			tr->SetPosition(tr_owner->GetPosition() + math::Vector2(0.0f, 0.0f));
 
-			mState = ExplosionEffectState::Active;
+			mState = FistSlamEffectState::Active;
 		}
 	}
 
-	void ExplosionEffect::Active()
+	void FistSlamEffect::Active()
 	{
 		GameObject* owner = GetOwner();
 		Animator* at = GetComponent<Animator>();
 
 		if (mbSetFlag == false)
 		{
-			at->PlayAnimation(L"Explosion_Effect", false);
+			at->PlayAnimation(L"FistSlam_Effect", false);
+
 			mbSetFlag = true;
 		}
 
@@ -102,11 +102,11 @@ namespace van
 			&& at->IsActiveAnimationComplete() == true)
 		{
 			mbSetFlag = false;
-			mState = ExplosionEffectState::Dead;
+			mState = FistSlamEffectState::Dead;
 		}
 	}
 
-	void ExplosionEffect::Dead()
+	void FistSlamEffect::Dead()
 	{
 		// °´Ã¼ ¼Ò¸ê
 		Destroy(this);

@@ -4,7 +4,7 @@
 #include "vanMage.h"
 
 #define MAGE_HP_POS_X	1054.0f
-#define MAGE_HP_POS_Y	55.0f
+#define MAGE_HP_POS_Y	54.0f
 
 namespace van
 {

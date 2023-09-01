@@ -14,6 +14,8 @@
 #include "vanSkull.h"
 #include "vanSound.h"
 #include "vanHitSign.h"
+#include "vanDashSmoke.h"
+#include "vanDoubleJumpSmoke.h"
 
 #define DASH_FORCE_X		700.0f
 #define DASH_LIMIT			180.0f
@@ -384,10 +386,14 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
 			{
+
 				// Animmator
 				if (mbSkullLess)
 				{
@@ -420,8 +426,6 @@ namespace van
 			++mDashCnt;
 			mState = PlayerState::Dash;
 		}
-
-		
 
 		// 동시키 입력 해제
 		if (mbDoubleKey)
@@ -488,6 +492,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animation
 			if (mbSkullLess)
@@ -514,6 +521,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animation
 			if (mbSkullLess)
@@ -784,6 +794,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -829,6 +842,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -856,6 +872,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -961,7 +980,10 @@ namespace van
 		{
 			// Sound
 			mJumpSound->Play(false);
-
+			// Effect
+			DoubleJumpSmoke* doubleJumpEffect = Object::Instantiate<DoubleJumpSmoke>(enums::eLayerType::Player_Effect);
+			doubleJumpEffect->SetOwner(this);
+			
 			// Animation
 			if (mDirection == PlayerDirection::Left)
 			{
@@ -1097,6 +1119,9 @@ namespace van
 			{
 				// Sound
 				mDashSound->Play(false);
+				// Effect
+				DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+				dashSmoke->SetOwner(this);
 
 				// Animation
 				if (mbSkullLess)
@@ -1147,6 +1172,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -1174,6 +1202,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animator
 			if (mbSkullLess)
@@ -1593,6 +1624,9 @@ namespace van
 			{
 				// Sound
 				mDashSound->Play(false);
+				// Effect
+				DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+				dashSmoke->SetOwner(this);
 
 				// Animation
 				if (mbSkullLess)
@@ -1611,6 +1645,9 @@ namespace van
 			{
 				// Sound
 				mDashSound->Play(false);
+				// Effect
+				DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+				dashSmoke->SetOwner(this);
 
 				// Animation
 				if (mbSkullLess)
@@ -1637,6 +1674,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -1664,6 +1704,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -2014,13 +2057,27 @@ namespace van
 		// Fall_Repeat Animation
 		if (animator->IsActiveAnimationComplete())
 		{
-			if (mDirection == PlayerDirection::Left)
+			if (mbSkullLess)
 			{
-				animator->PlayAnimation(L"NoHead_Fall_Repeat_L", true);
+				if (mDirection == PlayerDirection::Left)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_Repeat_L", true);
+				}
+				else if (mDirection == PlayerDirection::Right)
+				{
+					animator->PlayAnimation(L"NoHead_Fall_Repeat_R", true);
+				}
 			}
-			else if (mDirection == PlayerDirection::Right)
+			else
 			{
-				animator->PlayAnimation(L"Fall_Repeat_R", true);
+				if (mDirection == PlayerDirection::Left)
+				{
+					animator->PlayAnimation(L"Fall_Repeat_L", true);
+				}
+				else if (mDirection == PlayerDirection::Right)
+				{
+					animator->PlayAnimation(L"Fall_Repeat_R", true);
+				}
 			}
 		}
 
@@ -2076,6 +2133,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			mDashX1 = pos.x;
 			if (mDirection == PlayerDirection::Left)
@@ -2120,6 +2180,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -2147,6 +2210,9 @@ namespace van
 		{
 			// Sound
 			mDashSound->Play(false);
+			// Effect
+			DashSmoke* dashSmoke = Object::Instantiate<DashSmoke>(enums::eLayerType::Player_Effect);
+			dashSmoke->SetOwner(this);
 
 			// Animmator
 			if (mbSkullLess)
@@ -2177,6 +2243,9 @@ namespace van
 		{
 			// Sound
 			mJumpSound->Play(false);
+			// Effect
+			DoubleJumpSmoke* doubleJumpEffect = Object::Instantiate<DoubleJumpSmoke>(enums::eLayerType::Player_Effect);
+			doubleJumpEffect->SetOwner(this);
 
 			// Animation
 			if (mDirection == PlayerDirection::Left)
@@ -2218,6 +2287,9 @@ namespace van
 		{
 			// Sound
 			mJumpSound->Play(false);
+			// Effect
+			DoubleJumpSmoke* doubleJumpEffect = Object::Instantiate<DoubleJumpSmoke>(enums::eLayerType::Player_Effect);
+			doubleJumpEffect->SetOwner(this);
 
 			// Animation
 			if (mbSkullLess)
@@ -2246,6 +2318,9 @@ namespace van
 		{
 			// Sound
 			mJumpSound->Play(false);
+			// Effect
+			DoubleJumpSmoke* doubleJumpEffect = Object::Instantiate<DoubleJumpSmoke>(enums::eLayerType::Player_Effect);
+			doubleJumpEffect->SetOwner(this);
 
 			// Animation
 			if (mbSkullLess)

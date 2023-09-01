@@ -12,7 +12,9 @@
 #include "vanPlayer.h"
 #include "vanDoor.h"
 #include "vanAnimator.h"
-#include "vanCarleonRecruit.h"
+//#include "vanCarleonRecruit.h"
+#include "vanEnt.h"
+#include "vanGianticEnt.h"
 
 // player
 #define PLAYER_INIT_POS_Y	400.0f
@@ -311,17 +313,23 @@ namespace van
 		{
 			mbWave1 = true;
 
-			CarleonRecruit* carleon1 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-			carleon1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 318.0f, Window_Y / 2 + 420.0f + FLOOR_UP_CONDITION));
-			carleon1->GetComponent<Animator>()->SetAffectedCamera(true);
+			GianticEnt* giantEnt = Object::Instantiate<GianticEnt>(enums::eLayerType::Monster);
+			giantEnt->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f + 150.0f, Window_Y / 2 + 420.0f + FLOOR_UP_CONDITION));
+			giantEnt->GetComponent<Animator>()->SetAffectedCamera(true);
 
-			CarleonRecruit* carleon2 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-			carleon2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 290.0f, Window_Y / 2 + 260.0f + FLOOR_UP_CONDITION));
-			carleon2->GetComponent<Animator>()->SetAffectedCamera(true);
+			for (int i = 0; i < 3; ++i)
+			{
+				Ent* ent1 = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+				ent1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f + 150.0f * i, Window_Y / 2 + 420.0f + FLOOR_UP_CONDITION));
+				ent1->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
 
-			CarleonRecruit* carleon3 = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-			carleon3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 262.0f, Window_Y / 2 + 60.0f + FLOOR_UP_CONDITION));
-			carleon3->GetComponent<Animator>()->SetAffectedCamera(true);
+			for (int i = 0; i < 2; ++i)
+			{
+				Ent* ent2 = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+				ent2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 350.0f + 150.0f * i, Window_Y / 2 + 60.0f + FLOOR_UP_CONDITION));
+				ent2->GetComponent<Animator>()->SetAffectedCamera(true);
+			}
 		}
 	}
 
@@ -332,6 +340,18 @@ namespace van
 			&& mbWave2 == false)
 		{
 			mbWave2 = true;
+
+			for (int i = 0; i < 3; ++i)
+			{
+				Ent* ent1 = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+				ent1->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f + 150.0f * i, Window_Y / 2 + 420.0f + FLOOR_UP_CONDITION));
+			}
+
+			for (int i = 0; i < 2; ++i)
+			{
+				Ent* ent2 = Object::Instantiate<Ent>(enums::eLayerType::Monster);
+				ent2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 350.0f + 150.0f * i, Window_Y / 2 + 60.0f + FLOOR_UP_CONDITION));
+			}
 
 		}
 	}
