@@ -52,6 +52,13 @@ namespace van
 	void LoadingScene::Update()
 	{
 		Scene::Update();
+
+		mTime += Time::GetDeltaTime();
+		if (mTime >= 1.5f)
+		{
+			mTime = 0.0f;
+			SceneManager::Next(GetName());
+		}
 	}
 
 	void LoadingScene::Render(HDC _hdc)
@@ -196,8 +203,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Dash_Smoke_R", L"..\\MyResources\\skul\\Basic_Skul\\Dash_Smoke_R.png");
 		ResourceManager::Load<Texture>(L"DoubleJump_Smoke", L"..\\MyResources\\skul\\Basic_Skul\\DoubleJump_Smoke.png");
 
-
-
 		// [ NPC ]
 		// TiedSkul
 		ResourceManager::Load<Texture>(L"TiedSkul_Idle", L"..\\MyResources\\skul\\NPC\\TiedSkul\\TiedSkul_Idle.bmp");
@@ -217,7 +222,6 @@ namespace van
 		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_L", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_L.png");
 		ResourceManager::Load<Texture>(L"Cat_Seol_Idle_R", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Cat_Seol_Idle_R.png");
 		ResourceManager::Load<Texture>(L"Cat_Seol_Effect", L"..\\MyResources\\skul\\NPC\\Cat_Seol\\Seol_Effect.png");
-
 
 		// [ Monster ]
 		// Common
@@ -364,4 +368,5 @@ namespace van
 
 		ResourceManager::Load<Texture>(L"Mage_Explosion_Effect", L"..\\MyResources\\skul\\Monster\\Mage\\Explosion_Effect.png");
 	}
+
 }

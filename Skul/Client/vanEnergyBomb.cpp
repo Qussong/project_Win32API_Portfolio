@@ -143,7 +143,13 @@ namespace van
 
 	void EnergyBomb::SetEnergyBombPos()
 	{
-		YggdrasillHead* owner = dynamic_cast<YggdrasillHead*>(GetOwner());
+		YggdrasillHead* owner = nullptr;
+
+		if (GetOwner() != nullptr)
+		{
+			owner = dynamic_cast<YggdrasillHead*>(GetOwner());
+		}
+
 		if (owner == nullptr)
 		{
 			int a = 0;

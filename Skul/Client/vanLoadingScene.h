@@ -16,8 +16,9 @@ namespace van
 		virtual void SceneOut() override;
 
 		void LoadTexture();
-	private:
 
+	private:
+		float mTime = 0.0f;
 	};
 }
 

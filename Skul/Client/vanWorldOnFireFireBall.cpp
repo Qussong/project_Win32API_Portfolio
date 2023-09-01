@@ -13,7 +13,7 @@
 #include "vanExplosionEffect.h"
 #include "vanObject.h"
 
-#define OBJECT_SPEED	250.0f
+#define OBJECT_SPEED	300.0f
 #define DAMAGE			20.0f
 
 namespace van

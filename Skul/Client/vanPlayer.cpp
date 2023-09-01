@@ -2657,6 +2657,13 @@ namespace van
 			// 속도 제거
 			rb->SetGround(false);
 			rb->SetVelocity(math::Vector2(0.0f, -500.0f));
+
+			// Sound
+			mJumpSound->Play(false);
+			// Effect
+			DoubleJumpSmoke* doubleJumpEffect = Object::Instantiate<DoubleJumpSmoke>(enums::eLayerType::Player_Effect);
+			doubleJumpEffect->SetOwner(this);
+
 			mState = PlayerState::Jump;
 		}
 	}
