@@ -312,13 +312,19 @@ namespace van
 
 	void YggdrasillBody::Dead()
 	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+
 		if (mbFinish == false)
 		{
 			Transform* tr = GetComponent<Transform>();
 			tr->SetPosition(math::Vector2(640.0f, 360.0f));
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body_2Phase_End"));
+			}
 
 			mbFinish = true;
-			//Destroy(this);
 		}
 	}
 
@@ -332,14 +338,19 @@ namespace van
 	void YggdrasillBody::ChkNextPhase()
 	{
 		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
-		if (mbCPhaseonfirm == true)
+		if (mbPhaseConfirm == true)
 		{
 			if (ygg->GetNextPhaseFlag() == true)
 			{
 				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body_2Phase"));
 			}
-			mbCPhaseonfirm = false;
+			else if (ygg->GetLastPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Body_3Phase"));
+			}
+			mbPhaseConfirm = false;
 		}
 	}
 }

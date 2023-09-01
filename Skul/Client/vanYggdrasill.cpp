@@ -7,7 +7,7 @@
 #include "vanEnergyBombCharge.h"
 #include "vanCamera.h"
 
-#define MAX_HP			800.0f
+#define MAX_HP			500.0f
 #define INIT_POS_X		Window_X / 2
 #define INIT_POS_Y		Window_Y / 2
 #define FIST_SLAM_CNT	2
@@ -134,15 +134,18 @@ namespace van
 		mHandLeft->SetState(YggdrasillHand::HandState::Idle);
 		mHandRight->SetState(YggdrasillHand::HandState::Idle);
 
-		mTime += Time::GetDeltaTime();
-		// Idle --(3초)--> Attack Ready
-		if (mTime >= 3.0f)
+		if (mbLastPhase == false)
 		{
-			mTime = 0.0f;
-			mState = BossState::AttackReady;
-		}
+			mTime += Time::GetDeltaTime();
+			// Idle --(3초)--> Attack Ready
+			if (mTime >= 3.0f)
+			{
+				mTime = 0.0f;
+				mState = BossState::AttackReady;
+			}
 
-		CmdSkill();	// 강제 커맨드 스킬
+			CmdSkill();	// 강제 커맨드 스킬
+		}
 	}
 
 	void Yggdrasill::AttackReady()

@@ -11,6 +11,8 @@
 #include "vanBoss.h"
 #include "vanCollisionManager.h"
 #include "vanMage.h"
+#include "vanExplosionEffect.h"
+#include "vanObject.h"
 
 #define OBJECT_SPEED	400.0f
 #define DAMAGE			15.0f
@@ -100,6 +102,11 @@ namespace van
 
 		if (floor != nullptr || wall != nullptr)
 		{
+			if (floor != nullptr)
+			{
+				ExplosionEffect* effect = Object::Instantiate<ExplosionEffect>(enums::eLayerType::Boss_Mage_Effect);
+				effect->SetOwner(this);
+			}
 			mState = FireBallState::Dead;
 		}
 	}

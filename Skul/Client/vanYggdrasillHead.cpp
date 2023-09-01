@@ -99,8 +99,9 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		at->CreateAnimation(L"Head", ResourceManager::Find<Texture>(L"Yggdrasill_Head"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 168.0f), 2, math::Vector2::Zero, 1.0F);
-		at->CreateAnimation(L"Head_2Phase", ResourceManager::Find<Texture>(L"Yggdrasill_Head_2Phase"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 158.0f), 1, math::Vector2::Zero, 1.0F);
-
+		at->CreateAnimation(L"Head_2Phase", ResourceManager::Find<Texture>(L"Yggdrasill_Head_2Phase"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 158.0f), 1);
+		at->CreateAnimation(L"Head_2Phase_End", ResourceManager::Find<Texture>(L"Yggdrasill_Head_2Phase_End"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 158.0f), 1);
+		at->CreateAnimation(L"Head_3Phase", ResourceManager::Find<Texture>(L"Yggdrasill_Head_3Phase"), math::Vector2(0.0f, 0.0f), math::Vector2(241.0f, 168.0f), 1);
 	}
 	
 	void YggdrasillHead::OnCollisionEnter(Collider* _other)
@@ -258,13 +259,19 @@ namespace van
 
 	void YggdrasillHead::Dead()
 	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+
 		if (mbFinish == false)
 		{
 			Transform* tr = GetComponent<Transform>();
 			tr->SetPosition(math::Vector2(630.0f, 300.0f));
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				Animator* at = GetComponent<Animator>();
+				at->PlayAnimation(L"Head_2Phase_End");
+			}
 
 			mbFinish = true;
-			//Destroy(this);
 		}
 	}
 
@@ -351,6 +358,11 @@ namespace van
 			{
 				Animator* at = GetComponent<Animator>();
 				at->PlayAnimation(L"Head_2Phase");
+			}
+			else if (ygg->GetLastPhaseFlag() == true)
+			{
+				Animator* at = GetComponent<Animator>();
+				at->PlayAnimation(L"Head_3Phase");
 			}
 			mbPhaseConfirm = false;
 		}

@@ -113,6 +113,7 @@ namespace van
 
 	void YggdrasillChin::Gen()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::Idle()
@@ -221,10 +222,12 @@ namespace van
 
 	void YggdrasillChin::FistSlamReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::SwipeReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::MagicOrbsReady()
@@ -247,10 +250,12 @@ namespace van
 
 	void YggdrasillChin::FistSlamAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::SwipeAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::MagicOrbsAttack()
@@ -272,10 +277,12 @@ namespace van
 
 	void YggdrasillChin::FistSlamEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::SwipeEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillChin::MagicOrbsEnd()
@@ -292,13 +299,19 @@ namespace van
 
 	void YggdrasillChin::Dead()
 	{
+		Yggdrasill* ygg = dynamic_cast<Yggdrasill*>(GetOwner());
+
 		if (mbFinish == false)
 		{
 			Transform* tr = GetComponent<Transform>();
 			tr->SetPosition(math::Vector2(660.0f, 490.0f));
+			if (ygg->GetNextPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Chin_2Phase_End"));
+			}
 
 			mbFinish = true;
-			//Destroy(this);
 		}
 	}
 
@@ -323,6 +336,11 @@ namespace van
 			{
 				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
 				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Chin_2Phase"));
+			}
+			else if (ygg->GetLastPhaseFlag() == true)
+			{
+				SpriteRenderer* sr = GetComponent<SpriteRenderer>();
+				sr->SetTexture(ResourceManager::Find<Texture>(L"Yggdrasill_Chin_3Phase"));
 			}
 			mbCPhaseonfirm = false;
 		}

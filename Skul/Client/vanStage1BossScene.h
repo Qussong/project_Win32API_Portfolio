@@ -4,6 +4,7 @@
 
 namespace van
 {
+	class BackGround;
 	class YggdrasillFrame;
 	class YggdrasillHpBar;
 
@@ -28,6 +29,8 @@ namespace van
 		void Phase3();
 
 	private:
+		BackGround* mBg = nullptr;
+
 		Yggdrasill* mYgg = nullptr;
 		Yggdrasill* mYgg2 = nullptr;
 		Yggdrasill* mYgg3 = nullptr;

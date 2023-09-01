@@ -10,6 +10,8 @@
 #include "vanWorldOnFireOrb.h"
 #include "vanTransform.h"
 #include "vanBoss.h"
+#include "vanExplosionEffect.h"
+#include "vanObject.h"
 
 #define OBJECT_SPEED	250.0f
 #define DAMAGE			20.0f
@@ -99,6 +101,12 @@ namespace van
 
 		if (floor != nullptr || wall != nullptr)
 		{
+			if (floor != nullptr)
+			{
+				ExplosionEffect* effect = Object::Instantiate<ExplosionEffect>(enums::eLayerType::Boss_Mage_Effect);
+				effect->SetOwner(this);
+				effect->GetComponent<Animator>()->SetScale(math::Vector2(3.0f, 3.0f));
+			}
 			mState = WorldOnFireFireBallState::Dead;
 		}
 	}

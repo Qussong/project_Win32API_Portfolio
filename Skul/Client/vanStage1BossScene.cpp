@@ -115,10 +115,10 @@ namespace van
 		SetCameraWidthLimit(math::Vector2(bg_tile->GetLimitLeft(), bg_tile->GetLimitRight()));
 		SetCameraHeightLimit(math::Vector2(bg_tile->GetLimitUp(), bg_tile->GetLimitDown()));
 
-		BackGround* bg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
-		Transform* tr = bg->GetComponent<Transform>();
+		mBg = Object::Instantiate<BackGround>(enums::eLayerType::BackGround);	// BackGround 객체 생성
+		Transform* tr = mBg->GetComponent<Transform>();
 		tr->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 80.0f));
-		SpriteRenderer* bgsr = bg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
+		SpriteRenderer* bgsr = mBg->GetComponent<SpriteRenderer>();							// SpriteRenderer 추가
 		bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss"));			// BackGround 객체의 texture 설정
 		bgsr->SetScale(math::Vector2(2.0f, 2.0f));
 		bgsr->SetAffectCamera(true);
@@ -178,6 +178,11 @@ namespace van
 				mYgg = nullptr;
 				// Ygg1 객체 HpBar 소멸
 				Destroy(mMageHpBar);
+
+				// 2Phase 배경으로 변경
+				SpriteRenderer* bgsr = mBg->GetComponent<SpriteRenderer>();						
+				bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss_2Phase"));			
+
 				// Ygg2 객체 생성
 				mYgg2 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
 				mYgg2->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
@@ -214,13 +219,21 @@ namespace van
 				Destroy(mMageHpBar2);
 				// Ygg 객체 HpBar Frame 소멸
 				Destroy(yggFrame);
+
+				// 3Phase 배경으로 변경
+				SpriteRenderer* bgsr = mBg->GetComponent<SpriteRenderer>();
+				bgsr->SetTexture(ResourceManager::Find<Texture>(L"BG_Stage1_Boss_3Phase"));
+
 				// Ygg3 객체 생성
 				mYgg3 = Object::Instantiate<Yggdrasill>(enums::eLayerType::Yggdrasill);
 				mYgg3->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2));
-				//mYgg3->SetNextPhaseFlag(true);
-				//// Ygg2 HpBar 생성
-				//mMageHpBar2 = Object::Instantiate<YggdrasillHpBar>(enums::eLayerType::UI);
-				//mMageHpBar2->SetMage(mYgg2);
+				// Idle 상태 유지
+				mYgg3->SetLastPhaseFlag(true);
+
+				// 배경음 변경
+				GetBgSound()->Stop(true);
+				SetBgSound(ResourceManager::Load<Sound>(L"Chapter1_Stage", L"..\\MyResources\\skul\\Sound\\Chapter1_Stage.wav"));
+				GetBgSound()->Play(false);
 			}
 		}
 	}

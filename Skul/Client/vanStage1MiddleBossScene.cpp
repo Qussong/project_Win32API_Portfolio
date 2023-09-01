@@ -70,6 +70,7 @@ namespace van
 		Scene::Update();
 		CameraMove();
 
+		// 보스 죽을시 배경음 변경
 		if (mbBossFlag == true)
 		{
 			if (mMage->GetBossState() == Boss::BossState::Dead)
