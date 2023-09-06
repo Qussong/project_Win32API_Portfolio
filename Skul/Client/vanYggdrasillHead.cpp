@@ -151,6 +151,7 @@ namespace van
 
 	void YggdrasillHead::Gen()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::Idle()
@@ -277,10 +278,12 @@ namespace van
 
 	void YggdrasillHead::FistSlamReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::SwipeReady()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::MagicOrbsReady()
@@ -302,10 +305,12 @@ namespace van
 
 	void YggdrasillHead::FistSlamAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::SwipeAttack()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::MagicOrbsAttack()
@@ -327,10 +332,12 @@ namespace van
 
 	void YggdrasillHead::FistSlamEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::SwipeEnd()
 	{
+		// nothing
 	}
 
 	void YggdrasillHead::MagicOrbsEnd()
@@ -438,7 +445,7 @@ namespace van
 				mbFinish = true;
 				mbEnd = true;
 			}
-
 		}
 	}
+
 }

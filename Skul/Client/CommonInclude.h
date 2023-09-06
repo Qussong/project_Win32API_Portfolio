@@ -64,6 +64,7 @@ namespace van::enums
 		Monster,
 		FrontFloor,
 		Yggdrasill_Hand,
+		Yggdrasill_Skill_EnergyBall,
 		Yggdrasill_Skill_EnergyBomb,
 		Yggdrasill_Effect,
 		Range_Attack,

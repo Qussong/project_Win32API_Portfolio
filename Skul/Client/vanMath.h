@@ -65,7 +65,7 @@ namespace van::math
 		static Vector2 Down;
 	};
 
-	inline Vector2 Rotate(Vector2 _vector, float _degree)
+	inline Vector2 Rotate(Vector2 _vector,  float _degree)
 	{
 		float radian = (_degree / 180.0f) * PI;
 		_vector.Normalize();

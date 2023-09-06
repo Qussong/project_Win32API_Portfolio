@@ -3,10 +3,10 @@
 
 namespace van
 {
-	class MagicOrbEffect : public Skill
+	class EnergyBall : public Skill
 	{
 	public:
-		enum class MagicOrbEffectState
+		enum class EnergyBallState
 		{
 			Gen,
 			Active,
@@ -15,8 +15,8 @@ namespace van
 		};
 
 	public:
-		MagicOrbEffect();
-		virtual ~MagicOrbEffect();
+		EnergyBall();
+		virtual ~EnergyBall();
 
 		virtual void Init() override;
 		virtual void Update() override;
@@ -27,18 +27,19 @@ namespace van
 		virtual void OnCollisionStay(class Collider* _other) override;	// 충돌중임
 		virtual void OnCollisionExit(class Collider* _other) override;	// 충돌에서 벗어남
 
-		__forceinline void SetState(MagicOrbEffectState _state) { mState = _state; }
-		__forceinline MagicOrbEffectState GetState() { return mState; }
-
-		__forceinline void SetOffset(math::Vector2 _offset) { mOffset = _offset; }
-
 		void Gen();
 		void Active();
 		void Dead();
 
+		__forceinline void SetState(EnergyBallState _state) { mState = _state; }
+		__forceinline EnergyBallState GetState() { return mState; }
+
+		__forceinline void AddBallDestroyCnt() { mDestroyBallCnt += 1; }
+
 	private:
-		MagicOrbEffectState mState = MagicOrbEffectState::None;
-		bool mbSetFlag = false;		// 애니메이션 재생을 위한 설정 완료 여부
-		math::Vector2 mOffset = math::Vector2::Zero;
+		EnergyBallState mState = EnergyBallState::None;
+		bool mbSetFlag = true;
+		//std::map<int, EnergyBallObject*> list;
+		int mDestroyBallCnt = 0;
 	};
 }

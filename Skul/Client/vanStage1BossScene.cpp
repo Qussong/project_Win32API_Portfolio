@@ -130,11 +130,15 @@ namespace van
 		// Left
 		Wall* worldWall_L = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		worldWall_L->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
-		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - size.x / 2 - 1.0f, Window_Y / 2));
+		worldWall_L->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 730.0f, Window_Y / 2));
 		// Right
 		Wall* worldWall_R = Object::Instantiate<Wall>(enums::eLayerType::Wall);
 		worldWall_R->GetComponent<Collider>()->SetSize(math::Vector2(WALL_WIDTH, size.y));
-		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + size.x / 2 + 1.0f, Window_Y / 2));
+		worldWall_R->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 730.0f, Window_Y / 2));
+		// Top
+		Wall* worldWall_T = Object::Instantiate<Wall>(enums::eLayerType::Wall);
+		worldWall_T->GetComponent<Collider>()->SetSize(math::Vector2(1440.0f, 100.0f));
+		worldWall_T->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 430.0f));
 	}
 
 	void Stage1BossScene::MakeFloor()
@@ -178,6 +182,7 @@ namespace van
 				mYgg = nullptr;
 				// Ygg1 °´Ã¼ HpBar ¼Ò¸ê
 				Destroy(mMageHpBar);
+
 
 				// 2Phase ¹è°æÀ¸·Î º¯°æ
 				SpriteRenderer* bgsr = mBg->GetComponent<SpriteRenderer>();						

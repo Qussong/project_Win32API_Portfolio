@@ -143,6 +143,8 @@
     <ClInclude Include="vanCatSeol.h" />
     <ClInclude Include="vanDashSmoke.h" />
     <ClInclude Include="vanDoubleJumpSmoke.h" />
+    <ClInclude Include="vanEnergyBall.h" />
+    <ClInclude Include="vanEnergyBallObject.h" />
     <ClInclude Include="vanEnergyBomb.h" />
     <ClInclude Include="vanEnergyBombCharge.h" />
     <ClInclude Include="vanExplosionEffect.h" />
@@ -241,6 +243,8 @@
     <ClCompile Include="vanCatSeol.cpp" />
     <ClCompile Include="vanDashSmoke.cpp" />
     <ClCompile Include="vanDoubleJumpSmoke.cpp" />
+    <ClCompile Include="vanEnergyBall.cpp" />
+    <ClCompile Include="vanEnergyBallObject.cpp" />
     <ClCompile Include="vanEnergyBomb.cpp" />
     <ClCompile Include="vanEnergyBombCharge.cpp" />
     <ClCompile Include="vanExplosionEffect.cpp" />

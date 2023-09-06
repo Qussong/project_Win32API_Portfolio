@@ -304,6 +304,12 @@
     <Filter Include="Contents\GameObject\Skill\Player_DoubleJump_Smoke">
       <UniqueIdentifier>{13674fc5-80fc-4c91-9a4a-a29e3b0a3a75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_EnergyBall_Object">
+      <UniqueIdentifier>{ea3cbaa3-6c69-4c90-9f26-5b68ea69b6ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObject\Skill\Yggdrasill_EnergyBall">
+      <UniqueIdentifier>{c583492f-d95f-4568-931b-f185761b4470}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -606,6 +612,12 @@
     <ClInclude Include="vanDoubleJumpSmoke.h">
       <Filter>Contents\GameObject\Skill\Player_DoubleJump_Smoke</Filter>
     </ClInclude>
+    <ClInclude Include="vanEnergyBallObject.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBall_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="vanEnergyBall.h">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -903,6 +915,12 @@
     </ClCompile>
     <ClCompile Include="vanDoubleJumpSmoke.cpp">
       <Filter>Contents\GameObject\Skill\Player_DoubleJump_Smoke</Filter>
+    </ClCompile>
+    <ClCompile Include="vanEnergyBallObject.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBall_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="vanEnergyBall.cpp">
+      <Filter>Contents\GameObject\Skill\Yggdrasill_EnergyBall</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -80,7 +80,7 @@ namespace van
 		if (owner != nullptr)
 		{
 			Transform* tr_owner = owner->GetComponent<Transform>();
-			tr->SetPosition(tr_owner->GetPosition() + math::Vector2(0.0f, 0.0f));
+			tr->SetPosition(tr_owner->GetPosition() + mOffset);
 
 			mState = MagicOrbEffectState::Active;
 		}

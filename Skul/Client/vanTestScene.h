@@ -19,6 +19,9 @@ namespace van
 		virtual void MakeWall() override;
 		virtual void MakeDoor() override;
 
+
+		void MonsterGen();
+
 	private:
 
 	};

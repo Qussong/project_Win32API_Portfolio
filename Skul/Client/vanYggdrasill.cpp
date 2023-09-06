@@ -4,6 +4,7 @@
 #include "vanPlayer.h"
 #include "vanObject.h"
 #include "vanEnergyBomb.h"
+#include "vanEnergyBall.h"
 #include "vanEnergyBombCharge.h"
 #include "vanCamera.h"
 
@@ -530,12 +531,23 @@ namespace van
 			mHead->SetFinishFlag(false);
 			mChin->SetFinishFlag(false);
 
+			if (mbNextPhase == true)
+			{
+				mOrbCnt = MAGIC_ORB_CNT * 2;
+			}
+			else
+			{
+				mOrbCnt = MAGIC_ORB_CNT;
+			}
+
 			mbMagicOrbShootFlag = true;
 		}
 
+		// EnergyBomb 발사조건 충족시
 		if (mbMagicOrbShootFlag == true
-			&& mMagicOrbCnt <= MAGIC_ORB_CNT)
+			&& mMagicOrbCnt <= mOrbCnt)
 		{
+			// 머리 객체에서의 발사조건 미충족
 			if (mHead->GetMagicOrbShootFlag() == false)
 			{
 				mTime += Time::GetDeltaTime();
@@ -550,10 +562,12 @@ namespace van
 					mHead->ShootEnerge();
 				}
 			}
+			// 머리 객체에서의 발사조건 충족
 			else
 			{
 				// EnergyBomb 생성 & 발사
 				ShootEnergyBomb();
+				ShootEnergyBall();
 
 				mbShootDelay = false;
 				++mMagicOrbCnt;
@@ -562,7 +576,7 @@ namespace van
 			}
 		}
 
-		if (mMagicOrbCnt > MAGIC_ORB_CNT)
+		if (mMagicOrbCnt > mOrbCnt)
 		{
 			mMagicOrbCnt = 0;
 			mBody->SetFinishFlag(false);
@@ -611,11 +625,6 @@ namespace van
 		mHead->SetState(YggdrasillHead::HeadState::AttackEnd);
 		mChin->SetState(YggdrasillChin::ChinState::AttackEnd);
 
-		if (mHead->GetFinishFlag() == true)
-		{
-			int a = 0;
-		}
-
 		if (mBody->GetFinishFlag() == true
 			&& mHead->GetFinishFlag() == true
 			&& mChin->GetFinishFlag() == true)
@@ -638,6 +647,15 @@ namespace van
 		EnergyBomb* energyBomb = Object::Instantiate<EnergyBomb>(enums::eLayerType::Yggdrasill_Skill_EnergyBomb);
 		energyBomb->SetOwner(mHead);
 		energyBomb->GetComponent<Transform>()->SetPosition(tr_head->GetPosition());
+	}
+
+	void Yggdrasill::ShootEnergyBall()
+	{
+		Transform* tr_head = mHead->GetComponent<Transform>();
+
+		EnergyBall* energyBall = Object::Instantiate<EnergyBall>(enums::eLayerType::Yggdrasill_Skill_EnergyBall);
+		energyBall->SetOwner(this);
+		energyBall->GetComponent<Transform>()->SetPosition(tr_head->GetPosition());
 	}
 
 	void Yggdrasill::CmdDamage()
@@ -673,6 +691,7 @@ namespace van
 			mCmdSkill = 2;
 		}
 	}
+
 	void Yggdrasill::ChekDead()
 	{
 		if (GetHp() <= 0.0f

@@ -25,7 +25,7 @@
 #include "vanMage.h"
 
 #define FLOOR_POS_Y			-2880.0f
-#define FLOOR_UP_CONDITION	-10.0f
+#define FLOOR_UP_CONDITION	-15.0f
 
 namespace van
 {
@@ -43,10 +43,9 @@ namespace van
 	{	
 		Scene::Init();
 		
-
 		// Player
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
-		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
+		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 300.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Mage
 		//Mage* mage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
@@ -62,8 +61,8 @@ namespace van
 		//trap->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f , Window_Y / 2 - 20.0f));
 		
 		// Cat_Seol
-		CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::NPC);
-		catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
+		//CatSeol* catSeol = Object::Instantiate<CatSeol>(enums::eLayerType::Cat_Seol);
+		//catSeol->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Gold
 		//for (int i = 0; i < 10; ++i)
@@ -74,7 +73,7 @@ namespace van
 
 		// Carleon Recruit
 		//CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
-		//carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 - 400.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
+		//carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 300.0f, Window_Y / 2 + FLOOR_UP_CONDITION));
 
 		// Ent
 		//Ent* ent = Object::Instantiate<Ent>(enums::eLayerType::Monster);
@@ -107,6 +106,11 @@ namespace van
 
 			player->AddHp(20.0f);
 		}
+
+		if (Input::GetKeyDown(eKeyCode::G))
+		{
+			MonsterGen();
+		}
 	}
 
 	void TestScene::Render(HDC _hdc)
@@ -132,6 +136,8 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Wall, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Trap, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Player, eLayerType::Cat_Seol, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Attack, eLayerType::Monster, true);
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Monster, eLayerType::Wall, true);
@@ -139,7 +145,7 @@ namespace van
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Trace, eLayerType::Player, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Range_Monster_Attack, eLayerType::Player, true);
 
-		CollisionManager::SetCollisionLayerCheck(eLayerType::NPC, eLayerType::Floor, true);
+		CollisionManager::SetCollisionLayerCheck(eLayerType::Cat_Seol, eLayerType::Floor, true);
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Drop, eLayerType::Floor, true);
 
 		CollisionManager::SetCollisionLayerCheck(eLayerType::Boss_Mage, eLayerType::Floor, true);
@@ -189,15 +195,17 @@ namespace van
 
 	void TestScene::MakeWall()
 	{
-		// Wall°´Ã¼
-		//Wall* wall = Object::Instantiate<Wall>(enums::eLayerType::Wall);
-		//wall->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 - 50.0f));
-		//wall->GetComponent<Collider>()->SetSize(math::Vector2(10, 100));
-		//wall->SetFloorLimit(true);
+		// nothing
 	}
 
 	void TestScene::MakeDoor()
 	{
 		// nothing
+	}
+
+	void TestScene::MonsterGen()
+	{
+		CarleonRecruit* carleon = Object::Instantiate<CarleonRecruit>(enums::eLayerType::Monster);
+		carleon->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + 300.0f, Window_Y / 2 + FLOOR_UP_CONDITION - 50.0f));
 	}
 }

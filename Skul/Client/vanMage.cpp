@@ -1054,7 +1054,7 @@ namespace van
 		}
 
 		if (Input::GetKey(eKeyCode::Q)
-			&& Input::GetKeyDown(eKeyCode::T))
+			&& Input::GetKeyDown(eKeyCode::Y))
 		{
 			mbCmd = true;
 			mCmdSkill = 3;

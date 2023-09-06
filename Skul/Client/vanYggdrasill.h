@@ -59,6 +59,7 @@ namespace van
 		void SwipeEnd();
 		void MagicOrbsEnd();
 		void ShootEnergyBomb();
+		void ShootEnergyBall();
 
 		void CmdDamage();
 		void CmdSkill();
@@ -110,6 +111,7 @@ namespace van
 		bool mbMagicOrbShootFlag = false;
 		int mMagicOrbCnt = 0;
 		bool mbShootDelay = false;
+		int mOrbCnt = 0;
 
 		bool mbCmd = false;
 		int mCmdSkill = 0;

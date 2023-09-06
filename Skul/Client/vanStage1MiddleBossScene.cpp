@@ -32,7 +32,6 @@
 #define CAMERA_CONTROL_POS_X_2		1020.0f
 #define CAMERA_ANCHOR_X				-290.0f
 #define CAMERA_ANCHOR_Y				50.0f
-//#define CAMERA_OFFSET_DOUBLESPEED	5
 // Monster
 #define FLOOR_UP_CONDITION	-3.0f
 
@@ -56,11 +55,6 @@ namespace van
 		Player* player = Object::Instantiate<Player>(enums::eLayerType::Player);
 		player->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2 + PLAYER_INIT_POS_X, Window_Y / 2 + PLAYER_INIT_POS_Y));
 		player->GetComponent<Animator>()->SetAffectedCamera(true);
-
-		// Mage
-		mMage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
-		mMage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
-		mMage->SetTartget(player);
 
 		SetSceneTarget(player);
 	}
@@ -96,8 +90,8 @@ namespace van
 			mBossWall2->SetFloorLimit(true);
 		}
 
-		Wave1();
-		Wave2();
+		//Wave1();
+		//Wave2();
 		WaveExit();
 	}
 
@@ -315,9 +309,7 @@ namespace van
 
 	void Stage1MiddleBossScene::WaveExit()
 	{
-		if (GetMonsterCnt() == 0
-			&& mbWave2 == true
-			&& mbBossDead == true)
+		if (mbBossDead == true)
 		{
 			OpenDoor();
 		}
@@ -325,6 +317,16 @@ namespace van
 
 	void Stage1MiddleBossScene::BossTurn()
 	{
+		Player* player = dynamic_cast<Player*>(GetSceneTarget());
+
+		if (player != nullptr)
+		{
+			// Mage
+			mMage = Object::Instantiate<Mage>(enums::eLayerType::Boss_Mage);
+			mMage->GetComponent<Transform>()->SetPosition(math::Vector2(Window_X / 2, Window_Y / 2 + 280.0f + FLOOR_UP_CONDITION));
+			mMage->SetTartget(player);
+		}
+		
 		MageFrame* mageFrame = Object::Instantiate<MageFrame>(enums::eLayerType::UI);
 		MageHpBar* mMageHpBar = Object::Instantiate<MageHpBar>(enums::eLayerType::UI);
 		mMageHpBar->SetMage(mMage);

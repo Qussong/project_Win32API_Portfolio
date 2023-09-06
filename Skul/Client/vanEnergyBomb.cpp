@@ -1,12 +1,14 @@
 #include "vanEnergyBomb.h"
 #include "vanCollider.h"
+#include "vanCollisionManager.h"
 #include "vanAnimator.h"
 #include "vanResourceManager.h"
 #include "vanTexture.h"
+
 #include "vanPlayer.h"
-#include "vanCollisionManager.h"
 #include "vanFloor.h"
 #include "vanWall.h"
+
 #include "vanBoss.h"
 #include "vanTransform.h"
 #include "vanYggdrasill.h"
@@ -124,10 +126,12 @@ namespace van
 	{
 		Animator* at = GetComponent<Animator>();
 		GameObject* owner = GetOwner();
+		if (owner != nullptr)
+		{
+			at->PlayAnimation(L"Yggdrasill_EnergyBomb_Object", true);
 
-		at->PlayAnimation(L"Yggdrasill_EnergyBomb_Object", true);
-
-		mState = EnergyBombState::Active;
+			mState = EnergyBombState::Active;
+		}
 	}
 
 	void EnergyBomb::Active()
