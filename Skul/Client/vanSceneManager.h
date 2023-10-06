@@ -9,6 +9,7 @@ namespace van
 		static void Init();
 		static void Update();
 		static void Render(HDC _hdc);
+		static void Release();
 
 		template <typename T>
 		__forceinline static T* CreateScene(const std::wstring& name)

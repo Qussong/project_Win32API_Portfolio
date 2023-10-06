@@ -17,7 +17,11 @@ namespace van
 
 	Animator::~Animator()
 	{
-		// nothing
+		for (auto iter : mAnimations)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
 	}
 
 	void Animator::Init()

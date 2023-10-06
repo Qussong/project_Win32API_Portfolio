@@ -19,7 +19,11 @@ namespace van
 
 	GameObject::~GameObject()
 	{
-		// nothingz
+		for (Component* comp : mComponents)
+		{
+			delete comp;
+			comp = nullptr;
+		}
 	}
 
 	void GameObject::Init()

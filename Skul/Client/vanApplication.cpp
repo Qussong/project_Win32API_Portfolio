@@ -95,4 +95,9 @@ namespace van
 		BitBlt(mHdc, 0, 0, mWidth, mHeight,
 				mBackHdc, 0, 0, SRCCOPY);	
 	}
+
+	void Application::Release()
+	{
+
+	}
 }

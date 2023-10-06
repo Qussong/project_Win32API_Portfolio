@@ -84,6 +84,15 @@ namespace van
 		mActiveScene->Render(_hdc);
 	}
 
+	void SceneManager::Release()
+	{
+		for (auto iter : mScenes)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
+	}
+
 	Scene* SceneManager::LoadScene(const std::wstring& name)
 	{
 		// 새로운 Scene을 불러오기전에 이전 Scene에 대한 정보를 초기화해준다.

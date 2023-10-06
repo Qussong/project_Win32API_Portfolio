@@ -8,6 +8,9 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
+#include "vanResourceManager.h"
+#include "vanSceneManager.h"
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -34,7 +37,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);  // 메인함수 호출시 들어오는 hPrevInstance 변수가 사용되지 않음을 표현
     UNREFERENCED_PARAMETER(lpCmdLine);      // 위와 동일
 
-    // TODO: 여기에 코드를 입력합니다.
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetBreakAlloc(14199);
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);     // IDS_APP_TITLE 값을 szTitle에 넣어줌
@@ -84,6 +88,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         
     }
+
+    application.Release();
+    van::SceneManager::Release();
+    van::ResourceManager::Release();
 
     _CrtDumpMemoryLeaks();  // 종료지점 바로 위에서 호출
 

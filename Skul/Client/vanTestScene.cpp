@@ -118,7 +118,7 @@ namespace van
 		Scene::Render(_hdc);
 
 		// Scene ±¸ºÐ
-		const wchar_t* str = L"[ TestScene ]";
+		const wchar_t* str = L"[ TeZXstScene ]";
 		int len = (int)wcslen(str);
 		Text::PrintwString(_hdc, 10, 30, str);
 	}

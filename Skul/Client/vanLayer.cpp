@@ -9,7 +9,11 @@ namespace van
 
 	Layer::~Layer()
 	{
-		// nothing
+		for (GameObject* obj : mGameObjects)
+		{
+			delete obj;
+			obj = nullptr;
+		}
 	}
 
 	void Layer::Init()
