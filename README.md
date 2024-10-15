@@ -1,21 +1,21 @@
-# Win32API Project
+# $\large\bf\color{#556B2F}Win32API\ Project$
 
-### $\large\bf\color{#5ad7b7}프로젝트\ 명$
+### $\large\bf\color{#CD5C5C}프로젝트\ 명$
 Skul : The Slayer Hero 모작
 
-### $\large\bf\color{#5ad7b7}프로젝트\ 인원$
+### $\large\bf\color{#CD5C5C}프로젝트\ 인원$
 1명 (김기훈)
 
-### $\large\bf\color{#5ad7b7}프로젝트\ 기간$
+### $\large\bf\color{#CD5C5C}프로젝트\ 기간$
 2023/08/01 ~ 2023/08/31
 
-### $\large\bf\color{#5ad7b7}목적$
+### $\large\bf\color{#CD5C5C}목적$
 ① Win32API 의 활용법을 학습</br>
 ② 게임 엔진의 구조와 흐름에 대한 이해</br>
 ③ 게임 모작을 통한 C/C++ 언어의 활용 능력의 향상</br>
 ④ 기능 구현 및 응용 능력 향상</br>
 
-### $\large\bf\color{#5ad7b7}진행 계획$
+### $\large\bf\color{#CD5C5C}진행 계획$
 1주차 : Player 의 상태머신(FSM) 구현
 </br>
 2주차 : 일반 몬스터의 상태머신 구현
@@ -24,20 +24,20 @@ Skul : The Slayer Hero 모작
 </br>
 4주차 : 이미지, 사운드와 같은 각종 이펙트 추가 및 마무리
 
-### $\large\bf\color{#5ad7b7}Notion\ URL$
+### $\large\bf\color{#CD5C5C}Notion\ URL$
 <a href="https://reminiscent-moth-47a.notion.site/Win32API-11b7e40d2ccc80a383d3da01ee30cbe2?pvs=4">
     <img src="./ReadMe/Notion.png" alt="Win32API 개발일지" width="400"/>
 </a>
 </br>
 
-### $\large\bf\color{#5ad7b7}Youtube\ URL$
+### $\large\bf\color{#CD5C5C}Youtube\ URL$
 
 <a href="https://youtu.be/S2gkZDuvIz4?si=q_t9fQPt1cBRvr5u">
     <img src="./ReadMe/Skul.png" alt="Win32API 모작영상" width="400"/>
 </a>
 </br>
 
-### $\large\bf\color{#5ad7b7}타임라인$
+### $\large\bf\color{#CD5C5C}타임라인$
 <b>23/06/23 ~ 07/31 :</b></br>
 -&nbsp;Win32API 를 활용하여 게임엔진 제작 및 기본 기능 추가</br>
 
