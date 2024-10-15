@@ -41,7 +41,6 @@ Skul : The Slayer Hero 모작
 <b>23/06/23 ~ 07/31 :</b></br>
 -&nbsp;Win32API 를 활용하여 게임엔진 제작 및 기본 기능 추가</br>
 
-
 <b>23/08/01 :</b></br>
 [프로젝트 시작]</br>
 -&nbsp;Player FSM 구현</br>
@@ -190,5 +189,3 @@ Skul : The Slayer Hero 모작
 
 <b>23/09/01 :</b></br>
 [프로젝트 마무리 및 발표]</br>
-
-
