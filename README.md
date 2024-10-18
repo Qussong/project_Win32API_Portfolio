@@ -24,14 +24,15 @@ Skul : The Slayer Hero 모작
 </br>
 4주차 : 이미지, 사운드와 같은 각종 이펙트 추가 및 마무리
 
-### $\large\bf\color{#CD5C5C}Notion\ URL$
+### $\large\bf\color{#CD5C5C}결과물$
+<b>[ Notion URL ]</b></br>
 $\color{#4F4F4F}(\ ↓ 이미지\ 클릭시\ 해당\ 페이지로\ 이동합니다.↓\ )$</br>
 <a href="https://reminiscent-moth-47a.notion.site/Win32API-11b7e40d2ccc80a383d3da01ee30cbe2?pvs=4" target="_blank">
     <img src="./ReadMe/Notion.png" alt="Win32API 개발일지" width="400"/>
 </a>
 </br>
 
-### $\large\bf\color{#CD5C5C}Youtube\ URL$
+<b>[ Youtube URL ]</b></br>
 $\color{#4F4F4F}(\ ↓ 이미지\ 클릭시\ 해당\ 페이지로\ 이동합니다.↓\ )$</br>
 <a href="https://youtu.be/S2gkZDuvIz4?si=q_t9fQPt1cBRvr5u" target="_blank">
     <img src="./ReadMe/Skul.png" alt="Win32API 모작영상" width="400"/>
